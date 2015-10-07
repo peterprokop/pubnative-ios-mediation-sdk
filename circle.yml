@@ -1,0 +1,15 @@
+machine:
+    timezone:
+        Europe/Berlin
+    xcode:
+        version: "7.0"
+
+test:
+    override:
+        - xcodebuild -workspace mediation.xcworkspace -scheme PubnativeMediation -sdk iphonesimulator GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES clean build test | xcpretty -c && exit ${PIPESTATUS[0]}
+
+#---------------------- TODO:
+#   master:
+#        branch: master
+#        commands:
+#            - Create library, tag and release on GitHub
