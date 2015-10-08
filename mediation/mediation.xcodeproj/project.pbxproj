@@ -1,0 +1,812 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D54384771BC528BC00EBE27A /* libPubnativeMediation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D54384621BC528A000EBE27A /* libPubnativeMediation.a */; settings = {ASSET_TAGS = (); }; };
+		D54384941BC528D000EBE27A /* PubnativeNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = D54384811BC528D000EBE27A /* PubnativeNetworkAdapter.m */; settings = {ASSET_TAGS = (); }; };
+		D54384951BC528D000EBE27A /* PubnativeNetworkAdapterFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D54384831BC528D000EBE27A /* PubnativeNetworkAdapterFactory.m */; settings = {ASSET_TAGS = (); }; };
+		D54384961BC528D000EBE27A /* PubnativeConfigManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D54384871BC528D000EBE27A /* PubnativeConfigManager.m */; settings = {ASSET_TAGS = (); }; };
+		D54384971BC528D000EBE27A /* PubnativeDeliveryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D54384891BC528D000EBE27A /* PubnativeDeliveryManager.m */; settings = {ASSET_TAGS = (); }; };
+		D54384981BC528D000EBE27A /* PubnativeInsightsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D543848D1BC528D000EBE27A /* PubnativeInsightsManager.m */; settings = {ASSET_TAGS = (); }; };
+		D54384991BC528D000EBE27A /* PubnativeAdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D54384911BC528D000EBE27A /* PubnativeAdModel.m */; settings = {ASSET_TAGS = (); }; };
+		D543849A1BC528D000EBE27A /* PubnativeNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D54384931BC528D000EBE27A /* PubnativeNetworkRequest.m */; settings = {ASSET_TAGS = (); }; };
+		D54384AA1BC528DA00EBE27A /* PubnativeNetworkAdapterFactorySpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D543849D1BC528DA00EBE27A /* PubnativeNetworkAdapterFactorySpec.m */; settings = {ASSET_TAGS = (); }; };
+		D54384AB1BC528DA00EBE27A /* PubnativeNetworkAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D543849E1BC528DA00EBE27A /* PubnativeNetworkAdapterSpec.m */; settings = {ASSET_TAGS = (); }; };
+		D54384AC1BC528DA00EBE27A /* PubnativeConfigManagerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D54384A11BC528DA00EBE27A /* PubnativeConfigManagerSpec.m */; settings = {ASSET_TAGS = (); }; };
+		D54384AD1BC528DA00EBE27A /* PubnativeDeliveryManagerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D54384A21BC528DA00EBE27A /* PubnativeDeliveryManagerSpec.m */; settings = {ASSET_TAGS = (); }; };
+		D54384AE1BC528DA00EBE27A /* PubnativeInsightsManagerSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D54384A51BC528DA00EBE27A /* PubnativeInsightsManagerSpec.m */; settings = {ASSET_TAGS = (); }; };
+		D54384AF1BC528DA00EBE27A /* PubnativeAdModelSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D54384A81BC528DA00EBE27A /* PubnativeAdModelSpec.m */; settings = {ASSET_TAGS = (); }; };
+		D54384B01BC528DA00EBE27A /* PubnativeNetworkRequestSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D54384A91BC528DA00EBE27A /* PubnativeNetworkRequestSpec.m */; settings = {ASSET_TAGS = (); }; };
+		D54384B81BC528F500EBE27A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54384B71BC528F500EBE27A /* AppDelegate.swift */; };
+		D54384BA1BC528F500EBE27A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54384B91BC528F500EBE27A /* ViewController.swift */; };
+		D54384BD1BC528F500EBE27A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D54384BB1BC528F500EBE27A /* Main.storyboard */; };
+		D54384BF1BC528F500EBE27A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D54384BE1BC528F500EBE27A /* Assets.xcassets */; };
+		D54384C21BC528F500EBE27A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D54384C01BC528F500EBE27A /* LaunchScreen.storyboard */; };
+		D54384C81BC529CC00EBE27A /* libPubnativeMediation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D54384621BC528A000EBE27A /* libPubnativeMediation.a */; };
+		E69F6564C0ABFAAAC7183D70 /* libPods-PubnativeMediationTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A928042FE842AB25B74F7BB /* libPods-PubnativeMediationTests.a */; };
+		ED0871FEB334234A9769C4E7 /* libPods-PubnativeMediationDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0141F28CBD1C8CC80C5076CA /* libPods-PubnativeMediationDemo.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		D54384781BC528BC00EBE27A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D543845A1BC528A000EBE27A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D54384611BC528A000EBE27A;
+			remoteInfo = PubnativeMediation;
+		};
+		D54384C91BC529D200EBE27A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D543845A1BC528A000EBE27A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D54384611BC528A000EBE27A;
+			remoteInfo = PubnativeMediation;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D54384601BC528A000EBE27A /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		0141F28CBD1C8CC80C5076CA /* libPods-PubnativeMediationDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PubnativeMediationDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A928042FE842AB25B74F7BB /* libPods-PubnativeMediationTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PubnativeMediationTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		580C38A3C784A75BA12DE556 /* Pods-PubnativeMediationTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PubnativeMediationTests.release.xcconfig"; path = "../Pods/Target Support Files/Pods-PubnativeMediationTests/Pods-PubnativeMediationTests.release.xcconfig"; sourceTree = "<group>"; };
+		79AD0F2CA9A5AF4A62382467 /* Pods-PubnativeMediationDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PubnativeMediationDemo.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-PubnativeMediationDemo/Pods-PubnativeMediationDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		9A89C6BA0BD3623B9800B81D /* Pods-PubnativeMediationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PubnativeMediationTests.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-PubnativeMediationTests/Pods-PubnativeMediationTests.debug.xcconfig"; sourceTree = "<group>"; };
+		AB54AAF4E5FF9E747665B6E4 /* Pods-PubnativeMediationDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PubnativeMediationDemo.release.xcconfig"; path = "../Pods/Target Support Files/Pods-PubnativeMediationDemo/Pods-PubnativeMediationDemo.release.xcconfig"; sourceTree = "<group>"; };
+		D54384621BC528A000EBE27A /* libPubnativeMediation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPubnativeMediation.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D54384721BC528BC00EBE27A /* PubnativeMediationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PubnativeMediationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D54384761BC528BC00EBE27A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D54384801BC528D000EBE27A /* PubnativeNetworkAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeNetworkAdapter.h; sourceTree = "<group>"; };
+		D54384811BC528D000EBE27A /* PubnativeNetworkAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeNetworkAdapter.m; sourceTree = "<group>"; };
+		D54384821BC528D000EBE27A /* PubnativeNetworkAdapterFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeNetworkAdapterFactory.h; sourceTree = "<group>"; };
+		D54384831BC528D000EBE27A /* PubnativeNetworkAdapterFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeNetworkAdapterFactory.m; sourceTree = "<group>"; };
+		D54384861BC528D000EBE27A /* PubnativeConfigManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeConfigManager.h; sourceTree = "<group>"; };
+		D54384871BC528D000EBE27A /* PubnativeConfigManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeConfigManager.m; sourceTree = "<group>"; };
+		D54384881BC528D000EBE27A /* PubnativeDeliveryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeDeliveryManager.h; sourceTree = "<group>"; };
+		D54384891BC528D000EBE27A /* PubnativeDeliveryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeDeliveryManager.m; sourceTree = "<group>"; };
+		D543848C1BC528D000EBE27A /* PubnativeInsightsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeInsightsManager.h; sourceTree = "<group>"; };
+		D543848D1BC528D000EBE27A /* PubnativeInsightsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeInsightsManager.m; sourceTree = "<group>"; };
+		D54384901BC528D000EBE27A /* PubnativeAdModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeAdModel.h; sourceTree = "<group>"; };
+		D54384911BC528D000EBE27A /* PubnativeAdModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeAdModel.m; sourceTree = "<group>"; };
+		D54384921BC528D000EBE27A /* PubnativeNetworkRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeNetworkRequest.h; sourceTree = "<group>"; };
+		D54384931BC528D000EBE27A /* PubnativeNetworkRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeNetworkRequest.m; sourceTree = "<group>"; };
+		D543849D1BC528DA00EBE27A /* PubnativeNetworkAdapterFactorySpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeNetworkAdapterFactorySpec.m; sourceTree = "<group>"; };
+		D543849E1BC528DA00EBE27A /* PubnativeNetworkAdapterSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeNetworkAdapterSpec.m; sourceTree = "<group>"; };
+		D54384A11BC528DA00EBE27A /* PubnativeConfigManagerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeConfigManagerSpec.m; sourceTree = "<group>"; };
+		D54384A21BC528DA00EBE27A /* PubnativeDeliveryManagerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeDeliveryManagerSpec.m; sourceTree = "<group>"; };
+		D54384A51BC528DA00EBE27A /* PubnativeInsightsManagerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeInsightsManagerSpec.m; sourceTree = "<group>"; };
+		D54384A81BC528DA00EBE27A /* PubnativeAdModelSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeAdModelSpec.m; sourceTree = "<group>"; };
+		D54384A91BC528DA00EBE27A /* PubnativeNetworkRequestSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeNetworkRequestSpec.m; sourceTree = "<group>"; };
+		D54384B51BC528F500EBE27A /* PubnativeMediationDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PubnativeMediationDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D54384B71BC528F500EBE27A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		D54384B91BC528F500EBE27A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D54384BC1BC528F500EBE27A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		D54384BE1BC528F500EBE27A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D54384C11BC528F500EBE27A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		D54384C31BC528F500EBE27A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D54384CB1BC529EA00EBE27A /* PubnativeMediationDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PubnativeMediationDemo-Bridging-Header.h"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D543845F1BC528A000EBE27A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D543846F1BC528BC00EBE27A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D54384771BC528BC00EBE27A /* libPubnativeMediation.a in Frameworks */,
+				E69F6564C0ABFAAAC7183D70 /* libPods-PubnativeMediationTests.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D54384B21BC528F500EBE27A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D54384C81BC529CC00EBE27A /* libPubnativeMediation.a in Frameworks */,
+				ED0871FEB334234A9769C4E7 /* libPods-PubnativeMediationDemo.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		44C6D5067D85A94C75799D36 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9A89C6BA0BD3623B9800B81D /* Pods-PubnativeMediationTests.debug.xcconfig */,
+				580C38A3C784A75BA12DE556 /* Pods-PubnativeMediationTests.release.xcconfig */,
+				79AD0F2CA9A5AF4A62382467 /* Pods-PubnativeMediationDemo.debug.xcconfig */,
+				AB54AAF4E5FF9E747665B6E4 /* Pods-PubnativeMediationDemo.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		570736049B87E6C5A17A6A0E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2A928042FE842AB25B74F7BB /* libPods-PubnativeMediationTests.a */,
+				0141F28CBD1C8CC80C5076CA /* libPods-PubnativeMediationDemo.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D54384591BC528A000EBE27A = {
+			isa = PBXGroup;
+			children = (
+				D54384641BC528A000EBE27A /* mediation */,
+				D54384731BC528BC00EBE27A /* mediation.tests */,
+				D54384B61BC528F500EBE27A /* mediation.demo */,
+				D54384631BC528A000EBE27A /* Products */,
+				44C6D5067D85A94C75799D36 /* Pods */,
+				570736049B87E6C5A17A6A0E /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		D54384631BC528A000EBE27A /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D54384621BC528A000EBE27A /* libPubnativeMediation.a */,
+				D54384721BC528BC00EBE27A /* PubnativeMediationTests.xctest */,
+				D54384B51BC528F500EBE27A /* PubnativeMediationDemo.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D54384641BC528A000EBE27A /* mediation */ = {
+			isa = PBXGroup;
+			children = (
+				D543847D1BC528D000EBE27A /* adapter */,
+				D54384841BC528D000EBE27A /* config */,
+				D543848A1BC528D000EBE27A /* insights */,
+				D543848E1BC528D000EBE27A /* request */,
+			);
+			path = mediation;
+			sourceTree = "<group>";
+		};
+		D54384731BC528BC00EBE27A /* mediation.tests */ = {
+			isa = PBXGroup;
+			children = (
+				D543849B1BC528DA00EBE27A /* adapter */,
+				D543849F1BC528DA00EBE27A /* config */,
+				D54384A31BC528DA00EBE27A /* insights */,
+				D54384A61BC528DA00EBE27A /* request */,
+				D54384761BC528BC00EBE27A /* Info.plist */,
+			);
+			path = mediation.tests;
+			sourceTree = "<group>";
+		};
+		D543847D1BC528D000EBE27A /* adapter */ = {
+			isa = PBXGroup;
+			children = (
+				D543847E1BC528D000EBE27A /* model */,
+				D543847F1BC528D000EBE27A /* networks */,
+				D54384801BC528D000EBE27A /* PubnativeNetworkAdapter.h */,
+				D54384811BC528D000EBE27A /* PubnativeNetworkAdapter.m */,
+				D54384821BC528D000EBE27A /* PubnativeNetworkAdapterFactory.h */,
+				D54384831BC528D000EBE27A /* PubnativeNetworkAdapterFactory.m */,
+			);
+			path = adapter;
+			sourceTree = "<group>";
+		};
+		D543847E1BC528D000EBE27A /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		D543847F1BC528D000EBE27A /* networks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = networks;
+			sourceTree = "<group>";
+		};
+		D54384841BC528D000EBE27A /* config */ = {
+			isa = PBXGroup;
+			children = (
+				D54384851BC528D000EBE27A /* model */,
+				D54384861BC528D000EBE27A /* PubnativeConfigManager.h */,
+				D54384871BC528D000EBE27A /* PubnativeConfigManager.m */,
+				D54384881BC528D000EBE27A /* PubnativeDeliveryManager.h */,
+				D54384891BC528D000EBE27A /* PubnativeDeliveryManager.m */,
+			);
+			path = config;
+			sourceTree = "<group>";
+		};
+		D54384851BC528D000EBE27A /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		D543848A1BC528D000EBE27A /* insights */ = {
+			isa = PBXGroup;
+			children = (
+				D543848B1BC528D000EBE27A /* model */,
+				D543848C1BC528D000EBE27A /* PubnativeInsightsManager.h */,
+				D543848D1BC528D000EBE27A /* PubnativeInsightsManager.m */,
+			);
+			path = insights;
+			sourceTree = "<group>";
+		};
+		D543848B1BC528D000EBE27A /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		D543848E1BC528D000EBE27A /* request */ = {
+			isa = PBXGroup;
+			children = (
+				D543848F1BC528D000EBE27A /* model */,
+				D54384921BC528D000EBE27A /* PubnativeNetworkRequest.h */,
+				D54384931BC528D000EBE27A /* PubnativeNetworkRequest.m */,
+			);
+			path = request;
+			sourceTree = "<group>";
+		};
+		D543848F1BC528D000EBE27A /* model */ = {
+			isa = PBXGroup;
+			children = (
+				D54384901BC528D000EBE27A /* PubnativeAdModel.h */,
+				D54384911BC528D000EBE27A /* PubnativeAdModel.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		D543849B1BC528DA00EBE27A /* adapter */ = {
+			isa = PBXGroup;
+			children = (
+				D543849C1BC528DA00EBE27A /* model */,
+				D543849D1BC528DA00EBE27A /* PubnativeNetworkAdapterFactorySpec.m */,
+				D543849E1BC528DA00EBE27A /* PubnativeNetworkAdapterSpec.m */,
+			);
+			path = adapter;
+			sourceTree = "<group>";
+		};
+		D543849C1BC528DA00EBE27A /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		D543849F1BC528DA00EBE27A /* config */ = {
+			isa = PBXGroup;
+			children = (
+				D54384A01BC528DA00EBE27A /* model */,
+				D54384A11BC528DA00EBE27A /* PubnativeConfigManagerSpec.m */,
+				D54384A21BC528DA00EBE27A /* PubnativeDeliveryManagerSpec.m */,
+			);
+			path = config;
+			sourceTree = "<group>";
+		};
+		D54384A01BC528DA00EBE27A /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		D54384A31BC528DA00EBE27A /* insights */ = {
+			isa = PBXGroup;
+			children = (
+				D54384A41BC528DA00EBE27A /* model */,
+				D54384A51BC528DA00EBE27A /* PubnativeInsightsManagerSpec.m */,
+			);
+			path = insights;
+			sourceTree = "<group>";
+		};
+		D54384A41BC528DA00EBE27A /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		D54384A61BC528DA00EBE27A /* request */ = {
+			isa = PBXGroup;
+			children = (
+				D54384A71BC528DA00EBE27A /* model */,
+				D54384A91BC528DA00EBE27A /* PubnativeNetworkRequestSpec.m */,
+			);
+			path = request;
+			sourceTree = "<group>";
+		};
+		D54384A71BC528DA00EBE27A /* model */ = {
+			isa = PBXGroup;
+			children = (
+				D54384A81BC528DA00EBE27A /* PubnativeAdModelSpec.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		D54384B61BC528F500EBE27A /* mediation.demo */ = {
+			isa = PBXGroup;
+			children = (
+				D54384B71BC528F500EBE27A /* AppDelegate.swift */,
+				D54384B91BC528F500EBE27A /* ViewController.swift */,
+				D54384BB1BC528F500EBE27A /* Main.storyboard */,
+				D54384BE1BC528F500EBE27A /* Assets.xcassets */,
+				D54384C01BC528F500EBE27A /* LaunchScreen.storyboard */,
+				D54384C31BC528F500EBE27A /* Info.plist */,
+				D54384CB1BC529EA00EBE27A /* PubnativeMediationDemo-Bridging-Header.h */,
+			);
+			path = mediation.demo;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D54384611BC528A000EBE27A /* PubnativeMediation */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D543846B1BC528A000EBE27A /* Build configuration list for PBXNativeTarget "PubnativeMediation" */;
+			buildPhases = (
+				D543845E1BC528A000EBE27A /* Sources */,
+				D543845F1BC528A000EBE27A /* Frameworks */,
+				D54384601BC528A000EBE27A /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PubnativeMediation;
+			productName = mediation;
+			productReference = D54384621BC528A000EBE27A /* libPubnativeMediation.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		D54384711BC528BC00EBE27A /* PubnativeMediationTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D543847A1BC528BC00EBE27A /* Build configuration list for PBXNativeTarget "PubnativeMediationTests" */;
+			buildPhases = (
+				6394B2B329992E0FCBD2723C /* Check Pods Manifest.lock */,
+				D543846E1BC528BC00EBE27A /* Sources */,
+				D543846F1BC528BC00EBE27A /* Frameworks */,
+				D54384701BC528BC00EBE27A /* Resources */,
+				37726F195D30C3E37002114A /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D54384791BC528BC00EBE27A /* PBXTargetDependency */,
+			);
+			name = PubnativeMediationTests;
+			productName = mediation.tests;
+			productReference = D54384721BC528BC00EBE27A /* PubnativeMediationTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D54384B41BC528F500EBE27A /* PubnativeMediationDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D54384C41BC528F500EBE27A /* Build configuration list for PBXNativeTarget "PubnativeMediationDemo" */;
+			buildPhases = (
+				53EA25DF2F42AE4279B90C46 /* Check Pods Manifest.lock */,
+				D54384B11BC528F500EBE27A /* Sources */,
+				D54384B21BC528F500EBE27A /* Frameworks */,
+				D54384B31BC528F500EBE27A /* Resources */,
+				3570BB71B5D282D524BD7B33 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D54384CA1BC529D200EBE27A /* PBXTargetDependency */,
+			);
+			name = PubnativeMediationDemo;
+			productName = mediation.demo;
+			productReference = D54384B51BC528F500EBE27A /* PubnativeMediationDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D543845A1BC528A000EBE27A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = pubnative;
+				TargetAttributes = {
+					D54384611BC528A000EBE27A = {
+						CreatedOnToolsVersion = 7.0.1;
+					};
+					D54384711BC528BC00EBE27A = {
+						CreatedOnToolsVersion = 7.0.1;
+					};
+					D54384B41BC528F500EBE27A = {
+						CreatedOnToolsVersion = 7.0.1;
+					};
+				};
+			};
+			buildConfigurationList = D543845D1BC528A000EBE27A /* Build configuration list for PBXProject "mediation" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = D54384591BC528A000EBE27A;
+			productRefGroup = D54384631BC528A000EBE27A /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D54384611BC528A000EBE27A /* PubnativeMediation */,
+				D54384711BC528BC00EBE27A /* PubnativeMediationTests */,
+				D54384B41BC528F500EBE27A /* PubnativeMediationDemo */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D54384701BC528BC00EBE27A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D54384B31BC528F500EBE27A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D54384C21BC528F500EBE27A /* LaunchScreen.storyboard in Resources */,
+				D54384BF1BC528F500EBE27A /* Assets.xcassets in Resources */,
+				D54384BD1BC528F500EBE27A /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3570BB71B5D282D524BD7B33 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-PubnativeMediationDemo/Pods-PubnativeMediationDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		37726F195D30C3E37002114A /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-PubnativeMediationTests/Pods-PubnativeMediationTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		53EA25DF2F42AE4279B90C46 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6394B2B329992E0FCBD2723C /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D543845E1BC528A000EBE27A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D54384941BC528D000EBE27A /* PubnativeNetworkAdapter.m in Sources */,
+				D54384991BC528D000EBE27A /* PubnativeAdModel.m in Sources */,
+				D54384961BC528D000EBE27A /* PubnativeConfigManager.m in Sources */,
+				D54384981BC528D000EBE27A /* PubnativeInsightsManager.m in Sources */,
+				D543849A1BC528D000EBE27A /* PubnativeNetworkRequest.m in Sources */,
+				D54384951BC528D000EBE27A /* PubnativeNetworkAdapterFactory.m in Sources */,
+				D54384971BC528D000EBE27A /* PubnativeDeliveryManager.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D543846E1BC528BC00EBE27A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D54384AE1BC528DA00EBE27A /* PubnativeInsightsManagerSpec.m in Sources */,
+				D54384AF1BC528DA00EBE27A /* PubnativeAdModelSpec.m in Sources */,
+				D54384AD1BC528DA00EBE27A /* PubnativeDeliveryManagerSpec.m in Sources */,
+				D54384B01BC528DA00EBE27A /* PubnativeNetworkRequestSpec.m in Sources */,
+				D54384AC1BC528DA00EBE27A /* PubnativeConfigManagerSpec.m in Sources */,
+				D54384AA1BC528DA00EBE27A /* PubnativeNetworkAdapterFactorySpec.m in Sources */,
+				D54384AB1BC528DA00EBE27A /* PubnativeNetworkAdapterSpec.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D54384B11BC528F500EBE27A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D54384BA1BC528F500EBE27A /* ViewController.swift in Sources */,
+				D54384B81BC528F500EBE27A /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D54384791BC528BC00EBE27A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D54384611BC528A000EBE27A /* PubnativeMediation */;
+			targetProxy = D54384781BC528BC00EBE27A /* PBXContainerItemProxy */;
+		};
+		D54384CA1BC529D200EBE27A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D54384611BC528A000EBE27A /* PubnativeMediation */;
+			targetProxy = D54384C91BC529D200EBE27A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		D54384BB1BC528F500EBE27A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D54384BC1BC528F500EBE27A /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		D54384C01BC528F500EBE27A /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D54384C11BC528F500EBE27A /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D54384691BC528A000EBE27A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		D543846A1BC528A000EBE27A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		D543846C1BC528A000EBE27A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		D543846D1BC528A000EBE27A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		D543847B1BC528BC00EBE27A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9A89C6BA0BD3623B9800B81D /* Pods-PubnativeMediationTests.debug.xcconfig */;
+			buildSettings = {
+				INFOPLIST_FILE = mediation.tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.pubnative.mediation-tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		D543847C1BC528BC00EBE27A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 580C38A3C784A75BA12DE556 /* Pods-PubnativeMediationTests.release.xcconfig */;
+			buildSettings = {
+				INFOPLIST_FILE = mediation.tests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.pubnative.mediation-tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		D54384C51BC528F500EBE27A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 79AD0F2CA9A5AF4A62382467 /* Pods-PubnativeMediationDemo.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = mediation.demo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.pubnative.mediation-demo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "mediation.demo/PubnativeMediationDemo-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D54384C61BC528F500EBE27A /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AB54AAF4E5FF9E747665B6E4 /* Pods-PubnativeMediationDemo.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = mediation.demo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "net.pubnative.mediation-demo";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "mediation.demo/PubnativeMediationDemo-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D543845D1BC528A000EBE27A /* Build configuration list for PBXProject "mediation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D54384691BC528A000EBE27A /* Debug */,
+				D543846A1BC528A000EBE27A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D543846B1BC528A000EBE27A /* Build configuration list for PBXNativeTarget "PubnativeMediation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D543846C1BC528A000EBE27A /* Debug */,
+				D543846D1BC528A000EBE27A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D543847A1BC528BC00EBE27A /* Build configuration list for PBXNativeTarget "PubnativeMediationTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D543847B1BC528BC00EBE27A /* Debug */,
+				D543847C1BC528BC00EBE27A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D54384C41BC528F500EBE27A /* Build configuration list for PBXNativeTarget "PubnativeMediationDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D54384C51BC528F500EBE27A /* Debug */,
+				D54384C61BC528F500EBE27A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D543845A1BC528A000EBE27A /* Project object */;
+}
