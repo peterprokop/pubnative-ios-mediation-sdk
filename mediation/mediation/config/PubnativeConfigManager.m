@@ -49,32 +49,6 @@ static PubnativeConfigManager *_sharedInstance = nil;
     return _sharedInstance;
 }
 
-+ (void)enqueueRequestModel:(PubnativeConfigRequestModel*)request
-{
-    if(request &&
-       request.delegate &&
-       request.appToken && [request.appToken length] > 0)
-    {
-        if(![PubnativeConfigManager sharedInstance].requestQueue){
-            [PubnativeConfigManager sharedInstance].requestQueue = [[NSMutableArray alloc] init];
-        }
-        [[PubnativeConfigManager sharedInstance].requestQueue addObject:request];
-    }
-}
-
-+ (PubnativeConfigRequestModel*)dequeueRequestDelegate
-{
-    PubnativeConfigRequestModel *result = nil;
-    
-    if([PubnativeConfigManager sharedInstance].requestQueue &&
-       [[PubnativeConfigManager sharedInstance].requestQueue count] > 0){
-        
-        result = [[PubnativeConfigManager sharedInstance].requestQueue objectAtIndex:0];
-        [[PubnativeConfigManager sharedInstance].requestQueue removeObjectAtIndex:0];
-    }
-    return result;
-}
-
 + (void)configWithAppToken:(NSString *)appToken delegate:(NSObject<PubnativeConfigManagerDelegate> *)delegate
 {
     // Drop the call if no completion handler specified
@@ -174,6 +148,33 @@ static PubnativeConfigManager *_sharedInstance = nil;
                                               delegate:requestModel.delegate];
     }
     
+}
+
+#pragma mark - QUEUE -
++ (void)enqueueRequestModel:(PubnativeConfigRequestModel*)request
+{
+    if(request &&
+       request.delegate &&
+       request.appToken && [request.appToken length] > 0)
+    {
+        if(![PubnativeConfigManager sharedInstance].requestQueue){
+            [PubnativeConfigManager sharedInstance].requestQueue = [[NSMutableArray alloc] init];
+        }
+        [[PubnativeConfigManager sharedInstance].requestQueue addObject:request];
+    }
+}
+
++ (PubnativeConfigRequestModel*)dequeueRequestDelegate
+{
+    PubnativeConfigRequestModel *result = nil;
+    
+    if([PubnativeConfigManager sharedInstance].requestQueue &&
+       [[PubnativeConfigManager sharedInstance].requestQueue count] > 0){
+        
+        result = [[PubnativeConfigManager sharedInstance].requestQueue objectAtIndex:0];
+        [[PubnativeConfigManager sharedInstance].requestQueue removeObjectAtIndex:0];
+    }
+    return result;
 }
 
 #pragma mark - DOWNLOAD -
@@ -286,7 +287,8 @@ static PubnativeConfigManager *_sharedInstance = nil;
     if(timestamp > 0){
         [[NSUserDefaults standardUserDefaults] setDouble:timestamp forKey:kUserDefaultsStoredTimestampKey];
     } else {
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserDefaultsStoredTimestampKey];
+        //0 has been set as default value
+        [[NSUserDefaults standardUserDefaults] setDouble:0 forKey:kUserDefaultsStoredTimestampKey];
     }
     
     [[NSUserDefaults standardUserDefaults] synchronize];
