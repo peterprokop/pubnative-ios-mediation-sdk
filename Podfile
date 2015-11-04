@@ -4,13 +4,14 @@ xcodeproj 'mediation/mediation.xcodeproj'
 # platform :ios, '6.0'
 
 target 'PubnativeMediation' do
-
+  pod 'JSONModel'
 end
 
 target 'PubnativeMediationTests' do
   pod 'Specta'
   pod 'Expecta'
   pod 'OCMock'
+  pod 'JSONModel'
 end
 
 target 'PubnativeMediationDemo' do
