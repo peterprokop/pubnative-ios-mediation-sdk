@@ -13,8 +13,7 @@
 #import <OCMock/OCMock.h>
 
 NSString * const kAdapterKey                    = @"adapter_key";
-NSString * const kValidFacebookNetworkAdapter   = @"FacebookNetworkAdapter";
-NSString * const kValidPubnativeNetworkAdapter  = @"PubnativeLibraryNetworkAdapter";
+NSString * const kValidNetworkAdapter           = @"TestValidNetworkAdapter";
 NSString * const kInvalidNonExistentClass       = @"PubnativeAdapter";
 NSString * const kInvalidNonPubnativeAdapter    = @"PubnativeConfigManager";
 
@@ -99,13 +98,10 @@ describe(@"adapter creation", ^{
                 });
             });
             
-            context(@"with valid facebook network adapter", ^{
-                itBehavesLike(@"when creating", @{kAdapterKey : kValidFacebookNetworkAdapter});
+            context(@"with valid network adapter", ^{
+                itBehavesLike(@"when creating", @{kAdapterKey : kValidNetworkAdapter});
             });
             
-            context(@"with valid library network adapter", ^{
-                itBehavesLike(@"when creating", @{kAdapterKey : kValidPubnativeNetworkAdapter});
-            });
         }
     });
     
