@@ -4,9 +4,17 @@ machine:
     xcode:
         version: "7.0"
 
+dependencies:
+    pre:
+        - brew uninstall xctool && brew install --HEAD xctool
+
 test:
     override:
-        - xcodebuild -workspace mediation.xcworkspace -scheme PubnativeMediation -sdk iphonesimulator GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES clean build test | xcpretty -c && exit ${PIPESTATUS[0]}
+        - xctool
+            -workspace mediation.xcworkspace
+            -scheme PubnativeMediation
+            -sdk iphonesimulator
+            clean test
 
 #---------------------- TODO:
 #   master:

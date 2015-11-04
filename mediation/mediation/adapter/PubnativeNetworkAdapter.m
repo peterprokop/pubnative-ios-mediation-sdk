@@ -28,10 +28,11 @@
 }
 
 #pragma mark - Request -
-- (void) doRequestWithTimeout:(NSNumber*)timeout
+- (void) doRequestWithTimeout:(NSNumber*)timeout  delegate:(NSObject<PubnativeNetworkAdapterDelegate>*)delegate;
 {
-    if (self.delegate) {
+    if (delegate) {
     
+        self.delegate = delegate;
         [self invokeStart];
 
         if (timeout) {
@@ -42,15 +43,11 @@
                 
             } afterDelay:timeout];
         }
-    
         [self makeRequest];
-
+        
     } else {
         
-        NSError *error = [NSError errorWithDomain:@"PubnativeNetworkAdapter.doRequest - error network adapter delegate not specified"
-                                             code:0
-                                         userInfo:nil];
-        [self invokeFailedWithError:error];
+        NSLog(@"PubnativeNetworkAdapter.doRequest - error network adapter delegate not specified");
     }
 }
 
