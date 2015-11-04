@@ -14,6 +14,8 @@ NSString * const kPlacementIdKey = @"placement_id";
 
 @interface PubnativeNetworkAdapter (Private)
 
+@property (nonatomic, strong)   NSDictionary                                *paramsDictionary;
+
 - (void) invokeLoadedWithAd:(PubnativeAdModel *)adModel;
 - (void) invokeFailedWithError:(NSError *)error;
 
