@@ -8,6 +8,10 @@
 
 #import "Specta.h"
 #import "Expecta.h"
+#import "PubnativeNetworkRequest.h"
+
+static NSString * const kAppTokenValid              = @"e3886645aabbf0d5c06f841a3e6d77fcc8f9de4469d538ab8a96cb507d0f2660";
+static NSString * const kPlacementFacebookOnlyKey   = @"facebook_only";
 
 SpecBegin(PubnativeNetworkRequest)
 
@@ -20,6 +24,12 @@ describe(@"Behaviour", ^{
     
     beforeEach(^{
         // This is run before each example.
+    });
+    
+    it(@"Pubnative Request Start Request", ^{
+        PubnativeNetworkRequest *request = [[PubnativeNetworkRequest alloc]init];
+        [request startRequestWithAppToken:kAppTokenValid andPlacement:kPlacementFacebookOnlyKey];
+        pending(@"write some tests");
     });
     
     pending(@"write some tests");
