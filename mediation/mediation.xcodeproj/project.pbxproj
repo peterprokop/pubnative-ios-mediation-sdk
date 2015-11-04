@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		A7790EE3605B243BD8C2DC3E /* libPods-PubnativeMediation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF7483EA05BDC146190BAAD6 /* libPods-PubnativeMediation.a */; };
 		D54384771BC528BC00EBE27A /* libPubnativeMediation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D54384621BC528A000EBE27A /* libPubnativeMediation.a */; };
-		D54384941BC528D000EBE27A /* PubnativeNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = D54384811BC528D000EBE27A /* PubnativeNetworkAdapter.m */; };
-		D54384951BC528D000EBE27A /* PubnativeNetworkAdapterFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D54384831BC528D000EBE27A /* PubnativeNetworkAdapterFactory.m */; };
 		D54384981BC528D000EBE27A /* PubnativeInsightsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D543848D1BC528D000EBE27A /* PubnativeInsightsManager.m */; };
 		D54384991BC528D000EBE27A /* PubnativeAdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D54384911BC528D000EBE27A /* PubnativeAdModel.m */; };
 		D543849A1BC528D000EBE27A /* PubnativeNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D54384931BC528D000EBE27A /* PubnativeNetworkRequest.m */; };
@@ -25,6 +23,8 @@
 		D54384BF1BC528F500EBE27A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D54384BE1BC528F500EBE27A /* Assets.xcassets */; };
 		D54384C21BC528F500EBE27A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D54384C01BC528F500EBE27A /* LaunchScreen.storyboard */; };
 		D54384C81BC529CC00EBE27A /* libPubnativeMediation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D54384621BC528A000EBE27A /* libPubnativeMediation.a */; };
+		D5C45BFB1BEA32AB004E31B8 /* PubnativeNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C45BF31BEA32AB004E31B8 /* PubnativeNetworkAdapter.m */; };
+		D5C45BFC1BEA32AB004E31B8 /* PubnativeNetworkAdapterFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D5C45BF51BEA32AB004E31B8 /* PubnativeNetworkAdapterFactory.m */; };
 		D5FE08231BEA170B007396B6 /* PubnativeConfigAPIResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FE08101BEA170A007396B6 /* PubnativeConfigAPIResponseModel.m */; };
 		D5FE08241BEA170B007396B6 /* PubnativeConfigGlobalsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FE08121BEA170A007396B6 /* PubnativeConfigGlobalsModel.m */; };
 		D5FE08251BEA170B007396B6 /* PubnativeConfigModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FE08141BEA170B007396B6 /* PubnativeConfigModel.m */; };
@@ -89,10 +89,6 @@
 		D54384621BC528A000EBE27A /* libPubnativeMediation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPubnativeMediation.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D54384721BC528BC00EBE27A /* PubnativeMediationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PubnativeMediationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D54384761BC528BC00EBE27A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D54384801BC528D000EBE27A /* PubnativeNetworkAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeNetworkAdapter.h; sourceTree = "<group>"; };
-		D54384811BC528D000EBE27A /* PubnativeNetworkAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeNetworkAdapter.m; sourceTree = "<group>"; };
-		D54384821BC528D000EBE27A /* PubnativeNetworkAdapterFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeNetworkAdapterFactory.h; sourceTree = "<group>"; };
-		D54384831BC528D000EBE27A /* PubnativeNetworkAdapterFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeNetworkAdapterFactory.m; sourceTree = "<group>"; };
 		D543848C1BC528D000EBE27A /* PubnativeInsightsManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeInsightsManager.h; sourceTree = "<group>"; };
 		D543848D1BC528D000EBE27A /* PubnativeInsightsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeInsightsManager.m; sourceTree = "<group>"; };
 		D54384901BC528D000EBE27A /* PubnativeAdModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeAdModel.h; sourceTree = "<group>"; };
@@ -112,6 +108,10 @@
 		D54384C11BC528F500EBE27A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D54384C31BC528F500EBE27A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D54384CB1BC529EA00EBE27A /* PubnativeMediationDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PubnativeMediationDemo-Bridging-Header.h"; sourceTree = "<group>"; };
+		D5C45BF21BEA32AB004E31B8 /* PubnativeNetworkAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeNetworkAdapter.h; sourceTree = "<group>"; };
+		D5C45BF31BEA32AB004E31B8 /* PubnativeNetworkAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeNetworkAdapter.m; sourceTree = "<group>"; };
+		D5C45BF41BEA32AB004E31B8 /* PubnativeNetworkAdapterFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeNetworkAdapterFactory.h; sourceTree = "<group>"; };
+		D5C45BF51BEA32AB004E31B8 /* PubnativeNetworkAdapterFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeNetworkAdapterFactory.m; sourceTree = "<group>"; };
 		D5FE080F1BEA170A007396B6 /* PubnativeConfigAPIResponseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeConfigAPIResponseModel.h; sourceTree = "<group>"; };
 		D5FE08101BEA170A007396B6 /* PubnativeConfigAPIResponseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeConfigAPIResponseModel.m; sourceTree = "<group>"; };
 		D5FE08111BEA170A007396B6 /* PubnativeConfigGlobalsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeConfigGlobalsModel.h; sourceTree = "<group>"; };
@@ -223,7 +223,7 @@
 		D54384641BC528A000EBE27A /* mediation */ = {
 			isa = PBXGroup;
 			children = (
-				D543847D1BC528D000EBE27A /* adapter */,
+				D5C45BE51BEA32AB004E31B8 /* adapter */,
 				D5FE080D1BEA170A007396B6 /* config */,
 				D543848A1BC528D000EBE27A /* insights */,
 				D543848E1BC528D000EBE27A /* request */,
@@ -241,33 +241,6 @@
 				D54384761BC528BC00EBE27A /* Info.plist */,
 			);
 			path = mediation.tests;
-			sourceTree = "<group>";
-		};
-		D543847D1BC528D000EBE27A /* adapter */ = {
-			isa = PBXGroup;
-			children = (
-				D543847E1BC528D000EBE27A /* model */,
-				D543847F1BC528D000EBE27A /* networks */,
-				D54384801BC528D000EBE27A /* PubnativeNetworkAdapter.h */,
-				D54384811BC528D000EBE27A /* PubnativeNetworkAdapter.m */,
-				D54384821BC528D000EBE27A /* PubnativeNetworkAdapterFactory.h */,
-				D54384831BC528D000EBE27A /* PubnativeNetworkAdapterFactory.m */,
-			);
-			path = adapter;
-			sourceTree = "<group>";
-		};
-		D543847E1BC528D000EBE27A /* model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = model;
-			sourceTree = "<group>";
-		};
-		D543847F1BC528D000EBE27A /* networks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = networks;
 			sourceTree = "<group>";
 		};
 		D543848A1BC528D000EBE27A /* insights */ = {
@@ -368,6 +341,25 @@
 				D54384CB1BC529EA00EBE27A /* PubnativeMediationDemo-Bridging-Header.h */,
 			);
 			path = mediation.demo;
+			sourceTree = "<group>";
+		};
+		D5C45BE51BEA32AB004E31B8 /* adapter */ = {
+			isa = PBXGroup;
+			children = (
+				D5C45BE61BEA32AB004E31B8 /* networks */,
+				D5C45BF21BEA32AB004E31B8 /* PubnativeNetworkAdapter.h */,
+				D5C45BF31BEA32AB004E31B8 /* PubnativeNetworkAdapter.m */,
+				D5C45BF41BEA32AB004E31B8 /* PubnativeNetworkAdapterFactory.h */,
+				D5C45BF51BEA32AB004E31B8 /* PubnativeNetworkAdapterFactory.m */,
+			);
+			path = adapter;
+			sourceTree = "<group>";
+		};
+		D5C45BE61BEA32AB004E31B8 /* networks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = networks;
 			sourceTree = "<group>";
 		};
 		D5FE080D1BEA170A007396B6 /* config */ = {
@@ -715,7 +707,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5FE08231BEA170B007396B6 /* PubnativeConfigAPIResponseModel.m in Sources */,
-				D54384941BC528D000EBE27A /* PubnativeNetworkAdapter.m in Sources */,
+				D5C45BFC1BEA32AB004E31B8 /* PubnativeNetworkAdapterFactory.m in Sources */,
 				D5FE08281BEA170B007396B6 /* PubnativeNetworkModel.m in Sources */,
 				D54384991BC528D000EBE27A /* PubnativeAdModel.m in Sources */,
 				D5FE08291BEA170B007396B6 /* PubnativePlacementModel.m in Sources */,
@@ -724,8 +716,8 @@
 				D5FE08271BEA170B007396B6 /* PubnativeDeliveryRuleModel.m in Sources */,
 				D54384981BC528D000EBE27A /* PubnativeInsightsManager.m in Sources */,
 				D543849A1BC528D000EBE27A /* PubnativeNetworkRequest.m in Sources */,
+				D5C45BFB1BEA32AB004E31B8 /* PubnativeNetworkAdapter.m in Sources */,
 				D5FE082B1BEA170B007396B6 /* PubnativeConfigManager.m in Sources */,
-				D54384951BC528D000EBE27A /* PubnativeNetworkAdapterFactory.m in Sources */,
 				D5FE08251BEA170B007396B6 /* PubnativeConfigModel.m in Sources */,
 				D5FE08241BEA170B007396B6 /* PubnativeConfigGlobalsModel.m in Sources */,
 				D5FE082C1BEA170B007396B6 /* PubnativeDeliveryManager.m in Sources */,
@@ -873,6 +865,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B01C148AAD62E5CE9D169C10 /* Pods-PubnativeMediation.debug.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/mediation/adapter/libs",
+					"$(PROJECT_DIR)/mediation/adapter/networks/facebook",
+				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -883,6 +880,11 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 26B341AD5DD57D35AE7EEA05 /* Pods-PubnativeMediation.release.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/mediation/adapter/libs",
+					"$(PROJECT_DIR)/mediation/adapter/networks/facebook",
+				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
