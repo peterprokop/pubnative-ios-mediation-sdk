@@ -13,15 +13,15 @@
 
 @protocol PubnativeNetworkAdapterDelegate <NSObject>
 
-- (void) initAdapterRequest:(PubnativeNetworkAdapter *)adapter;
-- (void) loadAdapterRequest:(PubnativeNetworkAdapter *)adapter withAd:(PubnativeAdModel *)ad;
-- (void) failedAdapterRequest:(PubnativeNetworkAdapter *)adapter withError:(NSError *)error;
+- (void)adapterRequestDidStart:(PubnativeNetworkAdapter*)adapter;
+- (void)adapter:(PubnativeNetworkAdapter*)adapter requestDidLoad:(PubnativeAdModel*)ad;
+- (void)adapter:(PubnativeNetworkAdapter*)adapter requestDidFail:(NSError *)error;
 
 @end
 
 @interface PubnativeNetworkAdapter : NSObject
 
-- (instancetype)initWithParams:(NSDictionary*)paramsDictionary;
-- (void)doRequestWithTimeout:(NSNumber *)timeout delegate:(NSObject<PubnativeNetworkAdapterDelegate>*)delegate;
+- (instancetype)initWithDictionary:(NSDictionary*)dictionary;
+- (void)doRequestWithTimeout:(int)timeout delegate:(NSObject<PubnativeNetworkAdapterDelegate>*)delegate;
 
 @end

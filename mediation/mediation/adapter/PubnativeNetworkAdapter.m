@@ -10,135 +10,85 @@
 
 @interface PubnativeNetworkAdapter()
 
-@property (nonatomic, strong)   id                                          requestTimeOut;
-@property (nonatomic, strong)   NSDictionary                                *paramsDictionary;
+@property (nonatomic, strong)   NSDictionary                                *params;
 @property (nonatomic, weak)     NSObject<PubnativeNetworkAdapterDelegate>   *delegate;
 
 @end
 
 @implementation PubnativeNetworkAdapter
 
-- (instancetype) initWithParams:(NSDictionary*)paramsDictionary
+- (instancetype)initWithDictionary:(NSDictionary*)dictionary
 {
     self = [super init];
     if (self) {
-        self.paramsDictionary = paramsDictionary;
+        self.params = dictionary;
     }
     return self;
 }
 
 #pragma mark - Request -
-- (void) doRequestWithTimeout:(NSNumber*)timeout  delegate:(NSObject<PubnativeNetworkAdapterDelegate>*)delegate;
+- (void)doRequestWithTimeout:(int)timeout delegate:(NSObject<PubnativeNetworkAdapterDelegate>*)delegate;
 {
     if (delegate) {
-    
         self.delegate = delegate;
         [self invokeStart];
-
-        if (timeout) {
-
-            self.requestTimeOut = [self performBlock:^{
-                
+        if (timeout > 0) {
+            //timeout is in milliseconds
+            dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * timeout * 0.001);
+            dispatch_after(delay, dispatch_get_main_queue(), ^{
                 [self requestTimeout];
-                
-            } afterDelay:timeout];
+            });
         }
-        [self makeRequest];
-        
+        [self doRequest];
     } else {
-        
-        NSLog(@"PubnativeNetworkAdapter.doRequest - error network adapter delegate not specified");
+        NSLog(@"PubnativeNetworkAdapter.doRequest - network adapter delegate not specified");
     }
 }
 
-- (void) makeRequest
+- (void)doRequest
 {
-    //Override this method in child classes
-    NSLog(@"Pubnative Mediation : Error : You must override makeRequest in sub class of PubnativeNetworkAdapter");
+    NSLog(@"Pubnative Mediation : Error : override me");
 }
 
 #pragma mark - Request Timeout -
-- (void) requestTimeout
+- (void)requestTimeout
 {
+    NSLog(@"PubnativeNetworkAdapter.doRequest - request timeout");
     NSError *error = [NSError errorWithDomain:@"PubnativeNetworkAdapter.doRequest - request timeout"
                                          code:0
                                      userInfo:nil];
     
-    [self invokeFailedWithError:error];
+    [self invokeDidFail:error];
+}
+
+-(void)cancelTimeout
+{
+    //To cancel the timeout callback
     self.delegate = nil;
-    
-    NSLog(@"PubnativeNetworkAdapter.doRequest - request timeout");
-}
-
-- (void) cancelRequestCallbacks
-{
-    [self cancelBlock:self.requestTimeOut];
-}
-
-- (id)performBlock:(void (^)(void))block afterDelay:(NSNumber *)timeout
-{
-    if (!block)
-    {
-        return nil;
-    }
-    
-    __block BOOL cancelled = NO;
-    
-    void (^wrappingBlock)(BOOL) = ^(BOOL cancel) {
-        
-        if (cancel) {
-            cancelled = YES;
-            return;
-        }
-        
-        if (!cancelled) {
-            block();
-        }
-        
-    };
-    
-    //timeout is in milliseconds
-    dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * [timeout doubleValue] * 0.001);
-    
-    dispatch_after(delay, dispatch_get_main_queue(), ^{
-        wrappingBlock(NO);
-    });
-    
-    return wrappingBlock;
-}
-
-- (void) cancelBlock:(id)block
-{
-    if (!block) {
-        return;
-    }
-    
-    void (^aWrappingBlock)(BOOL) = (void(^)(BOOL))block;
-    aWrappingBlock(YES);
 }
 
 #pragma mark - Ads Invoke -
-- (void) invokeStart
+- (void)invokeStart
 {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(initAdapterRequest:)]) {
-        [self.delegate initAdapterRequest:self];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(adapterRequestDidStart:)]) {
+        [self.delegate adapterRequestDidStart:self];
     }
 }
 
-- (void) invokeLoadedWithAd:(PubnativeAdModel *)adModel
+- (void)invokeDidLoad:(PubnativeAdModel*)ad
 {
-    [self cancelRequestCallbacks];
-    if (self.delegate && [self.delegate respondsToSelector:@selector(loadAdapterRequest:withAd:)]) {
-        [self.delegate loadAdapterRequest:self withAd:adModel];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(adapter:requestDidLoad:)]) {
+        [self.delegate adapter:self requestDidLoad:ad];
     }
+    [self cancelTimeout];
 }
 
-- (void) invokeFailedWithError:(NSError *)error
+- (void)invokeDidFail:(NSError*)error
 {
-    [self cancelRequestCallbacks];
-    if (self.delegate && [self.delegate respondsToSelector:@selector(failedAdapterRequest:withError:)]) {
-        [self.delegate failedAdapterRequest:self withError:error];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(adapter:requestDidFail:)]) {
+        [self.delegate adapter:self requestDidFail:error];
     }
+    [self cancelTimeout];
 }
 
 @end

@@ -10,24 +10,14 @@
 
 @implementation PubnativeNetworkAdapterFactory
 
-+ (PubnativeNetworkAdapter *)createApdaterWithNetworkModel:(PubnativeNetworkModel*)networkModel
++ (PubnativeNetworkAdapter *)createApdaterWithNetwork:(PubnativeNetworkModel*)model
 {
     PubnativeNetworkAdapter *adapter = nil;
-    if (networkModel) {
-        //First Get the string for the type of network adapter required
-        NSString *adapterString = networkModel.adapter;
-        
-        if (adapterString) {
-            
-            Class adapterClass = NSClassFromString(adapterString);
-            
+    if (model) {
+        if (model.adapter) {
+            Class adapterClass = NSClassFromString(model.adapter);
             if (adapterClass && [adapterClass isSubclassOfClass:[PubnativeNetworkAdapter class]]) {
-                
-                if (networkModel.params) {
-                    
-                    adapter = [[adapterClass alloc] initWithParams:networkModel.params];
-                    
-                }
+                    adapter = [[adapterClass alloc] initWithDictionary:model.params];
             }
         }
     }

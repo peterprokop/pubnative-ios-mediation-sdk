@@ -24,37 +24,36 @@ describe(@"adapter creation", ^{
     context(@"for error", ^{
         
         sharedExamplesFor(@"when creating", ^(NSDictionary *data) {
-            
-            __block PubnativeNetworkModel *networkModel;
-            __block PubnativeNetworkAdapter *networkAdapter;
+            __block PubnativeNetworkModel   *model;
+            __block PubnativeNetworkAdapter *adapter;
             
             beforeAll(^{
-                networkModel = OCMClassMock([PubnativeNetworkModel class]);
-                OCMStub(networkModel.params).andReturn(OCMClassMock([NSDictionary class]));
+                model = OCMClassMock([PubnativeNetworkModel class]);
+                OCMStub(model.params).andReturn(OCMClassMock([NSDictionary class]));
             });
             
             it(@"nil, does not create adapter", ^{
-                OCMStub(networkModel.adapter).andReturn(data[kAdapterKey]);
-                networkAdapter = [PubnativeNetworkAdapterFactory createApdaterWithNetworkModel:networkModel];
-                expect(networkAdapter).to.beNil();
+                OCMStub(model.adapter).andReturn(data[kAdapterKey]);
+                adapter = [PubnativeNetworkAdapterFactory createApdaterWithNetwork:model];
+                expect(adapter).to.beNil();
             });
             
             it(@"empty, does not create adapter", ^{
-                OCMStub(networkModel.adapter).andReturn(data[kAdapterKey]);
-                networkAdapter = [PubnativeNetworkAdapterFactory createApdaterWithNetworkModel:networkModel];
-                expect(networkAdapter).to.beNil();
+                OCMStub(model.adapter).andReturn(data[kAdapterKey]);
+                adapter = [PubnativeNetworkAdapterFactory createApdaterWithNetwork:model];
+                expect(adapter).to.beNil();
             });
             
             it(@"invalid, does not creates adapter", ^{
-                OCMStub(networkModel.adapter).andReturn(data[kAdapterKey]);
-                networkAdapter = [PubnativeNetworkAdapterFactory createApdaterWithNetworkModel:networkModel];
-                expect([networkAdapter class]).to.beNil();
+                OCMStub(model.adapter).andReturn(data[kAdapterKey]);
+                adapter = [PubnativeNetworkAdapterFactory createApdaterWithNetwork:model];
+                expect([adapter class]).to.beNil();
             });
             
             it(@"with nil network model", ^{
-                networkModel = nil;
-                networkAdapter = [PubnativeNetworkAdapterFactory createApdaterWithNetworkModel:networkModel];
-                expect([networkAdapter class]).to.beNil();
+                model = nil;
+                adapter = [PubnativeNetworkAdapterFactory createApdaterWithNetwork:model];
+                expect([adapter class]).to.beNil();
             });
         });
         
@@ -69,7 +68,7 @@ describe(@"adapter creation", ^{
         context(@"with empty adapter", ^{
             itBehavesLike(@"when creating", @{kAdapterKey : @""});
         });
-       
+        
         context(@"with nil adapter", ^{
             itBehavesLike(@"when creating", nil);
         });
@@ -77,32 +76,28 @@ describe(@"adapter creation", ^{
     });
     
     context(@"for success", ^{
-        {
+        sharedExamplesFor(@"when creating", ^(NSDictionary *data) {
             
-            sharedExamplesFor(@"when creating", ^(NSDictionary *data) {
-                
-                __block PubnativeNetworkModel *networkModel;
-                __block PubnativeNetworkAdapter *networkAdapter;
-                
-                beforeAll(^{
-                    networkModel = OCMClassMock([PubnativeNetworkModel class]);
-                    OCMStub(networkModel.params).andReturn(OCMClassMock([NSDictionary class]));
-                });
-                
-                it(@"valid, creates adapter", ^{
-                    OCMStub(networkModel.adapter).andReturn(data[kAdapterKey]);
-                    networkAdapter = [PubnativeNetworkAdapterFactory createApdaterWithNetworkModel:networkModel];
-                    expect(networkAdapter).toNot.beNil();
-                    expect([networkAdapter class]).to.equal(NSClassFromString(data[kAdapterKey]));
-                    expect([networkAdapter class]).beSubclassOf([PubnativeNetworkAdapter class]);
-                });
+            __block PubnativeNetworkModel   *model;
+            __block PubnativeNetworkAdapter *adapter;
+            
+            beforeAll(^{
+                model = OCMClassMock([PubnativeNetworkModel class]);
+                OCMStub(model.params).andReturn(OCMClassMock([NSDictionary class]));
             });
             
-            context(@"with valid network adapter", ^{
-                itBehavesLike(@"when creating", @{kAdapterKey : kValidNetworkAdapter});
+            it(@"valid, creates adapter", ^{
+                OCMStub(model.adapter).andReturn(data[kAdapterKey]);
+                adapter = [PubnativeNetworkAdapterFactory createApdaterWithNetwork:model];
+                expect(adapter).toNot.beNil();
+                expect([adapter class]).to.equal(NSClassFromString(data[kAdapterKey]));
+                expect([adapter class]).beSubclassOf([PubnativeNetworkAdapter class]);
             });
-            
-        }
+        });
+        
+        context(@"with valid network adapter", ^{
+            itBehavesLike(@"when creating", @{kAdapterKey : kValidNetworkAdapter});
+        });
     });
     
 });

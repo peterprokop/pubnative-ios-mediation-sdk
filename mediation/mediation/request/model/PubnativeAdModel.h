@@ -13,23 +13,18 @@
 
 @protocol PubnativeAdModelDelegate <NSObject>
 
-- (void) impressionConfirmedForAd:(PubnativeAdModel *)adModel;
-- (void) clickedForAd:(PubnativeAdModel *)adModel;
+- (void)adDidConfirmedImpression:(PubnativeAdModel *)ad;
+- (void)adDidClicked:(PubnativeAdModel *)ad;
 
 @end
 
 @interface PubnativeAdModel : NSObject
 
-@property (nonatomic, weak) id <PubnativeAdModelDelegate>   delegate;
 @property (nonatomic, readonly) NSString                    *title;
 @property (nonatomic, readonly) NSString                    *description;
 @property (nonatomic, readonly) NSString                    *iconURL;
 @property (nonatomic, readonly) NSString                    *bannerURL;
 @property (nonatomic, readonly) NSString                    *callToAction;
 @property (nonatomic, readonly) float                       starRating;
-
-- (void) startTrackingWithView:(UIView *)adView viewController:(UIViewController *)adViewController;
-- (void) stopTrackingWithView:(UIView *)adView;
-
 
 @end

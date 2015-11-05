@@ -12,6 +12,6 @@
 
 @interface PubnativeNetworkAdapterFactory : NSObject
 
-+ (PubnativeNetworkAdapter *)createApdaterWithNetworkModel:(PubnativeNetworkModel*)networkModel;
++ (PubnativeNetworkAdapter *)createApdaterWithNetwork:(PubnativeNetworkModel*)model;
 
 @end
