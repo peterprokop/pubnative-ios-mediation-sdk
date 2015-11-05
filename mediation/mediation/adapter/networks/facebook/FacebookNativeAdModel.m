@@ -8,26 +8,29 @@
 
 #import "FacebookNativeAdModel.h"
 
-@interface PubnativeAdModel (Private)
+@interface PubnativeAdModel(Private)
 
 - (void) invokeAdImpressionConfirmed;
 - (void) invokeAdClicked;
 
 @end
 
+@interface FacebookNativeAdModel()<FBNativeAdDelegate>
+
+@end
+
 @implementation FacebookNativeAdModel
 
-- (instancetype) initWithNativeAd:(FBNativeAd *)nativeAd
+- (instancetype)initWithNativeAd:(FBNativeAd*)nativeAd
 {
     self = [super init];
     if (self) {
         self.nativeAd = nativeAd;
-        self.nativeAd.delegate = self;
     }
     return self;
 }
 
-- (NSString *) title
+- (NSString*)title
 {
     NSString *result = nil;
     if (self.nativeAd) {
@@ -36,7 +39,7 @@
     return result;
 }
 
-- (NSString *) description
+- (NSString*)description
 {
     NSString *result = nil;
     if (self.nativeAd) {
@@ -45,25 +48,27 @@
     return result;
 }
 
-- (NSURL *) iconUrl
+- (NSString*)iconUrl
 {
-    NSURL *result = nil;
-    if (self.nativeAd && self.nativeAd.icon) {
-        result = self.nativeAd.icon.url;
+    NSString *result = nil;
+    if (self.nativeAd &&
+        self.nativeAd.icon && self.nativeAd.icon.url) {
+        result = [self.nativeAd.icon.url absoluteString];
     }
     return result;
 }
 
-- (NSURL *) bannerUrl
+- (NSString*)bannerUrl
 {
-    NSURL *result = nil;
-    if (self.nativeAd && self.nativeAd.coverImage) {
-        result = self.nativeAd.coverImage.url;
+    NSString *result = nil;
+    if (self.nativeAd &&
+        self.nativeAd.coverImage && self.nativeAd.coverImage.url) {
+        result = [self.nativeAd.coverImage.url absoluteString];
     }
     return result;
 }
 
-- (NSString *) callToAction
+- (NSString*)callToAction
 {
     NSString *result = nil;
     if (self.nativeAd) {
@@ -72,7 +77,7 @@
     return result;
 }
 
-- (float) starRating
+- (float)starRating
 {
     float starRating = 0;
     if (self.nativeAd) {
@@ -86,14 +91,15 @@
     return starRating;
 }
 
-- (void) startTrackingWithView:(UIView *)adView viewController:(UIViewController *)adViewController
+- (void)startTrackingWithView:(UIView*)adView viewController:(UIViewController*)adViewController
 {
     if (self.nativeAd && adView) {
+        self.nativeAd.delegate = self;
         [self.nativeAd registerViewForInteraction:adView withViewController:adViewController];
     }
 }
 
-- (void) stopTrackingWithView:(UIView *)adView
+- (void)stopTrackingWithView:(UIView*)adView
 {
     if (self.nativeAd) {
         [self.nativeAd unregisterView];
@@ -103,29 +109,14 @@
 
 #pragma mark - FBNativeAdDelegate implementation
 
-- (void)nativeAdDidClick:(FBNativeAd *)nativeAd
+- (void)nativeAdDidClick:(FBNativeAd*)nativeAd
 {
     [super invokeAdClicked];
 }
 
-- (void)nativeAdWillLogImpression:(FBNativeAd *)nativeAd
+- (void)nativeAdWillLogImpression:(FBNativeAd*)nativeAd
 {
     [super invokeAdImpressionConfirmed];
 }
-
-//- (void)nativeAdDidFinishHandlingClick:(FBNativeAd *)nativeAd
-//{
-//    NSLog(@"Native ad did finish click handling.");
-//}
-//
-//- (void)nativeAdDidLoad:(FBNativeAd *)nativeAd
-//{
-//    
-//}
-//
-//- (void)nativeAd:(FBNativeAd *)nativeAd didFailWithError:(NSError *)error
-//{
-//    
-//}
 
 @end

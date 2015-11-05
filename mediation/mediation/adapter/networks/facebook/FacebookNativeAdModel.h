@@ -7,13 +7,12 @@
 //
 
 #import "PubnativeAdModel.h"
+#import <FBAudienceNetwork/FBAudienceNetwork.h>
 
-@import FBAudienceNetwork;
-
-@interface FacebookNativeAdModel : PubnativeAdModel<FBNativeAdDelegate>
+@interface FacebookNativeAdModel : PubnativeAdModel
 
 @property(nonatomic,strong)FBNativeAd *nativeAd;
 
-- (instancetype) initWithNativeAd:(FBNativeAd *)nativeAd;
+- (instancetype)initWithNativeAd:(FBNativeAd*)nativeAd;
 
 @end

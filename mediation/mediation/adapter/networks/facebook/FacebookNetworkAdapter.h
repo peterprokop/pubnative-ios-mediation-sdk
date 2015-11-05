@@ -7,11 +7,8 @@
 //
 
 #import "PubnativeNetworkAdapter.h"
+#import <FBAudienceNetwork/FBAudienceNetwork.h>
 
-@import FBAudienceNetwork;
-
-@interface FacebookNetworkAdapter : PubnativeNetworkAdapter<FBNativeAdDelegate>
-
-- (void) makeRequest;
+@interface FacebookNetworkAdapter : PubnativeNetworkAdapter
 
 @end
