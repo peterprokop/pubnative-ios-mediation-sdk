@@ -13,9 +13,9 @@
 
 @interface PubnativeConfigModel : JSONModel
 
-@property (nonatomic, strong) PubnativeConfigGlobalsModel                       *globals;
-@property (nonatomic, strong) NSDictionary<NSString*, PubnativeNetworkModel*>   *networks;
-@property (nonatomic, strong) NSDictionary<NSString*, PubnativePlacementModel*> *placements;
+@property (nonatomic, strong) PubnativeConfigGlobalsModel   *globals;
+@property (nonatomic, strong) NSDictionary                  *networks;
+@property (nonatomic, strong) NSDictionary                  *placements;
 
 - (BOOL)isEmpty;
 

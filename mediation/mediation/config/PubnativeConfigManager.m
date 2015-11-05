@@ -49,7 +49,8 @@ static PubnativeConfigManager *_sharedInstance = nil;
     return _sharedInstance;
 }
 
-+ (void)configWithAppToken:(NSString *)appToken delegate:(NSObject<PubnativeConfigManagerDelegate> *)delegate
++ (void)configWithAppToken:(NSString*)appToken
+                  delegate:(NSObject<PubnativeConfigManagerDelegate>*)delegate
 {
     // Drop the call if no completion handler specified
     if(delegate){
@@ -109,7 +110,7 @@ static PubnativeConfigManager *_sharedInstance = nil;
                 NSTimeInterval currentTimestamp = [[NSDate date] timeIntervalSince1970];
                 NSTimeInterval elapsedTime = currentTimestamp - storedTimestamp;
                 
-                NSTimeInterval refreshSeconds = storedModel.globals.refresh * 60;
+                NSTimeInterval refreshSeconds = [storedModel.globals.refresh intValue] * 60;
                 if(elapsedTime > refreshSeconds){
                     // Config overdue
                     result = YES;
@@ -196,7 +197,9 @@ static PubnativeConfigManager *_sharedInstance = nil;
     }
 }
 
-+ (void)processDownloadResponseWithRequest:(PubnativeConfigRequestModel*)requestModel withJson:(id)json error:(JSONModelError*)error
++ (void)processDownloadResponseWithRequest:(PubnativeConfigRequestModel*)requestModel
+                                  withJson:(id)json
+                                     error:(JSONModelError*)error
 {
     if(error){
         // ERROR: Connection error
@@ -244,7 +247,8 @@ static PubnativeConfigManager *_sharedInstance = nil;
     }
 }
 
-+ (void)updateStoredConfig:(PubnativeConfigModel*)model withAppToken:(NSString*)appToken
++ (void)updateStoredConfig:(PubnativeConfigModel*)model
+              withAppToken:(NSString*)appToken
 {
     if(appToken && [appToken length] > 0 &&
        model && ![model isEmpty]){
