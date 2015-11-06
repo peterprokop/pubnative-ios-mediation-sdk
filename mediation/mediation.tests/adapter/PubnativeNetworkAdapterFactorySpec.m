@@ -25,9 +25,10 @@ describe(@"adapter creation", ^{
         
         it(@"adapter", ^{
             PubnativeNetworkModel *model = OCMClassMock([PubnativeNetworkModel class]);
-            OCMStub(model.params).andReturn(OCMClassMock([NSDictionary class]));
             OCMStub(model.adapter).andReturn(data[kAdapterKey]);
             PubnativeNetworkAdapter *adapter = [PubnativeNetworkAdapterFactory createApdaterWithNetwork:model];
+            
+            ///Test
             expect(adapter).to.beNil();
         });
     });
@@ -36,7 +37,6 @@ describe(@"adapter creation", ^{
         
         it(@"adapter", ^{
             PubnativeNetworkModel *model = OCMClassMock([PubnativeNetworkModel class]);
-            OCMStub(model.params).andReturn(OCMClassMock([NSDictionary class]));
             OCMStub(model.adapter).andReturn(data[kAdapterKey]);
             PubnativeNetworkAdapter *adapter = [PubnativeNetworkAdapterFactory createApdaterWithNetwork:model];
             
@@ -45,7 +45,6 @@ describe(@"adapter creation", ^{
             expect([adapter class]).to.equal(NSClassFromString(kValidNetworkAdapter));
             expect([adapter class]).beSubclassOf([PubnativeNetworkAdapter class]);
         });
-        
     });
     
     context(@"with valid network", ^{
