@@ -11,8 +11,6 @@
 
 @interface FacebookNativeAdModel : PubnativeAdModel
 
-@property(nonatomic,strong)FBNativeAd *nativeAd;
-
 - (instancetype)initWithNativeAd:(FBNativeAd*)nativeAd;
 
 @end

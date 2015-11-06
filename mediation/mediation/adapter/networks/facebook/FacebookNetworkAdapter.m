@@ -13,15 +13,15 @@ NSString * const kPlacementIdKey = @"placement_id";
 
 @interface PubnativeNetworkAdapter(Private)
 
-@property (nonatomic, strong)   NSDictionary        *paramsDictionary;
+@property (nonatomic, strong)   NSDictionary        *params;
 
-- (void) invokeLoadedWithAd:(PubnativeAdModel *)adModel;
-- (void) invokeFailedWithError:(NSError *)error;
+- (void)invokeDidLoad:(PubnativeAdModel*)ad;
+- (void)invokeDidFail:(NSError*)error;
 
 @end
 
 
-@interface FacebookNetworkAdapter()<FBNativeAdDelegate>
+@interface FacebookNetworkAdapter () <FBNativeAdDelegate>
 
 @property (strong, nonatomic) FBNativeAd * nativeAd;
 
@@ -32,21 +32,21 @@ NSString * const kPlacementIdKey = @"placement_id";
 
 - (void)doRequest
 {
-    if (self.paramsDictionary) {
-        NSString *placementId = [self.paramsDictionary valueForKey:kPlacementIdKey];
+    if (self.params) {
+        NSString *placementId = [self.params valueForKey:kPlacementIdKey];
         if (placementId && [placementId length] > 0) {
             [self createRequestWithPlacementId:placementId];
         } else {
-            NSError *error = [NSError errorWithDomain:@"FacebookNetworkAdapter - Invalid placement id provided"
+            NSError *error = [NSError errorWithDomain:@"FacebookNetworkAdapter.doRequest - Invalid placement id provided"
                                                  code:0
                                              userInfo:nil];
-            [super invokeFailedWithError:error];
+            [super invokeDidFail:error];
         }
     } else {
-        NSError *error = [NSError errorWithDomain:@"FacebookNetworkAdapter - No placement id provided"
+        NSError *error = [NSError errorWithDomain:@"FacebookNetworkAdapter.doRequest - Placement id not avaliable"
                                              code:0
                                          userInfo:nil];
-        [super invokeFailedWithError:error];
+        [super invokeDidFail:error];
     }
 }
 
@@ -64,7 +64,8 @@ NSString * const kPlacementIdKey = @"placement_id";
 - (void)nativeAdDidLoad:(FBNativeAd*)nativeAd
 {
     FacebookNativeAdModel *wrapModel = [[FacebookNativeAdModel alloc] initWithNativeAd:self.nativeAd];
-    [self invokeLoadedWithAd:wrapModel];
+    
+    [self invokeDidLoad:wrapModel];
 }
 
 - (void)nativeAd:(FBNativeAd*)nativeAd didFailWithError:(NSError*)error
@@ -74,7 +75,7 @@ NSString * const kPlacementIdKey = @"placement_id";
                                     code:0
                                 userInfo:nil];
     }
-    [self invokeFailedWithError:error];
+    [self invokeDidFail:error];
 }
 
 @end
