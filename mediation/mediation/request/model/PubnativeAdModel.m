@@ -18,37 +18,37 @@
 
 - (NSString*)title
 {
-    NSLog(@"Pubnative : Error : override me");
+    NSLog(@"PubnativeAdModel - Error: override me");
     return nil;
 }
 
 - (NSString*)description
 {
-    NSLog(@"Pubnative : Error : override me");
+    NSLog(@"PubnativeAdModel - Error: override me");
     return nil;
 }
 
 - (NSString*)iconURL
 {
-    NSLog(@"Pubnative : Error : override me");
+    NSLog(@"PubnativeAdModel - Error: override me");
     return nil;
 }
 
 - (NSString*)bannerURL
 {
-    NSLog(@"Pubnative : Error : override me");
+    NSLog(@"PubnativeAdModel - Error: override me");
     return nil;
 }
 
 - (NSString*)callToAction
 {
-    NSLog(@"Pubnative : Error : override me");
+    NSLog(@"PubnativeAdModel - Error: override me");
     return nil;
 }
 
 - (float)starRating
 {
-    NSLog(@"Pubnative : Error : override me");
+    NSLog(@"PubnativeAdModel - Error: override me");
     return 0.0;
 }
 

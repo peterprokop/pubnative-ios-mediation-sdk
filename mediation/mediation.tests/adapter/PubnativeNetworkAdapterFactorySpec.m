@@ -13,9 +13,8 @@
 #import <OCMock/OCMock.h>
 
 NSString * const kAdapterKey                    = @"adapter_key";
-NSString * const kNetworkKey                    = @"network_key";
 NSString * const kValidNetworkAdapter           = @"TestValidNetworkAdapter";
-NSString * const kInvalidNonExistentClass       = @"PubnativeAdapter";
+NSString * const kInvalidInExistentClass        = @"PubnativeAdapter";
 NSString * const kInvalidNonPubnativeAdapter    = @"PubnativeConfigManager";
 
 SpecBegin(PubnativeNetworkAdapterFactory)
@@ -25,7 +24,7 @@ describe(@"adapter creation", ^{
     sharedExamplesFor(@"dont create", ^(NSDictionary *data) {
         
         it(@"adapter", ^{
-            PubnativeNetworkModel *model = data[kNetworkKey];
+            PubnativeNetworkModel *model = OCMClassMock([PubnativeNetworkModel class]);
             OCMStub(model.params).andReturn(OCMClassMock([NSDictionary class]));
             OCMStub(model.adapter).andReturn(data[kAdapterKey]);
             PubnativeNetworkAdapter *adapter = [PubnativeNetworkAdapterFactory createApdaterWithNetwork:model];
@@ -36,7 +35,7 @@ describe(@"adapter creation", ^{
     sharedExamplesFor(@"create", ^(NSDictionary *data) {
         
         it(@"adapter", ^{
-            PubnativeNetworkModel *model = data[kNetworkKey];
+            PubnativeNetworkModel *model = OCMClassMock([PubnativeNetworkModel class]);
             OCMStub(model.params).andReturn(OCMClassMock([NSDictionary class]));
             OCMStub(model.adapter).andReturn(data[kAdapterKey]);
             PubnativeNetworkAdapter *adapter = [PubnativeNetworkAdapterFactory createApdaterWithNetwork:model];
@@ -52,27 +51,23 @@ describe(@"adapter creation", ^{
     context(@"with valid network", ^{
         
         context(@"and nil adapter", ^{
-            itBehavesLike(@"dont create", @{ kNetworkKey : (OCMClassMock([PubnativeNetworkModel class]))});
+            itBehavesLike(@"dont create", nil);
         });
         
         context(@"and empty adapter", ^{
-            itBehavesLike(@"dont create", @{ kAdapterKey : @"",
-                                             kNetworkKey : (OCMClassMock([PubnativeNetworkModel class])) });
+            itBehavesLike(@"dont create", @{ kAdapterKey : @""});
         });
         
         context(@"and invalid adapter", ^{
-            itBehavesLike(@"dont create", @{ kAdapterKey : kInvalidNonPubnativeAdapter,
-                                             kNetworkKey : (OCMClassMock([PubnativeNetworkModel class])) });
+            itBehavesLike(@"dont create", @{ kAdapterKey : kInvalidNonPubnativeAdapter});
         });
         
         context(@"and non existence class", ^{
-            itBehavesLike(@"dont create", @{ kAdapterKey : kInvalidNonExistentClass,
-                                             kNetworkKey : (OCMClassMock([PubnativeNetworkModel class])) });
+            itBehavesLike(@"dont create", @{ kAdapterKey : kInvalidInExistentClass});
         });
         
         context(@"and valid adapter", ^{
-            itBehavesLike(@"create", @{ kAdapterKey : kValidNetworkAdapter,
-                                        kNetworkKey : (OCMClassMock([PubnativeNetworkModel class]))});
+            itBehavesLike(@"create", @{ kAdapterKey : kValidNetworkAdapter});
         });
     });
 

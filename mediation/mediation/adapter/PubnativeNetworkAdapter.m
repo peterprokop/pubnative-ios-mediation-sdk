@@ -41,19 +41,19 @@
         }
         [self doRequest];
     } else {
-        NSLog(@"PubnativeNetworkAdapter.doRequest - network adapter delegate not specified");
+        NSLog(@"PubnativeNetworkAdapter.requestWithTimeout:delegate: - Error: network adapter delegate not specified");
     }
 }
 
 - (void)doRequest
 {
-    NSLog(@"Pubnative Mediation : Error : override me");
+    NSLog(@"PubnativeNetworkAdapter.doRequest - Error: override me");
 }
 
 #pragma mark - Request Timeout -
 - (void)requestTimeout
 {
-    NSError *error = [NSError errorWithDomain:@"PubnativeNetworkAdapter.doRequest - request timeout"
+    NSError *error = [NSError errorWithDomain:@"PubnativeNetworkAdapter - Error: request timeout"
                                          code:0
                                      userInfo:nil];
     
