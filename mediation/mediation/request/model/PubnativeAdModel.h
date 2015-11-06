@@ -13,8 +13,8 @@
 
 @protocol PubnativeAdModelDelegate <NSObject>
 
-- (void)adDidConfirmedImpression:(PubnativeAdModel *)ad;
-- (void)adDidClicked:(PubnativeAdModel *)ad;
+- (void)pubantiveAdDidConfirmedImpression:(PubnativeAdModel *)ad;
+- (void)pubnativeAdDidClicked:(PubnativeAdModel *)ad;
 
 @end
 

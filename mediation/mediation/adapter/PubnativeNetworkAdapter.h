@@ -22,6 +22,6 @@
 @interface PubnativeNetworkAdapter : NSObject
 
 - (instancetype)initWithDictionary:(NSDictionary*)dictionary;
-- (void)doRequestWithTimeout:(int)timeout delegate:(NSObject<PubnativeNetworkAdapterDelegate>*)delegate;
+- (void)requestWithTimeout:(int)timeout delegate:(NSObject<PubnativeNetworkAdapterDelegate>*)delegate;
 
 @end
