@@ -27,11 +27,11 @@
 }
 
 #pragma mark - Request -
-- (void)doRequestWithTimeout:(int)timeout delegate:(NSObject<PubnativeNetworkAdapterDelegate>*)delegate;
+- (void)requestWithTimeout:(int)timeout delegate:(NSObject<PubnativeNetworkAdapterDelegate>*)delegate;
 {
     if (delegate) {
         self.delegate = delegate;
-        [self invokeStart];
+        [self invokeDidStart];
         if (timeout > 0) {
             //timeout is in milliseconds
             dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * timeout * 0.001);
@@ -53,7 +53,6 @@
 #pragma mark - Request Timeout -
 - (void)requestTimeout
 {
-    NSLog(@"PubnativeNetworkAdapter.doRequest - request timeout");
     NSError *error = [NSError errorWithDomain:@"PubnativeNetworkAdapter.doRequest - request timeout"
                                          code:0
                                      userInfo:nil];
@@ -61,14 +60,8 @@
     [self invokeDidFail:error];
 }
 
--(void)cancelTimeout
-{
-    //To cancel the timeout callback
-    self.delegate = nil;
-}
-
 #pragma mark - Ads Invoke -
-- (void)invokeStart
+- (void)invokeDidStart
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(adapterRequestDidStart:)]) {
         [self.delegate adapterRequestDidStart:self];
@@ -80,7 +73,8 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(adapter:requestDidLoad:)]) {
         [self.delegate adapter:self requestDidLoad:ad];
     }
-    [self cancelTimeout];
+    //To cancel the timeout callback
+    self.delegate = nil;
 }
 
 - (void)invokeDidFail:(NSError*)error
@@ -88,7 +82,8 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(adapter:requestDidFail:)]) {
         [self.delegate adapter:self requestDidFail:error];
     }
-    [self cancelTimeout];
+    //To cancel the timeout callback
+    self.delegate = nil;
 }
 
 @end
