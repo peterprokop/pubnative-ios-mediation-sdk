@@ -12,11 +12,10 @@
 #import <OCMock/OCMock.h>
 
 int const kTimeOutHalfSecond = 500; //miliseconds
-int const kTimeOutZeroSecond = 0;   //miliseconds
 
 @interface PubnativeNetworkAdapter (Private)
 
-@property (nonatomic, weak)     NSObject<PubnativeNetworkAdapterDelegate>   *delegate;
+@property (nonatomic, weak) NSObject<PubnativeNetworkAdapterDelegate> *delegate;
 
 - (void)invokeDidStart;
 - (void)invokeDidLoad:(PubnativeAdModel*)ad;
@@ -92,25 +91,29 @@ describe(@"while doing request", ^{
         beforeAll(^{
             networkAdapter = OCMPartialMock([[PubnativeNetworkAdapter alloc] init]);
             delegateMock = OCMProtocolMock(@protocol(PubnativeNetworkAdapterDelegate));
+            OCMStub([networkAdapter invokeDidStart]).andDo(nil);
+            OCMStub([networkAdapter doRequest]).andDo(nil);
         });
 
         it(@"and timeout, requestTimeout called", ^{
-            OCMStub([networkAdapter invokeDidStart]).andDo(nil);
-            OCMStub([networkAdapter doRequest]).andDo(nil);
             OCMStub([networkAdapter invokeDidFail:[OCMArg any]]).andDo(nil);
             OCMExpect([networkAdapter requestTimeout]);
             [networkAdapter requestWithTimeout:kTimeOutHalfSecond delegate:delegateMock];
-            OCMVerify([networkAdapter invokeDidStart]);
-            OCMVerify([networkAdapter doRequest]);
             OCMVerifyAllWithDelay((id)networkAdapter, kTimeOutHalfSecond);
         });
 
         it(@"and without timeout, requestTimeout not called", ^{
-            OCMStub([networkAdapter invokeDidStart]).andDo(nil);
-            OCMStub([networkAdapter doRequest]).andDo(nil);
             [[(id)networkAdapter reject] requestTimeout];
-            [networkAdapter requestWithTimeout:kTimeOutZeroSecond delegate:delegateMock];
+            [networkAdapter requestWithTimeout:0 delegate:delegateMock];
+        });
+        
+        it(@"starts request", ^{
+            [networkAdapter requestWithTimeout:kTimeOutHalfSecond delegate:delegateMock];
             OCMVerify([networkAdapter invokeDidStart]);
+        });
+        
+        it(@"makes request", ^{
+            [networkAdapter requestWithTimeout:kTimeOutHalfSecond delegate:delegateMock];
             OCMVerify([networkAdapter doRequest]);
         });
     });

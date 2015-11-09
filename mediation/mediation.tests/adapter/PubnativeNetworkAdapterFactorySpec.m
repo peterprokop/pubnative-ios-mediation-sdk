@@ -14,7 +14,7 @@
 
 NSString * const kAdapterKey                    = @"adapter_key";
 NSString * const kValidNetworkAdapter           = @"TestValidNetworkAdapter";
-NSString * const kInvalidInExistentClass        = @"PubnativeAdapter";
+NSString * const kInvalidInexistentClass        = @"PubnativeAdapter";
 NSString * const kInvalidNonPubnativeAdapter    = @"PubnativeConfigManager";
 
 SpecBegin(PubnativeNetworkAdapterFactory)
@@ -42,7 +42,7 @@ describe(@"adapter creation", ^{
             
             ///Test
             expect(adapter).toNot.beNil();
-            expect([adapter class]).to.equal(NSClassFromString(kValidNetworkAdapter));
+            expect([adapter class]).to.equal(NSClassFromString(data[kAdapterKey]));
             expect([adapter class]).beSubclassOf([PubnativeNetworkAdapter class]);
         });
     });
@@ -62,7 +62,7 @@ describe(@"adapter creation", ^{
         });
         
         context(@"and inexistent class", ^{
-            itBehavesLike(@"dont create", @{ kAdapterKey : kInvalidInExistentClass});
+            itBehavesLike(@"dont create", @{ kAdapterKey : kInvalidInexistentClass});
         });
         
         context(@"and valid adapter", ^{

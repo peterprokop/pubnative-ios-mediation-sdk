@@ -9,15 +9,6 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
-@class PubnativeAdModel;
-
-@protocol PubnativeAdModelDelegate <NSObject>
-
-- (void)pubantiveAdDidConfirmedImpression:(PubnativeAdModel *)ad;
-- (void)pubnativeAdDidClicked:(PubnativeAdModel *)ad;
-
-@end
-
 @interface PubnativeAdModel : NSObject
 
 @property (nonatomic, readonly) NSString                    *title;
