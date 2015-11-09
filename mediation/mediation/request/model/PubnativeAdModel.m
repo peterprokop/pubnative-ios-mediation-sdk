@@ -46,12 +46,12 @@
     return 0.0;
 }
 
-- (void)didStartTrackingView:(UIView*)adView withViewController:(UIViewController*)adViewController
+- (void)adDidStartTrackingView:(UIView*)adView withViewController:(UIViewController*)adViewController
 {
     NSLog(@"PubnativeAdModel - Error: override me");
 }
 
-- (void)didStopTrackingView:(UIView*)adView
+- (void)adDidStopTrackingView:(UIView*)adView
 {
     NSLog(@"PubnativeAdModel - Error: override me");
 }

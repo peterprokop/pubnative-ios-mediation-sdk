@@ -19,6 +19,18 @@
 
 @end
 
+
+@protocol PubnativeBasicNetworkAdapter <NSObject>
+
+@property (nonatomic, strong)   NSDictionary                                *params;
+@property (nonatomic, weak)     NSObject<PubnativeNetworkAdapterDelegate>   *delegate;
+
+- (void)invokeDidLoad:(PubnativeAdModel*)ad;
+- (void)invokeDidFail:(NSError*)error;
+
+@end
+
+
 @interface PubnativeNetworkAdapter : NSObject
 
 - (instancetype)initWithDictionary:(NSDictionary*)dictionary;

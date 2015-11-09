@@ -8,14 +8,13 @@
 
 #import "PubnativeNetworkAdapter.h"
 
-@interface PubnativeNetworkAdapter()
-
-@property (nonatomic, strong)   NSDictionary                                *params;
-@property (nonatomic, weak)     NSObject<PubnativeNetworkAdapterDelegate>   *delegate;
+@interface PubnativeNetworkAdapter() <PubnativeBasicNetworkAdapter>
 
 @end
 
 @implementation PubnativeNetworkAdapter
+
+@synthesize params,delegate;
 
 - (instancetype)initWithDictionary:(NSDictionary*)dictionary
 {
@@ -27,10 +26,10 @@
 }
 
 #pragma mark - Request -
-- (void)requestWithTimeout:(int)timeout delegate:(NSObject<PubnativeNetworkAdapterDelegate>*)delegate;
+- (void)requestWithTimeout:(int)timeout delegate:(NSObject<PubnativeNetworkAdapterDelegate>*)adapterDelegate
 {
-    if (delegate) {
-        self.delegate = delegate;
+    if (adapterDelegate) {
+        self.delegate = adapterDelegate;
         [self invokeDidStart];
         if (timeout > 0) {
             //timeout is in milliseconds
@@ -70,6 +69,7 @@
 
 - (void)invokeDidLoad:(PubnativeAdModel*)ad
 {
+    //Implement this method as it is it in every type of network adapter
     if (self.delegate && [self.delegate respondsToSelector:@selector(adapter:requestDidLoad:)]) {
         [self.delegate adapter:self requestDidLoad:ad];
     }
@@ -79,6 +79,7 @@
 
 - (void)invokeDidFail:(NSError*)error
 {
+    //Implement this method as it is it in every type of network adapter    
     if (self.delegate && [self.delegate respondsToSelector:@selector(adapter:requestDidFail:)]) {
         [self.delegate adapter:self requestDidFail:error];
     }

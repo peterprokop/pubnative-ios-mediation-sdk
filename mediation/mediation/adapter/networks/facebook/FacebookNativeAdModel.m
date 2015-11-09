@@ -50,21 +50,23 @@
     return result;
 }
 
-- (NSString*)iconUrl
+- (NSString*)iconURL
 {
     NSString *result = nil;
     if (self.nativeAd &&
-        self.nativeAd.icon && self.nativeAd.icon.url) {
+        self.nativeAd.icon &&
+        self.nativeAd.icon.url) {
         result = [self.nativeAd.icon.url absoluteString];
     }
     return result;
 }
 
-- (NSString*)bannerUrl
+- (NSString*)bannerURL
 {
     NSString *result = nil;
     if (self.nativeAd &&
-        self.nativeAd.coverImage && self.nativeAd.coverImage.url) {
+        self.nativeAd.coverImage &&
+        self.nativeAd.coverImage.url) {
         result = [self.nativeAd.coverImage.url absoluteString];
     }
     return result;
@@ -93,7 +95,7 @@
     return starRating;
 }
 
-- (void)didStartTrackingView:(UIView*)adView withViewController:(UIViewController*)adViewController
+- (void)adDidStartTrackingView:(UIView*)adView withViewController:(UIViewController*)adViewController
 {
     if (self.nativeAd && adView) {
         self.nativeAd.delegate = self;
@@ -101,7 +103,7 @@
     }
 }
 
-- (void)didStopTrackingView:(UIView*)adView
+- (void)adDidStopTrackingView:(UIView*)adView
 {
     if (self.nativeAd) {
         [self.nativeAd unregisterView];
