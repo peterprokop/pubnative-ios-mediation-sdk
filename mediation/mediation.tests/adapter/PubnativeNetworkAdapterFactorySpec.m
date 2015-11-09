@@ -61,7 +61,7 @@ describe(@"adapter creation", ^{
             itBehavesLike(@"dont create", @{ kAdapterKey : kInvalidNonPubnativeAdapter});
         });
         
-        context(@"and non existence class", ^{
+        context(@"and inexistent class", ^{
             itBehavesLike(@"dont create", @{ kAdapterKey : kInvalidInExistentClass});
         });
         

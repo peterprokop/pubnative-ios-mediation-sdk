@@ -86,28 +86,32 @@ describe(@"callback methods", ^{
 describe(@"while doing request", ^{
     
     context(@"with delegate", ^{
-        __block PubnativeNetworkAdapter                     *networkAdapter;
+        __block id                                          networkAdapter;
         __block NSObject<PubnativeNetworkAdapterDelegate>   *delegateMock;
         
         beforeAll(^{
             networkAdapter = OCMPartialMock([[PubnativeNetworkAdapter alloc] init]);
             delegateMock = OCMProtocolMock(@protocol(PubnativeNetworkAdapterDelegate));
         });
-        
+
         it(@"and timeout, requestTimeout called", ^{
-            OCMExpect([networkAdapter invokeDidStart]);
-            OCMExpect([networkAdapter doRequest]);
+            OCMStub([networkAdapter invokeDidStart]).andDo(nil);
+            OCMStub([networkAdapter doRequest]).andDo(nil);
+            OCMStub([networkAdapter invokeDidFail:[OCMArg any]]).andDo(nil);
             OCMExpect([networkAdapter requestTimeout]);
             [networkAdapter requestWithTimeout:kTimeOutHalfSecond delegate:delegateMock];
+            OCMVerify([networkAdapter invokeDidStart]);
+            OCMVerify([networkAdapter doRequest]);
             OCMVerifyAllWithDelay((id)networkAdapter, kTimeOutHalfSecond);
         });
-        
-        it(@"and without timeout, does not call requestTimeout", ^{
+
+        it(@"and without timeout, requestTimeout not called", ^{
+            OCMStub([networkAdapter invokeDidStart]).andDo(nil);
+            OCMStub([networkAdapter doRequest]).andDo(nil);
             [[(id)networkAdapter reject] requestTimeout];
-            OCMExpect([networkAdapter invokeDidStart]);
-            OCMExpect([networkAdapter doRequest]);
             [networkAdapter requestWithTimeout:kTimeOutZeroSecond delegate:delegateMock];
-            OCMVerifyAll((id)networkAdapter);
+            OCMVerify([networkAdapter invokeDidStart]);
+            OCMVerify([networkAdapter doRequest]);
         });
     });
     
