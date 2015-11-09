@@ -17,7 +17,7 @@
         if (model.adapter && [model.adapter length] > 0) {
             Class adapterClass = NSClassFromString(model.adapter);
             if (adapterClass && [adapterClass isSubclassOfClass:[PubnativeNetworkAdapter class]]) {
-                    adapter = [[adapterClass alloc] initWithDictionary:model.params];
+                adapter = [[adapterClass alloc] initWithDictionary:model.params];
             } else {
                 NSLog(@"PubnativeNetworkAdapterFactory.createApdaterWithNetwork - Adapter not available");
             }

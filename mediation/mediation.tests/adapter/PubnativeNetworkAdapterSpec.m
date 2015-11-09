@@ -37,25 +37,25 @@ describe(@"callback methods", ^{
         __block id                      delegate;
         
         beforeEach(^{
-            networkAdapter = [PubnativeNetworkAdapter new];
+            networkAdapter = [[PubnativeNetworkAdapter alloc] init];
             delegate = OCMProtocolMock(@protocol(PubnativeNetworkAdapterDelegate));
             networkAdapter.delegate = delegate;
         });
         
-        it(@"invokeDidStart, call adapterRequestDidStart:", ^{
+        it(@"invokeDidStart callback delegate", ^{
             OCMExpect([delegate adapterRequestDidStart:[OCMArg any]]);
             [networkAdapter invokeDidStart];
             OCMVerifyAll(delegate);
         });
         
-        it(@"invokeDidLoad, call adapter:requestDidLoad:", ^{
+        it(@"invokeDidLoad callback delegate", ^{
             OCMExpect([delegate adapter:[OCMArg any] requestDidLoad:[OCMArg any]]);
             [networkAdapter invokeDidLoad:[OCMArg any]];
             OCMVerifyAll(delegate);
             expect(networkAdapter.delegate).to.beNil();
         });
         
-        it(@"invokeDidFail, call adapter:requestDidFail:", ^{
+        it(@"invokeDidFail callback delegate", ^{
             OCMExpect([delegate adapter:[OCMArg any] requestDidFail:[OCMArg any]]);
             [networkAdapter invokeDidFail:[OCMArg any]];            
             OCMVerifyAll(delegate);
@@ -67,7 +67,7 @@ describe(@"callback methods", ^{
         __block PubnativeNetworkAdapter *networkAdapter;
         
         beforeEach(^{
-            networkAdapter = [PubnativeNetworkAdapter new];
+            networkAdapter = [[PubnativeNetworkAdapter alloc] init];
         });
         
         it(@"invokeDidLoad, keeps delegate to nil", ^{
@@ -86,35 +86,39 @@ describe(@"callback methods", ^{
 describe(@"while doing request", ^{
     
     context(@"with delegate", ^{
-        __block PubnativeNetworkAdapter                     *networkAdapter;
+        __block id                                          networkAdapter;
         __block NSObject<PubnativeNetworkAdapterDelegate>   *delegateMock;
         
         beforeAll(^{
-            networkAdapter = OCMPartialMock([PubnativeNetworkAdapter new]);
+            networkAdapter = OCMPartialMock([[PubnativeNetworkAdapter alloc] init]);
             delegateMock = OCMProtocolMock(@protocol(PubnativeNetworkAdapterDelegate));
         });
-        
+
         it(@"and timeout, requestTimeout called", ^{
-            OCMExpect([networkAdapter invokeDidStart]);
-            OCMExpect([networkAdapter doRequest]);
+            OCMStub([networkAdapter invokeDidStart]).andDo(nil);
+            OCMStub([networkAdapter doRequest]).andDo(nil);
+            OCMStub([networkAdapter invokeDidFail:[OCMArg any]]).andDo(nil);
             OCMExpect([networkAdapter requestTimeout]);
             [networkAdapter requestWithTimeout:kTimeOutHalfSecond delegate:delegateMock];
+            OCMVerify([networkAdapter invokeDidStart]);
+            OCMVerify([networkAdapter doRequest]);
             OCMVerifyAllWithDelay((id)networkAdapter, kTimeOutHalfSecond);
         });
-        
-        it(@"and without timeout, does not call requestTimeout", ^{
+
+        it(@"and without timeout, requestTimeout not called", ^{
+            OCMStub([networkAdapter invokeDidStart]).andDo(nil);
+            OCMStub([networkAdapter doRequest]).andDo(nil);
             [[(id)networkAdapter reject] requestTimeout];
-            OCMExpect([networkAdapter invokeDidStart]);
-            OCMExpect([networkAdapter doRequest]);
             [networkAdapter requestWithTimeout:kTimeOutZeroSecond delegate:delegateMock];
-            OCMVerifyAll((id)networkAdapter);
+            OCMVerify([networkAdapter invokeDidStart]);
+            OCMVerify([networkAdapter doRequest]);
         });
     });
     
     context(@"without delegate", ^{
         
         it(@"drops call", ^{
-            id networkAdapter = OCMPartialMock([PubnativeNetworkAdapter new]);
+            id networkAdapter = OCMPartialMock([[PubnativeNetworkAdapter alloc] init]);
             [[networkAdapter reject] doRequest];
             [networkAdapter requestWithTimeout:0 delegate:nil];
             OCMVerifyAll(networkAdapter);
