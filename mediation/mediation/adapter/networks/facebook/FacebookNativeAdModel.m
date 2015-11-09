@@ -8,13 +8,6 @@
 
 #import "FacebookNativeAdModel.h"
 
-@interface PubnativeAdModel (Private)
-
-- (void)adDidConfirmedImpression:(PubnativeAdModel*)ad;
-- (void)adDidClicked:(PubnativeAdModel*)ad;
-
-@end
-
 @interface FacebookNativeAdModel () <FBNativeAdDelegate>
 
 @property(nonatomic,strong)FBNativeAd *nativeAd;
@@ -115,12 +108,12 @@
 
 - (void)nativeAdDidClick:(FBNativeAd*)nativeAd
 {
-    [super adDidClicked:self];
+    [self adDidClicked:self];
 }
 
 - (void)nativeAdWillLogImpression:(FBNativeAd*)nativeAd
 {
-    [super adDidConfirmedImpression:self];
+    [self adDidConfirmedImpression:self];
 }
 
 @end

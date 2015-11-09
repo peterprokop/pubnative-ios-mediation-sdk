@@ -18,4 +18,7 @@
 @property (nonatomic, readonly) NSString                    *callToAction;
 @property (nonatomic, readonly) float                       starRating;
 
+- (void)adDidConfirmedImpression:(PubnativeAdModel*)ad;
+- (void)adDidClicked:(PubnativeAdModel*)ad;
+
 @end
