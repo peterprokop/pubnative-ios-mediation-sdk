@@ -20,10 +20,10 @@
 }
 
 #pragma mark - Request -
-- (void)requestWithTimeout:(int)timeout delegate:(NSObject<PubnativeNetworkAdapterDelegate>*)adapterDelegate
+- (void)requestWithTimeout:(int)timeout delegate:(NSObject<PubnativeNetworkAdapterDelegate>*)delegate;
 {
-    if (adapterDelegate) {
-        self.delegate = adapterDelegate;
+    if (delegate) {
+        self.delegate = delegate;
         [self invokeDidStart];
         if (timeout > 0) {
             //timeout is in milliseconds

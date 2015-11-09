@@ -88,7 +88,7 @@
     return starRating;
 }
 
-- (void)adDidStartTrackingView:(UIView*)adView withViewController:(UIViewController*)adViewController
+- (void)pubantiveAdDidStartTrackingView:(UIView*)adView withViewController:(UIViewController*)adViewController
 {
     if (self.nativeAd && adView) {
         self.nativeAd.delegate = self;
@@ -96,7 +96,7 @@
     }
 }
 
-- (void)adDidStopTrackingView:(UIView*)adView
+- (void)pubantiveAdDidStopTrackingView:(UIView*)adView
 {
     if (self.nativeAd) {
         [self.nativeAd unregisterView];
@@ -108,12 +108,12 @@
 
 - (void)nativeAdDidClick:(FBNativeAd*)nativeAd
 {
-    [self adDidClicked:self];
+    [self invokeDidClicked:self];
 }
 
 - (void)nativeAdWillLogImpression:(FBNativeAd*)nativeAd
 {
-    [self adDidConfirmedImpression:self];
+    [self invokeDidConfirmedImpression:self];
 }
 
 @end

@@ -8,6 +8,12 @@
 
 #import "PubnativeAdModel.h"
 
+@interface PubnativeAdModel()
+
+@property (nonatomic, weak) NSObject<PubnativeAdModelDelegate> *delegate;
+
+@end
+
 @implementation PubnativeAdModel
 
 - (NSString*)title
@@ -46,24 +52,28 @@
     return 0.0;
 }
 
-- (void)adDidStartTrackingView:(UIView*)adView withViewController:(UIViewController*)adViewController
+- (void)pubantiveAdDidStartTrackingView:(UIView*)adView withViewController:(UIViewController*)adViewController
 {
     NSLog(@"PubnativeAdModel - Error: override me");
 }
 
-- (void)adDidStopTrackingView:(UIView*)adView
+- (void)pubantiveAdDidStopTrackingView:(UIView*)adView
 {
     NSLog(@"PubnativeAdModel - Error: override me");
 }
 
-- (void)adDidConfirmedImpression:(PubnativeAdModel*)ad
+- (void)invokeDidConfirmedImpression:(PubnativeAdModel*)ad
 {
-    //TODO: Implementation For Confirmed Impression
+    if (self.delegate && [self.delegate respondsToSelector:@selector(pubantiveAdDidConfirmedImpression:)]) {
+        [self.delegate pubantiveAdDidConfirmedImpression:ad];
+    }
 }
 
-- (void)adDidClicked:(PubnativeAdModel*)ad
+- (void)invokeDidClicked:(PubnativeAdModel*)ad
 {
-    //TODO: Implementation For Clicked
+    if (self.delegate && [self.delegate respondsToSelector:@selector(pubnativeAdDidClicked:)]) {
+        [self.delegate pubnativeAdDidClicked:ad];
+    }
 }
 
 @end

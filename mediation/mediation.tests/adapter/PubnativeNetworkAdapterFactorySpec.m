@@ -14,6 +14,7 @@
 
 NSString * const kAdapterKey                    = @"adapter_key";
 NSString * const kValidNetworkAdapter           = @"TestValidNetworkAdapter";
+NSString * const kValidFacebookNetworkAdapter   = @"FacebookNetworkAdapter";
 NSString * const kInvalidInexistentClass        = @"PubnativeAdapter";
 NSString * const kInvalidNonPubnativeAdapter    = @"PubnativeConfigManager";
 
@@ -67,6 +68,7 @@ describe(@"adapter creation", ^{
         
         context(@"and valid adapter", ^{
             itBehavesLike(@"create", @{ kAdapterKey : kValidNetworkAdapter});
+            itBehavesLike(@"create", @{ kAdapterKey : kValidFacebookNetworkAdapter});
         });
     });
 
