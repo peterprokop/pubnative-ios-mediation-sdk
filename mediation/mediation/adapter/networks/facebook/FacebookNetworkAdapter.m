@@ -11,15 +11,13 @@
 
 NSString * const kPlacementIdKey = @"placement_id";
 
-@interface FacebookNetworkAdapter () <FBNativeAdDelegate,PubnativeBasicNetworkAdapter>
+@interface FacebookNetworkAdapter () <FBNativeAdDelegate>
 
 @property (strong, nonatomic) FBNativeAd * nativeAd;
 
 @end
 
 @implementation FacebookNetworkAdapter
-
-@synthesize params,delegate;
 
 - (void)doRequest
 {
@@ -66,24 +64,6 @@ NSString * const kPlacementIdKey = @"placement_id";
                                 userInfo:nil];
     }
     [self invokeDidFail:error];
-}
-
-- (void)invokeDidLoad:(PubnativeAdModel*)ad
-{
-    if (self.delegate && [self.delegate respondsToSelector:@selector(adapter:requestDidLoad:)]) {
-        [self.delegate adapter:self requestDidLoad:ad];
-    }
-    //To cancel the timeout callback
-    self.delegate = nil;
-}
-
-- (void)invokeDidFail:(NSError*)error
-{
-    if (self.delegate && [self.delegate respondsToSelector:@selector(adapter:requestDidFail:)]) {
-        [self.delegate adapter:self requestDidFail:error];
-    }
-    //To cancel the timeout callback
-    self.delegate = nil;
 }
 
 @end

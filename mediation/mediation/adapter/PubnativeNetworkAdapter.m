@@ -8,13 +8,7 @@
 
 #import "PubnativeNetworkAdapter.h"
 
-@interface PubnativeNetworkAdapter() <PubnativeBasicNetworkAdapter>
-
-@end
-
 @implementation PubnativeNetworkAdapter
-
-@synthesize params,delegate;
 
 - (instancetype)initWithDictionary:(NSDictionary*)dictionary
 {
@@ -69,7 +63,6 @@
 
 - (void)invokeDidLoad:(PubnativeAdModel*)ad
 {
-    //Implement this method as it is it in every type of network adapter
     if (self.delegate && [self.delegate respondsToSelector:@selector(adapter:requestDidLoad:)]) {
         [self.delegate adapter:self requestDidLoad:ad];
     }
@@ -79,7 +72,6 @@
 
 - (void)invokeDidFail:(NSError*)error
 {
-    //Implement this method as it is it in every type of network adapter    
     if (self.delegate && [self.delegate respondsToSelector:@selector(adapter:requestDidFail:)]) {
         [self.delegate adapter:self requestDidFail:error];
     }
