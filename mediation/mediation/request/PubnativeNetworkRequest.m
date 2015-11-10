@@ -9,13 +9,13 @@
 #import "PubnativeNetworkRequest.h"
 #import "PubnativeConfigManager.h"
 #import "PubnativeNetworkAdapterFactory.h"
-#import "NSString+PubnativeStringUtil.h"
 
-@interface PubnativeNetworkRequest ()<PubnativeNetworkAdapterDelegate, PubnativeConfigManagerDelegate>
+@interface PubnativeNetworkRequest () <PubnativeNetworkAdapterDelegate, PubnativeConfigManagerDelegate>
 
-@property(strong,nonatomic)NSString             *placementKey;
-@property(strong,nonatomic)PubnativeConfigModel *configModel;
-@property int                                   currentNetworkIndex;
+@property (strong, nonatomic) NSString                              *placementKey;
+@property (strong, nonatomic) PubnativeConfigModel                  *config;
+@property (weak, nonatomic)   id <PubnativeNetworkRequestDelegate>  delegate;
+@property                     int                                   currentNetworkIndex;
 
 @end
 
@@ -23,177 +23,143 @@
 
 #pragma mark - Network Request -
 
-- (void) startRequestWithAppToken:(NSString*)appToken andPlacement:(NSString*)placementKey
+- (void)startRequestWithAppToken:(NSString*)appToken
+                    placementKey:(NSString*)placementKey
+                        delegate:(id<PubnativeNetworkRequestDelegate>)delegate
 {
-    NSError *error = nil;
-    
-    if (self.delegate) {
-    
-        [self invokeStart];
-        
-        if (appToken && ![appToken isEmptyString] && placementKey && ![placementKey isEmptyString]) {
-            
+    if (delegate) {
+        self.delegate = delegate;
+        [self invokeDidStart];
+        if (appToken && [appToken length] > 0 &&
+            placementKey && [placementKey length] > 0) {
             self.placementKey = placementKey;
-            
             [PubnativeConfigManager configWithAppToken:appToken
                                               delegate:self];
         } else {
-            
-            error = [NSError errorWithDomain:NSLocalizedString(@"PubnativeNetworkRequest : Error while fetching appToken and placementKey", @"") code:0 userInfo:nil];
-            
+            NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.startRequestWithAppToken:placementKey:delegate:- Error: Invalid AppToken/PlacementKey"
+                                                 code:0
+                                             userInfo:nil];
+            [self invokeDidFail:error];
         }
-        
     } else {
-        
-        error = [NSError errorWithDomain:NSLocalizedString(@"PubnativeNetworkRequest : Error no delegate specified, dropping the call", @"") code:0 userInfo:nil];
-
-    }
-    
-    if (error) {
-        
-        [self invokeCompletionWithError:error];
-        
+        NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.startRequestWithAppToken:placementKey:delegate:- Error: Delegate not specified"
+                                             code:0
+                                         userInfo:nil];
+        [self invokeDidFail:error];
     }
 }
 
-- (void) startRequest
+- (void)startRequest
 {
-    NSError *error = nil;
-    
-    if (self.configModel) {
-        
-        PubnativePlacementModel * placementModel = [self.configModel.placements objectForKey:self.placementKey];
-        
-        if (placementModel && placementModel.delivery_rule) {
-            
-            if (placementModel.delivery_rule.isActive) {
-                
+    if (self.config) {
+        PubnativePlacementModel * placement = [self.config.placements objectForKey:self.placementKey];
+        if (placement && placement.delivery_rule) {
+            if (placement.delivery_rule.isActive) {
                 // TODO: Need to handle the scenario
-                [self startRequestWithPlacementModel:placementModel];
-                
+                [self startRequestWithPlacement:placement];
             } else {
-                
-                error = [NSError errorWithDomain:NSLocalizedString(@"PubnativeNetworkRequest : Error while making request : placement_id not active", @"") code:0 userInfo:nil];
-                
+                NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.startRequest- Error: Inactive placement"
+                                                     code:0
+                                                 userInfo:nil];
+                [self invokeDidFail:error];
             }
-            
         } else {
-            
-            error = [NSError errorWithDomain:NSLocalizedString(@"PubnativeNetworkRequest : Error while making request invalid placementModel retrieved", @"") code:0 userInfo:nil];
-            
+            NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.startRequest- Error: Invalid placement"
+                                                 code:0
+                                             userInfo:nil];
+            [self invokeDidFail:error];
         }
-        
     } else {
-        
-        error = [NSError errorWithDomain:NSLocalizedString(@"PubnativeNetworkRequest : Error while making request invalid config retrieved", @"") code:0 userInfo:nil];
-        
+        NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.startRequest- Error: Invalid config"
+                                             code:0
+                                         userInfo:nil];
+        [self invokeDidFail:error];
     }
-    
-    if (error) {
-        
-        [self invokeCompletionWithError:error];
-        
-    }
-    
 }
 
-- (void) startRequestWithPlacementModel:(PubnativePlacementModel *)placementModel
+- (void)startRequestWithPlacement:(PubnativePlacementModel*)placement
 {
-    NSError *error = nil;
-    
-    if (placementModel && placementModel.delivery_rule) {
+    if (placement && placement.delivery_rule) {
         
         // TODO: Need to handle the scenario
         // This is related to delivery manager
         // Do next network request
-        [self doNextNetworkRequestWithPlacementModel:placementModel];
-        
+        [self doNextNetworkRequestWithPlacement:placement];
     } else {
-        
-        error = [NSError errorWithDomain:NSLocalizedString(@"PubnativeNetworkRequest : Error while making request invalid placement model retrieved", @"") code:0 userInfo:nil];
-        
-    }
-    
-    if (error) {
-        
-        [self invokeCompletionWithError:error];
-        
+        NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.startRequestWithPlacementModel:- Error: Invalid placement"
+                                             code:0
+                                         userInfo:nil];
+        [self invokeDidFail:error];
     }
 }
 
-- (void) doNextNetworkRequestWithPlacementModel:(PubnativePlacementModel *)placementModel{
-    
-    NSError *error = nil;
-    
-    if (placementModel && placementModel.priority_rules && placementModel.priority_rules.count > self.currentNetworkIndex) {
-        
-        PubnativePriorityRulesModel * protityRuleModel = placementModel.priority_rules[self.currentNetworkIndex];
-        NSString *currentNetworkId = protityRuleModel.network_code;
+- (void)doNextNetworkRequestWithPlacement:(PubnativePlacementModel*)placement
+{
+    if (placement &&
+        placement.priority_rules &&
+        placement.priority_rules.count > self.currentNetworkIndex) {
+        PubnativePriorityRulesModel * protityRule = placement.priority_rules[self.currentNetworkIndex];
+        NSString *currentNetworkId = protityRule.network_code;
         self.currentNetworkIndex++;
         
-        if (currentNetworkId && ![currentNetworkId isEmptyString]) {
-            
-            PubnativeNetworkModel *networkModel = [self getNetworkModelForNetworkId:currentNetworkId];
-            PubnativeNetworkAdapter *adapter = [PubnativeNetworkAdapterFactory createApdaterWithNetworkModel:networkModel];
-            
+        if (currentNetworkId && [currentNetworkId length] > 0) {
+            PubnativeNetworkModel *network = [self getNetworkForNetworkId:currentNetworkId];
+            PubnativeNetworkAdapter *adapter = [PubnativeNetworkAdapterFactory createApdaterWithNetwork:network];
             if (adapter) {
-                
-                [adapter doRequestWithTimeout:networkModel.timeout delegate:self];
-                
+                [adapter requestWithTimeout:[network.timeout intValue] delegate:self];
             } else {
-                error = [NSError errorWithDomain:NSLocalizedString(@"PubnativeNetworkRequest : Error while making adapter for network model", @"") code:0 userInfo:nil];
+                NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.doNextNetworkRequestWithPlacementModel:- Error: Invalid adapter"
+                                                     code:0
+                                                 userInfo:nil];
+                [self invokeDidFail:error];
             }
         } else {
-            error = [NSError errorWithDomain:NSLocalizedString(@"PubnativeNetworkRequest : Error while making next request invalid network id retrieved", @"") code:0 userInfo:nil];
+            NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.doNextNetworkRequestWithPlacementModel:- Error: Invalid network code"
+                                                 code:0
+                                             userInfo:nil];
+            [self invokeDidFail:error];
         }
     } else {
-        error = [NSError errorWithDomain:NSLocalizedString(@"PubnativeNetworkRequest : Error while making next request invalid placement model retrieved", @"") code:0 userInfo:nil];
-    }
-    
-    if (error) {
-        [self invokeCompletionWithError:error];
+        NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.doNextNetworkRequestWithPlacementModel:- Error: Invalid/No placement model"
+                                             code:0
+                                         userInfo:nil];
+        [self invokeDidFail:error];
     }
 }
 
-#pragma mark Network Model
-- (PubnativeNetworkModel *) getNetworkModelForNetworkId:(NSString *)networkId
+#pragma mark - Network Model
+- (PubnativeNetworkModel*)getNetworkForNetworkId:(NSString*)networkId
 {
-    PubnativeNetworkModel *networkModel = nil;
-    
-    if (networkId && ![networkId isEmptyString]) {
-        
-        if (self.configModel && self.configModel.networks) {
-            networkModel = [self.configModel.networks objectForKey:networkId];
+    PubnativeNetworkModel *network = nil;
+    if (networkId && [networkId length] > 0) {
+        if (self.config && self.config.networks) {
+            network = [self.config.networks objectForKey:networkId];
         }
     }
-    
-    return networkModel;
+    return network;
 }
 
 
 #pragma mark - Network Request Status -
 
-- (void) invokeStart
+- (void)invokeDidStart
 {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(initRequest:)]) {
-        
-        [self.delegate initRequest:self];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(requestDidStart:)]) {
+        [self.delegate requestDidStart:self];
     }
 }
 
-- (void) invokeCompletionWithError:(NSError*)error
+- (void)invokeDidFail:(NSError*)error
 {
-    if(self.delegate && [self.delegate respondsToSelector:@selector(failedRequest:withError:)]){
-        
-        [self.delegate failedRequest:self withError:error];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(request:didFail:)]){
+        [self.delegate request:self didFail:error];
     }
 }
 
-- (void) invokeCompletionWithAdModel:(PubnativeAdModel*)adModel
+- (void)invokeDidLoad:(PubnativeAdModel*)ad
 {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(loadRequest:withAd:)]) {
-        
-        [self.delegate loadRequest:self withAd:adModel];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(request:didLoad:)]) {
+        [self.delegate request:self didLoad:ad];
     }
 }
 
@@ -203,7 +169,7 @@
 
 - (void)configDidFinishWithModel:(PubnativeConfigModel*)model
 {
-    self.configModel = model;
+    self.config = model;
     [self startRequest];
 }
 
@@ -214,17 +180,17 @@
 
 #pragma mark PubnativeNetworkAdapterDelegate
 
-- (void) initAdapterRequest:(PubnativeNetworkAdapter *)adapter
+- (void)adapterRequestDidStart:(PubnativeNetworkAdapter*)adapter
 {
     // TODO: Implementation pending
 }
 
-- (void) loadAdapterRequest:(PubnativeNetworkAdapter *)adapter withAd:(PubnativeAdModel *)ad
+- (void)adapter:(PubnativeNetworkAdapter*)adapter requestDidLoad:(PubnativeAdModel*)ad
 {
     // TODO: Implementation pending
 }
 
-- (void) failedAdapterRequest:(PubnativeNetworkAdapter *)adapter withError:(NSError *)error
+- (void)adapter:(PubnativeNetworkAdapter*)adapter requestDidFail:(NSError*)error
 {
     // TODO: Implementation pending
 }

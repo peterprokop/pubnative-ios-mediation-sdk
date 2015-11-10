@@ -9,6 +9,7 @@
 #import "Specta.h"
 #import "Expecta.h"
 #import "PubnativeNetworkRequest.h"
+#import <OCMock/OCMock.h>
 
 static NSString * const kAppTokenValid              = @"e3886645aabbf0d5c06f841a3e6d77fcc8f9de4469d538ab8a96cb507d0f2660";
 static NSString * const kPlacementFacebookOnlyKey   = @"facebook_only";
@@ -28,7 +29,7 @@ describe(@"Behaviour", ^{
     
     it(@"Pubnative Request Start Request", ^{
         PubnativeNetworkRequest *request = [[PubnativeNetworkRequest alloc]init];
-        [request startRequestWithAppToken:kAppTokenValid andPlacement:kPlacementFacebookOnlyKey];
+        [request startRequestWithAppToken:kAppTokenValid placementKey:kPlacementFacebookOnlyKey delegate:OCMProtocolMock(@protocol(PubnativeNetworkRequestDelegate))];
         pending(@"write some tests");
     });
     

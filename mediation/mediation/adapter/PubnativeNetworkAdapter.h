@@ -15,7 +15,7 @@
 
 - (void)adapterRequestDidStart:(PubnativeNetworkAdapter*)adapter;
 - (void)adapter:(PubnativeNetworkAdapter*)adapter requestDidLoad:(PubnativeAdModel*)ad;
-- (void)adapter:(PubnativeNetworkAdapter*)adapter requestDidFail:(NSError *)error;
+- (void)adapter:(PubnativeNetworkAdapter*)adapter requestDidFail:(NSError*)error;
 
 @end
 

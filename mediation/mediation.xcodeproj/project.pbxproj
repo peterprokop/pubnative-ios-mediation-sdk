@@ -35,7 +35,6 @@
 		D5E26AC71BEA4F6E00888F42 /* PubnativeNetworkAdapterFactorySpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E26AC51BEA4F6E00888F42 /* PubnativeNetworkAdapterFactorySpec.m */; };
 		D5E26AC81BEA4F6E00888F42 /* PubnativeNetworkAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E26AC61BEA4F6E00888F42 /* PubnativeNetworkAdapterSpec.m */; };
 		D5E26AD81BEA528D00888F42 /* PubnativeNetworkRequestSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E26AD71BEA528D00888F42 /* PubnativeNetworkRequestSpec.m */; };
-		D5E26ADC1BEA52C500888F42 /* NSString+PubnativeStringUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E26ADB1BEA52C500888F42 /* NSString+PubnativeStringUtil.m */; };
 		D5FE08231BEA170B007396B6 /* PubnativeConfigAPIResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FE08101BEA170A007396B6 /* PubnativeConfigAPIResponseModel.m */; };
 		D5FE08241BEA170B007396B6 /* PubnativeConfigGlobalsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FE08121BEA170A007396B6 /* PubnativeConfigGlobalsModel.m */; };
 		D5FE08251BEA170B007396B6 /* PubnativeConfigModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FE08141BEA170B007396B6 /* PubnativeConfigModel.m */; };
@@ -123,8 +122,6 @@
 		D5E26AC51BEA4F6E00888F42 /* PubnativeNetworkAdapterFactorySpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeNetworkAdapterFactorySpec.m; sourceTree = "<group>"; };
 		D5E26AC61BEA4F6E00888F42 /* PubnativeNetworkAdapterSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeNetworkAdapterSpec.m; sourceTree = "<group>"; };
 		D5E26AD71BEA528D00888F42 /* PubnativeNetworkRequestSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeNetworkRequestSpec.m; sourceTree = "<group>"; };
-		D5E26ADA1BEA52C500888F42 /* NSString+PubnativeStringUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PubnativeStringUtil.h"; sourceTree = "<group>"; };
-		D5E26ADB1BEA52C500888F42 /* NSString+PubnativeStringUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PubnativeStringUtil.m"; sourceTree = "<group>"; };
 		D5FE080F1BEA170A007396B6 /* PubnativeConfigAPIResponseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeConfigAPIResponseModel.h; sourceTree = "<group>"; };
 		D5FE08101BEA170A007396B6 /* PubnativeConfigAPIResponseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeConfigAPIResponseModel.m; sourceTree = "<group>"; };
 		D5FE08111BEA170A007396B6 /* PubnativeConfigGlobalsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeConfigGlobalsModel.h; sourceTree = "<group>"; };
@@ -226,7 +223,6 @@
 		D54384641BC528A000EBE27A /* mediation */ = {
 			isa = PBXGroup;
 			children = (
-				D5E26AD91BEA52C500888F42 /* utils */,
 				D543847D1BC528D000EBE27A /* adapter */,
 				D5FE080D1BEA170A007396B6 /* config */,
 				D543848E1BC528D000EBE27A /* request */,
@@ -365,15 +361,6 @@
 				D5E26AD71BEA528D00888F42 /* PubnativeNetworkRequestSpec.m */,
 			);
 			path = request;
-			sourceTree = "<group>";
-		};
-		D5E26AD91BEA52C500888F42 /* utils */ = {
-			isa = PBXGroup;
-			children = (
-				D5E26ADA1BEA52C500888F42 /* NSString+PubnativeStringUtil.h */,
-				D5E26ADB1BEA52C500888F42 /* NSString+PubnativeStringUtil.m */,
-			);
-			path = utils;
 			sourceTree = "<group>";
 		};
 		D5FE080D1BEA170A007396B6 /* config */ = {
@@ -642,7 +629,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5FE08231BEA170B007396B6 /* PubnativeConfigAPIResponseModel.m in Sources */,
-				D5E26ADC1BEA52C500888F42 /* NSString+PubnativeStringUtil.m in Sources */,
 				D54384941BC528D000EBE27A /* PubnativeNetworkAdapter.m in Sources */,
 				D5FE08281BEA170B007396B6 /* PubnativeNetworkModel.m in Sources */,
 				D54384991BC528D000EBE27A /* PubnativeAdModel.m in Sources */,

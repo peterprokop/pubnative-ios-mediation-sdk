@@ -13,16 +13,16 @@
 
 @protocol PubnativeNetworkRequestDelegate <NSObject>
 
-- (void) initRequest:(PubnativeNetworkRequest *)request;
-- (void) loadRequest:(PubnativeNetworkRequest *)request withAd:(PubnativeAdModel *)ad;
-- (void) failedRequest:(PubnativeNetworkRequest *)request withError:(NSError *)error;
+-(void)requestDidStart:(PubnativeNetworkRequest *)request;
+-(void)request:(PubnativeNetworkRequest *)request didLoad:(PubnativeAdModel*)ad;
+-(void)request:(PubnativeNetworkRequest *)request didFail:(NSError*)error;
 
 @end
 
 @interface PubnativeNetworkRequest : NSObject
 
-@property (nonatomic, weak) id <PubnativeNetworkRequestDelegate> delegate;
-
-- (void) startRequestWithAppToken:(NSString*)appToken andPlacement:(NSString*)placementKey;
+- (void)startRequestWithAppToken:(NSString*)appToken
+                    placementKey:(NSString*)placementKey
+                        delegate:(id<PubnativeNetworkRequestDelegate>)delegate;
 
 @end
