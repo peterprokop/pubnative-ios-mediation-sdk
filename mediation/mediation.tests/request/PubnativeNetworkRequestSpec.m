@@ -18,6 +18,13 @@ NSString * const kAppTokenKey       = @"apptoken_key";
 NSString * const kPlacementInvalid  = @"placement_invalid";
 NSString * const kAppTokenInvalid   = @"app_token_invalid";
 
+@interface PubnativeNetworkRequest (Private)
+
+- (void)adapter:(PubnativeNetworkAdapter*)adapter requestDidLoad:(PubnativeAdModel*)ad;
+-(void)fetchConfigWithAppToken:(NSString*)appToken;
+
+@end
+
 SpecBegin(PubnativeNetworkRequest)
 
 describe(@"callback methods", ^{
@@ -40,12 +47,24 @@ describe(@"callback methods", ^{
         sharedExamples(@"invoke load", ^(NSDictionary *data) {
             
             it(@"callback method", ^{
-                pending(@"stun config manager call here");
+                PubnativeNetworkRequest *request = OCMPartialMock([[PubnativeNetworkRequest alloc] init]);
+                id delegate = OCMProtocolMock(@protocol(PubnativeNetworkRequestDelegate));
+                OCMStub([request fetchConfigWithAppToken:data[kAppTokenKey]]).andDo(^(NSInvocation *invocation){
+                    [request adapter:OCMClassMock([PubnativeNetworkAdapter class])
+                      requestDidLoad:OCMClassMock([PubnativeAdModel class])];
+                });
+                
+                [request startRequestWithAppToken:data[kAppTokenKey]
+                                     placementKey:data[kPlacementKey]
+                                         delegate:delegate];
+                OCMVerify([delegate requestDidStart:[OCMArg any]]);
+                OCMVerify([delegate request:[OCMArg any] didLoad:[OCMArg any]]);
+                OCMVerifyAll(delegate);
             });
         });
         
         context(@"with delegate", ^{
-
+            
             context(@"having nil apptoken and nil placementKey", ^{
                 itBehavesLike(@"invoke fail", nil);
             });
@@ -77,7 +96,7 @@ describe(@"callback methods", ^{
             context(@"having invalid apptoken and empty placementKey", ^{
                 itBehavesLike(@"invoke fail", @{ kAppTokenKey : kAppTokenInvalid, kPlacementKey : @""});
             });
-
+            
             context(@"having invalid apptoken and invalid placementKey", ^{
                 itBehavesLike(@"invoke load", @{ kAppTokenKey : kAppTokenInvalid, kPlacementKey : kPlacementInvalid});
             });
