@@ -14,97 +14,68 @@
 
 NSString * const kAdapterKey                    = @"adapter_key";
 NSString * const kValidNetworkAdapter           = @"TestValidNetworkAdapter";
-NSString * const kInvalidNonExistentClass       = @"PubnativeAdapter";
+NSString * const kInvalidInexistentClass        = @"PubnativeAdapter";
 NSString * const kInvalidNonPubnativeAdapter    = @"PubnativeConfigManager";
 
 SpecBegin(PubnativeNetworkAdapterFactory)
 
 describe(@"adapter creation", ^{
     
-    context(@"for error", ^{
+    sharedExamplesFor(@"dont create", ^(NSDictionary *data) {
         
-        sharedExamplesFor(@"when creating", ^(NSDictionary *data) {
+        it(@"adapter", ^{
+            PubnativeNetworkModel *model = OCMClassMock([PubnativeNetworkModel class]);
+            OCMStub(model.adapter).andReturn(data[kAdapterKey]);
+            PubnativeNetworkAdapter *adapter = [PubnativeNetworkAdapterFactory createApdaterWithNetwork:model];
             
-            __block PubnativeNetworkModel *networkModel;
-            __block PubnativeNetworkAdapter *networkAdapter;
-            
-            beforeAll(^{
-                networkModel = OCMClassMock([PubnativeNetworkModel class]);
-                OCMStub(networkModel.params).andReturn(OCMClassMock([NSDictionary class]));
-            });
-            
-            it(@"nil, does not create adapter", ^{
-                OCMStub(networkModel.adapter).andReturn(data[kAdapterKey]);
-                networkAdapter = [PubnativeNetworkAdapterFactory createApdaterWithNetworkModel:networkModel];
-                expect(networkAdapter).to.beNil();
-            });
-            
-            it(@"empty, does not create adapter", ^{
-                OCMStub(networkModel.adapter).andReturn(data[kAdapterKey]);
-                networkAdapter = [PubnativeNetworkAdapterFactory createApdaterWithNetworkModel:networkModel];
-                expect(networkAdapter).to.beNil();
-            });
-            
-            it(@"invalid, does not creates adapter", ^{
-                OCMStub(networkModel.adapter).andReturn(data[kAdapterKey]);
-                networkAdapter = [PubnativeNetworkAdapterFactory createApdaterWithNetworkModel:networkModel];
-                expect([networkAdapter class]).to.beNil();
-            });
-            
-            it(@"with nil network model", ^{
-                networkModel = nil;
-                networkAdapter = [PubnativeNetworkAdapterFactory createApdaterWithNetworkModel:networkModel];
-                expect([networkAdapter class]).to.beNil();
-            });
+            ///Test
+            expect(adapter).to.beNil();
         });
-        
-        context(@"with invalid adapter", ^{
-            itBehavesLike(@"when creating", @{kAdapterKey : kInvalidNonExistentClass});
-        });
-        
-        context(@"with valid class but invalid adpater", ^{
-            itBehavesLike(@"when creating", @{kAdapterKey : kInvalidNonPubnativeAdapter});
-        });
-        
-        context(@"with empty adapter", ^{
-            itBehavesLike(@"when creating", @{kAdapterKey : @""});
-        });
-       
-        context(@"with nil adapter", ^{
-            itBehavesLike(@"when creating", nil);
-        });
-        
     });
     
-    context(@"for success", ^{
-        {
+    sharedExamplesFor(@"create", ^(NSDictionary *data) {
+        
+        it(@"adapter", ^{
+            PubnativeNetworkModel *model = OCMClassMock([PubnativeNetworkModel class]);
+            OCMStub(model.adapter).andReturn(data[kAdapterKey]);
+            PubnativeNetworkAdapter *adapter = [PubnativeNetworkAdapterFactory createApdaterWithNetwork:model];
             
-            sharedExamplesFor(@"when creating", ^(NSDictionary *data) {
-                
-                __block PubnativeNetworkModel *networkModel;
-                __block PubnativeNetworkAdapter *networkAdapter;
-                
-                beforeAll(^{
-                    networkModel = OCMClassMock([PubnativeNetworkModel class]);
-                    OCMStub(networkModel.params).andReturn(OCMClassMock([NSDictionary class]));
-                });
-                
-                it(@"valid, creates adapter", ^{
-                    OCMStub(networkModel.adapter).andReturn(data[kAdapterKey]);
-                    networkAdapter = [PubnativeNetworkAdapterFactory createApdaterWithNetworkModel:networkModel];
-                    expect(networkAdapter).toNot.beNil();
-                    expect([networkAdapter class]).to.equal(NSClassFromString(data[kAdapterKey]));
-                    expect([networkAdapter class]).beSubclassOf([PubnativeNetworkAdapter class]);
-                });
-            });
-            
-            context(@"with valid network adapter", ^{
-                itBehavesLike(@"when creating", @{kAdapterKey : kValidNetworkAdapter});
-            });
-            
-        }
+            ///Test
+            expect(adapter).toNot.beNil();
+            expect([adapter class]).to.equal(NSClassFromString(data[kAdapterKey]));
+            expect([adapter class]).beSubclassOf([PubnativeNetworkAdapter class]);
+        });
     });
     
+    context(@"with valid network", ^{
+        
+        context(@"and nil adapter", ^{
+            itBehavesLike(@"dont create", nil);
+        });
+        
+        context(@"and empty adapter", ^{
+            itBehavesLike(@"dont create", @{ kAdapterKey : @""});
+        });
+        
+        context(@"and invalid adapter", ^{
+            itBehavesLike(@"dont create", @{ kAdapterKey : kInvalidNonPubnativeAdapter});
+        });
+        
+        context(@"and inexistent class", ^{
+            itBehavesLike(@"dont create", @{ kAdapterKey : kInvalidInexistentClass});
+        });
+        
+        context(@"and valid adapter", ^{
+            itBehavesLike(@"create", @{ kAdapterKey : kValidNetworkAdapter});
+        });
+    });
+
+    context(@"with nil network", ^{
+        it(@"dont create adapter", ^{
+            PubnativeNetworkAdapter *adapter = [PubnativeNetworkAdapterFactory createApdaterWithNetwork:nil];
+            expect(adapter).to.beNil();
+        });
+    });
 });
 
 SpecEnd
