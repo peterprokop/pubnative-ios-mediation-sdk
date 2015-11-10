@@ -9,39 +9,84 @@
 #import "Specta.h"
 #import "Expecta.h"
 #import "PubnativeNetworkRequest.h"
+#import "PubnativeConfigManager.h"
+#import "PubnativeNetworkAdapter.h"
 #import <OCMock/OCMock.h>
 
-static NSString * const kAppTokenValid              = @"e3886645aabbf0d5c06f841a3e6d77fcc8f9de4469d538ab8a96cb507d0f2660";
-static NSString * const kPlacementFacebookOnlyKey   = @"facebook_only";
+NSString * const kPlacementKey      = @"placemeny_key";
+NSString * const kAppTokenKey       = @"apptoken_key";
+NSString * const kPlacementInvalid  = @"placement_invalid";
+NSString * const kAppTokenInvalid   = @"app_token_invalid";
 
 SpecBegin(PubnativeNetworkRequest)
 
-describe(@"Behaviour", ^{
+describe(@"callback methods", ^{
+    
+    context(@"invokation", ^{
+        
+        sharedExamples(@"invoke fail", ^(NSDictionary *data) {
+            
+            it(@"callback method", ^{
+                PubnativeNetworkRequest *request = OCMPartialMock([[PubnativeNetworkRequest alloc] init]);
+                id delegate = OCMProtocolMock(@protocol(PubnativeNetworkRequestDelegate));
+                [request startRequestWithAppToken:data[kAppTokenKey]
+                                     placementKey:data[kPlacementKey]
+                                         delegate:delegate];
+                OCMVerify([delegate requestDidStart:[OCMArg any]]);
+                OCMVerify([delegate request:[OCMArg any] didFail:[OCMArg any]]);
+            });
+        });
+        
+        sharedExamples(@"invoke load", ^(NSDictionary *data) {
+            
+            it(@"callback method", ^{
+                pending(@"stun config manager call here");
+            });
+        });
+        
+        context(@"with delegate", ^{
 
-    beforeAll(^{
-        // This is run once and only once before all of the examples
-        // in this group and before any beforeEach blocks.
-    });
-    
-    beforeEach(^{
-        // This is run before each example.
-    });
-    
-    it(@"Pubnative Request Start Request", ^{
-        PubnativeNetworkRequest *request = [[PubnativeNetworkRequest alloc]init];
-        [request startRequestWithAppToken:kAppTokenValid placementKey:kPlacementFacebookOnlyKey delegate:OCMProtocolMock(@protocol(PubnativeNetworkRequestDelegate))];
-        pending(@"write some tests");
-    });
-    
-    pending(@"write some tests");
-    
-    afterEach(^{
-        // This is run after each example.
-    });
-    
-    afterAll(^{
-        // This is run once and only once after all of the examples
-        // in this group and after any afterEach blocks.
+            context(@"having nil apptoken and nil placementKey", ^{
+                itBehavesLike(@"invoke fail", nil);
+            });
+            
+            context(@"having nil apptoken and empty placementKey", ^{
+                itBehavesLike(@"invoke fail", @{ kPlacementKey : @""});
+            });
+            
+            context(@"having nil apptoken and invalid placementKey", ^{
+                itBehavesLike(@"invoke fail", @{ kPlacementKey : kPlacementInvalid});
+            });
+            
+            context(@"having empty apptoken and nil placementKey", ^{
+                itBehavesLike(@"invoke fail", @{ kAppTokenKey : @""});
+            });
+            
+            context(@"having empty apptoken and empty placementKey", ^{
+                itBehavesLike(@"invoke fail", @{ kAppTokenKey : @"", kPlacementKey : @""});
+            });
+            
+            context(@"having empty apptoken and invalid placementKey", ^{
+                itBehavesLike(@"invoke fail", @{ kAppTokenKey : @"", kPlacementKey : kPlacementInvalid});
+            });
+            
+            context(@"having invalid apptoken and nil placementKey", ^{
+                itBehavesLike(@"invoke fail", @{ kAppTokenKey : kAppTokenInvalid});
+            });
+            
+            context(@"having invalid apptoken and empty placementKey", ^{
+                itBehavesLike(@"invoke fail", @{ kAppTokenKey : kAppTokenInvalid, kPlacementKey : @""});
+            });
+
+            context(@"having invalid apptoken and invalid placementKey", ^{
+                itBehavesLike(@"invoke load", @{ kAppTokenKey : kAppTokenInvalid, kPlacementKey : kPlacementInvalid});
+            });
+            
+        });
+        
+        context(@"without delegate", ^{
+            pending(@"write some tests");
+        });
     });
 });
 

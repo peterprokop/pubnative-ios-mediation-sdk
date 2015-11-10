@@ -169,7 +169,7 @@
 
 - (void)configDidFailWithError:(NSError*)error
 {
-    NSLog(@"PubnativeNetworkRequest.configDidFailWithError- Error : %@",[error domain]);
+    [self invokeDidFail:error];
 }
 
 #pragma mark PubnativeNetworkAdapterDelegate
