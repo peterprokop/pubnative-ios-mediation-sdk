@@ -20,11 +20,10 @@ NSString * const kUserDefaultsStoredConfigKey       = @"net.pubnative.mediation.
 NSString * const kUserDefaultsStoredAppTokenKey     = @"net.pubnative.mediation.PubnativeConfigManager.configAppToken";
 NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.PubnativeConfigManager.configTimestamp";
 
-
 @interface PubnativeConfigManager () <NSURLConnectionDataDelegate>
 
-@property (nonatomic, strong)NSMutableArray<PubnativeConfigRequestModel*>    *requestQueue;
-@property (nonatomic, assign)BOOL                                           idle;
+@property (nonatomic, strong)NSMutableArray *requestQueue;
+@property (nonatomic, assign)BOOL           idle;
 
 @end
 
@@ -39,13 +38,12 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
     return self;
 }
 
-static PubnativeConfigManager *_sharedInstance = nil;
-
-+ (instancetype)sharedInstance
-{
-    if (_sharedInstance == nil){
++ (instancetype)sharedInstance {
+    static PubnativeConfigManager *_sharedInstance;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         _sharedInstance = [[PubnativeConfigManager alloc] init];
-    }
+    });
     return _sharedInstance;
 }
 
