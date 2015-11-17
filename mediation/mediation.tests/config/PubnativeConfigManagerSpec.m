@@ -45,6 +45,8 @@ extern NSString * const kUserDefaultsStoredTimestampKey;
 + (PubnativeConfigModel*)getStoredConfig;
 + (void)configWithAppToken:(NSString*)appToken
                   delegate:(NSObject<PubnativeConfigManagerDelegate>*)delegate;
++ (BOOL)storedConfigNeedsUpdateWithAppToken:(NSString*)appToken;
++ (void)downloadConfigWithRequest:(PubnativeConfigRequestModel*)requestModel;
 
 @end
 
@@ -830,5 +832,124 @@ describe(@"public interface", ^{
         });
     });
 });
+
+describe(@"serving stored config", ^{
+    
+    __block id managerMock;
+    
+    before(^{
+       managerMock = OCMClassMock([PubnativeConfigManager class]);
+    });
+    
+    context(@"without stored config", ^{
+        
+        before(^{
+            OCMStub([managerMock getStoredConfig]).andReturn(nil);
+        });
+        
+        it(@"callback fail", ^{
+            // GIVEN
+            id delegateMock = OCMProtocolMock(@protocol(PubnativeConfigManagerDelegate));
+            id requestModelMock = OCMClassMock([PubnativeConfigRequestModel class]);
+            OCMStub([requestModelMock delegate]).andReturn(delegateMock);
+            
+            OCMExpect([managerMock invokeDidFailWithError:[OCMArg any] delegate:delegateMock]);
+            
+            // WHEN
+            [PubnativeConfigManager serveStoredConfigWithRequest:requestModelMock];
+            
+            // THEN
+            OCMVerifyAll(managerMock);
+        });
+    });
+    
+    context(@"with stored config", ^{
+        
+        __block id modelMock;
+        before(^{
+            modelMock = OCMClassMock([PubnativeConfigModel class]);
+            OCMStub([managerMock getStoredConfig]).andReturn(modelMock);
+        });
+        
+        it(@"callback finish", ^{
+            // GIVEN
+            
+            id delegateMock = OCMProtocolMock(@protocol(PubnativeConfigManagerDelegate));
+            id requestModelMock = OCMClassMock([PubnativeConfigRequestModel class]);
+            OCMStub([requestModelMock delegate]).andReturn(delegateMock);
+            
+            OCMExpect([managerMock invokeDidFinishWithModel:modelMock delegate:delegateMock]);
+            
+            // WHEN
+            [PubnativeConfigManager serveStoredConfigWithRequest:requestModelMock];
+            
+            // THEN
+            OCMVerifyAll(managerMock);
+        });
+    });
+    
+    after(^{
+       [managerMock stopMocking];
+    });
+});
+
+describe(@"requesting a config", ^{
+   
+    __block id managerMock;
+    
+    before(^{
+        managerMock = OCMClassMock([PubnativeConfigManager class]);
+    });
+    
+    context(@"with update needed", ^{
+        before(^{
+            OCMStub([managerMock storedConfigNeedsUpdateWithAppToken:[OCMArg any]]).andReturn(YES);
+        });
+        
+        it(@"tries downloading a config", ^{
+            
+            // GIVEN
+            id requestModelMock = OCMClassMock([PubnativeConfigRequestModel class]);
+            
+            // EXPECT
+            OCMExpect([managerMock downloadConfigWithRequest:requestModelMock]);
+            
+            // WHEN
+            [PubnativeConfigManager getNextConfigWithModel:requestModelMock];
+            
+            // VERIFY
+            OCMVerifyAll(managerMock);
+        });
+    });
+    
+    context(@"without update needed", ^{
+        before(^{
+            OCMStub([managerMock storedConfigNeedsUpdateWithAppToken:[OCMArg any]]).andReturn(NO);
+        });
+        
+        it(@"tries downloading a config", ^{
+            
+            // GIVEN
+            id requestModelMock = OCMClassMock([PubnativeConfigRequestModel class]);
+            
+            // EXPECT
+            OCMExpect([managerMock serveStoredConfigWithRequest:requestModelMock]);
+            
+            // WHEN
+            [PubnativeConfigManager getNextConfigWithModel:requestModelMock];
+            
+            // VERIFY
+            OCMVerifyAll(managerMock);
+        });
+    });
+    
+    after(^{
+        [managerMock stopMocking];
+    });
+});
+
+// TODO: Test the following methods
+// + (BOOL)storedConfigNeedsUpdateWithAppToken:(NSString*)appToken
+// + (void)processDownloadResponseWithRequest:(PubnativeConfigRequestModel*)requestModel withJson:(id)json error:(JSONModelError*)error
 
 SpecEnd

@@ -146,7 +146,6 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
         [PubnativeConfigManager invokeDidFailWithError:storedConfigError
                                               delegate:requestModel.delegate];
     }
-    
 }
 
 #pragma mark - QUEUE -
