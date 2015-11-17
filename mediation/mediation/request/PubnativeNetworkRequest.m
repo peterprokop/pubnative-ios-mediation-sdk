@@ -12,11 +12,11 @@
 
 @interface PubnativeNetworkRequest () <PubnativeNetworkAdapterDelegate, PubnativeConfigManagerDelegate>
 
-@property (strong, nonatomic) NSString                              *placementKey;
-@property (strong, nonatomic) PubnativeConfigModel                  *config;
-@property (strong, nonatomic) PubnativePlacementModel               *placement;
-@property (weak, nonatomic)   id <PubnativeNetworkRequestDelegate>  delegate;
-@property                     int                                   currentNetworkIndex;
+@property (nonatomic, strong)NSString                              *placementKey;
+@property (nonatomic, strong)PubnativeConfigModel                  *config;
+@property (nonatomic, strong)PubnativePlacementModel               *placement;
+@property (nonatomic, weak)  id <PubnativeNetworkRequestDelegate>  delegate;
+@property (nonatomic, assign)int                                   currentNetworkIndex;
 
 @end
 
@@ -49,7 +49,7 @@
     }
 }
 
--(void)fetchConfigWithAppToken:(NSString*)appToken
+- (void)fetchConfigWithAppToken:(NSString*)appToken
 {
     [PubnativeConfigManager configWithAppToken:appToken
                                       delegate:self];
