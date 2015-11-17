@@ -34,7 +34,8 @@
         if (appToken && [appToken length] > 0 &&
             placementKey && [placementKey length] > 0) {
             self.placementKey = placementKey;
-            [self fetchConfigWithAppToken:appToken];
+            [PubnativeConfigManager configWithAppToken:appToken
+                                              delegate:self];
         } else {
             NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.startRequestWithAppToken:placementKey:delegate:- Error: Invalid AppToken/PlacementKey"
                                                  code:0
@@ -47,12 +48,6 @@
                                          userInfo:nil];
         [self invokeDidFail:error];
     }
-}
-
-- (void)fetchConfigWithAppToken:(NSString*)appToken
-{
-    [PubnativeConfigManager configWithAppToken:appToken
-                                      delegate:self];
 }
 
 - (void)startRequestWithConfig:(PubnativeConfigModel*)model

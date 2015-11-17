@@ -34,7 +34,6 @@ NSString * const kAppTokenInvalid   = @"app_token_invalid";
 @property (weak, nonatomic)id <PubnativeNetworkRequestDelegate>      delegate;
 
 - (void)adapter:(PubnativeNetworkAdapter*)adapter requestDidLoad:(PubnativeAdModel*)ad;
-- (void)fetchConfigWithAppToken:(NSString*)appToken;
 - (void)invokeDidStart;
 - (void)invokeDidFail:(NSError*)error;
 - (void)invokeDidLoad:(PubnativeAdModel*)ad;
@@ -66,7 +65,10 @@ describe(@"callback methods", ^{
             it(@"callback method", ^{
                 PubnativeNetworkRequest *request = OCMPartialMock([[PubnativeNetworkRequest alloc] init]);
                 id delegate = OCMProtocolMock(@protocol(PubnativeNetworkRequestDelegate));
-                OCMStub([request fetchConfigWithAppToken:data[kAppTokenKey]]).andDo(^(NSInvocation *invocation) {
+                
+                // Stub Manager to return a mock ad directly
+                id configManager = OCMClassMock([PubnativeConfigManager class]);
+                OCMStub([configManager configWithAppToken:[OCMArg any] delegate:[OCMArg any]]).andDo(^(NSInvocation *invocation) {
                     [request adapter:OCMClassMock([PubnativeNetworkAdapter class])
                       requestDidLoad:OCMClassMock([PubnativeAdModel class])];
                 });
@@ -152,7 +154,10 @@ describe(@"start request", ^{
             
             PubnativeNetworkRequest *request = OCMPartialMock([[PubnativeNetworkRequest alloc] init]);
             id delegate = OCMProtocolMock(@protocol(PubnativeNetworkRequestDelegate));
-            OCMStub([request fetchConfigWithAppToken:kAppTokenInvalid]).andDo(^(NSInvocation *invocation) {
+            
+            // Stub Manager to return a mock config directly
+            id configManager = OCMClassMock([PubnativeConfigManager class]);
+            OCMStub([configManager configWithAppToken:[OCMArg any] delegate:[OCMArg any]]).andDo(^(NSInvocation *invocation) {
                 [request configDidFinishWithModel:[PubnativeConfigUtils getModelFromJSONFile:@"config_valid"]];
             });
             
@@ -169,7 +174,10 @@ describe(@"start request", ^{
             
             PubnativeNetworkRequest *request = OCMPartialMock([[PubnativeNetworkRequest alloc] init]);
             id delegate = OCMProtocolMock(@protocol(PubnativeNetworkRequestDelegate));
-            OCMStub([request fetchConfigWithAppToken:kAppTokenInvalid]).andDo(^(NSInvocation *invocation) {
+            
+            // Stub Manager to return a mock config directly
+            id configManager = OCMClassMock([PubnativeConfigManager class]);
+            OCMStub([configManager configWithAppToken:[OCMArg any] delegate:[OCMArg any]]).andDo(^(NSInvocation *invocation) {
                 [request configDidFinishWithModel:[PubnativeConfigUtils getModelFromJSONFile:@"config_empty"]];
             });
             
