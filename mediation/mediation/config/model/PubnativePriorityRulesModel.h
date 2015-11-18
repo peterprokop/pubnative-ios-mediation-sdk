@@ -14,8 +14,7 @@
 
 @interface PubnativePriorityRulesModel : JSONModel
 
-@property(nonatomic,strong)NSNumber         *id;
-@property(nonatomic,strong)NSString         *network_code;
-@property(nonatomic,strong)NSDictionary     *params;
+@property (nonatomic, strong)NSString       *network_code;
+@property (nonatomic, strong)NSDictionary   *params;
 
 @end

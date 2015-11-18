@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSString<Optional>                *error_message;
 @property (nonatomic, strong) PubnativeConfigModel<Optional>    *config;
 
++ (instancetype)parseDictionary:(NSDictionary*)dictionary error:(NSError**)error;
 - (BOOL)success;
 
 @end

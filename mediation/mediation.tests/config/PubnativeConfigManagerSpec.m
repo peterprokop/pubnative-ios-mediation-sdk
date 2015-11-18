@@ -19,725 +19,41 @@ extern NSString * const kUserDefaultsStoredConfigKey;
 extern NSString * const kUserDefaultsStoredAppTokenKey;
 extern NSString * const kUserDefaultsStoredTimestampKey;
 
-NSString * const kFileConfigValid   = @"config_valid";
-NSString * const kFileConfigInvalid = @"invalid";
-NSString * const kFileConfigEmpty   = @"config_empty";
-
-NSString * const kAppTokenDefault   = @"app_token_default";
-NSString * const kAppTokenValid     = @"app_token_valid";
-
-NSString * const kDataFirstKey      = @"data_first_key";
-NSString * const kDataSecondKey     = @"data_second_key";
-
 @interface PubnativeConfigManager (Private)
 
-@property (nonatomic, strong)NSMutableArray<PubnativeConfigRequestModel*>   *requestQueue;
-@property (nonatomic, assign)BOOL                                           idle;
+@property (nonatomic, strong)NSMutableArray *requestQueue;
+@property (nonatomic, assign)BOOL           idle;
 
-// Singleton
 + (instancetype)sharedInstance;
-
-// Download config
-+ (void)updateStoredConfig:(PubnativeConfigModel*)model withAppToken:(NSString*)appToken;
-
-// Callback methods
++ (void)setSharedInstance:(PubnativeConfigManager*)instance;
++ (void)doNextRequest;
++ (void)getNextConfigWithModel:(PubnativeConfigRequestModel*)requestModel;
++ (void)serveStoredConfigWithRequest:(PubnativeConfigRequestModel*)requestModel;
++ (void)enqueueRequestModel:(PubnativeConfigRequestModel*)request;
++ (PubnativeConfigRequestModel*)dequeueRequestDelegate;
++ (void)updateStoredConfig:(PubnativeConfigModel*)model
+              withAppToken:(NSString*)appToken;
 + (void)invokeDidFinishWithModel:(PubnativeConfigModel*)model
                         delegate:(NSObject<PubnativeConfigManagerDelegate>*)delegate;
-
 + (void)invokeDidFailWithError:(NSError*)error
                       delegate:(NSObject<PubnativeConfigManagerDelegate>*)delegate;
-
-// Storage methods
 + (void)setStoredTimestamp:(NSTimeInterval)timestamp;
 + (NSTimeInterval)getStoredTimestamp;
 + (void)setStoredAppToken:(NSString*)appToken;
 + (NSString*)getStoredAppToken;
 + (void)setStoredConfig:(PubnativeConfigModel*)model;
 + (PubnativeConfigModel*)getStoredConfig;
-
-// Queue
-+ (void)enqueueRequestModel:(PubnativeConfigRequestModel*)request;
-+ (PubnativeConfigRequestModel*)dequeueRequestDelegate;
-
-//Public interface
-+ (void)doNextRequest;
-+ (void)getNextConfigWithModel:(PubnativeConfigRequestModel*)requestModel;
++ (void)configWithAppToken:(NSString*)appToken
+                  delegate:(NSObject<PubnativeConfigManagerDelegate>*)delegate;
++ (BOOL)storedConfigNeedsUpdateWithAppToken:(NSString*)appToken;
++ (void)downloadConfigWithRequest:(PubnativeConfigRequestModel*)requestModel;
++ (void)processDownloadResponseWithRequest:(PubnativeConfigRequestModel*)requestModel
+                                  withJson:(id)json
+                                     error:(JSONModelError*)error;
 
 @end
 
 SpecBegin(PubnativeConfigManager)
-
-describe(@"storage methods", ^{
-    
-    context(@"app token", ^{
-        
-        sharedExamplesFor(@"when setting", ^(NSDictionary *data) {
-            
-            __block NSString *oldValue;
-            
-            beforeAll(^{
-                oldValue = data[kDataFirstKey];
-            });
-            
-            beforeEach(^{
-                [PubnativeConfigManager setStoredAppToken:oldValue];
-            });
-            
-            it(@"nil, it clears value", ^{
-                [PubnativeConfigManager setStoredAppToken:nil];
-                NSString *newValue = [PubnativeConfigManager getStoredAppToken];
-                expect(newValue).to.beNil;
-            });
-            
-            it(@"empty, it clears value", ^{
-                [PubnativeConfigManager setStoredAppToken:@""];
-                NSString *newValue = [PubnativeConfigManager getStoredAppToken];
-                expect(newValue).to.beNil;
-            });
-            
-            it(@"valid, it sets value", ^{
-                [PubnativeConfigManager setStoredAppToken:kAppTokenValid];
-                NSString *newValue = [PubnativeConfigManager getStoredAppToken];
-                expect(newValue).to.equal(kAppTokenValid);
-            });
-        });
-        
-        context(@"with previous nil value", ^{
-            itBehavesLike(@"when setting", nil);
-        });
-        
-        context(@"with previous different value", ^{
-            itBehavesLike(@"when setting", @{kDataFirstKey : kAppTokenDefault});
-        });
-        
-        context(@"with previous valid value", ^{
-            itBehavesLike(@"when setting", @{kDataFirstKey : kAppTokenValid});
-        });
-    });
-    
-    context(@"timestamp", ^{
-        
-        sharedExamplesFor(@"when setting", ^(NSDictionary *data) {
-            
-            __block NSNumber *oldValue;
-            
-            beforeAll(^{
-                oldValue = data[kDataFirstKey];
-            });
-            
-            beforeEach(^{
-                [PubnativeConfigManager setStoredTimestamp:[oldValue doubleValue]];
-            });
-            
-            it(@"negative, it clears value", ^{
-                [PubnativeConfigManager setStoredTimestamp:-1];
-                double newValue = [PubnativeConfigManager getStoredTimestamp];
-                expect(newValue).to.equal(0);
-            });
-            
-            it(@"zero, it clears value", ^{
-                [PubnativeConfigManager setStoredTimestamp:0];
-                double newValue = [PubnativeConfigManager getStoredTimestamp];
-                expect(newValue).to.equal(0);
-            });
-            
-            it(@"positive, it sets value", ^{
-                [PubnativeConfigManager setStoredTimestamp:1];
-                double newValue = [PubnativeConfigManager getStoredTimestamp];
-                expect(newValue).to.equal(1);
-            });
-        });
-        
-        context(@"with previous negative value", ^{
-            itBehavesLike(@"when setting", @{kDataFirstKey : @-1});
-        });
-        
-        context(@"with previous zero value", ^{
-            itBehavesLike(@"when setting", @{kDataFirstKey : @0});
-        });
-        
-        context(@"with previous positive value", ^{
-            itBehavesLike(@"when setting", @{kDataFirstKey : @1});
-        });
-    });
-    
-    context(@"config", ^{
-        
-        sharedExamplesFor(@"when setting", ^(NSDictionary *data) {
-            
-            __block PubnativeConfigModel *oldValue;
-            
-            beforeAll(^{
-                NSString *oldValueFile = data[kDataFirstKey];
-                if(oldValueFile){
-                    oldValue = [PubnativeConfigUtils getModelFromJSONFile:oldValueFile];
-                }
-            });
-            
-            beforeEach(^{
-                [PubnativeConfigManager setStoredConfig:oldValue];
-            });
-            
-            it(@"nil, it clears value", ^{
-                [PubnativeConfigManager setStoredConfig:nil];
-                PubnativeConfigModel *newValue = [PubnativeConfigManager getStoredConfig];
-                expect(newValue).to.beNil;
-            });
-            
-            it(@"empty, it clears value", ^{
-                PubnativeConfigModel *config = [PubnativeConfigUtils getModelFromJSONFile:kFileConfigEmpty];
-                [PubnativeConfigManager setStoredConfig:config];
-                PubnativeConfigModel *newValue = [PubnativeConfigManager getStoredConfig];
-                expect(newValue).to.beNil;
-            });
-            
-            it(@"valid, it sets value", ^{
-                PubnativeConfigModel *config = [PubnativeConfigUtils getModelFromJSONFile:kFileConfigValid];
-                [PubnativeConfigManager setStoredConfig:config];
-                PubnativeConfigModel *newValue = [PubnativeConfigManager getStoredConfig];
-                expect(newValue).toNot.beNil;
-            });
-            
-            it(@"invalid, it clears value", ^{
-                PubnativeConfigModel *config = [PubnativeConfigUtils getModelFromJSONFile:kFileConfigInvalid];
-                [PubnativeConfigManager setStoredConfig:config];
-                PubnativeConfigModel *newValue = [PubnativeConfigManager getStoredConfig];
-                expect(newValue).toNot.beNil;
-            });
-            
-        });
-        
-        context(@"with previous nil value", ^{
-            itBehavesLike(@"when setting", nil);
-        });
-        
-        context(@"with previous empty value", ^{
-            itBehavesLike(@"when setting", @{kDataFirstKey : kFileConfigEmpty});
-        });
-        
-        context(@"with previous valid value", ^{
-            itBehavesLike(@"when setting", @{kDataFirstKey : kFileConfigValid});
-        });
-        
-    });
-});
-
-describe(@"callback methods", ^{
-    
-    context(@"error", ^{
-        
-        sharedExamples(@"call methods", ^(NSDictionary *data) {
-            
-            it(@"didFailWithError", ^{
-                
-                id configManagerMock = OCMClassMock([PubnativeConfigManager class]);
-                OCMStub([configManagerMock invokeDidFailWithError:[OCMArg any] delegate:[OCMArg any]]).andForwardToRealObject();
-                
-                /// Test
-                OCMExpect([configManagerMock doNextRequest]);
-                OCMExpect([[configManagerMock sharedInstance] idle]);
-                [[configManagerMock class]invokeDidFailWithError:data[kDataFirstKey]
-                                                        delegate:nil];
-                OCMVerifyAll(configManagerMock);
-            });
-            
-        });
-        
-        sharedExamples(@"invokes delegate", ^(NSDictionary *data) {
-            
-            it(@"didFailWithError", ^{
-                
-                id configManagerMock = OCMClassMock([PubnativeConfigManager class]);
-                OCMStub([configManagerMock invokeDidFailWithError:[OCMArg any] delegate:[OCMArg any]]).andForwardToRealObject();
-                OCMStub([configManagerMock doNextRequest]).andDo(nil);
-                
-                id delegateMock = OCMProtocolMock(@protocol(PubnativeConfigManagerDelegate));
-                
-                /// Test
-                OCMExpect([delegateMock configDidFailWithError:[OCMArg any]]);
-                [[configManagerMock class] invokeDidFailWithError:data[kDataFirstKey]
-                                                         delegate:delegateMock];
-                OCMVerifyAll(delegateMock);
-            });
-        });
-        
-        context(@"with nil delegate", ^{
-            
-            context(@"and nil error", ^{
-                itBehavesLike(@"call methods", nil);
-            });
-            
-            context(@"and valid error", ^{
-                itBehavesLike(@"call methods", @{kDataFirstKey : OCMClassMock([NSError class])});
-            });
-            
-        });
-        
-        context(@"with valid delegate", ^{
-            
-            context(@"and nil error", ^{
-                itBehavesLike(@"invokes delegate", nil);
-            });
-            
-            context(@"and valid error", ^{
-                itBehavesLike(@"invokes delegate", @{kDataFirstKey : OCMClassMock([NSError class])});
-            });
-            
-        });
-    });
-    
-    context(@"success", ^{
-        
-        sharedExamples(@"call methods", ^(NSDictionary *data) {
-            
-            it(@"didFinishWithModel", ^{
-                
-                id configManagerMock = OCMClassMock([PubnativeConfigManager class]);
-                OCMStub([configManagerMock invokeDidFinishWithModel:[OCMArg any] delegate:[OCMArg any]]).andForwardToRealObject();
-                
-                ///Test
-                OCMExpect([configManagerMock doNextRequest]);
-                OCMExpect([[configManagerMock sharedInstance] idle]);
-                [[configManagerMock class]invokeDidFinishWithModel:data[kDataFirstKey]
-                                                          delegate:nil];
-                OCMVerifyAll(configManagerMock);
-            });
-        });
-        
-        sharedExamples(@"invokes delegate", ^(NSDictionary *data) {
-            
-            it(@"didFinishWithModel", ^{
-                
-                id configManagerMock = OCMClassMock([PubnativeConfigManager class]);
-                OCMStub([configManagerMock invokeDidFinishWithModel:[OCMArg any] delegate:[OCMArg any]]).andForwardToRealObject();
-                OCMStub([configManagerMock doNextRequest]).andDo(nil);
-                
-                id delegateMock = OCMProtocolMock(@protocol(PubnativeConfigManagerDelegate));
-                
-                /// Test
-                OCMExpect([delegateMock configDidFinishWithModel:[OCMArg any]]);
-                [[configManagerMock class] invokeDidFinishWithModel:data[kDataFirstKey]
-                                                           delegate:delegateMock];
-                OCMVerifyAll(delegateMock);
-                
-            });
-        });
-        
-        context(@"with nil delegate", ^{
-            
-            context(@"and nil model", ^{
-                itBehavesLike(@"call methods", nil);
-            });
-            
-            context(@"and valid model", ^{
-                itBehavesLike(@"call methods", @{kDataFirstKey : OCMClassMock([PubnativeConfigModel class])});
-            });
-            
-        });
-        
-        context(@"with valid delegate", ^{
-            
-            context(@"and nil model", ^{
-                itBehavesLike(@"invokes delegate", nil);
-            });
-            
-            context(@"and valid model", ^{
-                itBehavesLike(@"invokes delegate", @{kDataFirstKey : OCMClassMock([PubnativeConfigModel class])});
-            });
-        });
-    });
-    
-});
-
-describe(@"updating a config", ^{
-    
-    sharedExamples(@"set", ^(NSDictionary *data) {
-        
-        __block NSString                *configFile;
-        __block NSString                *appToken;
-        __block PubnativeConfigModel    *model;
-        
-        beforeAll(^{
-            configFile = data[kDataFirstKey];
-            appToken = data[kDataSecondKey];
-        });
-        
-        beforeEach(^{
-            if(configFile){
-                model = [PubnativeConfigUtils getModelFromJSONFile:configFile];
-            }
-        });
-        
-        it(@"inner storage values", ^{
-            NSTimeInterval oldTimestamp = [PubnativeConfigManager getStoredTimestamp];
-            [PubnativeConfigManager updateStoredConfig:model withAppToken:appToken];
-            expect([PubnativeConfigManager getStoredAppToken]).to.equal(appToken);
-            expect([PubnativeConfigManager getStoredTimestamp]).toNot.equal(oldTimestamp);
-            expect([[PubnativeConfigManager getStoredConfig] toDictionary]).to.equal([model toDictionary]);
-        });
-    });
-    
-    sharedExamples(@"dont set", ^(NSDictionary *data) {
-        
-        __block NSString                *configFile;
-        __block NSString                *appToken;
-        __block PubnativeConfigModel    *model;
-        
-        beforeAll(^{
-            configFile = data[kDataFirstKey];
-            appToken = data[kDataSecondKey];
-        });
-        
-        beforeEach(^{
-            if(configFile){
-                model = [PubnativeConfigUtils getModelFromJSONFile:configFile];
-            }
-        });
-        
-        it(@"inner storage values", ^{
-            NSString *oldAppToken = [PubnativeConfigManager getStoredAppToken];
-            NSTimeInterval oldTimestamp = [PubnativeConfigManager getStoredTimestamp];
-            PubnativeConfigModel *oldModel = [PubnativeConfigManager getStoredConfig];
-            
-            [PubnativeConfigManager updateStoredConfig:model withAppToken:appToken];
-            
-            expect([PubnativeConfigManager getStoredAppToken]).to.equal(oldAppToken);
-            expect([PubnativeConfigManager getStoredTimestamp]).to.equal(oldTimestamp);
-            expect([[PubnativeConfigManager getStoredConfig] toDictionary]).to.equal([oldModel toDictionary]);
-        });
-    });
-    
-    __block PubnativeConfigModel *emptyModelMock;
-    __block PubnativeConfigModel *validModel;
-    
-    beforeAll(^{
-        emptyModelMock = OCMClassMock([PubnativeConfigModel class]);
-        OCMStub([emptyModelMock isEmpty]).andReturn(YES);
-        
-        validModel = [PubnativeConfigUtils getModelFromJSONFile:kFileConfigValid];
-    });
-    
-    context(@"without previous data", ^{
-        
-        beforeEach(^{
-            // clean context
-            [PubnativeConfigManager setStoredAppToken:nil];
-            [PubnativeConfigManager setStoredTimestamp:0];
-            [PubnativeConfigManager setStoredConfig:nil];
-        });
-        
-        context(@"nil model and nil app token", ^{
-            itBehavesLike(@"dont set", nil);
-        });
-        
-        context(@"nil model and empty app token", ^{
-            itBehavesLike(@"dont set", @{ kDataSecondKey : @"" });
-        });
-        
-        context(@"nil model and valid app token", ^{
-            itBehavesLike(@"dont set", @{ kDataSecondKey : kAppTokenValid });
-        });
-        
-        context(@"empty model and nil app token", ^{
-            itBehavesLike(@"dont set", @{ kDataFirstKey : kFileConfigEmpty });
-        });
-        
-        context(@"empty model and empty app token", ^{
-            itBehavesLike(@"dont set", @{ kDataFirstKey : kFileConfigEmpty,  kDataSecondKey : @"" });
-        });
-        
-        context(@"empty model and valid app token", ^{
-            itBehavesLike(@"dont set", @{ kDataFirstKey : kFileConfigEmpty,  kDataSecondKey : kAppTokenValid });
-        });
-        
-        context(@"valid model and nil app token", ^{
-            itBehavesLike(@"dont set", @{ kDataFirstKey : kFileConfigValid });
-        });
-        
-        context(@"valid model and empty app token", ^{
-            itBehavesLike(@"dont set", @{ kDataFirstKey : kFileConfigValid,  kDataSecondKey : @"" });
-        });
-        
-        context(@"valid model and valid app token", ^{
-            itBehavesLike(@"set", @{ kDataFirstKey : kFileConfigValid,  kDataSecondKey : kAppTokenValid });
-        });
-    });
-    
-    context(@"with previous data", ^{
-        
-        beforeEach(^{
-            // clean context
-            [PubnativeConfigManager setStoredAppToken:kAppTokenValid];
-            [PubnativeConfigManager setStoredTimestamp:1];
-            [PubnativeConfigManager setStoredConfig:validModel];
-        });
-        
-        context(@"nil model and nil app token", ^{
-            itBehavesLike(@"dont set", nil);
-        });
-        
-        context(@"nil model and empty app token", ^{
-            itBehavesLike(@"dont set", @{ kDataSecondKey : @"" });
-        });
-        
-        context(@"nil model and valid app token", ^{
-            itBehavesLike(@"dont set", @{ kDataSecondKey : kAppTokenValid });
-        });
-        
-        context(@"empty model and nil app token", ^{
-            itBehavesLike(@"dont set", @{ kDataFirstKey : kFileConfigEmpty });
-        });
-        
-        context(@"empty model and empty app token", ^{
-            itBehavesLike(@"dont set", @{ kDataFirstKey : kFileConfigEmpty,  kDataSecondKey : @"" });
-        });
-        
-        context(@"empty model and valid app token", ^{
-            itBehavesLike(@"dont set", @{ kDataFirstKey : kFileConfigEmpty,  kDataSecondKey : kAppTokenValid });
-        });
-        
-        context(@"valid model and nil app token", ^{
-            itBehavesLike(@"dont set", @{ kDataFirstKey : kFileConfigValid });
-        });
-        
-        context(@"valid model and empty app token", ^{
-            itBehavesLike(@"dont set", @{ kDataFirstKey : kFileConfigValid,  kDataSecondKey : @"" });
-        });
-        
-        context(@"valid model and valid app token", ^{
-            itBehavesLike(@"set", @{ kDataFirstKey : kFileConfigValid,  kDataSecondKey : kAppTokenValid });
-        });
-    });
-    
-});
-
-describe(@"request queue", ^{
-    
-    sharedExamples(@"enqueue", ^(NSDictionary *globalData) {
-        
-        context(@"nil", ^{
-            
-            it(@"dont modifies queue", ^{
-                // Set queue value
-                NSMutableArray *oldQueue = globalData[kDataFirstKey];
-                [PubnativeConfigManager sharedInstance].requestQueue = oldQueue;
-                
-                // set value and check
-                [PubnativeConfigManager enqueueRequestModel:nil];
-                expect([PubnativeConfigManager sharedInstance].requestQueue).to.equal(oldQueue);
-            });
-        });
-        
-        context(@"invalid", ^{
-            
-            sharedExamples(@"assigning request", ^(NSDictionary *data) {
-                
-                before(^{
-                    [PubnativeConfigManager sharedInstance].requestQueue = globalData[kDataFirstKey];
-                });
-                
-                it(@"dont changes request", ^{
-                    NSMutableArray *oldQueue = [PubnativeConfigManager sharedInstance].requestQueue;
-                    
-                    // mock request
-                    PubnativeConfigRequestModel *requestModel = OCMClassMock([PubnativeConfigRequestModel  class]);
-                    OCMStub(requestModel.appToken).andReturn(data[kDataFirstKey]);
-                    OCMStub(requestModel.delegate).andReturn(data[kDataSecondKey]);
-                    
-                    // set value and check
-                    [PubnativeConfigManager enqueueRequestModel:requestModel];
-                    expect([PubnativeConfigManager sharedInstance].requestQueue).to.equal(oldQueue);
-                });
-            });
-            
-            context(@"nil appToken, nil delegate", ^{
-                itBehavesLike(@"assigning request", nil);
-            });
-            
-            context(@"empty appToken, nil delegate", ^{
-                itBehavesLike(@"assigning request", @{kDataFirstKey : @""});
-            });
-            
-            context(@"valid appToken, nil delegate", ^{
-                itBehavesLike(@"assigning request", @{kDataFirstKey : kAppTokenValid});
-            });
-            
-            context(@"nil appToken, valid delegate", ^{
-                itBehavesLike(@"assigning request", @{kDataSecondKey : OCMProtocolMock(@protocol(PubnativeConfigManagerDelegate))});
-            });
-            context(@"empty appToken, valid delegate", ^{
-                itBehavesLike(@"assigning request", @{kDataFirstKey : @"", kDataSecondKey : OCMProtocolMock(@protocol(PubnativeConfigManagerDelegate))});
-            });
-        });
-        
-        context(@"valid", ^{
-            
-            __block PubnativeConfigRequestModel *validRequest;
-            
-            before(^{
-                [PubnativeConfigManager sharedInstance].requestQueue = globalData[kDataFirstKey];
-                validRequest = OCMClassMock([PubnativeConfigRequestModel  class]);
-                OCMStub(validRequest.appToken).andReturn(kAppTokenValid);
-                OCMStub(validRequest.delegate).andReturn(OCMProtocolMock(@protocol(PubnativeConfigManagerDelegate)));
-            });
-            
-            it(@"initializes the queue", ^{
-                [PubnativeConfigManager enqueueRequestModel:validRequest];
-                expect([PubnativeConfigManager sharedInstance].requestQueue).toNot.beNil;
-            });
-            
-            it(@"adds the request to the queue", ^{
-                [PubnativeConfigManager enqueueRequestModel:validRequest];
-                expect([PubnativeConfigManager sharedInstance].requestQueue).to.contain(validRequest);
-            });
-            
-            it(@"increments queue count by 1", ^{
-                
-                NSInteger oldCount = 0;
-                if([PubnativeConfigManager sharedInstance].requestQueue){
-                    oldCount = [[PubnativeConfigManager sharedInstance].requestQueue count];
-                }
-                [PubnativeConfigManager enqueueRequestModel:validRequest];
-                expect([PubnativeConfigManager sharedInstance].requestQueue).to.haveCount(oldCount+1);
-            });
-        });
-    });
-    
-    context(@"uninintialized", ^{
-        
-        itBehavesLike(@"enqueue", nil);
-        
-        it(@"dequeues nil", ^{
-            [PubnativeConfigManager sharedInstance].requestQueue = nil;
-            PubnativeConfigRequestModel *model = [PubnativeConfigManager dequeueRequestDelegate];
-            expect(model).to.beNil;
-        });
-    });
-    
-    context(@"initialized", ^{
-        
-        itBehavesLike(@"enqueue", ^{
-            PubnativeConfigRequestModel *requestModel = OCMClassMock([PubnativeConfigRequestModel class]);
-            return @{kDataFirstKey : [NSMutableArray arrayWithObject:requestModel]};
-        });
-        
-        context(@"dequeues", ^{
-            
-            __block PubnativeConfigRequestModel *firstItem;
-            
-            before(^{
-                PubnativeConfigRequestModel *requestModel = OCMClassMock([PubnativeConfigRequestModel class]);
-                [PubnativeConfigManager sharedInstance].requestQueue = [NSMutableArray arrayWithObject:requestModel];
-                firstItem = [PubnativeConfigManager sharedInstance].requestQueue[0];
-            });
-            
-            it(@"dequeues first item", ^{
-                PubnativeConfigRequestModel *model = [PubnativeConfigManager dequeueRequestDelegate];
-                expect(model).to.equal(firstItem);
-            });
-            
-            it(@"repeated dequeues returns different items", ^{
-                PubnativeConfigRequestModel *model1 = [PubnativeConfigManager dequeueRequestDelegate];
-                PubnativeConfigRequestModel *model2 = [PubnativeConfigManager dequeueRequestDelegate];
-                
-                expect(model1).toNot.equal(model2);
-            });
-            
-            it(@"dequeues nil when finish", ^{
-                expect([PubnativeConfigManager dequeueRequestDelegate]).toNot.beNil;
-                expect([PubnativeConfigManager dequeueRequestDelegate]).to.beNil;
-            });
-        });
-    });
-});
-
-describe(@"public interface", ^{
-    
-    context(@"with invalid values", ^{
-        
-        sharedExamples(@"fails", ^(NSDictionary *data) {
-            
-            it(@"callbacks with nil result and assigned error", ^{
-                
-                // ConfigManager mock
-                id managerMock = OCMClassMock([PubnativeConfigManager class]);
-                
-                // Delegate mock
-                NSObject<PubnativeConfigManagerDelegate> *delegateMock = OCMProtocolMock(@protocol(PubnativeConfigManagerDelegate));
-                
-                OCMStub([managerMock doNextRequest]).andDo(nil);
-                OCMExpect([delegateMock configDidFailWithError:[OCMArg any]]);
-                
-                [[managerMock class]configWithAppToken:data[kDataFirstKey]
-                                              delegate:delegateMock];
-                
-                OCMVerifyAll((id)delegateMock);
-            });
-        });
-        itBehavesLike(@"fails", nil);
-        itBehavesLike(@"fails", @{kDataFirstKey : @""});
-    });
-    
-    context(@"with valid values", ^{
-        
-        // ConfigManager mock
-        __block id                                          managerMock;
-        
-        // Delegate mock
-        __block NSObject<PubnativeConfigManagerDelegate>    *delegateMock;
-        
-        beforeAll(^{
-            
-            managerMock = OCMClassMock([PubnativeConfigManager class]);
-            delegateMock = OCMProtocolMock(@protocol(PubnativeConfigManagerDelegate));
-            OCMStub([managerMock configWithAppToken:[OCMArg any] delegate:[OCMArg any]]).andForwardToRealObject();
-            
-        });
-        
-        it(@"calls doNextRequest", ^{
-            
-            ///Test
-            OCMExpect([managerMock doNextRequest]);
-            [[managerMock class]configWithAppToken:kAppTokenValid delegate:delegateMock];
-            OCMVerifyAll(managerMock);
-            
-        });
-        
-        it(@"call enqueueRequestModel", ^{
-            
-            ///Test
-            OCMExpect([managerMock enqueueRequestModel:[OCMArg any]]);
-            [[managerMock class]configWithAppToken:kAppTokenValid delegate:delegateMock];
-            OCMVerifyAll(managerMock);
-            
-        });
-        
-        it(@"enqueues item with app token and delegate", ^{
-            
-            OCMStub([managerMock doNextRequest]).andDo(nil);
-            
-            ///Test
-            [[managerMock class]configWithAppToken:kAppTokenValid delegate:delegateMock];
-            expect([[managerMock class] dequeueRequestDelegate]).toNot.beNil();
-        });
-        
-        it(@"doNextRequest calls getNextConfigWithModel", ^{
-            
-            managerMock = OCMClassMock([PubnativeConfigManager class]);
-            delegateMock = OCMProtocolMock(@protocol(PubnativeConfigManagerDelegate));
-            
-            
-            OCMStub([managerMock doNextRequest]).andForwardToRealObject();
-            OCMStub([managerMock dequeueRequestDelegate]).andReturn(OCMClassMock([PubnativeConfigRequestModel class]));
-            
-            ///Test
-            OCMExpect([managerMock getNextConfigWithModel:[OCMArg any]]);
-            [[managerMock class]doNextRequest];
-            
-        });
-        
-    });
-});
 
 describe(@"singleton", ^{
     
@@ -755,6 +71,960 @@ describe(@"singleton", ^{
         PubnativeConfigManager *sharedInstance = [PubnativeConfigManager sharedInstance];
         PubnativeConfigManager *uniqueInstance = [[PubnativeConfigManager alloc] init];
         expect(sharedInstance).notTo.equal(uniqueInstance);
+    });
+});
+
+describe(@"storage methods", ^{
+    
+    __block id userDefaultsMock;
+    
+    before(^{
+        userDefaultsMock = OCMClassMock([NSUserDefaults class]);
+        OCMStub([userDefaultsMock standardUserDefaults]).andReturn(userDefaultsMock);
+        OCMStub([userDefaultsMock synchronize]).andReturn(YES);
+    });
+    
+    context(@"for app token", ^{
+        
+        it(@"removes value when setting nil", ^{
+            OCMExpect([userDefaultsMock removeObjectForKey:kUserDefaultsStoredAppTokenKey]);
+            [PubnativeConfigManager setStoredAppToken:nil];
+            OCMVerifyAll(userDefaultsMock);
+        });
+        
+        it(@"removes value when setting empty", ^{
+            OCMExpect([userDefaultsMock removeObjectForKey:kUserDefaultsStoredAppTokenKey]);
+            [PubnativeConfigManager setStoredAppToken:@""];
+            OCMVerifyAll(userDefaultsMock);
+        });
+        
+        it(@"sets value when not empty or nil", ^{
+            OCMExpect([userDefaultsMock setObject:@"app_token_valid" forKey:kUserDefaultsStoredAppTokenKey]);
+            [PubnativeConfigManager setStoredAppToken:@"app_token_valid"];
+            OCMVerifyAll(userDefaultsMock);
+        });
+    });
+    
+    context(@"for timestamp", ^{
+        
+        it(@"sets 0 when setting negative", ^{
+            OCMExpect([userDefaultsMock setDouble:0 forKey:kUserDefaultsStoredTimestampKey]);
+            [PubnativeConfigManager setStoredTimestamp:-1];
+            OCMVerifyAll(userDefaultsMock);
+        });
+        
+        it(@"sets 0 when setting 0", ^{
+            OCMExpect([userDefaultsMock setDouble:0 forKey:kUserDefaultsStoredTimestampKey]);
+            [PubnativeConfigManager setStoredTimestamp:0];
+            OCMVerifyAll(userDefaultsMock);
+        });
+        
+        it(@"sets value when setting possitive", ^{
+            OCMExpect([userDefaultsMock setDouble:1 forKey:kUserDefaultsStoredTimestampKey]);
+            [PubnativeConfigManager setStoredTimestamp:1];
+            OCMVerifyAll(userDefaultsMock);
+        });
+    });
+    
+    context(@"config", ^{
+        
+        it(@"clears when setting nil", ^{
+            OCMExpect([userDefaultsMock removeObjectForKey:kUserDefaultsStoredConfigKey]);
+            [PubnativeConfigManager setStoredConfig:nil];
+            OCMVerifyAll(userDefaultsMock);
+        });
+        
+        it(@"clears when setting empty", ^{
+            PubnativeConfigModel *emptyConfig = OCMClassMock([PubnativeConfigModel class]);
+            OCMStub([emptyConfig isEmpty]).andReturn(YES);
+            
+            OCMExpect([userDefaultsMock removeObjectForKey:kUserDefaultsStoredConfigKey]);
+            [PubnativeConfigManager setStoredConfig:emptyConfig];
+            OCMVerifyAll(userDefaultsMock);
+        });
+        
+        it(@"sets config when setting valid config", ^{
+            PubnativeConfigModel *validConfig = OCMClassMock([PubnativeConfigModel class]);
+            OCMStub([validConfig isEmpty]).andReturn(NO);
+            
+            OCMExpect([userDefaultsMock setObject:[OCMArg any] forKey:kUserDefaultsStoredConfigKey]);
+            [PubnativeConfigManager setStoredConfig:validConfig];
+            OCMVerifyAll(userDefaultsMock);
+        });
+    });
+    
+    after(^{
+        [userDefaultsMock stopMocking];
+    });
+});
+
+describe(@"callback methods", ^{
+    
+    __block id managerMock;
+    
+    before(^{
+        managerMock = OCMClassMock([PubnativeConfigManager class]);
+        OCMStub([managerMock sharedInstance]).andReturn(managerMock);
+    });
+    
+    context(@"on error", ^{
+        
+        __block id errorMock;
+        
+        before(^{
+            errorMock = OCMClassMock([NSError class]);
+        });
+    
+        context(@"with nil delegate", ^{
+        
+            it(@"sets manager idle and calls doNextRequest", ^{
+                OCMExpect([managerMock doNextRequest]);
+                OCMExpect([managerMock setIdle:YES]);
+                [PubnativeConfigManager invokeDidFailWithError:errorMock
+                                                      delegate:nil];
+                OCMVerifyAll(managerMock);
+            });
+        });
+        
+        context(@"with valid delegate", ^{
+            
+            it(@"callbacks and continues", ^{
+                id delegateMock = OCMProtocolMock(@protocol(PubnativeConfigManagerDelegate));
+                
+                OCMExpect([delegateMock configDidFailWithError:errorMock]);
+                OCMExpect([managerMock doNextRequest]);
+                OCMExpect([managerMock setIdle:YES]);
+                [PubnativeConfigManager invokeDidFailWithError:errorMock
+                                                      delegate:delegateMock];
+                OCMVerifyAll(managerMock);
+            });
+        });
+    });
+    
+    context(@"on success", ^{
+        
+        __block id modelMock;
+        
+        before(^{
+            modelMock = OCMClassMock([PubnativeConfigModel class]);
+        });
+        
+        context(@"with nil delegate", ^{
+            
+            it(@"sets manager idle and calls doNextRequest", ^{
+                OCMExpect([managerMock doNextRequest]);
+                OCMExpect([managerMock setIdle:YES]);
+                [PubnativeConfigManager invokeDidFinishWithModel:modelMock
+                                                        delegate:nil];
+                OCMVerifyAll(managerMock);
+            });
+        });
+        
+        context(@"with valid delegate", ^{
+            
+            it(@"callbacks and continues", ^{
+                id delegateMock = OCMProtocolMock(@protocol(PubnativeConfigManagerDelegate));
+                
+                OCMExpect([delegateMock configDidFinishWithModel:modelMock]);
+                OCMExpect([managerMock doNextRequest]);
+                OCMExpect([managerMock setIdle:YES]);
+                [PubnativeConfigManager invokeDidFinishWithModel:modelMock
+                                                        delegate:delegateMock];
+                OCMVerifyAll(managerMock);
+            });
+        });
+    });
+    
+    after(^{
+        [managerMock stopMocking];
+    });
+});
+
+describe(@"updating a config", ^{
+    
+    NSString *appTokenValid = @"app_token_valid";
+    
+    NSString *configKey     = @"config";
+    NSString *appTokenKey   = @"appToken";
+    
+    NSString *sharedTestUpdate = @"updates internal values";
+    sharedExamples(sharedTestUpdate, ^(NSDictionary *data) {
+        
+        it(@"invoking set storage values", ^{
+            id managerMock = OCMClassMock([PubnativeConfigManager class]);
+            id configModel = data[configKey];
+            id appToken = data[appTokenKey];
+            
+            OCMExpect([managerMock setStoredAppToken:appToken]);
+            OCMExpect([managerMock setStoredConfig:configModel]);
+            OCMExpect([[managerMock ignoringNonObjectArgs] setStoredTimestamp:0]);
+            [PubnativeConfigManager updateStoredConfig:configModel
+                                          withAppToken:appToken];
+            
+            OCMVerifyAll(managerMock);
+            [managerMock stopMocking];
+        });
+    });
+    
+    NSString *sharedTestDontUpdate = @"dont update";
+    sharedExamples(sharedTestDontUpdate, ^(NSDictionary *data) {
+        
+        it(@"inner storage values", ^{
+            id managerMock = OCMClassMock([PubnativeConfigManager class]);
+            id configModel = data[configKey];
+            id appToken = data[appTokenKey];
+            
+            [[managerMock reject] setStoredAppToken:[OCMArg any]];
+            [[managerMock reject] setStoredConfig:[OCMArg any]];
+            [[managerMock reject] setStoredTimestamp:0];
+            
+            [PubnativeConfigManager updateStoredConfig:configModel
+                                          withAppToken:appToken];
+            
+            [managerMock stopMocking];
+        });
+    });
+    
+    context(@"with nil model", ^{
+       
+        context(@"and nil app token", ^{
+            itShouldBehaveLike(sharedTestDontUpdate, @{});
+        });
+       
+        context(@"and empty app token", ^{
+            itShouldBehaveLike(sharedTestDontUpdate, @{appTokenKey : @""});
+        });
+        
+        context(@"and valid app token", ^{
+            itShouldBehaveLike(sharedTestDontUpdate, @{appTokenKey : appTokenValid});
+        });
+    });
+    
+    context(@"with empty model", ^{
+        
+        __block id modelMock;
+        
+        before(^{
+            modelMock = OCMClassMock([PubnativeConfigModel class]);
+            OCMStub([modelMock isEmpty]).andReturn(YES);
+        });
+        
+        context(@"and nil app token", ^{
+            itShouldBehaveLike(sharedTestDontUpdate,^{ return @{configKey : modelMock}; });
+        });
+        
+        context(@"and empty app token", ^{
+            itShouldBehaveLike(sharedTestDontUpdate,^{ return @{configKey : modelMock,
+                                                                appTokenKey : @""}; });
+        });
+        
+        context(@"and valid app token", ^{
+            itShouldBehaveLike(sharedTestDontUpdate,^{ return @{configKey : modelMock,
+                                                                appTokenKey : appTokenValid}; });
+        });
+    });
+    
+    context(@"with valid model", ^{
+        
+        __block id modelMock;
+        
+        before(^{
+            modelMock = OCMClassMock([PubnativeConfigModel class]);
+            OCMStub([modelMock isEmpty]).andReturn(NO);
+        });
+        
+        context(@"and nil app token", ^{
+            itShouldBehaveLike(sharedTestDontUpdate,^{ return @{configKey : modelMock}; });
+        });
+        
+        context(@"and empty app token", ^{
+            itShouldBehaveLike(sharedTestDontUpdate,^{ return @{configKey : modelMock,
+                                                                appTokenKey : @""}; });
+        });
+        
+        context(@"and valid app token", ^{
+            itShouldBehaveLike(sharedTestUpdate,^{ return @{configKey : modelMock,
+                                                            appTokenKey : appTokenValid}; });
+        });
+    });
+});
+
+describe(@"processing next request in queue", ^{
+    
+    __block id managerMock;
+    
+    before(^{
+        managerMock = OCMClassMock([PubnativeConfigManager class]);
+        OCMStub([managerMock sharedInstance]).andReturn(managerMock);
+    });
+    
+    context(@"with idle manager", ^{
+        
+        before(^{
+            OCMStub([managerMock idle]).andReturn(YES);
+        });
+        
+        it(@"without next request keeps manager idle", ^{
+            OCMStub([managerMock dequeueRequestDelegate]).andReturn(nil);
+            
+            OCMExpect([managerMock setIdle:YES]);
+            [PubnativeConfigManager doNextRequest];
+            OCMVerifyAll(managerMock);
+        });
+        
+        it(@"with next request manager idle is disabled", ^{
+            id requestModel = OCMClassMock([PubnativeConfigRequestModel class]);
+            
+            OCMStub([managerMock dequeueRequestDelegate]).andReturn(requestModel);
+            
+            OCMExpect([managerMock getNextConfigWithModel:requestModel]);
+            OCMExpect([managerMock setIdle:NO]);
+            [PubnativeConfigManager doNextRequest];
+            OCMVerifyAll(managerMock);
+        });
+    });
+    
+    after(^{
+        [managerMock stopMocking];
+    });
+});
+
+describe(@"request queue", ^{
+    
+    NSString *appTokenValid = @"app_token_valid";
+    
+    __block id managerMock;
+    
+    before(^{
+        managerMock = OCMClassMock([PubnativeConfigManager class]);
+        OCMStub([managerMock sharedInstance]).andReturn(managerMock);
+    });
+    
+    context(@"enqueuing", ^{
+       
+        context(@"never access request queue", ^{
+
+            before(^{
+                [[managerMock reject] requestQueue];
+            });
+            
+            it(@"with nil request", ^{
+                [PubnativeConfigManager enqueueRequestModel:nil];
+            });
+            
+            context(@"with valid request", ^{
+               
+                __block id requestMock;
+                
+                before(^{
+                    requestMock = OCMClassMock([PubnativeConfigRequestModel class]);
+                });
+                
+                context(@"nil delegate", ^{
+                    
+                    before(^{
+                        OCMStub([requestMock delegate]).andReturn(nil);
+                    });
+                   
+                    it(@"and nil appToken", ^{
+                        OCMStub([requestMock appToken]).andReturn(nil);
+                        [PubnativeConfigManager enqueueRequestModel:requestMock];
+                    });
+                    
+                    it(@"and empty appToken", ^{
+                        OCMStub([requestMock appToken]).andReturn(@"");
+                        [PubnativeConfigManager enqueueRequestModel:requestMock];
+                    });
+                    
+                    it(@"and valid appToken", ^{
+                        OCMStub([requestMock appToken]).andReturn(appTokenValid);
+                        [PubnativeConfigManager enqueueRequestModel:requestMock];
+                    });
+                });
+                
+                context(@"valid delegate", ^{
+                    
+                    before(^{
+                        OCMStub([requestMock delegate]).andReturn(OCMProtocolMock(@protocol(PubnativeConfigManagerDelegate)));
+                    });
+                    
+                    it(@"and nil appToken", ^{
+                        OCMStub([requestMock appToken]).andReturn(nil);
+                        [PubnativeConfigManager enqueueRequestModel:requestMock];
+                    });
+                    
+                    it(@"and empty appToken", ^{
+                        OCMStub([requestMock appToken]).andReturn(@"");
+                        [PubnativeConfigManager enqueueRequestModel:requestMock];
+                    });
+                });
+            });
+        });
+        
+        context(@"with valid request", ^{
+            
+            __block id requestMock;
+            
+            before(^{
+                requestMock = OCMClassMock([PubnativeConfigRequestModel class]);
+                OCMStub([requestMock delegate]).andReturn(OCMProtocolMock(@protocol(PubnativeConfigManagerDelegate)));
+                OCMStub([requestMock appToken]).andReturn(appTokenValid);
+            });
+            
+            context(@"previously not initialized", ^{
+                
+                before(^{
+                    OCMStub([managerMock requestQueue]).andReturn(nil);
+                });
+                
+                it(@"initializes queue", ^{
+                    OCMExpect([managerMock setRequestQueue:[OCMArg any]]);
+                    [PubnativeConfigManager enqueueRequestModel:requestMock];
+                    OCMVerifyAll(managerMock);
+                });
+            });
+            
+            context(@"previously initialized", ^{
+               
+                __block id queueMock;
+                
+                before(^{
+                    queueMock = OCMClassMock([NSMutableArray class]);
+                    OCMStub([managerMock requestQueue]).andReturn(queueMock);
+                });
+                
+                it(@"adds request", ^{
+                    OCMExpect([queueMock addObject:[OCMArg any]]);
+                    [PubnativeConfigManager enqueueRequestModel:requestMock];
+                    OCMVerifyAll(queueMock);
+                });
+            });
+        });
+    });
+    
+    context(@"dequeues", ^{
+
+        context(@"without request queue", ^{
+            
+            before(^{
+                OCMStub([managerMock requestQueue]).andReturn(nil);
+            });
+            
+            it(@"returns nil", ^{
+                expect([PubnativeConfigManager dequeueRequestDelegate]).to.beNil();
+            });
+        });
+        
+        context(@"with request queue", ^{
+            
+            __block id queueMock;
+            
+            before(^{
+                queueMock = OCMClassMock([NSMutableArray class]);
+                OCMStub([managerMock requestQueue]).andReturn(queueMock);
+            });
+            
+            context(@"empty", ^{
+                
+                before(^{
+                    OCMStub([queueMock count]).andReturn(0);
+                });
+                
+                it(@"returns nil", ^{
+                    expect([PubnativeConfigManager dequeueRequestDelegate]).to.beNil();
+                });
+            });
+            
+            context(@"with something", ^{
+                
+                before(^{
+                    OCMStub([queueMock count]).andReturn(1);
+                });
+                
+                it(@"access the first item and removes it from the queue", ^{
+                    OCMExpect([queueMock objectAtIndex:0]);
+                    OCMExpect([queueMock removeObjectAtIndex:0]);
+                    [PubnativeConfigManager dequeueRequestDelegate];
+                    OCMVerifyAll(queueMock);
+                });
+            });
+        });
+    });
+    
+    after(^{
+        [managerMock stopMocking];
+    });
+});
+
+describe(@"public interface", ^{
+    
+    NSString *appTokenValid = @"app_token_valid";
+    
+    __block id  managerMock;
+    
+    before(^{
+        managerMock = OCMClassMock([PubnativeConfigManager class]);
+    });
+    
+    context(@"never continues without delegate", ^{
+           
+        before(^{
+            [[managerMock reject] doNextRequest];
+            [[managerMock reject] enqueueRequestModel:[OCMArg any]];
+        });
+        
+        it(@"and nil appToken", ^{
+            [PubnativeConfigManager configWithAppToken:nil
+                                              delegate:nil];
+        });
+        
+        it(@"and empty appToken", ^{
+            [PubnativeConfigManager configWithAppToken:@""
+                                              delegate:nil];
+        });
+            
+        it(@"and valid appToken", ^{
+            [PubnativeConfigManager configWithAppToken:appTokenValid
+                                              delegate:nil];
+        });
+    });
+        
+    context(@"with valid delegate", ^{
+
+        __block id delegateMock;
+        
+        before(^{
+            delegateMock = OCMProtocolMock(@protocol(PubnativeConfigManagerDelegate));
+        });
+            
+        it(@"and nil appToken fail callback", ^{
+            OCMExpect([managerMock invokeDidFailWithError:[OCMArg any] delegate:delegateMock]);
+            [PubnativeConfigManager configWithAppToken:nil
+                                              delegate:delegateMock];
+            OCMVerifyAll(managerMock);
+        });
+            
+        it(@"and empty appToken fail callback", ^{
+            OCMExpect([managerMock invokeDidFailWithError:[OCMArg any] delegate:delegateMock]);
+            [PubnativeConfigManager configWithAppToken:@""
+                                              delegate:delegateMock];
+            OCMVerifyAll(managerMock);
+        });
+            
+        it(@"and valid appToken continues", ^{
+            OCMExpect([managerMock doNextRequest]);
+            OCMExpect([managerMock enqueueRequestModel:[OCMArg checkWithBlock:^BOOL(id obj) {
+                PubnativeConfigRequestModel *model = obj;
+                return [model.appToken isEqualToString:appTokenValid] && [model.delegate isEqual:delegateMock];
+            }]]);
+            
+            [PubnativeConfigManager configWithAppToken:appTokenValid
+                                              delegate:delegateMock];
+            
+            OCMVerifyAll(managerMock);
+        });
+    });
+    
+    after(^{
+        [managerMock stopMocking];
+    });
+});
+
+describe(@"serving stored config", ^{
+    
+    __block id managerMock;
+    
+    before(^{
+       managerMock = OCMClassMock([PubnativeConfigManager class]);
+    });
+    
+    context(@"without stored config", ^{
+        
+        before(^{
+            OCMStub([managerMock getStoredConfig]).andReturn(nil);
+        });
+        
+        it(@"callback fail", ^{
+            id delegateMock = OCMProtocolMock(@protocol(PubnativeConfigManagerDelegate));
+            id requestModelMock = OCMClassMock([PubnativeConfigRequestModel class]);
+            OCMStub([requestModelMock delegate]).andReturn(delegateMock);
+            
+            OCMExpect([managerMock invokeDidFailWithError:[OCMArg any] delegate:delegateMock]);
+            [PubnativeConfigManager serveStoredConfigWithRequest:requestModelMock];
+            OCMVerifyAll(managerMock);
+        });
+    });
+    
+    context(@"with stored config", ^{
+        
+        __block id modelMock;
+        
+        before(^{
+            modelMock = OCMClassMock([PubnativeConfigModel class]);
+            OCMStub([managerMock getStoredConfig]).andReturn(modelMock);
+        });
+        
+        it(@"callback finish", ^{
+            id delegateMock = OCMProtocolMock(@protocol(PubnativeConfigManagerDelegate));
+            id requestModelMock = OCMClassMock([PubnativeConfigRequestModel class]);
+            OCMStub([requestModelMock delegate]).andReturn(delegateMock);
+            
+            OCMExpect([managerMock invokeDidFinishWithModel:modelMock delegate:delegateMock]);
+            [PubnativeConfigManager serveStoredConfigWithRequest:requestModelMock];
+            OCMVerifyAll(managerMock);
+        });
+    });
+    
+    after(^{
+       [managerMock stopMocking];
+    });
+});
+
+describe(@"requesting a config", ^{
+   
+    __block id managerMock;
+    
+    before(^{
+        managerMock = OCMClassMock([PubnativeConfigManager class]);
+    });
+    
+    context(@"with update needed", ^{
+        
+        before(^{
+            OCMStub([managerMock storedConfigNeedsUpdateWithAppToken:[OCMArg any]]).andReturn(YES);
+        });
+        
+        it(@"tries downloading a config", ^{
+            id requestModelMock = OCMClassMock([PubnativeConfigRequestModel class]);
+            
+            OCMExpect([managerMock downloadConfigWithRequest:requestModelMock]);
+            [PubnativeConfigManager getNextConfigWithModel:requestModelMock];
+            OCMVerifyAll(managerMock);
+        });
+    });
+    
+    context(@"without update needed", ^{
+        
+        before(^{
+            OCMStub([managerMock storedConfigNeedsUpdateWithAppToken:[OCMArg any]]).andReturn(NO);
+        });
+        
+        it(@"tries downloading a config", ^{
+            id requestModelMock = OCMClassMock([PubnativeConfigRequestModel class]);
+            
+            OCMExpect([managerMock serveStoredConfigWithRequest:requestModelMock]);
+            [PubnativeConfigManager getNextConfigWithModel:requestModelMock];
+            OCMVerifyAll(managerMock);
+        });
+    });
+    
+    after(^{
+        [managerMock stopMocking];
+    });
+});
+
+describe(@"checking if stored config needs update", ^{
+   
+    NSString *requestAppToken = @"appToken";
+    
+    __block id managerMock;
+    
+    before(^{
+        managerMock = OCMClassMock([PubnativeConfigManager class]);
+    });
+    
+    context(@"without previous stored config", ^{
+        
+        before(^{
+           OCMStub([managerMock getStoredConfig]).andReturn(nil);
+        });
+        
+        it(@"should return YES", ^{
+            expect([PubnativeConfigManager storedConfigNeedsUpdateWithAppToken:requestAppToken]).to.beTruthy();
+        });
+    });
+    
+    context(@"with previous stored config", ^{
+        
+        __block id modelMock;
+        
+        before(^{
+            modelMock = OCMClassMock([PubnativeConfigModel class]);
+            OCMStub([managerMock getStoredConfig]).andReturn(modelMock);
+        });
+        
+        context(@"without previous stored app token", ^{
+            before(^{
+                OCMStub([managerMock getStoredAppToken]).andReturn(nil);
+            });
+            
+            it(@"should return YES", ^{
+                expect([PubnativeConfigManager storedConfigNeedsUpdateWithAppToken:requestAppToken]).to.beTruthy();
+            });
+        });
+        
+        context(@"with previous stored app token different", ^{
+            
+            before(^{
+                OCMStub([managerMock getStoredAppToken]).andReturn(@"invalidAppToken");
+            });
+            
+            it(@"should return YES", ^{
+                expect([PubnativeConfigManager storedConfigNeedsUpdateWithAppToken:requestAppToken]).to.beTruthy();
+            });
+        });
+        
+        context(@"with previous stored app token same", ^{
+            
+            before(^{
+                OCMStub([managerMock getStoredAppToken]).andReturn(requestAppToken);
+            });
+            
+            context(@"without previous stored timestamp", ^{
+                
+                before(^{
+                    OCMStub([managerMock getStoredTimestamp]).andReturn(nil);
+                });
+                
+                expect([PubnativeConfigManager storedConfigNeedsUpdateWithAppToken:requestAppToken]).to.beTruthy();
+            });
+            
+            context(@"with refresh time nil", ^{
+                
+                __block id globalsMock;
+                
+                before(^{
+                    globalsMock = OCMClassMock([PubnativeConfigGlobalsModel class]);
+                    OCMStub([modelMock globals]).andReturn(globalsMock);
+                    OCMStub([globalsMock refresh]).andReturn(nil);
+                });
+                
+                it(@"should return YES", ^{
+                    expect([PubnativeConfigManager storedConfigNeedsUpdateWithAppToken:requestAppToken]).to.beTruthy();
+                });
+            });
+            
+            context(@"with refresh time 0", ^{
+                
+                __block id globalsMock;
+                
+                before(^{
+                    globalsMock = OCMClassMock([PubnativeConfigGlobalsModel class]);
+                    OCMStub([modelMock globals]).andReturn(globalsMock);
+                    OCMStub([globalsMock refresh]).andReturn(@0);
+                });
+                
+                it(@"should return YES", ^{
+                    expect([PubnativeConfigManager storedConfigNeedsUpdateWithAppToken:requestAppToken]).to.beTruthy();
+                });
+            });
+            
+            context(@"with previous stored timestamp and positive refresh time", ^{
+                
+                NSNumber *refreshValue = @1;
+                
+                __block id globalsMock;
+                
+                before(^{
+                    globalsMock = OCMClassMock([PubnativeConfigGlobalsModel class]);
+                    OCMStub([modelMock globals]).andReturn(globalsMock);
+                    OCMStub([globalsMock refresh]).andReturn(refreshValue);
+                });
+                
+                context(@"and overdue time", ^{
+                    
+                    before(^{
+                        OCMStub([managerMock getStoredTimestamp]).andReturn(0);
+                    });
+                    
+                    it(@"should return YES", ^{
+                        expect([PubnativeConfigManager storedConfigNeedsUpdateWithAppToken:requestAppToken]).to.beTruthy();
+                    });
+                });
+                
+                context(@"and still valid time", ^{
+                    
+                    before(^{
+                        OCMStub([managerMock getStoredTimestamp]).andReturn([[NSDate date] timeIntervalSince1970]);
+                    });
+                    
+                    it(@"should return NO", ^{
+                        expect([PubnativeConfigManager storedConfigNeedsUpdateWithAppToken:requestAppToken]).to.beFalsy();
+                    });
+                });
+            });
+        });
+    });
+    
+    after(^{
+        [managerMock stopMocking];
+    });
+});
+
+describe(@"processing download", ^{
+    
+    NSString *requestAppToken = @"appToken";
+    __block id managerMock;
+    __block id delegateMock;
+    __block id requestMock;
+    
+    before(^{
+        managerMock = OCMClassMock([PubnativeConfigManager class]);
+        delegateMock = OCMProtocolMock(@protocol(PubnativeConfigManagerDelegate));
+        requestMock = OCMClassMock([PubnativeConfigRequestModel class]);
+        OCMStub([requestMock appToken]).andReturn(requestAppToken);
+        OCMStub([requestMock delegate]).andReturn(delegateMock);
+    });
+    
+    __block id jsonParameter;
+    __block id errorParameter;
+    
+    context(@"with error", ^{
+        
+        before(^{
+            errorParameter = OCMClassMock([JSONModelError class]);
+        });
+        
+        context(@"and nil dictionary", ^{
+            
+            before(^{
+                jsonParameter = nil;
+            });
+            
+            it(@"callback fail", ^{
+                OCMExpect([managerMock invokeDidFailWithError:[OCMArg any] delegate:delegateMock]);
+                [PubnativeConfigManager processDownloadResponseWithRequest:requestMock
+                                                                  withJson:jsonParameter
+                                                                     error:errorParameter];
+                OCMVerifyAll(managerMock);
+            });
+        });
+        
+        context(@"and valid dictionary", ^{
+            
+            before(^{
+                jsonParameter = OCMClassMock([NSDictionary class]);
+            });
+            
+            it(@"callback fail", ^{
+                OCMExpect([managerMock invokeDidFailWithError:[OCMArg any] delegate:delegateMock]);
+                [PubnativeConfigManager processDownloadResponseWithRequest:requestMock
+                                                                  withJson:jsonParameter
+                                                                     error:errorParameter];
+                OCMVerifyAll(managerMock);
+            });
+        });
+    });
+    
+    context(@"with nil error", ^{
+        
+        before(^{
+            errorParameter = nil;
+        });
+        
+        context(@"and nil dictionary", ^{
+            
+            before(^{
+                jsonParameter = nil;
+            });
+            
+            it(@"callback fail", ^{
+                OCMExpect([managerMock invokeDidFailWithError:[OCMArg any] delegate:delegateMock]);
+                [PubnativeConfigManager processDownloadResponseWithRequest:requestMock
+                                                                  withJson:jsonParameter
+                                                                     error:errorParameter];
+                OCMVerifyAll(managerMock);
+            });
+        });
+        
+        context(@"and valid dictionary", ^{
+            
+            __block id responseModelMock;
+            
+            before(^{
+                responseModelMock = OCMClassMock([PubnativeConfigAPIResponseModel class]);
+                jsonParameter = OCMClassMock([NSDictionary class]);
+            });
+            
+            context(@"non parseable", ^{
+               
+                __block id parseError;
+                
+                before(^{
+                    parseError = OCMClassMock([NSError class]);
+                    OCMStub([responseModelMock parseDictionary:[OCMArg any]
+                                                         error:[OCMArg setTo:parseError]]).andReturn(nil);
+                });
+                
+                it(@"callback fail", ^{
+                    OCMExpect([managerMock invokeDidFailWithError:parseError
+                                                         delegate:delegateMock]);
+                    
+                    [PubnativeConfigManager processDownloadResponseWithRequest:requestMock
+                                                                      withJson:jsonParameter
+                                                                         error:errorParameter];
+                    OCMVerifyAll(managerMock);
+                });
+            });
+            
+            context(@"parseable", ^{
+                
+                before(^{
+                    OCMStub([responseModelMock parseDictionary:[OCMArg any]
+                                                         error:[OCMArg anyObjectRef]]).andReturn(responseModelMock);
+                });
+                
+                context(@"with error response", ^{
+                    
+                    before(^{
+                        OCMStub([responseModelMock success]).andReturn(NO);
+                    });
+                    
+                    it(@"callback fail", ^{
+                        OCMExpect([responseModelMock error_message]);
+                        OCMExpect([managerMock invokeDidFailWithError:[OCMArg any]
+                                                             delegate:delegateMock]);
+                        
+                        [PubnativeConfigManager processDownloadResponseWithRequest:requestMock
+                                                                          withJson:jsonParameter
+                                                                             error:errorParameter];
+                        OCMVerifyAll(managerMock);
+                        OCMVerifyAll(responseModelMock);
+                    });
+                });
+                
+                context(@"with success response", ^{
+                    
+                    __block id configMock;
+                    
+                    before(^{
+                        configMock = OCMClassMock([PubnativeConfigModel class]);
+                        OCMStub([responseModelMock success]).andReturn(YES);
+                        OCMStub([responseModelMock config]).andReturn(configMock);
+                        
+                    });
+                    
+                    it(@"updates and serve", ^{
+                        OCMExpect([managerMock updateStoredConfig:configMock withAppToken:requestAppToken]);
+                        OCMExpect([managerMock serveStoredConfigWithRequest:requestMock]);
+                        
+                        [PubnativeConfigManager processDownloadResponseWithRequest:requestMock
+                                                                          withJson:jsonParameter
+                                                                             error:errorParameter];
+                        
+                        OCMVerifyAll(managerMock);
+                    });
+                });
+            });
+            
+            after(^{
+                [responseModelMock stopMocking];
+            });
+        });
+    });
+    
+    after(^{
+        [managerMock stopMocking];
     });
 });
 

@@ -13,6 +13,17 @@ NSString * const kAPIStatusErrorValue           = @"error";
 
 @implementation PubnativeConfigAPIResponseModel
 
++ (instancetype)parseDictionary:(NSDictionary*)dictionary error:(NSError**)error
+{
+    PubnativeConfigAPIResponseModel *result = nil;
+    result = [[PubnativeConfigAPIResponseModel alloc] initWithDictionary:dictionary
+                                                                   error:error];
+    if(error){
+        result = nil;
+    }
+    return result;
+}
+
 - (BOOL)success
 {
     return [kAPIStatusSuccessValue isEqualToString:[self.status lowercaseString]];
