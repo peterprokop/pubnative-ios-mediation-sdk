@@ -541,9 +541,9 @@ describe(@"request queue", ^{
                     OCMStub([queueMock count]).andReturn(1);
                 });
                 
-                it(@"returns nil", ^{
-                    OCMExpect([[queueMock ignoringNonObjectArgs] objectAtIndex:0]);
-                    OCMExpect([[queueMock ignoringNonObjectArgs] removeObjectAtIndex:0]);
+                it(@"access the first item and removes it from the queue", ^{
+                    OCMExpect([queueMock objectAtIndex:0]);
+                    OCMExpect([queueMock removeObjectAtIndex:0]);
                     [PubnativeConfigManager dequeueRequestDelegate];
                     OCMVerifyAll(queueMock);
                 });
