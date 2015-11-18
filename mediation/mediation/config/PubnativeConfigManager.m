@@ -104,7 +104,11 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
     
             NSTimeInterval storedTimestamp = [PubnativeConfigManager getStoredTimestamp];
             
-            if(storedTimestamp) {
+            if(storedTimestamp &&
+               storedModel.globals &&
+               storedModel.globals.refresh &&
+               storedModel.globals.refresh > 0) {
+                
                 NSTimeInterval currentTimestamp = [[NSDate date] timeIntervalSince1970];
                 NSTimeInterval elapsedTime = currentTimestamp - storedTimestamp;
                 
@@ -207,8 +211,8 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
         if(json){
             
             NSError *parsingError = nil;
-            PubnativeConfigAPIResponseModel *responseModel = [[PubnativeConfigAPIResponseModel alloc] initWithDictionary:json
-                                                                                                                   error:&parsingError];
+            PubnativeConfigAPIResponseModel *responseModel = [PubnativeConfigAPIResponseModel parseDictionary:json
+                                                                                                        error:&parsingError];
             if(parsingError){
                 // ERROR: Parsing error
                 [PubnativeConfigManager invokeDidFailWithError:parsingError
@@ -223,7 +227,7 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
                     
                 } else {
                     
-                    // Server returned error
+                    // ERROR: Server returned error
                     NSString *errorString = [NSString stringWithFormat:@"Pubnative - Server error: %@", responseModel.error_message];
                     NSError *serverError = [NSError errorWithDomain:errorString
                                                                code:0
@@ -239,8 +243,7 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
                                                      userInfo:nil];
             [PubnativeConfigManager invokeDidFailWithError:responseError
                                                   delegate:requestModel.delegate];
-        }
-        
+        }   
     }
 }
 
