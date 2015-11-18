@@ -7,7 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PubnativeNetworkModel.h"
+#import "PubnativeNetworkAdapter.h"
 
 @interface PubnativeNetworkAdapterFactory : NSObject
+
++ (PubnativeNetworkAdapter *)createApdaterWithNetwork:(PubnativeNetworkModel*)model;
 
 @end
