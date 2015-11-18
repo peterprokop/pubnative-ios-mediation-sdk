@@ -111,14 +111,12 @@ describe(@"while doing request", ^{
             });
             
             it(@"callbacks start and starts request", ^{
-                [[networkAdapterMock reject] requestTimeout];
-                
                 OCMExpect([networkAdapterMock doRequest]);
                 OCMExpect([networkAdapterMock invokeDidStart]);
                 [networkAdapterMock requestWithTimeout:timeout delegate:delegateMock];
                 
                 //Verify after some time that no reject is called
-                OCMVerifyAllWithDelay(networkAdapterMock, 500);
+                OCMVerifyAll(networkAdapterMock);
             });
         });
         
@@ -133,7 +131,7 @@ describe(@"while doing request", ^{
                 OCMExpect([networkAdapterMock doRequest]);
                 OCMExpect([networkAdapterMock invokeDidStart]);
                 [networkAdapterMock requestWithTimeout:timeout delegate:delegateMock];
-                OCMVerifyAll(networkAdapterMock);
+                OCMVerifyAllWithDelay(networkAdapterMock, timeout);
             });
         });
     });
