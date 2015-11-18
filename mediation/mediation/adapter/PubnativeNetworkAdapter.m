@@ -10,8 +10,8 @@
 
 @interface PubnativeNetworkAdapter()
 
-@property (nonatomic, strong)   NSDictionary                                *params;
-@property (nonatomic, weak)     NSObject<PubnativeNetworkAdapterDelegate>   *delegate;
+@property (nonatomic, strong)NSDictionary                                *params;
+@property (nonatomic, weak)  NSObject<PubnativeNetworkAdapterDelegate>   *delegate;
 
 @end
 

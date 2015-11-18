@@ -22,8 +22,6 @@ int const kTimeOutHalfSecond = 500; //miliseconds
 - (void)invokeDidFail:(NSError*)error;
 - (void)requestTimeout;
 - (void)doRequest;
-- (id)performBlock:(void (^)(void))block afterDelay:(int)timeout;
-- (void)cancelBlock:(id)block;
 
 @end
 
