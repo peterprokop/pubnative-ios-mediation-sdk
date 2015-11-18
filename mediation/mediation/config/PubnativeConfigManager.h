@@ -7,7 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PubnativeConfigModel.h"
+
+@protocol PubnativeConfigManagerDelegate <NSObject>
+
+- (void)configDidFinishWithModel:(PubnativeConfigModel*)model;
+- (void)configDidFailWithError:(NSError*)error;
+
+@end
 
 @interface PubnativeConfigManager : NSObject
+
++ (void)configWithAppToken:(NSString *)appToken delegate:(NSObject<PubnativeConfigManagerDelegate> *)delegate;
 
 @end
