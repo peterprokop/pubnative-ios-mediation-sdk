@@ -55,7 +55,6 @@ extern NSString * const kUserDefaultsStoredTimestampKey;
 
 SpecBegin(PubnativeConfigManager)
 
-
 describe(@"singleton", ^{
     
     it(@"should have a shared instance", ^{
@@ -145,7 +144,6 @@ describe(@"storage methods", ^{
         });
         
         it(@"sets config when setting valid config", ^{
-            
             PubnativeConfigModel *validConfig = OCMClassMock([PubnativeConfigModel class]);
             OCMStub([validConfig isEmpty]).andReturn(NO);
             
@@ -163,6 +161,7 @@ describe(@"storage methods", ^{
 describe(@"callback methods", ^{
     
     __block id managerMock;
+    
     before(^{
         managerMock = OCMClassMock([PubnativeConfigManager class]);
         OCMStub([managerMock sharedInstance]).andReturn(managerMock);
@@ -171,6 +170,7 @@ describe(@"callback methods", ^{
     context(@"on error", ^{
         
         __block id errorMock;
+        
         before(^{
             errorMock = OCMClassMock([NSError class]);
         });
@@ -178,16 +178,10 @@ describe(@"callback methods", ^{
         context(@"with nil delegate", ^{
         
             it(@"sets manager idle and calls doNextRequest", ^{
-                // GIVEN
-                
-                // EXPECTING
                 OCMExpect([managerMock doNextRequest]);
                 OCMExpect([managerMock setIdle:YES]);
-                
-                // WHEN
                 [PubnativeConfigManager invokeDidFailWithError:errorMock
                                                       delegate:nil];
-                // VERIFY
                 OCMVerifyAll(managerMock);
             });
         });
@@ -195,18 +189,13 @@ describe(@"callback methods", ^{
         context(@"with valid delegate", ^{
             
             it(@"callbacks and continues", ^{
-                // GIVEN
                 id delegateMock = OCMProtocolMock(@protocol(PubnativeConfigManagerDelegate));
                 
-                // EXPECTING
                 OCMExpect([delegateMock configDidFailWithError:errorMock]);
                 OCMExpect([managerMock doNextRequest]);
                 OCMExpect([managerMock setIdle:YES]);
-                
-                // WHEN
                 [PubnativeConfigManager invokeDidFailWithError:errorMock
                                                       delegate:delegateMock];
-                // VERIFY
                 OCMVerifyAll(managerMock);
             });
         });
@@ -223,16 +212,10 @@ describe(@"callback methods", ^{
         context(@"with nil delegate", ^{
             
             it(@"sets manager idle and calls doNextRequest", ^{
-                // GIVEN
-                
-                // EXPECTING
                 OCMExpect([managerMock doNextRequest]);
                 OCMExpect([managerMock setIdle:YES]);
-                
-                // WHEN
                 [PubnativeConfigManager invokeDidFinishWithModel:modelMock
                                                         delegate:nil];
-                // VERIFY
                 OCMVerifyAll(managerMock);
             });
         });
@@ -240,18 +223,13 @@ describe(@"callback methods", ^{
         context(@"with valid delegate", ^{
             
             it(@"callbacks and continues", ^{
-                // GIVEN
                 id delegateMock = OCMProtocolMock(@protocol(PubnativeConfigManagerDelegate));
                 
-                // EXPECTING
                 OCMExpect([delegateMock configDidFinishWithModel:modelMock]);
                 OCMExpect([managerMock doNextRequest]);
                 OCMExpect([managerMock setIdle:YES]);
-                
-                // WHEN
                 [PubnativeConfigManager invokeDidFinishWithModel:modelMock
                                                         delegate:delegateMock];
-                // VERIFY
                 OCMVerifyAll(managerMock);
             });
         });
@@ -273,22 +251,17 @@ describe(@"updating a config", ^{
     sharedExamples(sharedTestUpdate, ^(NSDictionary *data) {
         
         it(@"invoking set storage values", ^{
-            // GIVEN
             id managerMock = OCMClassMock([PubnativeConfigManager class]);
             id configModel = data[configKey];
             id appToken = data[appTokenKey];
-            // EXPECTING
+            
             OCMExpect([managerMock setStoredAppToken:appToken]);
             OCMExpect([managerMock setStoredConfig:configModel]);
             OCMExpect([[managerMock ignoringNonObjectArgs] setStoredTimestamp:0]);
-            
-            // WHEN
             [PubnativeConfigManager updateStoredConfig:configModel
                                           withAppToken:appToken];
             
-            // VERIFY
             OCMVerifyAll(managerMock);
-            
             [managerMock stopMocking];
         });
     });
@@ -392,7 +365,6 @@ describe(@"processing next request in queue", ^{
         });
         
         it(@"without next request keeps manager idle", ^{
-            
             OCMStub([managerMock dequeueRequestDelegate]).andReturn(nil);
             
             OCMExpect([managerMock setIdle:YES]);
@@ -401,7 +373,6 @@ describe(@"processing next request in queue", ^{
         });
         
         it(@"with next request manager idle is disabled", ^{
-            
             id requestModel = OCMClassMock([PubnativeConfigRequestModel class]);
             
             OCMStub([managerMock dequeueRequestDelegate]).andReturn(requestModel);
@@ -409,7 +380,7 @@ describe(@"processing next request in queue", ^{
             OCMExpect([managerMock getNextConfigWithModel:requestModel]);
             OCMExpect([managerMock setIdle:NO]);
             [PubnativeConfigManager doNextRequest];
-            OCMVerify(managerMock);
+            OCMVerifyAll(managerMock);
         });
     });
     
@@ -516,19 +487,18 @@ describe(@"request queue", ^{
             context(@"previously initialized", ^{
                
                 __block id queueMock;
+                
                 before(^{
                     queueMock = OCMClassMock([NSMutableArray class]);
                     OCMStub([managerMock requestQueue]).andReturn(queueMock);
                 });
                 
                 it(@"adds request", ^{
-                    
                     OCMExpect([queueMock addObject:[OCMArg any]]);
                     [PubnativeConfigManager enqueueRequestModel:requestMock];
                     OCMVerifyAll(queueMock);
                 });
             });
-            
         });
     });
     
@@ -555,6 +525,7 @@ describe(@"request queue", ^{
             });
             
             context(@"empty", ^{
+                
                 before(^{
                     OCMStub([queueMock count]).andReturn(0);
                 });
@@ -588,6 +559,7 @@ describe(@"request queue", ^{
 describe(@"public interface", ^{
     
     NSString *appTokenValid = @"app_token_valid";
+    
     __block id  managerMock;
     
     before(^{
@@ -603,44 +575,43 @@ describe(@"public interface", ^{
         
         it(@"and nil appToken", ^{
             [PubnativeConfigManager configWithAppToken:nil
-                                                delegate:nil];
+                                              delegate:nil];
         });
         
         it(@"and empty appToken", ^{
             [PubnativeConfigManager configWithAppToken:@""
-                                                delegate:nil];
+                                              delegate:nil];
         });
             
         it(@"and valid appToken", ^{
             [PubnativeConfigManager configWithAppToken:appTokenValid
-                                                delegate:nil];
+                                              delegate:nil];
         });
     });
         
     context(@"with valid delegate", ^{
 
         __block id delegateMock;
+        
         before(^{
             delegateMock = OCMProtocolMock(@protocol(PubnativeConfigManagerDelegate));
         });
             
         it(@"and nil appToken fail callback", ^{
-                
             OCMExpect([managerMock invokeDidFailWithError:[OCMArg any] delegate:delegateMock]);
             [PubnativeConfigManager configWithAppToken:nil
-                                                  delegate:delegateMock];
+                                              delegate:delegateMock];
             OCMVerifyAll(managerMock);
         });
             
         it(@"and empty appToken fail callback", ^{
             OCMExpect([managerMock invokeDidFailWithError:[OCMArg any] delegate:delegateMock]);
             [PubnativeConfigManager configWithAppToken:@""
-                                                delegate:delegateMock];
+                                              delegate:delegateMock];
             OCMVerifyAll(managerMock);
         });
             
         it(@"and valid appToken continues", ^{
-
             OCMExpect([managerMock doNextRequest]);
             OCMExpect([managerMock enqueueRequestModel:[OCMArg checkWithBlock:^BOOL(id obj) {
                 PubnativeConfigRequestModel *model = obj;
@@ -648,7 +619,7 @@ describe(@"public interface", ^{
             }]]);
             
             [PubnativeConfigManager configWithAppToken:appTokenValid
-                                                delegate:delegateMock];
+                                              delegate:delegateMock];
             
             OCMVerifyAll(managerMock);
         });
@@ -687,6 +658,7 @@ describe(@"serving stored config", ^{
     context(@"with stored config", ^{
         
         __block id modelMock;
+        
         before(^{
             modelMock = OCMClassMock([PubnativeConfigModel class]);
             OCMStub([managerMock getStoredConfig]).andReturn(modelMock);
@@ -717,12 +689,12 @@ describe(@"requesting a config", ^{
     });
     
     context(@"with update needed", ^{
+        
         before(^{
             OCMStub([managerMock storedConfigNeedsUpdateWithAppToken:[OCMArg any]]).andReturn(YES);
         });
         
         it(@"tries downloading a config", ^{
-            
             id requestModelMock = OCMClassMock([PubnativeConfigRequestModel class]);
             
             OCMExpect([managerMock downloadConfigWithRequest:requestModelMock]);
@@ -732,12 +704,12 @@ describe(@"requesting a config", ^{
     });
     
     context(@"without update needed", ^{
+        
         before(^{
             OCMStub([managerMock storedConfigNeedsUpdateWithAppToken:[OCMArg any]]).andReturn(NO);
         });
         
         it(@"tries downloading a config", ^{
-            
             id requestModelMock = OCMClassMock([PubnativeConfigRequestModel class]);
             
             OCMExpect([managerMock serveStoredConfigWithRequest:requestModelMock]);
@@ -753,8 +725,9 @@ describe(@"requesting a config", ^{
 
 describe(@"checking if stored config needs update", ^{
    
-    __block id managerMock;
     NSString *requestAppToken = @"appToken";
+    
+    __block id managerMock;
     
     before(^{
         managerMock = OCMClassMock([PubnativeConfigManager class]);
@@ -774,6 +747,7 @@ describe(@"checking if stored config needs update", ^{
     context(@"with previous stored config", ^{
         
         __block id modelMock;
+        
         before(^{
             modelMock = OCMClassMock([PubnativeConfigModel class]);
             OCMStub([managerMock getStoredConfig]).andReturn(modelMock);
@@ -790,10 +764,10 @@ describe(@"checking if stored config needs update", ^{
         });
         
         context(@"with previous stored app token different", ^{
+            
             before(^{
                 OCMStub([managerMock getStoredAppToken]).andReturn(@"invalidAppToken");
             });
-            
             
             it(@"should return YES", ^{
                 expect([PubnativeConfigManager storedConfigNeedsUpdateWithAppToken:requestAppToken]).to.beTruthy();
@@ -807,6 +781,7 @@ describe(@"checking if stored config needs update", ^{
             });
             
             context(@"without previous stored timestamp", ^{
+                
                 before(^{
                     OCMStub([managerMock getStoredTimestamp]).andReturn(nil);
                 });
@@ -846,9 +821,10 @@ describe(@"checking if stored config needs update", ^{
             
             context(@"with previous stored timestamp and positive refresh time", ^{
                 
+                NSNumber *refreshValue = @1;
+                
                 __block id globalsMock;
                 
-                NSNumber *refreshValue = @1;
                 before(^{
                     globalsMock = OCMClassMock([PubnativeConfigGlobalsModel class]);
                     OCMStub([modelMock globals]).andReturn(globalsMock);
@@ -856,6 +832,7 @@ describe(@"checking if stored config needs update", ^{
                 });
                 
                 context(@"and overdue time", ^{
+                    
                     before(^{
                         OCMStub([managerMock getStoredTimestamp]).andReturn(0);
                     });
@@ -866,6 +843,7 @@ describe(@"checking if stored config needs update", ^{
                 });
                 
                 context(@"and still valid time", ^{
+                    
                     before(^{
                         OCMStub([managerMock getStoredTimestamp]).andReturn([[NSDate date] timeIntervalSince1970]);
                     });
@@ -962,6 +940,7 @@ describe(@"processing download", ^{
         context(@"and valid dictionary", ^{
             
             __block id responseModelMock;
+            
             before(^{
                 responseModelMock = OCMClassMock([PubnativeConfigAPIResponseModel class]);
                 jsonParameter = OCMClassMock([NSDictionary class]);
@@ -970,6 +949,7 @@ describe(@"processing download", ^{
             context(@"non parseable", ^{
                
                 __block id parseError;
+                
                 before(^{
                     parseError = OCMClassMock([NSError class]);
                     OCMStub([responseModelMock parseDictionary:[OCMArg any]
@@ -1001,7 +981,6 @@ describe(@"processing download", ^{
                     });
                     
                     it(@"callback fail", ^{
-                        
                         OCMExpect([responseModelMock error_message]);
                         OCMExpect([managerMock invokeDidFailWithError:[OCMArg any]
                                                              delegate:delegateMock]);
@@ -1017,6 +996,7 @@ describe(@"processing download", ^{
                 context(@"with success response", ^{
                     
                     __block id configMock;
+                    
                     before(^{
                         configMock = OCMClassMock([PubnativeConfigModel class]);
                         OCMStub([responseModelMock success]).andReturn(YES);
@@ -1025,7 +1005,6 @@ describe(@"processing download", ^{
                     });
                     
                     it(@"updates and serve", ^{
-                        
                         OCMExpect([managerMock updateStoredConfig:configMock withAppToken:requestAppToken]);
                         OCMExpect([managerMock serveStoredConfigWithRequest:requestMock]);
                         
