@@ -27,7 +27,9 @@
 @property (nonatomic, readonly) NSString                    *callToAction;
 @property (nonatomic, readonly) float                       starRating;
 
-- (void)pubantiveAdDidStartTrackingView:(UIView*)adView withViewController:(UIViewController*)adViewController;
+- (void)pubantiveAdDidStartTrackingView:(UIView*)adView
+                     withViewController:(UIViewController*)viewController
+                               delegate:(NSObject<PubnativeAdModelDelegate>*)delegate;
 - (void)pubantiveAdDidStopTrackingView:(UIView*)adView;
 
 @end

@@ -22,7 +22,7 @@ NSString * const kPlacementIdKey = @"placement_id";
 - (void)doRequest
 {
     if (self.params) {
-        NSString *placementId = [self.params valueForKey:kPlacementIdKey];
+        NSString *placementId = self.params[kPlacementIdKey];
         if (placementId && [placementId length] > 0) {
             [self createRequestWithPlacementId:placementId];
         } else {
@@ -56,11 +56,6 @@ NSString * const kPlacementIdKey = @"placement_id";
 
 - (void)nativeAd:(FBNativeAd*)nativeAd didFailWithError:(NSError*)error
 {
-    if (!error) {
-        error = [NSError errorWithDomain:@"FacebookNetworkAdapter : Unknown error"
-                                    code:0
-                                userInfo:nil];
-    }
     [self invokeDidFail:error];
 }
 

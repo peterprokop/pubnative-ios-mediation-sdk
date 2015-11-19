@@ -47,23 +47,6 @@ describe(@"callback methods", ^{
             OCMVerifyAll(delegateMock);
         });
     });
-    
-    context(@"without delegate", ^{
-        
-        __block id modelMock;
-        
-        before(^{
-            modelMock = OCMPartialMock([[PubnativeAdModel alloc] init]);
-        });
-        
-        it(@"invokeDidClicked, does nothing", ^{
-            [modelMock invokeDidClicked:modelMock];
-        });
-        
-        it(@"invokeDidConfirmedImpression, does nothing", ^{
-            [modelMock invokeDidConfirmedImpression:modelMock];
-        });
-    });
 });
 
 SpecEnd
