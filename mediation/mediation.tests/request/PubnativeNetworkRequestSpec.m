@@ -54,7 +54,7 @@ describe(@"callback methods", ^{
                 PubnativeNetworkRequest *request = OCMPartialMock([[PubnativeNetworkRequest alloc] init]);
                 id delegate = OCMProtocolMock(@protocol(PubnativeNetworkRequestDelegate));
                 [request startRequestWithAppToken:data[kAppTokenKey]
-                                     placementKey:data[kPlacementKey]
+                                      placementID:data[kPlacementKey]
                                          delegate:delegate];
                 OCMVerify([delegate requestDidStart:[OCMArg any]]);
                 OCMVerify([delegate request:[OCMArg any] didFail:[OCMArg any]]);
@@ -77,7 +77,7 @@ describe(@"callback methods", ^{
                 
                 // When
                 [request startRequestWithAppToken:data[kAppTokenKey]
-                                     placementKey:data[kPlacementKey]
+                                      placementID:data[kPlacementKey]
                                          delegate:delegate];
                 
                 // Verify
@@ -184,7 +184,7 @@ describe(@"start request", ^{
             
             // When
             [request startRequestWithAppToken:kAppTokenInvalid
-                                 placementKey:@"facebook_only"
+                                  placementID:@"facebook_only"
                                      delegate:delegate];
             
             // Veify
@@ -206,7 +206,7 @@ describe(@"start request", ^{
             
             // When
             [request startRequestWithAppToken:kAppTokenInvalid
-                                 placementKey:kPlacementInvalid
+                                  placementID:kPlacementInvalid
                                      delegate:delegate];
             
             // Verify
@@ -220,7 +220,7 @@ describe(@"start request", ^{
         it(@"drops call", ^{
             //This should not crash
             [request startRequestWithAppToken:kAppTokenInvalid
-                                 placementKey:kPlacementInvalid
+                                  placementID:kPlacementInvalid
                                      delegate:nil];
         });
     });
