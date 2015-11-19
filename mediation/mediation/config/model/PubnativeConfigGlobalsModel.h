@@ -11,8 +11,8 @@
 
 @interface PubnativeConfigGlobalsModel : JSONModel
 
-@property (nonatomic, assign) int       refresh;
-@property (nonatomic, assign) int       impression_timeout;
+@property (nonatomic, assign) NSNumber  *refresh;
+@property (nonatomic, assign) NSNumber  *impression_timeout;
 @property (nonatomic, strong) NSString  *config_url;
 @property (nonatomic, strong) NSString  *impression_beacon;
 @property (nonatomic, strong) NSString  *click_beacon;

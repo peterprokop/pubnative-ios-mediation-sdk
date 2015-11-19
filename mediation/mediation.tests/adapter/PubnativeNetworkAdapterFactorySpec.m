@@ -12,68 +12,84 @@
 #import "PubnativeNetworkAdapter.h"
 #import <OCMock/OCMock.h>
 
-NSString * const kAdapterKey                    = @"adapter_key";
-NSString * const kValidNetworkAdapter           = @"TestValidNetworkAdapter";
-NSString * const kInvalidInexistentClass        = @"PubnativeAdapter";
-NSString * const kInvalidNonPubnativeAdapter    = @"PubnativeConfigManager";
-
 SpecBegin(PubnativeNetworkAdapterFactory)
 
 describe(@"adapter creation", ^{
     
-    sharedExamplesFor(@"dont create", ^(NSDictionary *data) {
-        
-        it(@"adapter", ^{
-            PubnativeNetworkModel *model = OCMClassMock([PubnativeNetworkModel class]);
-            OCMStub(model.adapter).andReturn(data[kAdapterKey]);
-            PubnativeNetworkAdapter *adapter = [PubnativeNetworkAdapterFactory createApdaterWithNetwork:model];
-            
-            ///Test
-            expect(adapter).to.beNil();
+    NSString *networkModelKey = @"networkModel";
+    
+    context(@"with nil model parameter", ^{
+        it(@"returns nil", ^{
+            expect([PubnativeNetworkAdapterFactory createApdaterWithNetwork:nil]).to.beNil();
         });
     });
     
-    sharedExamplesFor(@"create", ^(NSDictionary *data) {
-        
-        it(@"adapter", ^{
-            PubnativeNetworkModel *model = OCMClassMock([PubnativeNetworkModel class]);
-            OCMStub(model.adapter).andReturn(data[kAdapterKey]);
-            PubnativeNetworkAdapter *adapter = [PubnativeNetworkAdapterFactory createApdaterWithNetwork:model];
-            
-            ///Test
-            expect(adapter).toNot.beNil();
-            expect([adapter class]).to.equal(NSClassFromString(data[kAdapterKey]));
-            expect([adapter class]).beSubclassOf([PubnativeNetworkAdapter class]);
-        });
-    });
+    context(@"with valid network model", ^{
     
-    context(@"with valid network", ^{
+        __block id networkModelMock;
         
-        context(@"and nil adapter", ^{
-            itBehavesLike(@"dont create", nil);
+        before(^{
+            networkModelMock = OCMClassMock([PubnativeNetworkModel class]);
         });
         
-        context(@"and empty adapter", ^{
-            itBehavesLike(@"dont create", @{ kAdapterKey : @""});
+        context(@"and nil adapter name", ^{
+            
+            before(^{
+                OCMStub([networkModelMock adapter]).andReturn(nil);
+            });
+            
+            it(@"returns nil", ^{
+                expect([PubnativeNetworkAdapterFactory createApdaterWithNetwork:networkModelMock]).to.beNil();
+            });
         });
         
-        context(@"and invalid adapter", ^{
-            itBehavesLike(@"dont create", @{ kAdapterKey : kInvalidNonPubnativeAdapter});
+        context(@"and empty adapter name", ^{
+            
+            before(^{
+                OCMStub([networkModelMock adapter]).andReturn(@"");
+            });
+            
+            it(@"returns nil", ^{
+                expect([PubnativeNetworkAdapterFactory createApdaterWithNetwork:networkModelMock]).to.beNil();
+            });
         });
         
-        context(@"and inexistent class", ^{
-            itBehavesLike(@"dont create", @{ kAdapterKey : kInvalidInexistentClass});
+        context(@"and invalid adapter name", ^{
+            
+            before(^{
+                OCMStub([networkModelMock adapter]).andReturn(@"NSObject");
+            });
+            
+            it(@"returns nil", ^{
+                expect([PubnativeNetworkAdapterFactory createApdaterWithNetwork:networkModelMock]).to.beNil();
+            });
         });
         
-        context(@"and valid adapter", ^{
-            itBehavesLike(@"create", @{ kAdapterKey : kValidNetworkAdapter});
+        context(@"and not existent adapter name", ^{
+            
+            before(^{
+                OCMStub([networkModelMock adapter]).andReturn(@"NotExistentClass");
+            });
+            
+            it(@"returns nil", ^{
+                expect([PubnativeNetworkAdapterFactory createApdaterWithNetwork:networkModelMock]).to.beNil();
+            });
         });
-    });
-
-    context(@"with nil network", ^{
-        it(@"dont create adapter", ^{
-            PubnativeNetworkAdapter *adapter = [PubnativeNetworkAdapterFactory createApdaterWithNetwork:nil];
-            expect(adapter).to.beNil();
+        
+        context(@"and valid adapter name", ^{
+            
+            NSString *validAdapterName = @"TestValidNetworkAdapter";
+            before(^{
+                OCMStub([networkModelMock adapter]).andReturn(validAdapterName);
+            });
+            
+            
+            it(@"creates a valid adapter", ^{
+                PubnativeNetworkAdapter *adapter = [PubnativeNetworkAdapterFactory createApdaterWithNetwork:networkModelMock];
+                expect(adapter).toNot.beNil();
+                expect([adapter class]).to.equal(NSClassFromString(validAdapterName));
+                expect([adapter class]).beSubclassOf([PubnativeNetworkAdapter class]);
+            });
         });
     });
 });
