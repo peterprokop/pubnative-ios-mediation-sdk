@@ -15,6 +15,7 @@ target 'PubnativeMediationTests' do
 end
 
 target 'PubnativeMediationDemo' do
-
+  pod 'JSONModel'
+  pod 'IQKeyboardManager'
 end
 

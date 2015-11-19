@@ -15,7 +15,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        // Keyboard handling
+        IQKeyboardManager.sharedManager().enableAutoToolbar = true
+        IQKeyboardManager.sharedManager().toolbarManageBehaviour = .ByPosition
+        IQKeyboardManager.sharedManager().keyboardDistanceFromTextField = 10;
+        IQKeyboardManager.sharedManager().shouldResignOnTouchOutside = true;
         return true
     }
 
