@@ -41,11 +41,9 @@ NSString * const kPlacementIdKey = @"placement_id";
 
 - (void)createRequestWithPlacementId:(NSString*)placementId
 {
-    if (placementId && [placementId length] > 0) {
-        self.nativeAd = [[FBNativeAd alloc] initWithPlacementID:placementId];
-        self.nativeAd.delegate = self;
-        [self.nativeAd loadAd];
-    }
+    self.nativeAd = [[FBNativeAd alloc] initWithPlacementID:placementId];
+    self.nativeAd.delegate = self;
+    [self.nativeAd loadAd];
 }
 
 #pragma mark - FBNativeAdDelegate implementation -

@@ -8,7 +8,7 @@
 
 #import "PubnativeAdModel.h"
 
-@interface PubnativeAdModel()
+@interface PubnativeAdModel ()
 
 @property (nonatomic, weak) NSObject<PubnativeAdModelDelegate> *delegate;
 

@@ -8,6 +8,13 @@
 
 #import "FacebookNativeAdModel.h"
 
+@interface PubnativeAdModel (Private)
+
+- (void)invokeDidConfirmedImpression:(PubnativeAdModel*)ad;
+- (void)invokeDidClicked:(PubnativeAdModel*)ad;
+
+@end
+
 @interface FacebookNativeAdModel () <FBNativeAdDelegate>
 
 @property(nonatomic,strong)FBNativeAd *nativeAd;
