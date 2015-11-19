@@ -10,15 +10,5 @@
 
 @implementation PubnativeDeliveryRuleModel
 
-- (BOOL) isActive
-{
-    return !self.no_ads;
-}
-
-- (BOOL) isFrequencyCapReachedForPlacementKey:(NSString *)placementKey
-{
-    // TODO: Implement it as per delivery manager
-    return false;
-}
 
 @end

@@ -10,8 +10,8 @@
 
 @interface PubnativeNetworkModel : JSONModel
 
-@property (nonatomic, strong) NSDictionary<NSString*, NSString*>    *params;
-@property (nonatomic, strong) NSString                              *adapter;
-@property (nonatomic, strong) NSNumber                              *timeout;
+@property (nonatomic, strong) NSDictionary  *params;
+@property (nonatomic, strong) NSString      *adapter;
+@property (nonatomic, strong) NSNumber      *timeout;
 
 @end

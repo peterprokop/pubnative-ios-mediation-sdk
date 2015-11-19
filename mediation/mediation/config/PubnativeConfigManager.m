@@ -20,11 +20,10 @@ NSString * const kUserDefaultsStoredConfigKey       = @"net.pubnative.mediation.
 NSString * const kUserDefaultsStoredAppTokenKey     = @"net.pubnative.mediation.PubnativeConfigManager.configAppToken";
 NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.PubnativeConfigManager.configTimestamp";
 
-
 @interface PubnativeConfigManager () <NSURLConnectionDataDelegate>
 
-@property (nonatomic, strong)NSMutableArray<PubnativeConfigRequestModel*>    *requestQueue;
-@property (nonatomic, assign)BOOL                                           idle;
+@property (nonatomic, strong)NSMutableArray *requestQueue;
+@property (nonatomic, assign)BOOL           idle;
 
 @end
 
@@ -39,17 +38,17 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
     return self;
 }
 
-static PubnativeConfigManager *_sharedInstance = nil;
-
-+ (instancetype)sharedInstance
-{
-    if (_sharedInstance == nil){
++ (instancetype)sharedInstance {
+    static PubnativeConfigManager *_sharedInstance;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
         _sharedInstance = [[PubnativeConfigManager alloc] init];
-    }
+    });
     return _sharedInstance;
 }
 
-+ (void)configWithAppToken:(NSString *)appToken delegate:(NSObject<PubnativeConfigManagerDelegate> *)delegate
++ (void)configWithAppToken:(NSString*)appToken
+                  delegate:(NSObject<PubnativeConfigManagerDelegate>*)delegate
 {
     // Drop the call if no completion handler specified
     if(delegate){
@@ -105,11 +104,15 @@ static PubnativeConfigManager *_sharedInstance = nil;
     
             NSTimeInterval storedTimestamp = [PubnativeConfigManager getStoredTimestamp];
             
-            if(storedTimestamp) {
+            if(storedTimestamp &&
+               storedModel.globals &&
+               storedModel.globals.refresh &&
+               storedModel.globals.refresh > 0) {
+                
                 NSTimeInterval currentTimestamp = [[NSDate date] timeIntervalSince1970];
                 NSTimeInterval elapsedTime = currentTimestamp - storedTimestamp;
                 
-                NSTimeInterval refreshSeconds = storedModel.globals.refresh * 60;
+                NSTimeInterval refreshSeconds = [storedModel.globals.refresh intValue] * 60;
                 if(elapsedTime > refreshSeconds){
                     // Config overdue
                     result = YES;
@@ -147,7 +150,6 @@ static PubnativeConfigManager *_sharedInstance = nil;
         [PubnativeConfigManager invokeDidFailWithError:storedConfigError
                                               delegate:requestModel.delegate];
     }
-    
 }
 
 #pragma mark - QUEUE -
@@ -196,7 +198,9 @@ static PubnativeConfigManager *_sharedInstance = nil;
     }
 }
 
-+ (void)processDownloadResponseWithRequest:(PubnativeConfigRequestModel*)requestModel withJson:(id)json error:(JSONModelError*)error
++ (void)processDownloadResponseWithRequest:(PubnativeConfigRequestModel*)requestModel
+                                  withJson:(id)json
+                                     error:(JSONModelError*)error
 {
     if(error){
         // ERROR: Connection error
@@ -207,8 +211,8 @@ static PubnativeConfigManager *_sharedInstance = nil;
         if(json){
             
             NSError *parsingError = nil;
-            PubnativeConfigAPIResponseModel *responseModel = [[PubnativeConfigAPIResponseModel alloc] initWithDictionary:json
-                                                                                                                   error:&parsingError];
+            PubnativeConfigAPIResponseModel *responseModel = [PubnativeConfigAPIResponseModel parseDictionary:json
+                                                                                                        error:&parsingError];
             if(parsingError){
                 // ERROR: Parsing error
                 [PubnativeConfigManager invokeDidFailWithError:parsingError
@@ -223,7 +227,7 @@ static PubnativeConfigManager *_sharedInstance = nil;
                     
                 } else {
                     
-                    // Server returned error
+                    // ERROR: Server returned error
                     NSString *errorString = [NSString stringWithFormat:@"Pubnative - Server error: %@", responseModel.error_message];
                     NSError *serverError = [NSError errorWithDomain:errorString
                                                                code:0
@@ -239,12 +243,12 @@ static PubnativeConfigManager *_sharedInstance = nil;
                                                      userInfo:nil];
             [PubnativeConfigManager invokeDidFailWithError:responseError
                                                   delegate:requestModel.delegate];
-        }
-        
+        }   
     }
 }
 
-+ (void)updateStoredConfig:(PubnativeConfigModel*)model withAppToken:(NSString*)appToken
++ (void)updateStoredConfig:(PubnativeConfigModel*)model
+              withAppToken:(NSString*)appToken
 {
     if(appToken && [appToken length] > 0 &&
        model && ![model isEmpty]){

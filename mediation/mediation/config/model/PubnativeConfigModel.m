@@ -64,7 +64,7 @@
     return result;
 }
 
-- (NSDictionary *)toDictionary
+- (NSDictionary*)toDictionary
 {
     return self.dictionaryValue;
 }
