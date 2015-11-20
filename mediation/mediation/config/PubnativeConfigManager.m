@@ -284,6 +284,14 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
 
 #pragma mark - NSUserDefaults -
 
++ (BOOL)clean
+{
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserDefaultsStoredAppTokenKey];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserDefaultsStoredConfigKey];
+    [[NSUserDefaults standardUserDefaults] setDouble:0 forKey:kUserDefaultsStoredTimestampKey];
+    return [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 #pragma mark Timestamp
 
 + (void)setStoredTimestamp:(NSTimeInterval)timestamp

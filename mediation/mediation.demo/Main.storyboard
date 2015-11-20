@@ -9,26 +9,59 @@
             <objects>
                 <navigationController id="rNx-2j-KDO" sceneMemberID="viewController">
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="Y9W-Lv-JFN">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="Y9W-Lv-JFN">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="barTintColor" red="0.094117647058823528" green="0.094117647058823528" blue="0.094117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
                     </navigationBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="ZEu-ms-LJU"/>
+                        <segue destination="X9E-w4-8lm" kind="relationship" relationship="rootViewController" id="F7z-KS-MST"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yhe-SQ-5Gb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-79" y="287"/>
+            <point key="canvasLocation" x="-228" y="273"/>
         </scene>
-        <!--Settings View Controller-->
+        <!--Main View Controller-->
+        <scene sceneID="JxM-sx-em7">
+            <objects>
+                <viewController id="X9E-w4-8lm" customClass="MainViewController" customModule="PubnativeMediationDemo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5D3-ix-w1T"/>
+                        <viewControllerLayoutGuide type="bottom" id="l33-Fb-AXQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="VnK-Ea-JS7">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7OY-RO-fXS" userLabel="Button RESET CONFIG">
+                                <rect key="frame" x="16" y="16" width="288" height="30"/>
+                                <color key="backgroundColor" red="0.28235294119999998" green="0.2784313725" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="SETTING">
+                                    <color key="titleColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.94509803920000002" alpha="1" colorSpace="deviceRGB"/>
+                                </state>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="push" id="ybA-ib-LPC"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="JAL-x4-0sm"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aHz-qO-Q2z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="115" y="273"/>
+        </scene>
+        <!--Setting View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="SettingsViewController" customModule="PubnativeMediationDemo" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="SettingViewController" customModule="PubnativeMediationDemo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -46,6 +79,9 @@
                                 <state key="normal" title="RESET CONFIG">
                                     <color key="titleColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.94509803920000002" alpha="1" colorSpace="deviceRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="onResetConfigClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TGE-ge-bOP"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e8y-lJ-JWL" userLabel="Line View">
                                 <rect key="frame" x="13" y="51" width="294" height="2"/>
@@ -99,6 +135,9 @@
                                 <state key="normal" title="Add">
                                     <color key="titleColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.94509803920000002" alpha="1" colorSpace="deviceRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="onAddPlacementClicked:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mrU-NE-G7h"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ek5-fl-goA" userLabel="Line View">
                                 <rect key="frame" x="13" y="132" width="258" height="1"/>
@@ -110,6 +149,9 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="1nZ-uu-n5W">
                                 <rect key="frame" x="16" y="149" width="288" height="339"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="LXr-de-ctZ"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" red="0.14117647058823529" green="0.14117647058823529" blue="0.14117647058823529" alpha="1" colorSpace="calibratedRGB"/>
@@ -143,10 +185,15 @@
                     </view>
                     <navigationItem key="navigationItem" id="d1D-cg-6Gk"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="tableViewPlacements" destination="1nZ-uu-n5W" id="Mt4-o1-sId"/>
+                        <outlet property="textFieldAppToken" destination="jYi-Ns-pdl" id="2D9-oa-ged"/>
+                        <outlet property="textFieldPlacementId" destination="KVn-wQ-VmP" id="iFO-6w-NPK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="328" y="287"/>
+            <point key="canvasLocation" x="453" y="273"/>
         </scene>
     </scenes>
 </document>

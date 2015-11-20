@@ -34,7 +34,7 @@ class PubnativeTestCrediantials: NSObject {
     
     class func setStoredApptoken(appToken: String?) {
         if (appToken != nil && appToken?.characters.count > 0) {
-            NSUserDefaults.standardUserDefaults().setObject(appToken, forKey: USER_DEFAULTS_KEY_APP_TOKEN)
+            NSUserDefaults.standardUserDefaults().setObject(appToken!, forKey: USER_DEFAULTS_KEY_APP_TOKEN)
             NSUserDefaults.standardUserDefaults().synchronize();
         }
     }
