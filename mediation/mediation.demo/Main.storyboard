@@ -38,9 +38,12 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7OY-RO-fXS" userLabel="Button RESET CONFIG">
-                                <rect key="frame" x="16" y="16" width="288" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7OY-RO-fXS" userLabel="Button RESET CONFIG">
+                                <rect key="frame" x="5" y="5" width="310" height="30"/>
                                 <color key="backgroundColor" red="0.28235294119999998" green="0.2784313725" blue="0.28627450980000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="ZEp-X9-xM3"/>
+                                </constraints>
                                 <state key="normal" title="SETTING">
                                     <color key="titleColor" red="0.95686274510000002" green="0.95686274510000002" blue="0.94509803920000002" alpha="1" colorSpace="deviceRGB"/>
                                 </state>
@@ -48,11 +51,30 @@
                                     <segue destination="BYZ-38-t0r" kind="push" id="ybA-ib-LPC"/>
                                 </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Qx9-xS-dsp">
+                                <rect key="frame" x="5" y="40" width="310" height="464"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="X9E-w4-8lm" id="NVN-MU-aMk"/>
+                                </connections>
+                            </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.14117647058823529" green="0.14117647058823529" blue="0.14117647058823529" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Qx9-xS-dsp" secondAttribute="trailing" constant="5" id="B7z-7P-SIg"/>
+                            <constraint firstItem="Qx9-xS-dsp" firstAttribute="top" secondItem="7OY-RO-fXS" secondAttribute="bottom" constant="5" id="BJo-up-8oY"/>
+                            <constraint firstItem="Qx9-xS-dsp" firstAttribute="leading" secondItem="VnK-Ea-JS7" secondAttribute="leading" constant="5" id="Dwm-wt-PAp"/>
+                            <constraint firstItem="l33-Fb-AXQ" firstAttribute="top" secondItem="Qx9-xS-dsp" secondAttribute="bottom" id="I3J-lz-B46"/>
+                            <constraint firstItem="7OY-RO-fXS" firstAttribute="leading" secondItem="VnK-Ea-JS7" secondAttribute="leading" constant="5" id="Qyu-Cj-pbE"/>
+                            <constraint firstAttribute="trailing" secondItem="7OY-RO-fXS" secondAttribute="trailing" constant="5" id="UdY-JB-n1b"/>
+                            <constraint firstItem="7OY-RO-fXS" firstAttribute="top" secondItem="5D3-ix-w1T" secondAttribute="bottom" constant="5" id="s8L-T7-i0D"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="JAL-x4-0sm"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="tableViewAds" destination="Qx9-xS-dsp" id="Htj-ga-1AJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aHz-qO-Q2z" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

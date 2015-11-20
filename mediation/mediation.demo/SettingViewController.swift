@@ -9,7 +9,6 @@
 import UIKit
 
 class SettingViewController: UIViewController, UITableViewDataSource {
-    
     let tableViewCellIdentifier = "PlacementTableViewCell"
     var placements : [String] = []
     
