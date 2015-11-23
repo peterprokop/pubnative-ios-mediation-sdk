@@ -10,5 +10,9 @@
 
 @implementation PubnativeDeliveryRuleModel
 
+- (BOOL) isActive
+{
+    return !self.no_ads;
+}
 
 @end

@@ -12,8 +12,8 @@
 
 @interface PubnativePlacementModel : JSONModel
 
-@property (nonatomic, strong)NSString                               *ad_format_code;
-@property (nonatomic, strong)NSArray<PubnativePriorityRulesModel>   *priority_rules;
-@property (nonatomic, strong)PubnativeDeliveryRuleModel             *delivery_rule;
+@property(nonatomic,strong)NSString                                 *ad_format_code;
+@property(nonatomic,strong)NSArray<PubnativePriorityRulesModel>     *priority_rules;
+@property(nonatomic,strong)PubnativeDeliveryRuleModel               *delivery_rules;
 
 @end

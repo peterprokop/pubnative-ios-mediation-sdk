@@ -7,7 +7,22 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PubnativeAdModel.h"
+
+@class PubnativeNetworkRequest;
+
+@protocol PubnativeNetworkRequestDelegate <NSObject>
+
+-(void)requestDidStart:(PubnativeNetworkRequest *)request;
+-(void)request:(PubnativeNetworkRequest *)request didLoad:(PubnativeAdModel*)ad;
+-(void)request:(PubnativeNetworkRequest *)request didFail:(NSError*)error;
+
+@end
 
 @interface PubnativeNetworkRequest : NSObject
+
+- (void)startRequestWithAppToken:(NSString*)appToken
+                     placementID:(NSString*)placementID
+                        delegate:(NSObject<PubnativeNetworkRequestDelegate>*)delegate;
 
 @end

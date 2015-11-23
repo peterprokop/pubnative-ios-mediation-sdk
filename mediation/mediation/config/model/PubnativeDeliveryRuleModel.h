@@ -16,4 +16,6 @@
 @property (nonatomic, strong)NSNumber   *pacing_cap_minute;
 @property (nonatomic, assign)BOOL       no_ads;
 
+- (BOOL) isActive;
+
 @end
