@@ -10,6 +10,7 @@ import UIKit
 
 class CellRequestModel: NSObject {
     var request     : PubnativeNetworkRequest!
+    var ad          : PubnativeAdModel!
     var placementID : String!
     var appToken    : String!
     

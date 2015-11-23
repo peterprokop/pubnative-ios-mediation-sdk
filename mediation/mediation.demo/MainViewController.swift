@@ -81,6 +81,9 @@ class MainViewController: UIViewController, UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: AdCellTableViewCell = tableView.dequeueReusableCellWithIdentifier("AdCellTableViewCell") as! AdCellTableViewCell
+        if indexPath.row < requests.count {
+            cell.setRequestModel(requests[indexPath.row])
+        }
         return cell
     }
 }

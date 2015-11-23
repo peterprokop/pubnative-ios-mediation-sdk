@@ -73,6 +73,9 @@
                                                     <state key="normal" title="REQUEST">
                                                         <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="onRequestTapped:" destination="2kT-sc-0rE" eventType="touchUpInside" id="ahF-Qu-7w8"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Placement ID:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5mc-y5-gZd" userLabel="Placement ID">
                                                     <rect key="frame" x="5" y="10" width="235" height="21"/>
@@ -97,7 +100,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xUP-QD-oFh">
                                                     <rect key="frame" x="5" y="59" width="310" height="240"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XRI-ZM-VHp" userLabel="Thumb Image">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XRI-ZM-VHp" userLabel="Thumb Image">
                                                             <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
@@ -115,7 +118,7 @@
                                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c35-Tv-x0u">
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c35-Tv-x0u" customClass="FloatRatingView" customModule="PubnativeMediationDemo" customModuleProvider="target">
                                                             <rect key="frame" x="68" y="33" width="100" height="20"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
@@ -123,7 +126,7 @@
                                                                 <constraint firstAttribute="height" constant="20" id="V5N-eL-WI4"/>
                                                             </constraints>
                                                         </view>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="T65-XP-OpR" userLabel="Ad Large Image">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="T65-XP-OpR" userLabel="Ad Large Image">
                                                             <rect key="frame" x="0.0" y="64" width="310" height="137"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
@@ -140,6 +143,9 @@
                                                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
+                                                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="j7V-hT-3IB">
+                                                            <rect key="frame" x="137" y="101" width="37" height="37"/>
+                                                        </activityIndicatorView>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.44313725490196076" green="0.47450980392156861" blue="0.52549019607843139" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
@@ -151,6 +157,7 @@
                                                         <constraint firstItem="c35-Tv-x0u" firstAttribute="top" secondItem="xUP-QD-oFh" secondAttribute="top" constant="33" id="T9p-12-v7D"/>
                                                         <constraint firstItem="Jbk-YC-dIY" firstAttribute="top" secondItem="xUP-QD-oFh" secondAttribute="top" constant="8" id="XUU-Gk-Bux"/>
                                                         <constraint firstAttribute="trailing" secondItem="iHN-7X-h3X" secondAttribute="trailing" id="a7n-A1-Pfl"/>
+                                                        <constraint firstItem="j7V-hT-3IB" firstAttribute="centerX" secondItem="xUP-QD-oFh" secondAttribute="centerX" id="ar0-77-Hoc"/>
                                                         <constraint firstItem="c35-Tv-x0u" firstAttribute="leading" secondItem="XRI-ZM-VHp" secondAttribute="trailing" constant="8" id="eDg-dU-0F9"/>
                                                         <constraint firstItem="T65-XP-OpR" firstAttribute="leading" secondItem="xUP-QD-oFh" secondAttribute="leading" id="ebW-6u-HfJ"/>
                                                         <constraint firstItem="Jbk-YC-dIY" firstAttribute="leading" secondItem="XRI-ZM-VHp" secondAttribute="trailing" constant="8" id="eqK-1g-Opy"/>
@@ -160,6 +167,7 @@
                                                         <constraint firstAttribute="height" constant="240" id="nrB-TO-934"/>
                                                         <constraint firstAttribute="trailing" secondItem="T65-XP-OpR" secondAttribute="trailing" id="qUs-wY-nke"/>
                                                         <constraint firstItem="T65-XP-OpR" firstAttribute="top" secondItem="XRI-ZM-VHp" secondAttribute="bottom" constant="4" id="qzQ-pg-7qO"/>
+                                                        <constraint firstItem="j7V-hT-3IB" firstAttribute="centerY" secondItem="xUP-QD-oFh" secondAttribute="centerY" id="r7s-kM-g8s"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -183,6 +191,16 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.22352941176470587" green="0.23529411764705882" blue="0.25098039215686274" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <outlet property="activityIndicator" destination="j7V-hT-3IB" id="6Bc-la-hnK"/>
+                                            <outlet property="imageViewAdBannerImage" destination="T65-XP-OpR" id="6bj-gx-zT2"/>
+                                            <outlet property="imageViewAdThumbnail" destination="XRI-ZM-VHp" id="yDj-Wa-jEt"/>
+                                            <outlet property="labelAdDescription" destination="iHN-7X-h3X" id="Plt-K9-zLu"/>
+                                            <outlet property="labelAdTitle" destination="Jbk-YC-dIY" id="7cL-1q-PuC"/>
+                                            <outlet property="labelAdapterName" destination="yky-8d-f1h" id="1n4-Ge-QkR"/>
+                                            <outlet property="labelPlacementId" destination="5mc-y5-gZd" id="NFN-mx-2KV"/>
+                                            <outlet property="starRatingView" destination="c35-Tv-x0u" id="KdP-LU-YXF"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
