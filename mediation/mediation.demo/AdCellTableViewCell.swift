@@ -59,7 +59,7 @@ class AdCellTableViewCell: UITableViewCell, PubnativeNetworkRequestDelegate {
     func renderAd() {
         labelPlacementId.text = "Placement ID: " + request.placementID
         if (request.ad != nil) {
-            labelAdapterName.text = "\(request.ad.dynamicType)".componentsSeparatedByString(".").last
+            labelAdapterName.text = String(request.ad.dynamicType)
             labelAdTitle.text = request.ad.title
             labelAdDescription.text = request.ad.description
             starRatingView.rating = request.ad.starRating
