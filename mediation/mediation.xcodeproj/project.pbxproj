@@ -12,6 +12,7 @@
 		031A88D81BFE0CB50039D86F /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031A88D51BFE0CB50039D86F /* SettingViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		031CFFB51BFF4AC500A0AECC /* CellRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031CFFB41BFF4AC500A0AECC /* CellRequestModel.swift */; settings = {ASSET_TAGS = (); }; };
 		0336686E1BFE0FE100108944 /* PubnativeTestCrediantials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0336686D1BFE0FE100108944 /* PubnativeTestCrediantials.swift */; settings = {ASSET_TAGS = (); }; };
+		03484F5A1C02EBD000D193B5 /* AdCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03484F591C02EBD000D193B5 /* AdCellTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		034D6F5C1BEA5DE6001CF3A5 /* TestValidNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 034D6F5A1BEA5DAC001CF3A5 /* TestValidNetworkAdapter.m */; settings = {ASSET_TAGS = (); }; };
 		03D092841BFEFDB600A79CA7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D092831BFEFDB600A79CA7 /* MainViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		25FFE773F39179F889518868 /* libPods-PubnativeMediationDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5734361BBDD660F73DCEB216 /* libPods-PubnativeMediationDemo.a */; };
@@ -84,6 +85,7 @@
 		031A88D51BFE0CB50039D86F /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		031CFFB41BFF4AC500A0AECC /* CellRequestModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellRequestModel.swift; sourceTree = "<group>"; };
 		0336686D1BFE0FE100108944 /* PubnativeTestCrediantials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PubnativeTestCrediantials.swift; sourceTree = "<group>"; };
+		03484F591C02EBD000D193B5 /* AdCellTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdCellTableViewCell.swift; sourceTree = "<group>"; };
 		034D6F591BEA5DAC001CF3A5 /* TestValidNetworkAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestValidNetworkAdapter.h; sourceTree = "<group>"; };
 		034D6F5A1BEA5DAC001CF3A5 /* TestValidNetworkAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestValidNetworkAdapter.m; sourceTree = "<group>"; };
 		03D092831BFEFDB600A79CA7 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -317,6 +319,7 @@
 				031A88D51BFE0CB50039D86F /* SettingViewController.swift */,
 				0336686D1BFE0FE100108944 /* PubnativeTestCrediantials.swift */,
 				031CFFB41BFF4AC500A0AECC /* CellRequestModel.swift */,
+				03484F591C02EBD000D193B5 /* AdCellTableViewCell.swift */,
 				D54384BE1BC528F500EBE27A /* Assets.xcassets */,
 				D54384C01BC528F500EBE27A /* LaunchScreen.storyboard */,
 				D54384C31BC528F500EBE27A /* Info.plist */,
@@ -673,6 +676,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				03484F5A1C02EBD000D193B5 /* AdCellTableViewCell.swift in Sources */,
 				0336686E1BFE0FE100108944 /* PubnativeTestCrediantials.swift in Sources */,
 				031A88D61BFE0CB50039D86F /* AppDelegate.swift in Sources */,
 				031A88D81BFE0CB50039D86F /* SettingViewController.swift in Sources */,

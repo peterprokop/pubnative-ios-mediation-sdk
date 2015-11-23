@@ -10,7 +10,6 @@ import UIKit
 
 class MainViewController: UIViewController, UITableViewDataSource {
     let APP_TOKEN                       = "e1a8e9fcf8aaeff31d1ddaee1f60810957f4c297859216dea9fa283043f8680f"
-    let tableViewCellIdentifier         = "AdsTableViewCell"
     var requests : [CellRequestModel]   = []
     
     @IBOutlet weak var tableViewAds: UITableView!
@@ -31,7 +30,6 @@ class MainViewController: UIViewController, UITableViewDataSource {
 
     func initView() {
         navigationItem.title = "MainViewController"
-        tableViewAds.registerClass(UITableViewCell.self, forCellReuseIdentifier: tableViewCellIdentifier)
 
         // Store test crediantials
         let placements = ["facebook_only"]
@@ -82,8 +80,7 @@ class MainViewController: UIViewController, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        // TODO: AdCellTableViewCell need to be used
-        let cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier(tableViewCellIdentifier)!
+        let cell: AdCellTableViewCell = tableView.dequeueReusableCellWithIdentifier("AdCellTableViewCell") as! AdCellTableViewCell
         return cell
     }
 }
