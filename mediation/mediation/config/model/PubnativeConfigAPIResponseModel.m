@@ -13,11 +13,11 @@ NSString * const kAPIStatusErrorValue           = @"error";
 
 @implementation PubnativeConfigAPIResponseModel
 
-+ (instancetype)parseDictionary:(NSDictionary*)dictionary error:(NSError**)error
++ (instancetype)parseDictionary:(NSDictionary*)dictionary error:(NSError*)error
 {
     PubnativeConfigAPIResponseModel *result = nil;
     result = [[PubnativeConfigAPIResponseModel alloc] initWithDictionary:dictionary
-                                                                   error:error];
+                                                                   error:&error];
     if(error){
         result = nil;
     }

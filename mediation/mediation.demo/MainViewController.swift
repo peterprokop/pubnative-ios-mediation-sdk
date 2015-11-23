@@ -9,7 +9,8 @@
 import UIKit
 
 class MainViewController: UIViewController, UITableViewDataSource {
-    let APP_TOKEN                       = "e1a8e9fcf8aaeff31d1ddaee1f60810957f4c297859216dea9fa283043f8680f"
+    let APP_TOKEN                       = "7c26af3aa5f6c0a4ab9f4414787215f3bdd004f80b1b358e72c3137c94f5033c"
+    
     var requests : [CellRequestModel]   = []
     
     @IBOutlet weak var tableViewAds: UITableView!

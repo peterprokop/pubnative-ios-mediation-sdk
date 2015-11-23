@@ -212,7 +212,7 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
             
             NSError *parsingError = nil;
             PubnativeConfigAPIResponseModel *responseModel = [PubnativeConfigAPIResponseModel parseDictionary:json
-                                                                                                        error:&parsingError];
+                                                                                                        error:parsingError];
             if(parsingError){
                 // ERROR: Parsing error
                 [PubnativeConfigManager invokeDidFailWithError:parsingError
