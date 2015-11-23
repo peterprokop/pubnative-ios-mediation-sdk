@@ -49,10 +49,10 @@
     }
 }
 
-- (void)startRequestWithConfig:(PubnativeConfigModel*)model
+- (void)startRequestWithConfig:(PubnativeConfigModel*)config
 {
-    if (model) {
-        self.config = model;
+    if (config && ![config isEmpty]) {
+        self.config = config;
         if (self.config.placements) {
             self.placement = [self.config.placements objectForKey:self.placementID];
             if (self.placement && self.placement.delivery_rules) {
@@ -105,15 +105,13 @@
         self.placement.priority_rules) {
         if (self.currentNetworkIndex < self.placement.priority_rules.count) {
             PubnativePriorityRulesModel * priorityRule = self.placement.priority_rules[self.currentNetworkIndex];
+            self.currentNetworkIndex++;
             NSString *currentNetworkId = priorityRule.network_code;
             PubnativeNetworkModel *network = nil;
-            if (currentNetworkId && [currentNetworkId length] > 0) {
-                if (self.config && self.config.networks) {
-                    network = [self.config.networks objectForKey:currentNetworkId];
-                }
+            if (currentNetworkId && [currentNetworkId length] > 0 &&
+                self.config && self.config.networks) {
+                network = [self.config.networks objectForKey:currentNetworkId];
             }
-            
-            self.currentNetworkIndex++;
 
             if (network) {
                 PubnativeNetworkAdapter *adapter = [PubnativeNetworkAdapterFactory createApdaterWithNetwork:network];

@@ -29,7 +29,7 @@ NSString * const kAppTokenInvalid   = @"apptoken_invalid";
 
 @interface PubnativeNetworkRequest (Private)
 
-@property (weak, nonatomic)id <PubnativeNetworkRequestDelegate>      delegate;
+@property (weak, nonatomic)NSObject <PubnativeNetworkRequestDelegate>      *delegate;
 
 - (void)adapter:(PubnativeNetworkAdapter*)adapter requestDidLoad:(PubnativeAdModel*)ad;
 - (void)invokeDidStart;
@@ -48,41 +48,22 @@ describe(@"callback methods", ^{
     
     context(@"invokation", ^{
         
+        __block id request;
+        __block id delegate;
+        
+        before(^{
+            request = OCMPartialMock([[PubnativeNetworkRequest alloc] init]);
+            delegate = OCMProtocolMock(@protocol(PubnativeNetworkRequestDelegate));
+        });
+        
         sharedExamples(@"invoke fail", ^(NSDictionary *data) {
             
             it(@"callback method", ^{
-                PubnativeNetworkRequest *request = OCMPartialMock([[PubnativeNetworkRequest alloc] init]);
-                id delegate = OCMProtocolMock(@protocol(PubnativeNetworkRequestDelegate));
                 [request startRequestWithAppToken:data[kAppTokenKey]
                                       placementID:data[kPlacementKey]
                                          delegate:delegate];
                 OCMVerify([delegate requestDidStart:[OCMArg any]]);
                 OCMVerify([delegate request:[OCMArg any] didFail:[OCMArg any]]);
-            });
-        });
-        
-        sharedExamples(@"invoke load", ^(NSDictionary *data) {
-            
-            it(@"callback method", ^{
-                PubnativeNetworkRequest *request = OCMPartialMock([[PubnativeNetworkRequest alloc] init]);
-                id delegate = OCMProtocolMock(@protocol(PubnativeNetworkRequestDelegate));
-                id configManager = OCMClassMock([PubnativeConfigManager class]);
-                
-                // Given
-                // Stub Manager to return a mock ad directly
-                OCMStub([configManager configWithAppToken:[OCMArg any] delegate:[OCMArg any]]).andDo(^(NSInvocation *invocation) {
-                    [request adapter:OCMClassMock([PubnativeNetworkAdapter class])
-                      requestDidLoad:OCMClassMock([PubnativeAdModel class])];
-                });
-                
-                // When
-                [request startRequestWithAppToken:data[kAppTokenKey]
-                                      placementID:data[kPlacementKey]
-                                         delegate:delegate];
-                
-                // Verify
-                OCMVerify([delegate requestDidStart:[OCMArg any]]);
-                OCMVerify([delegate request:[OCMArg any] didLoad:[OCMArg any]]);
             });
         });
         
@@ -121,18 +102,27 @@ describe(@"callback methods", ^{
             });
             
             context(@"having invalid apptoken and invalid placementKey", ^{
-                itBehavesLike(@"invoke load", @{ kAppTokenKey : kAppTokenInvalid, kPlacementKey : kPlacementInvalid});
-            });
-        });
-        
-        context(@"without delegate", ^{
-            
-            it(@"drops call", ^{
-                PubnativeNetworkRequest *request = OCMPartialMock([[PubnativeNetworkRequest alloc] init]);
-                request.delegate = nil;
-                [request invokeDidStart];
-                [request invokeDidLoad:[OCMArg any]];
-                [request invokeDidFail:[OCMArg any]];
+                
+                it(@"invoke load callback method", ^{
+                    id configManager = OCMClassMock([PubnativeConfigManager class]);
+                    
+                    // Given
+                    // Stub Manager to return a mock ad directly
+                    OCMStub([configManager configWithAppToken:[OCMArg any] delegate:[OCMArg any]]).andDo(^(NSInvocation *invocation) {
+                        [request adapter:OCMClassMock([PubnativeNetworkAdapter class])
+                          requestDidLoad:OCMClassMock([PubnativeAdModel class])];
+                    });
+                    
+                    // When
+                    [request startRequestWithAppToken:kAppTokenInvalid
+                                          placementID:kPlacementInvalid
+                                             delegate:delegate];
+                    
+                    // Verify
+                    OCMVerify([delegate requestDidStart:[OCMArg any]]);
+                    OCMVerify([delegate request:[OCMArg any] didLoad:[OCMArg any]]);
+
+                });
             });
         });
     });
