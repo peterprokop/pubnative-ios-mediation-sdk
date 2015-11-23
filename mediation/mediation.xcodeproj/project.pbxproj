@@ -15,6 +15,13 @@
 		03484F5A1C02EBD000D193B5 /* AdCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03484F591C02EBD000D193B5 /* AdCellTableViewCell.swift */; settings = {ASSET_TAGS = (); }; };
 		034D6F5C1BEA5DE6001CF3A5 /* TestValidNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 034D6F5A1BEA5DAC001CF3A5 /* TestValidNetworkAdapter.m */; settings = {ASSET_TAGS = (); }; };
 		036C92381C0318A400F8F128 /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036C92371C0318A400F8F128 /* FloatRatingView.swift */; settings = {ASSET_TAGS = (); }; };
+		036C923D1C03470500F8F128 /* PubnativeNetworkRequestSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 036C923B1C03468200F8F128 /* PubnativeNetworkRequestSpec.m */; settings = {ASSET_TAGS = (); }; };
+		037486D51BF0D961004FFEA1 /* FacebookNativeAdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 037486D11BF0D961004FFEA1 /* FacebookNativeAdModel.m */; settings = {ASSET_TAGS = (); }; };
+		037486D61BF0D961004FFEA1 /* FacebookNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 037486D31BF0D961004FFEA1 /* FacebookNetworkAdapter.m */; settings = {ASSET_TAGS = (); }; };
+		037486D71BF0D961004FFEA1 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037486D41BF0D961004FFEA1 /* FBAudienceNetwork.framework */; settings = {ASSET_TAGS = (); }; };
+		037486D81BF0DA3E004FFEA1 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037486D41BF0D961004FFEA1 /* FBAudienceNetwork.framework */; settings = {ASSET_TAGS = (); }; };
+		037486D91BF0DA3F004FFEA1 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037486D41BF0D961004FFEA1 /* FBAudienceNetwork.framework */; settings = {ASSET_TAGS = (); }; };
+		03A9A6A11BFDA32100993D9B /* PubnativeAdModelSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A9A6A01BFDA32100993D9B /* PubnativeAdModelSpec.m */; settings = {ASSET_TAGS = (); }; };
 		03D092841BFEFDB600A79CA7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D092831BFEFDB600A79CA7 /* MainViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		25FFE773F39179F889518868 /* libPods-PubnativeMediationDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5734361BBDD660F73DCEB216 /* libPods-PubnativeMediationDemo.a */; };
 		A7790EE3605B243BD8C2DC3E /* libPods-PubnativeMediation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF7483EA05BDC146190BAAD6 /* libPods-PubnativeMediation.a */; };
@@ -37,7 +44,6 @@
 		D5E26ABE1BEA4CCA00888F42 /* config_valid.json in Resources */ = {isa = PBXBuildFile; fileRef = D5E26AB51BEA4CCA00888F42 /* config_valid.json */; };
 		D5E26AC71BEA4F6E00888F42 /* PubnativeNetworkAdapterFactorySpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E26AC51BEA4F6E00888F42 /* PubnativeNetworkAdapterFactorySpec.m */; };
 		D5E26AC81BEA4F6E00888F42 /* PubnativeNetworkAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E26AC61BEA4F6E00888F42 /* PubnativeNetworkAdapterSpec.m */; };
-		D5E26AD81BEA528D00888F42 /* PubnativeNetworkRequestSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E26AD71BEA528D00888F42 /* PubnativeNetworkRequestSpec.m */; };
 		D5FE08231BEA170B007396B6 /* PubnativeConfigAPIResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FE08101BEA170A007396B6 /* PubnativeConfigAPIResponseModel.m */; };
 		D5FE08241BEA170B007396B6 /* PubnativeConfigGlobalsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FE08121BEA170A007396B6 /* PubnativeConfigGlobalsModel.m */; };
 		D5FE08251BEA170B007396B6 /* PubnativeConfigModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FE08141BEA170B007396B6 /* PubnativeConfigModel.m */; };
@@ -90,6 +96,13 @@
 		034D6F591BEA5DAC001CF3A5 /* TestValidNetworkAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestValidNetworkAdapter.h; sourceTree = "<group>"; };
 		034D6F5A1BEA5DAC001CF3A5 /* TestValidNetworkAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestValidNetworkAdapter.m; sourceTree = "<group>"; };
 		036C92371C0318A400F8F128 /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
+		036C923B1C03468200F8F128 /* PubnativeNetworkRequestSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeNetworkRequestSpec.m; sourceTree = "<group>"; };
+		037486D01BF0D961004FFEA1 /* FacebookNativeAdModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookNativeAdModel.h; sourceTree = "<group>"; };
+		037486D11BF0D961004FFEA1 /* FacebookNativeAdModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookNativeAdModel.m; sourceTree = "<group>"; };
+		037486D21BF0D961004FFEA1 /* FacebookNetworkAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookNetworkAdapter.h; sourceTree = "<group>"; };
+		037486D31BF0D961004FFEA1 /* FacebookNetworkAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookNetworkAdapter.m; sourceTree = "<group>"; };
+		037486D41BF0D961004FFEA1 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
+		03A9A6A01BFDA32100993D9B /* PubnativeAdModelSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeAdModelSpec.m; sourceTree = "<group>"; };
 		03D092831BFEFDB600A79CA7 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		26B341AD5DD57D35AE7EEA05 /* Pods-PubnativeMediation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PubnativeMediation.release.xcconfig"; path = "../Pods/Target Support Files/Pods-PubnativeMediation/Pods-PubnativeMediation.release.xcconfig"; sourceTree = "<group>"; };
 		2A928042FE842AB25B74F7BB /* libPods-PubnativeMediationTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PubnativeMediationTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,7 +140,6 @@
 		D5E26AB51BEA4CCA00888F42 /* config_valid.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config_valid.json; sourceTree = "<group>"; };
 		D5E26AC51BEA4F6E00888F42 /* PubnativeNetworkAdapterFactorySpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeNetworkAdapterFactorySpec.m; sourceTree = "<group>"; };
 		D5E26AC61BEA4F6E00888F42 /* PubnativeNetworkAdapterSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeNetworkAdapterSpec.m; sourceTree = "<group>"; };
-		D5E26AD71BEA528D00888F42 /* PubnativeNetworkRequestSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeNetworkRequestSpec.m; sourceTree = "<group>"; };
 		D5FE080F1BEA170A007396B6 /* PubnativeConfigAPIResponseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeConfigAPIResponseModel.h; sourceTree = "<group>"; };
 		D5FE08101BEA170A007396B6 /* PubnativeConfigAPIResponseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeConfigAPIResponseModel.m; sourceTree = "<group>"; };
 		D5FE08111BEA170A007396B6 /* PubnativeConfigGlobalsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeConfigGlobalsModel.h; sourceTree = "<group>"; };
@@ -156,6 +168,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				037486D71BF0D961004FFEA1 /* FBAudienceNetwork.framework in Frameworks */,
 				A7790EE3605B243BD8C2DC3E /* libPods-PubnativeMediation.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -164,6 +177,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				037486D81BF0DA3E004FFEA1 /* FBAudienceNetwork.framework in Frameworks */,
 				D5E26AA31BEA4B7F00888F42 /* libPubnativeMediation.a in Frameworks */,
 				E69F6564C0ABFAAAC7183D70 /* libPods-PubnativeMediationTests.a in Frameworks */,
 			);
@@ -173,6 +187,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				037486D91BF0DA3F004FFEA1 /* FBAudienceNetwork.framework in Frameworks */,
 				D54384C81BC529CC00EBE27A /* libPubnativeMediation.a in Frameworks */,
 				25FFE773F39179F889518868 /* libPods-PubnativeMediationDemo.a in Frameworks */,
 			);
@@ -181,6 +196,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		03A9A69E1BFDA2A000993D9B /* request */ = {
+			isa = PBXGroup;
+			children = (
+				03A9A69F1BFDA2B400993D9B /* model */,
+				036C923B1C03468200F8F128 /* PubnativeNetworkRequestSpec.m */,
+			);
+			path = request;
+			sourceTree = "<group>";
+		};
+		03A9A69F1BFDA2B400993D9B /* model */ = {
+			isa = PBXGroup;
+			children = (
+				03A9A6A01BFDA32100993D9B /* PubnativeAdModelSpec.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		44C6D5067D85A94C75799D36 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,7 +271,7 @@
 		D54384731BC528BC00EBE27A /* mediation.tests */ = {
 			isa = PBXGroup;
 			children = (
-				D5E26AD61BEA528D00888F42 /* request */,
+				03A9A69E1BFDA2A000993D9B /* request */,
 				D5E26AC41BEA4F6E00888F42 /* adapter */,
 				D5E26AAA1BEA4CCA00888F42 /* resources */,
 				D5E26AA41BEA4C1900888F42 /* config */,
@@ -251,28 +283,13 @@
 		D543847D1BC528D000EBE27A /* adapter */ = {
 			isa = PBXGroup;
 			children = (
-				D543847E1BC528D000EBE27A /* model */,
-				D543847F1BC528D000EBE27A /* networks */,
+				D5E26AC91BEA517500888F42 /* networks */,
 				D54384801BC528D000EBE27A /* PubnativeNetworkAdapter.h */,
 				D54384811BC528D000EBE27A /* PubnativeNetworkAdapter.m */,
 				D54384821BC528D000EBE27A /* PubnativeNetworkAdapterFactory.h */,
 				D54384831BC528D000EBE27A /* PubnativeNetworkAdapterFactory.m */,
 			);
 			path = adapter;
-			sourceTree = "<group>";
-		};
-		D543847E1BC528D000EBE27A /* model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = model;
-			sourceTree = "<group>";
-		};
-		D543847F1BC528D000EBE27A /* networks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = networks;
 			sourceTree = "<group>";
 		};
 		D543848E1BC528D000EBE27A /* request */ = {
@@ -364,12 +381,24 @@
 			path = adapter;
 			sourceTree = "<group>";
 		};
-		D5E26AD61BEA528D00888F42 /* request */ = {
+		D5E26AC91BEA517500888F42 /* networks */ = {
 			isa = PBXGroup;
 			children = (
-				D5E26AD71BEA528D00888F42 /* PubnativeNetworkRequestSpec.m */,
+				D5E26ACA1BEA517500888F42 /* facebook */,
 			);
-			path = request;
+			path = networks;
+			sourceTree = "<group>";
+		};
+		D5E26ACA1BEA517500888F42 /* facebook */ = {
+			isa = PBXGroup;
+			children = (
+				037486D01BF0D961004FFEA1 /* FacebookNativeAdModel.h */,
+				037486D11BF0D961004FFEA1 /* FacebookNativeAdModel.m */,
+				037486D21BF0D961004FFEA1 /* FacebookNetworkAdapter.h */,
+				037486D31BF0D961004FFEA1 /* FacebookNetworkAdapter.m */,
+				037486D41BF0D961004FFEA1 /* FBAudienceNetwork.framework */,
+			);
+			path = facebook;
 			sourceTree = "<group>";
 		};
 		D5FE080D1BEA170A007396B6 /* config */ = {
@@ -636,10 +665,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5FE08231BEA170B007396B6 /* PubnativeConfigAPIResponseModel.m in Sources */,
+				037486D51BF0D961004FFEA1 /* FacebookNativeAdModel.m in Sources */,
 				D54384941BC528D000EBE27A /* PubnativeNetworkAdapter.m in Sources */,
 				D5FE08281BEA170B007396B6 /* PubnativeNetworkModel.m in Sources */,
 				D54384991BC528D000EBE27A /* PubnativeAdModel.m in Sources */,
 				D5FE08291BEA170B007396B6 /* PubnativePlacementModel.m in Sources */,
+				037486D61BF0D961004FFEA1 /* FacebookNetworkAdapter.m in Sources */,
 				D5FE08261BEA170B007396B6 /* PubnativeConfigRequestModel.m in Sources */,
 				D5FE082A1BEA170B007396B6 /* PubnativePriorityRulesModel.m in Sources */,
 				D5FE08271BEA170B007396B6 /* PubnativeDeliveryRuleModel.m in Sources */,
@@ -656,9 +687,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5E26AD81BEA528D00888F42 /* PubnativeNetworkRequestSpec.m in Sources */,
+				03A9A6A11BFDA32100993D9B /* PubnativeAdModelSpec.m in Sources */,
 				D5E26AC81BEA4F6E00888F42 /* PubnativeNetworkAdapterSpec.m in Sources */,
 				D5E26AA91BEA4C1900888F42 /* PubnativeConfigUtils.m in Sources */,
+				036C923D1C03470500F8F128 /* PubnativeNetworkRequestSpec.m in Sources */,
 				034D6F5C1BEA5DE6001CF3A5 /* TestValidNetworkAdapter.m in Sources */,
 				D5E26AC71BEA4F6E00888F42 /* PubnativeNetworkAdapterFactorySpec.m in Sources */,
 				D5E26AA81BEA4C1900888F42 /* PubnativeConfigManagerSpec.m in Sources */,
@@ -788,6 +820,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B01C148AAD62E5CE9D169C10 /* Pods-PubnativeMediation.debug.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/mediation/adapter/networks/facebook",
+				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -798,6 +834,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 26B341AD5DD57D35AE7EEA05 /* Pods-PubnativeMediation.release.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/mediation/adapter/networks/facebook",
+				);
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -808,6 +848,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9A89C6BA0BD3623B9800B81D /* Pods-PubnativeMediationTests.debug.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/mediation/adapter/networks/facebook",
+				);
 				INFOPLIST_FILE = mediation.tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.pubnative.mediation-tests";
@@ -819,6 +863,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 580C38A3C784A75BA12DE556 /* Pods-PubnativeMediationTests.release.xcconfig */;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/mediation/adapter/networks/facebook",
+				);
 				INFOPLIST_FILE = mediation.tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.pubnative.mediation-tests";
@@ -833,6 +881,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/mediation/adapter/networks/facebook",
+				);
 				INFOPLIST_FILE = mediation.demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.pubnative.mediation-demo";
@@ -850,6 +902,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/mediation/adapter/networks/facebook",
+				);
 				INFOPLIST_FILE = mediation.demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.pubnative.mediation-demo";

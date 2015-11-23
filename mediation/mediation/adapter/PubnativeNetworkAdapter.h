@@ -21,7 +21,12 @@
 
 @interface PubnativeNetworkAdapter : NSObject
 
+@property (nonatomic, strong)   NSDictionary                                *params;
+@property (nonatomic, weak)     NSObject<PubnativeNetworkAdapterDelegate>   *delegate;
+
 - (instancetype)initWithDictionary:(NSDictionary*)dictionary;
 - (void)requestWithTimeout:(int)timeout delegate:(NSObject<PubnativeNetworkAdapterDelegate>*)delegate;
+- (void)invokeDidFail:(NSError*)error;
+- (void)invokeDidLoad:(PubnativeAdModel*)ad;
 
 @end

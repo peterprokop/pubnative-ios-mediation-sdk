@@ -8,13 +8,6 @@
 
 #import "PubnativeNetworkAdapter.h"
 
-@interface PubnativeNetworkAdapter()
-
-@property (nonatomic, strong)NSDictionary                                *params;
-@property (nonatomic, weak)  NSObject<PubnativeNetworkAdapterDelegate>   *delegate;
-
-@end
-
 @implementation PubnativeNetworkAdapter
 
 - (instancetype)initWithDictionary:(NSDictionary*)dictionary
