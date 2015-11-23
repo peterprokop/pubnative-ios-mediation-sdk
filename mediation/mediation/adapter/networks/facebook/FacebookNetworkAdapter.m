@@ -11,6 +11,13 @@
 
 NSString * const kPlacementIdKey = @"placement_id";
 
+@interface PubnativeNetworkAdapter (Private)
+
+- (void)invokeDidFail:(NSError*)error;
+- (void)invokeDidLoad:(PubnativeAdModel*)ad;
+
+@end
+
 @interface FacebookNetworkAdapter () <FBNativeAdDelegate>
 
 @property (strong, nonatomic) FBNativeAd * nativeAd;
