@@ -28,8 +28,8 @@
 @property (nonatomic, readonly) float                       starRating;
 
 - (void)pubantiveAdDidStartTrackingView:(UIView*)adView
-                     withViewController:(UIViewController*)viewController
-                               delegate:(NSObject<PubnativeAdModelDelegate>*)delegate;
+                     withViewController:(UIViewController*)viewController;
 - (void)pubantiveAdDidStopTrackingView:(UIView*)adView;
+- (void)setPubnativeAdModelDelegate:(NSObject<PubnativeAdModelDelegate>*)delegate;
 
 @end
