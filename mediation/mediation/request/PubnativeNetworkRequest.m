@@ -54,12 +54,13 @@
     if (config && ![config isEmpty]) {
         self.config = config;
         if (self.config.placements) {
-            self.placement = [self.config.placements objectForKey:self.placementID];
-            if (self.placement && self.placement.delivery_rules) {
-                if (self.placement.delivery_rules.isActive) {
-                    [self startRequest];
+            PubnativePlacementModel *placement = [self.config.placements objectForKey:self.placementID];
+            if (placement) {
+                self.placement = placement;
+                if (self.placement.delivery_rules && [self.placement.delivery_rules isActive]) {
+                    [self doNextNetworkRequest];
                 } else {
-                    NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.startRequestWithConfig:- Error: Inactive placement"
+                    NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.startRequestWithConfig:- Error: Invalid/Inactive delivery_rules"
                                                          code:0
                                                      userInfo:nil];
                     [self invokeDidFail:error];
@@ -84,35 +85,18 @@
     }
 }
 
-- (void)startRequest
-{
-    if (self.placement && self.placement.delivery_rules) {
-        // TODO: Need to handle the scenario
-        // This is related to delivery manager
-        // Do next network request
-        [self doNextNetworkRequest];
-    } else {
-        NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.startRequest- Error: Invalid placement"
-                                             code:0
-                                         userInfo:nil];
-        [self invokeDidFail:error];
-    }
-}
-
 - (void)doNextNetworkRequest
 {
-    if (self.placement &&
-        self.placement.priority_rules) {
-        if (self.currentNetworkIndex < self.placement.priority_rules.count) {
-            PubnativePriorityRulesModel * priorityRule = self.placement.priority_rules[self.currentNetworkIndex];
-            self.currentNetworkIndex++;
+    if (self.currentNetworkIndex < self.placement.priority_rules.count) {
+        PubnativePriorityRulesModel * priorityRule = self.placement.priority_rules[self.currentNetworkIndex];
+        self.currentNetworkIndex++;
+        if (priorityRule) {
             NSString *currentNetworkId = priorityRule.network_code;
             PubnativeNetworkModel *network = nil;
             if (currentNetworkId && [currentNetworkId length] > 0 &&
                 self.config && self.config.networks) {
                 network = [self.config.networks objectForKey:currentNetworkId];
             }
-
             if (network) {
                 PubnativeNetworkAdapter *adapter = [PubnativeNetworkAdapterFactory createApdaterWithNetwork:network];
                 if (adapter) {
@@ -126,13 +110,11 @@
                 [self doNextNetworkRequest];
             }
         } else {
-            NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.doNextNetworkRequest- Error: No fill"
-                                                 code:0
-                                             userInfo:nil];
-            [self invokeDidFail:error];
+            NSLog(@"PubnativeNetworkRequest.doNextNetworkRequest- Error: Invalid Priority Rule");
+            [self doNextNetworkRequest];
         }
     } else {
-        NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.doNextNetworkRequest- Error: Invalid/No placement model"
+        NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.doNextNetworkRequest- Error: No fill"
                                              code:0
                                          userInfo:nil];
         [self invokeDidFail:error];

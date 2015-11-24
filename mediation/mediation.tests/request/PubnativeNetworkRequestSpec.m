@@ -21,7 +21,7 @@ NSString * const kAppTokenInvalid   = @"apptoken_invalid";
 
 @interface PubnativeNetworkAdapter (Private)
 
-@property (nonatomic, weak)NSObject<PubnativeNetworkAdapterDelegate> *delegate;
+@property (nonatomic, weak)NSObject <PubnativeNetworkAdapterDelegate> *delegate;
 
 - (void)doRequest;
 
@@ -29,7 +29,7 @@ NSString * const kAppTokenInvalid   = @"apptoken_invalid";
 
 @interface PubnativeNetworkRequest (Private)
 
-@property (weak, nonatomic)NSObject <PubnativeNetworkRequestDelegate>      *delegate;
+@property (weak, nonatomic)NSObject <PubnativeNetworkRequestDelegate> *delegate;
 
 - (void)adapter:(PubnativeNetworkAdapter*)adapter requestDidLoad:(PubnativeAdModel*)ad;
 - (void)invokeDidStart;
@@ -121,7 +121,6 @@ describe(@"callback methods", ^{
                     // Verify
                     OCMVerify([delegate requestDidStart:[OCMArg any]]);
                     OCMVerify([delegate request:[OCMArg any] didLoad:[OCMArg any]]);
-
                 });
             });
         });
