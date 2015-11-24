@@ -30,6 +30,6 @@
 - (void)pubantiveAdDidStartTrackingView:(UIView*)adView
                      withViewController:(UIViewController*)viewController;
 - (void)pubantiveAdDidStopTrackingView:(UIView*)adView;
-- (void)setPubnativeAdModelDelegate:(NSObject<PubnativeAdModelDelegate>*)delegate;
+- (void)setDelegate:(NSObject<PubnativeAdModelDelegate>*)delegate;
 
 @end

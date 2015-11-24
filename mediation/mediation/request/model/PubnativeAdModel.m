@@ -63,7 +63,7 @@
     NSLog(@"PubnativeAdModel - Error: override me");
 }
 
-- (void)setPubnativeAdModelDelegate:(NSObject<PubnativeAdModelDelegate>*)delegate
+- (void)setDelegate:(NSObject<PubnativeAdModelDelegate>*)delegate
 {
     self.delegate = delegate;
 }
