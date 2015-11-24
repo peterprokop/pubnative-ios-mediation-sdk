@@ -95,8 +95,8 @@
     return starRating;
 }
 
-- (void)pubantiveAdDidStartTrackingView:(UIView*)adView
-                     withViewController:(UIViewController*)viewController
+- (void)startTrackingView:(UIView*)adView
+       withViewController:(UIViewController*)viewController
 {
     if (self.nativeAd && adView) {
         self.nativeAd.delegate = self;
@@ -104,7 +104,7 @@
     }
 }
 
-- (void)pubantiveAdDidStopTrackingView:(UIView*)adView
+- (void)stopTrackingView:(UIView*)adView
 {
     if (self.nativeAd) {
         [self.nativeAd unregisterView];
