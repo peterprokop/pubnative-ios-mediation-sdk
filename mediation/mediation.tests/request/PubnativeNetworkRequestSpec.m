@@ -18,6 +18,7 @@
 
 NSString * const kPlacementInvalid  = @"placement_invalid";
 NSString * const kAppTokenInvalid   = @"apptoken_invalid";
+NSString * const kPlacementIdValid  = @"facebook_only";
 
 @interface PubnativeNetworkAdapter (Private)
 
@@ -29,13 +30,18 @@ NSString * const kAppTokenInvalid   = @"apptoken_invalid";
 
 @interface PubnativeNetworkRequest (Private)
 
-@property (weak, nonatomic)NSObject <PubnativeNetworkRequestDelegate> *delegate;
+@property (nonatomic, weak)     NSObject <PubnativeNetworkRequestDelegate>  *delegate;
+@property (nonatomic, strong)   NSString                                    *placementID;
+@property (nonatomic, strong)   PubnativePlacementModel                     *placement;
+@property (nonatomic, assign)   int                                         currentNetworkIndex;
 
 - (void)adapter:(PubnativeNetworkAdapter*)adapter requestDidLoad:(PubnativeAdModel*)ad;
 - (void)invokeDidStart;
 - (void)invokeDidFail:(NSError*)error;
 - (void)invokeDidLoad:(PubnativeAdModel*)ad;
 - (void)configDidFinishWithModel:(PubnativeConfigModel*)model;
+- (void)startRequestWithConfig:(PubnativeConfigModel*)config;
+- (void)doNextNetworkRequest;
 
 @end
 
@@ -48,22 +54,22 @@ describe(@"callback methods", ^{
     
     context(@"invokation", ^{
         
-        __block id request;
-        __block id delegate;
+        __block id requestMock;
+        __block id delegateMock;
         
         before(^{
-            request = OCMPartialMock([[PubnativeNetworkRequest alloc] init]);
-            delegate = OCMProtocolMock(@protocol(PubnativeNetworkRequestDelegate));
+            requestMock = OCMPartialMock([[PubnativeNetworkRequest alloc] init]);
+            delegateMock = OCMProtocolMock(@protocol(PubnativeNetworkRequestDelegate));
         });
         
         sharedExamples(@"invoke fail", ^(NSDictionary *data) {
             
             it(@"callback method", ^{
-                [request startRequestWithAppToken:data[kAppTokenKey]
+                [requestMock startRequestWithAppToken:data[kAppTokenKey]
                                       placementID:data[kPlacementKey]
-                                         delegate:delegate];
-                OCMVerify([delegate requestDidStart:[OCMArg any]]);
-                OCMVerify([delegate request:[OCMArg any] didFail:[OCMArg any]]);
+                                         delegate:delegateMock];
+                OCMVerify([delegateMock requestDidStart:[OCMArg any]]);
+                OCMVerify([delegateMock request:[OCMArg any] didFail:[OCMArg any]]);
             });
         });
         
@@ -109,18 +115,18 @@ describe(@"callback methods", ^{
                     // Given
                     // Stub Manager to return a mock ad directly
                     OCMStub([configManager configWithAppToken:[OCMArg any] delegate:[OCMArg any]]).andDo(^(NSInvocation *invocation) {
-                        [request adapter:OCMClassMock([PubnativeNetworkAdapter class])
+                        [requestMock adapter:OCMClassMock([PubnativeNetworkAdapter class])
                           requestDidLoad:OCMClassMock([PubnativeAdModel class])];
                     });
                     
                     // When
-                    [request startRequestWithAppToken:kAppTokenInvalid
+                    [requestMock startRequestWithAppToken:kAppTokenInvalid
                                           placementID:kPlacementInvalid
-                                             delegate:delegate];
+                                             delegate:delegateMock];
                     
                     // Verify
-                    OCMVerify([delegate requestDidStart:[OCMArg any]]);
-                    OCMVerify([delegate request:[OCMArg any] didLoad:[OCMArg any]]);
+                    OCMVerify([delegateMock requestDidStart:[OCMArg any]]);
+                    OCMVerify([delegateMock request:[OCMArg any] didLoad:[OCMArg any]]);
                 });
             });
         });
@@ -129,78 +135,154 @@ describe(@"callback methods", ^{
 
 describe(@"start request", ^{
     
-    __block PubnativeNetworkRequest *request;
+    __block id requestMock;
     
     before(^{
-        request = OCMPartialMock([[PubnativeNetworkRequest alloc] init]);
+        requestMock = OCMPartialMock([[PubnativeNetworkRequest alloc] init]);
     });
     
     context(@"with delegate", ^{
         
-        __block id                      delegate;
-        __block id                      configManager;
+        __block id delegateMock;
+        __block id configManagerMock;
         
         before(^{
-            delegate = OCMProtocolMock(@protocol(PubnativeNetworkRequestDelegate));
-            configManager = OCMClassMock([PubnativeConfigManager class]);
+            delegateMock = OCMProtocolMock(@protocol(PubnativeNetworkRequestDelegate));
+            configManagerMock = OCMClassMock([PubnativeConfigManager class]);
         });
         
-        it(@"and valid config", ^{
+        context(@"and config", ^{
             
-            PubnativeAdModel *ad = OCMClassMock([PubnativeAdModel class]);
-            PubnativeNetworkAdapter *adapter = OCMPartialMock([[PubnativeNetworkAdapter alloc] init]);
+            __block id adMock;
+            __block id adapterMock;
+            __block id adapterFactoryMock;
             
-            // Given
-            // Stub Adapter doRequest to callback directly
-            OCMStub([adapter doRequest]).andDo(^(NSInvocation *invocation){
-                [adapter.delegate adapterRequestDidStart:adapter];
-                [adapter.delegate adapter:adapter requestDidLoad:ad];
+            NSString *validConfigFile = @"config_valid";
+            
+            before(^{
+                adMock = OCMClassMock([PubnativeAdModel class]);
+                adapterMock = OCMPartialMock([[PubnativeNetworkAdapter alloc] init]);
+                
+                // Given
+                // Stub Adapter doRequest to callback directly
+                OCMStub([adapterMock doRequest]).andDo(^(NSInvocation *invocation){
+                    [[adapterMock delegate] adapterRequestDidStart:adapterMock];
+                    [[adapterMock delegate] adapter:adapterMock requestDidLoad:adMock];
+                });
+                
+                // Given
+                // Stub Factory create to return a mock adapter
+                adapterFactoryMock = OCMClassMock([PubnativeNetworkAdapterFactory class]);
+                OCMStub([adapterFactoryMock createApdaterWithNetwork:[OCMArg any]]).andReturn(adapterMock);
             });
+            
+            it(@"having valid parameters, invoke request:didLoad:", ^{
+                // Given
+                // Stub Manager to return a mock config directly
+                OCMStub([configManagerMock configWithAppToken:[OCMArg any] delegate:[OCMArg any]]).andDo(^(NSInvocation *invocation) {
+                    [requestMock configDidFinishWithModel:[PubnativeConfigUtils getModelFromJSONFile:validConfigFile]];
+                });
+                
+                // Reject
+                [[delegateMock reject] request:[OCMArg any] didFail:[OCMArg any]];
+                
+                // When
+                [requestMock startRequestWithAppToken:kAppTokenInvalid
+                                      placementID:kPlacementIdValid
+                                         delegate:delegateMock];
+                
+                // Veify
+                OCMVerify([delegateMock requestDidStart:[OCMArg isNotNil]]);
+                OCMVerify([delegateMock request:[OCMArg isNotNil] didLoad:[OCMArg isNotNil]]);
+            });
+            
+            it(@"having invalid placementID, invoke request:didFail:", ^{
+                // Given
+                // Stub Manager to return a mock config directly
+                OCMStub([configManagerMock configWithAppToken:[OCMArg any] delegate:[OCMArg any]]).andDo(^(NSInvocation *invocation) {
+                    [requestMock configDidFinishWithModel:[PubnativeConfigUtils getModelFromJSONFile:validConfigFile]];
+                });
+                
+                // When
+                [requestMock startRequestWithAppToken:kAppTokenInvalid
+                                      placementID:@"invalid_placement_ID"
+                                         delegate:delegateMock];
+                
+                // Veify
+                OCMVerify([delegateMock requestDidStart:[OCMArg isNotNil]]);
+                OCMVerify([delegateMock request:[OCMArg isNotNil] didFail:[OCMArg isNotNil]]);
+            });
+            
+            it(@"having invalid delivery_rule, invoke request:didFail:", ^{
+                PubnativePlacementModel *placementMock = OCMClassMock([PubnativePlacementModel class]);
+                // Given
+                OCMStub([placementMock delivery_rules]).andReturn(nil);
+                OCMStub([requestMock placement]).andReturn(placementMock);
 
-            // Given
-            // Stub Factory create to return a mock adapter
-            id adapterFactory = OCMClassMock([PubnativeNetworkAdapterFactory class]);
-            OCMStub([adapterFactory createApdaterWithNetwork:[OCMArg any]]).andReturn(adapter);
-            
-            // Given
-            // Stub Manager to return a mock config directly
-            OCMStub([configManager configWithAppToken:[OCMArg any] delegate:[OCMArg any]]).andDo(^(NSInvocation *invocation) {
-                [request configDidFinishWithModel:[PubnativeConfigUtils getModelFromJSONFile:@"config_valid"]];
+                // Given
+                // Stub Manager to return a mock config directly
+                OCMStub([configManagerMock configWithAppToken:[OCMArg any] delegate:[OCMArg any]]).andDo(^(NSInvocation *invocation) {
+                    [requestMock configDidFinishWithModel:[PubnativeConfigUtils getModelFromJSONFile:validConfigFile]];
+                });
+                
+                // When
+                [requestMock startRequestWithAppToken:kAppTokenInvalid
+                                      placementID:kPlacementIdValid
+                                         delegate:delegateMock];
+                
+                // Veify
+                OCMVerify([delegateMock requestDidStart:[OCMArg isNotNil]]);
+                OCMVerify([delegateMock request:[OCMArg isNotNil] didFail:[OCMArg isNotNil]]);
             });
             
-            // Reject
-            [[delegate reject] request:[OCMArg any] didFail:[OCMArg any]];
+            it(@"having inactive delivery_rule, invoke request:didFail:", ^{
+                PubnativePlacementModel *placementMock = OCMClassMock([PubnativePlacementModel class]);
+                PubnativeDeliveryRuleModel *delivery_rules = OCMPartialMock([[PubnativeDeliveryRuleModel alloc] init]);
+                // Given
+                OCMStub([delivery_rules isActive]).andReturn(NO);
+                OCMStub([placementMock delivery_rules]).andReturn(delivery_rules);
+                OCMStub([requestMock placement]).andReturn(placementMock);
+                
+                // Given
+                // Stub Manager to return a mock config directly
+                OCMStub([configManagerMock configWithAppToken:[OCMArg any] delegate:[OCMArg any]]).andDo(^(NSInvocation *invocation) {
+                    [requestMock configDidFinishWithModel:[PubnativeConfigUtils getModelFromJSONFile:validConfigFile]];
+                });
+                
+                // When
+                [requestMock startRequestWithAppToken:kAppTokenInvalid
+                                      placementID:kPlacementIdValid
+                                         delegate:delegateMock];
+                
+                // Veify
+                OCMVerify([delegateMock requestDidStart:[OCMArg isNotNil]]);
+                OCMVerify([delegateMock request:[OCMArg isNotNil] didFail:[OCMArg isNotNil]]);
+            });
+                        
+            after(^{
+                [adapterFactoryMock stopMocking];
+            });
             
-            // When
-            [request startRequestWithAppToken:kAppTokenInvalid
-                                  placementID:@"facebook_only"
-                                     delegate:delegate];
-            
-            // Veify
-            OCMVerify([delegate requestDidStart:[OCMArg any]]);
-            OCMVerify([delegate request:[OCMArg any] didLoad:[OCMArg any]]);
-            
-            [adapterFactory stopMocking];
         });
         
         it(@"and empty config", ^{
             // Given
             // Stub Manager to return a mock config directly
-            OCMStub([configManager configWithAppToken:[OCMArg any] delegate:[OCMArg any]]).andDo(^(NSInvocation *invocation) {
-                [request configDidFinishWithModel:[PubnativeConfigUtils getModelFromJSONFile:@"config_empty"]];
+            OCMStub([configManagerMock configWithAppToken:[OCMArg any] delegate:[OCMArg any]]).andDo(^(NSInvocation *invocation) {
+                [requestMock configDidFinishWithModel:[PubnativeConfigUtils getModelFromJSONFile:@"config_empty"]];
             });
             
             // Reject
-            [[delegate reject] request:[OCMArg any] didLoad:[OCMArg any]];
+            [[delegateMock reject] request:[OCMArg any] didLoad:[OCMArg any]];
             
             // When
-            [request startRequestWithAppToken:kAppTokenInvalid
+            [requestMock startRequestWithAppToken:kAppTokenInvalid
                                   placementID:kPlacementInvalid
-                                     delegate:delegate];
+                                     delegate:delegateMock];
             
             // Verify
-            OCMVerify([delegate requestDidStart:[OCMArg any]]);
-            OCMVerify([delegate request:[OCMArg any] didFail:[OCMArg any]]);
+            OCMVerify([delegateMock requestDidStart:[OCMArg any]]);
+            OCMVerify([delegateMock request:[OCMArg any] didFail:[OCMArg any]]);
         });
     });
     
@@ -208,9 +290,68 @@ describe(@"start request", ^{
         
         it(@"drops call", ^{
             //This should not crash
-            [request startRequestWithAppToken:kAppTokenInvalid
+            [requestMock startRequestWithAppToken:kAppTokenInvalid
                                   placementID:kPlacementInvalid
                                      delegate:nil];
+        });
+    });
+});
+
+describe(@"network request", ^{
+    
+    context(@"conforms and implements", ^{
+        
+        __block id requestMock;
+        
+        before(^{
+            requestMock = OCMPartialMock([[PubnativeNetworkRequest alloc] init]);
+        });
+        
+        it(@"PubnativeConfigManagerDelegate", ^{
+            expect([requestMock conformsToProtocol:@protocol(PubnativeConfigManagerDelegate)]).to.beTruthy();
+            expect([requestMock respondsToSelector:@selector(configDidFailWithError:)]).to.beTruthy();
+            expect([requestMock respondsToSelector:@selector(configDidFinishWithModel:)]).to.beTruthy();
+        });
+        
+        it(@"PubnativeNetworkAdapterDelegate", ^{
+            expect([requestMock conformsToProtocol:@protocol(PubnativeNetworkAdapterDelegate)]).to.beTruthy();
+            expect([requestMock respondsToSelector:@selector(adapterRequestDidStart:)]).to.beTruthy();
+            expect([requestMock respondsToSelector:@selector(adapter:requestDidLoad:)]).to.beTruthy();
+            expect([requestMock respondsToSelector:@selector(adapter:requestDidFail:)]).to.beTruthy();
+        });
+    });
+});
+
+describe(@"private method", ^{
+    
+    context(@"startRequestWithConfig:", ^{
+        
+        __block id requestMock;
+        
+        before(^{
+            requestMock = OCMPartialMock([[PubnativeNetworkRequest alloc] init]);
+            OCMStub([requestMock placementID]).andReturn(kPlacementIdValid);
+        });
+        
+        it(@"valid config, invoke doNextNetworkRequest", ^{
+            [requestMock startRequestWithConfig:[PubnativeConfigUtils getModelFromJSONFile:@"config_valid"]];
+            OCMVerify([requestMock doNextNetworkRequest]);
+        });
+        
+        it(@"invalid config, invoke fail", ^{
+            [requestMock startRequestWithConfig:[PubnativeConfigUtils getModelFromJSONFile:@"config_empty"]];
+            OCMVerify([requestMock invokeDidFail:[OCMArg isNotNil]]);
+        });
+        
+        it(@"nil config, invoke fail", ^{
+            [requestMock startRequestWithConfig:nil];
+            OCMVerify([requestMock invokeDidFail:[OCMArg isNotNil]]);
+        });
+        
+        it(@"config with invalid placementID, invoke fail", ^{
+            OCMStub([requestMock placementID]).andReturn(@"invalid_placement_ID");
+            [requestMock startRequestWithConfig:[PubnativeConfigUtils getModelFromJSONFile:@"config_valid"]];
+            OCMVerify([requestMock invokeDidFail:[OCMArg isNotNil]]);
         });
     });
 });

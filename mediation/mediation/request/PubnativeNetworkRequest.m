@@ -36,6 +36,7 @@
             placementID && [placementID length] > 0) {
             self.appToken = appToken;
             self.placementID = placementID;
+            self.currentNetworkIndex = 0;
             [PubnativeConfigManager configWithAppToken:appToken
                                               delegate:self];
         } else {
@@ -53,26 +54,19 @@
 {
     if (config && ![config isEmpty]) {
         self.config = config;
-        if (self.config.placements) {
-            PubnativePlacementModel *placement = [self.config.placements objectForKey:self.placementID];
-            if (placement) {
-                self.placement = placement;
-                if (self.placement.delivery_rules && [self.placement.delivery_rules isActive]) {
-                    [self doNextNetworkRequest];
-                } else {
-                    NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.startRequestWithConfig:- Error: Invalid/Inactive delivery_rules"
-                                                         code:0
-                                                     userInfo:nil];
-                    [self invokeDidFail:error];
-                }
+        PubnativePlacementModel *placement = [self.config.placements objectForKey:self.placementID];
+        if (placement) {
+            self.placement = placement;
+            if (self.placement.delivery_rules && [self.placement.delivery_rules isActive]) {
+                [self doNextNetworkRequest];
             } else {
-                NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.startRequestWithConfig:- Error: Invalid placement"
+                NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.startRequestWithConfig:- Error: Invalid/Inactive delivery_rules"
                                                      code:0
                                                  userInfo:nil];
                 [self invokeDidFail:error];
             }
         } else {
-            NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.startRequestWithConfig:- Error: Placements not available"
+            NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.startRequestWithConfig:- Error: Invalid placement"
                                                  code:0
                                              userInfo:nil];
             [self invokeDidFail:error];
@@ -90,27 +84,22 @@
     if (self.currentNetworkIndex < self.placement.priority_rules.count) {
         PubnativePriorityRulesModel * priorityRule = self.placement.priority_rules[self.currentNetworkIndex];
         self.currentNetworkIndex++;
-        if (priorityRule) {
-            NSString *currentNetworkId = priorityRule.network_code;
-            PubnativeNetworkModel *network = nil;
-            if (currentNetworkId && [currentNetworkId length] > 0 &&
-                self.config && self.config.networks) {
-                network = [self.config.networks objectForKey:currentNetworkId];
-            }
-            if (network) {
-                PubnativeNetworkAdapter *adapter = [PubnativeNetworkAdapterFactory createApdaterWithNetwork:network];
-                if (adapter) {
-                    [adapter requestWithTimeout:[network.timeout intValue] delegate:self];
-                } else {
-                    NSLog(@"PubnativeNetworkRequest.doNextNetworkRequest- Error: Invalid adapter");
-                    [self doNextNetworkRequest];
-                }
+        NSString *currentNetworkId = priorityRule.network_code;
+        PubnativeNetworkModel *network = nil;
+        if (currentNetworkId && [currentNetworkId length] > 0 &&
+            self.config && self.config.networks) {
+            network = [self.config.networks objectForKey:currentNetworkId];
+        }
+        if (network) {
+            PubnativeNetworkAdapter *adapter = [PubnativeNetworkAdapterFactory createApdaterWithNetwork:network];
+            if (adapter) {
+                [adapter requestWithTimeout:[network.timeout intValue] delegate:self];
             } else {
-                NSLog(@"PubnativeNetworkRequest.doNextNetworkRequest- Error: Invalid network code");
+                NSLog(@"PubnativeNetworkRequest.doNextNetworkRequest- Error: Invalid adapter");
                 [self doNextNetworkRequest];
             }
         } else {
-            NSLog(@"PubnativeNetworkRequest.doNextNetworkRequest- Error: Invalid Priority Rule");
+            NSLog(@"PubnativeNetworkRequest.doNextNetworkRequest- Error: Invalid network code");
             [self doNextNetworkRequest];
         }
     } else {
