@@ -383,6 +383,7 @@ describe(@"private method", ^{
                 OCMStub([requestMock config]).andReturn([PubnativeConfigUtils getModelFromJSONFile:data[configKey]]);
                 [requestMock doNextNetworkRequest];
                 OCMVerify([requestMock doNextNetworkRequest]);
+                expect([requestMock currentNetworkIndex]).to.equal([placement count]);
             });
         });
         
@@ -456,6 +457,7 @@ describe(@"private method", ^{
                     OCMStub([adapterFactoryMock createApdaterWithNetwork:[OCMArg any]]).andReturn(nil);
                     [requestMock doNextNetworkRequest];
                     OCMVerify([requestMock doNextNetworkRequest]);
+                    expect([requestMock currentNetworkIndex]).to.equal([placement count]);
                 });
             });
         });
