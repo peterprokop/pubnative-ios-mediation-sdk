@@ -210,12 +210,11 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
         
         if(json){
             
-            NSError *parsingError = nil;
-            PubnativeConfigAPIResponseModel *responseModel = [PubnativeConfigAPIResponseModel parseDictionary:json
-                                                                                                        error:&parsingError];
-            if(parsingError){
+            PubnativeConfigAPIResponseModel *responseModel = [PubnativeConfigAPIResponseModel parseDictionary:json];
+            if(responseModel == nil){
                 // ERROR: Parsing error
-                [PubnativeConfigManager invokeDidFailWithError:parsingError
+                NSError *error = [NSError errorWithDomain:@"Pubnative - Invalid Config Api response" code:0 userInfo:nil];
+                [PubnativeConfigManager invokeDidFailWithError:error
                                                       delegate:requestModel.delegate];
             } else {
                 if([responseModel success]){
