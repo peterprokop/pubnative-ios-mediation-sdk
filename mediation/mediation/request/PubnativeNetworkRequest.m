@@ -12,12 +12,12 @@
 
 @interface PubnativeNetworkRequest () <PubnativeNetworkAdapterDelegate, PubnativeConfigManagerDelegate>
 
-@property (nonatomic, strong)NSString                              *placementID;
-@property (nonatomic, strong)NSString                              *appToken;
-@property (nonatomic, strong)PubnativeConfigModel                  *config;
-@property (nonatomic, strong)PubnativePlacementModel               *placement;
-@property (nonatomic, weak)  id <PubnativeNetworkRequestDelegate>  delegate;
-@property (nonatomic, assign)int                                   currentNetworkIndex;
+@property (nonatomic, strong)NSString                                   *placementID;
+@property (nonatomic, strong)NSString                                   *appToken;
+@property (nonatomic, strong)PubnativeConfigModel                       *config;
+@property (nonatomic, strong)PubnativePlacementModel                    *placement;
+@property (nonatomic, weak)  NSObject <PubnativeNetworkRequestDelegate> *delegate;
+@property (nonatomic, assign)int                                        currentNetworkIndex;
 
 @end
 
