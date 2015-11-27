@@ -27,6 +27,7 @@ class AdCellTableViewCell: UITableViewCell {
     var delegate            : StartRequestDelegate!
     var cellRequest         : CellRequestModel!
     var indexPath           : NSIndexPath!
+    var viewController      : MainViewController!
     
     @IBAction func onRequestTapped(sender: AnyObject) {
         cleanView()
@@ -47,9 +48,10 @@ class AdCellTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func setRequestModel(request : CellRequestModel, indexPath : NSIndexPath) {
+    func setRequestModel(request : CellRequestModel, indexPath : NSIndexPath, viewController: MainViewController) {
         self.cellRequest = request
         self.indexPath = indexPath
+        self.viewController = viewController
         cleanView()
         renderAd()
     }
@@ -78,7 +80,9 @@ class AdCellTableViewCell: UITableViewCell {
             labelAdDescription.text = cellRequest.ad.description
             starRatingView.rating = cellRequest.ad.starRating
             starRatingView.hidden = false
-            //TODO: Load thumb and large images and star tracking this
+            imageViewAdThumbnail.hnk_setImageFromURL(NSURL(string: cellRequest.ad.iconURL), placeholder: nil)
+            imageViewAdBannerImage.hnk_setImageFromURL(NSURL(string: cellRequest.ad.bannerURL), placeholder: nil)
+            cellRequest.ad.pubantiveAdDidStartTrackingView(self, withViewController: viewController, delegate: nil)
         }
     }
 }

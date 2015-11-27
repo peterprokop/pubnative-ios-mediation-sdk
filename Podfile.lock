@@ -1,5 +1,6 @@
 PODS:
   - Expecta (1.0.5)
+  - Haneke (1.0.1)
   - IQKeyboardManager (3.3.4)
   - JSONModel (1.1.2)
   - KSToastView (0.5.6)
@@ -8,6 +9,7 @@ PODS:
 
 DEPENDENCIES:
   - Expecta
+  - Haneke (~> 1.0)
   - IQKeyboardManager
   - JSONModel
   - KSToastView (= 0.5.6)
@@ -16,6 +18,7 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Expecta: e1c022fcd33910b6be89c291d2775b3fe27a89fe
+  Haneke: d60be8b96b228633b24708dd153169d6849d6f78
   IQKeyboardManager: ac803e61e5b50efae6b3aeedd95a02c7c7d3b2b3
   JSONModel: 216584d0311b053ff714f1d6cb700dbf890847bc
   KSToastView: 6c6044f1e8d8a7bb5ba098886421062eabba0478

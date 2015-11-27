@@ -50,8 +50,6 @@ class MainViewController: UIViewController, UITableViewDataSource, StartRequestD
             placements != nil && placements?.count > 0) {
                 var newRequests : [CellRequestModel] = []
                 for request in cellRequests {
-                    //TODO: Implementation Pending 
-                    //Check for equals overriding
                     var isOldRequest    : Bool  = false
                     var removeAtIndex   : Int   = 0
                     for index in 0..<placements!.count {
@@ -112,7 +110,7 @@ class MainViewController: UIViewController, UITableViewDataSource, StartRequestD
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell: AdCellTableViewCell = tableView.dequeueReusableCellWithIdentifier("AdCellTableViewCell") as! AdCellTableViewCell
         if indexPath.row < cellRequests.count {
-            cell.setRequestModel(cellRequests[indexPath.row], indexPath:indexPath);
+            cell.setRequestModel(cellRequests[indexPath.row], indexPath:indexPath, viewController: self);
         }
         cell.delegate = self
         return cell
