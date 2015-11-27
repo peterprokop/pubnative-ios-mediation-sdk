@@ -9,6 +9,15 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
+@class PubnativeAdModel;
+
+@protocol PubnativeAdModelDelegate <NSObject>
+
+- (void)pubantiveAdDidConfirmedImpression:(PubnativeAdModel *)ad;
+- (void)pubnativeAdDidClicked:(PubnativeAdModel *)ad;
+
+@end
+
 @interface PubnativeAdModel : NSObject
 
 @property (nonatomic, readonly) NSString                    *title;
@@ -17,5 +26,10 @@
 @property (nonatomic, readonly) NSString                    *bannerURL;
 @property (nonatomic, readonly) NSString                    *callToAction;
 @property (nonatomic, readonly) float                       starRating;
+
+- (void)startTrackingView:(UIView*)adView
+       withViewController:(UIViewController*)viewController;
+- (void)stopTrackingView:(UIView*)adView;
+- (void)setDelegate:(NSObject<PubnativeAdModelDelegate>*)delegate;
 
 @end

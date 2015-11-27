@@ -284,6 +284,7 @@ describe(@"private method", ^{
                         });
                         
                         it(@"and active delivery rules, invoke doNextNetworkRequest", ^{
+                            OCMStub([requestMock doNextNetworkRequest]).andDo(nil);
                             [requestMock startRequestWithConfig:[PubnativeConfigUtils getModelFromJSONFile:validConfigFile]];
                             OCMVerify([requestMock doNextNetworkRequest]);
                         });

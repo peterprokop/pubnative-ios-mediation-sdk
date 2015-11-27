@@ -16,7 +16,7 @@
 @property (nonatomic, strong)NSString                                   *appToken;
 @property (nonatomic, strong)PubnativeConfigModel                       *config;
 @property (nonatomic, strong)PubnativePlacementModel                    *placement;
-@property (nonatomic, weak)  NSObject <PubnativeNetworkRequestDelegate> *delegate;
+@property (nonatomic, strong)NSObject <PubnativeNetworkRequestDelegate> *delegate;
 @property (nonatomic, assign)int                                        currentNetworkIndex;
 
 @end

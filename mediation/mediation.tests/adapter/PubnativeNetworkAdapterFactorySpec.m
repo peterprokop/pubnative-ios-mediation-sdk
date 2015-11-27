@@ -16,9 +16,8 @@ SpecBegin(PubnativeNetworkAdapterFactory)
 
 describe(@"adapter creation", ^{
     
-    NSString *networkModelKey = @"networkModel";
-    
     context(@"with nil model parameter", ^{
+        
         it(@"returns nil", ^{
             expect([PubnativeNetworkAdapterFactory createApdaterWithNetwork:nil]).to.beNil();
         });
@@ -76,20 +75,31 @@ describe(@"adapter creation", ^{
             });
         });
         
-        context(@"and valid adapter name", ^{
+        NSString *sharedExampleCreateAdapter    = @"creates";
+        NSString *adapterKey                    = @"adapter_key";
+        sharedExamples(sharedExampleCreateAdapter, ^(NSDictionary *data) {
             
-            NSString *validAdapterName = @"TestValidNetworkAdapter";
+            NSString *adapterName = data[adapterKey];
+            
             before(^{
-                OCMStub([networkModelMock adapter]).andReturn(validAdapterName);
+                OCMStub([networkModelMock adapter]).andReturn(adapterName);
             });
             
-            
-            it(@"creates a valid adapter", ^{
+            it(@"adapter", ^{
                 PubnativeNetworkAdapter *adapter = [PubnativeNetworkAdapterFactory createApdaterWithNetwork:networkModelMock];
                 expect(adapter).toNot.beNil();
-                expect([adapter class]).to.equal(NSClassFromString(validAdapterName));
+                expect([adapter class]).to.equal(NSClassFromString(adapterName));
                 expect([adapter class]).beSubclassOf([PubnativeNetworkAdapter class]);
             });
+
+        });
+        
+        context(@"and valid adapter name", ^{
+            itShouldBehaveLike(sharedExampleCreateAdapter, @{ adapterKey : @"TestValidNetworkAdapter" });
+        });
+        
+        context(@"and facebook adapter name", ^{
+            itShouldBehaveLike(sharedExampleCreateAdapter, @{ adapterKey : @"FacebookNetworkAdapter" });
         });
     });
 });
