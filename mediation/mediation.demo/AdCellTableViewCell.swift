@@ -8,7 +8,11 @@
 
 import UIKit
 
-class AdCellTableViewCell: UITableViewCell, PubnativeNetworkRequestDelegate {
+protocol StartRequestDelegate {
+    func startRequest(indexPath: NSIndexPath)
+}
+
+class AdCellTableViewCell: UITableViewCell {
     
     @IBOutlet weak var labelPlacementId         : UILabel!
     @IBOutlet weak var labelAdapterName         : UILabel!
@@ -18,14 +22,20 @@ class AdCellTableViewCell: UITableViewCell, PubnativeNetworkRequestDelegate {
     @IBOutlet weak var imageViewAdBannerImage   : UIImageView!
     @IBOutlet weak var starRatingView           : FloatRatingView!
     @IBOutlet weak var activityIndicator        : UIActivityIndicatorView!
+    @IBOutlet weak var buttonRequest            : UIButton!
     
-    var request : CellRequestModel!
+    var delegate            : StartRequestDelegate!
+    var cellRequest         : CellRequestModel!
+    var indexPath           : NSIndexPath!
     
     @IBAction func onRequestTapped(sender: AnyObject) {
         cleanView()
         activityIndicator.hidden = false
         activityIndicator.startAnimating()
-        request.request.startRequestWithAppToken(request.appToken, placementID: request.placementID, delegate: self)
+        delegate.startRequest(indexPath)
+        if (cellRequest.isRequestLoading == true) {
+            buttonRequest.userInteractionEnabled = false
+        }
     }
     
     override func awakeFromNib() {
@@ -35,12 +45,11 @@ class AdCellTableViewCell: UITableViewCell, PubnativeNetworkRequestDelegate {
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
-    func setRequestModel(request : CellRequestModel) {
-        self.request = request
+    func setRequestModel(request : CellRequestModel, indexPath : NSIndexPath) {
+        self.cellRequest = request
+        self.indexPath = indexPath
         cleanView()
         renderAd()
     }
@@ -54,38 +63,22 @@ class AdCellTableViewCell: UITableViewCell, PubnativeNetworkRequestDelegate {
         starRatingView.rating = 0
         starRatingView.hidden = true
         activityIndicator.hidden = true
+        buttonRequest.userInteractionEnabled = true
     }
     
     func renderAd() {
-        labelPlacementId.text = "Placement ID: " + request.placementID
-        if (request.ad != nil) {
-            labelAdapterName.text = String(request.ad.dynamicType)
-            labelAdTitle.text = request.ad.title
-            labelAdDescription.text = request.ad.description
-            starRatingView.rating = request.ad.starRating
+        labelPlacementId.text = "Placement ID: " + cellRequest.placementID
+        if (cellRequest.isRequestLoading == true) {
+            activityIndicator.hidden = false
+            activityIndicator.startAnimating()
+        }
+        if (cellRequest.ad != nil) {
+            labelAdapterName.text = String(cellRequest.ad!.dynamicType)
+            labelAdTitle.text = cellRequest.ad.title
+            labelAdDescription.text = cellRequest.ad.description
+            starRatingView.rating = cellRequest.ad.starRating
             starRatingView.hidden = false
             //TODO: Load thumb and large images and star tracking this
         }
-    }
-    
-    func requestDidStart(request: PubnativeNetworkRequest!) {
-        print("AdCellTableViewCell : requestDidStart")
-    }
-    
-    func request(request: PubnativeNetworkRequest!, didLoad ad: PubnativeAdModel!) {
-        print("AdCellTableViewCell : request:didLoad:")
-        activityIndicator.stopAnimating()
-        activityIndicator.hidden = true
-        self.request.ad = ad
-        renderAd()
-    }
-    
-    func request(request: PubnativeNetworkRequest!, didFail error: NSError!) {
-        print("AdCellTableViewCell : request:didFail:")
-        KSToastView.ks_showToast("\(error.domain)");
-        activityIndicator.stopAnimating()
-        activityIndicator.hidden = true
-        self.request.ad = nil
-        cleanView()
     }
 }

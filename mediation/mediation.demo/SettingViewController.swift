@@ -9,8 +9,9 @@
 import UIKit
 
 class SettingViewController: UIViewController, UITableViewDataSource {
+    
     let tableViewCellIdentifier = "PlacementTableViewCell"
-    var placements : [String] = []
+    var placements : [String]   = []
     
     @IBOutlet weak var tableViewPlacements  : UITableView!
     @IBOutlet weak var textFieldAppToken    : UITextField!
@@ -30,35 +31,11 @@ class SettingViewController: UIViewController, UITableViewDataSource {
         super.didReceiveMemoryWarning()
     }
     
+    // MARK: Setup
     func initView() {
         navigationItem.title = "SettingViewController"
         tableViewPlacements.registerClass(UITableViewCell.self, forCellReuseIdentifier: tableViewCellIdentifier)
         displayStoredValues()
-    }
-    
-    // MARK: Button Actions
-    @IBAction func onResetConfigClicked(sender: AnyObject?) {
-        if (PubnativeConfigManager.clean()){
-            KSToastView.ks_showToast("Stored config reset!");
-        } else {
-            KSToastView.ks_showToast("Error!");
-        }
-    }
-    
-    @IBAction func onAddPlacementClicked(sender: AnyObject) {
-        let placementId : String? = textFieldPlacementId.text
-        if (placementId?.characters.count > 0) {
-            placements.append(placementId!)
-            textFieldPlacementId.text = ""
-            tableViewPlacements.reloadData()
-            KSToastView.ks_showToast("Placement Id added!");
-        } else {
-            KSToastView.ks_showToast("Error : Empty Placement Id!");
-        }
-    }
-    
-    func onBackPressed() {
-        saveCredentials()
     }
     
     // MARK: Values
@@ -87,7 +64,32 @@ class SettingViewController: UIViewController, UITableViewDataSource {
         onResetConfigClicked(nil)
     }
     
-    // MARK: Table View
+    // MARK: Button Actions
+    @IBAction func onResetConfigClicked(sender: AnyObject?) {
+        if (PubnativeConfigManager.clean()){
+            KSToastView.ks_showToast("Stored config reset!");
+        } else {
+            KSToastView.ks_showToast("Error!");
+        }
+    }
+    
+    @IBAction func onAddPlacementClicked(sender: AnyObject) {
+        let placementId : String? = textFieldPlacementId.text
+        if (placementId?.characters.count > 0) {
+            placements.append(placementId!)
+            textFieldPlacementId.text = ""
+            tableViewPlacements.reloadData()
+            KSToastView.ks_showToast("Placement Id added!");
+        } else {
+            KSToastView.ks_showToast("Error : Empty Placement Id!");
+        }
+    }
+    
+    func onBackPressed() {
+        saveCredentials()
+    }
+    
+    // MARK: Table View Data Source Methods
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return placements.count
     }

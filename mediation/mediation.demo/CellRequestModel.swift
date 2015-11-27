@@ -9,14 +9,17 @@
 import UIKit
 
 class CellRequestModel: NSObject {
-    var request     : PubnativeNetworkRequest!
-    var ad          : PubnativeAdModel!
-    var placementID : String!
-    var appToken    : String!
+    
+    var networkRequest      : PubnativeNetworkRequest!
+    var ad                  : PubnativeAdModel!
+    var placementID         : String!
+    var appToken            : String!
+    var isRequestLoading    : Bool!
     
     init(appToken: String, placementID: String) {
-        request = PubnativeNetworkRequest()
+        self.networkRequest = PubnativeNetworkRequest()
         self.appToken = appToken
-        self.placementID = placementID        
+        self.placementID = placementID
+        self.isRequestLoading = false
     }
 }

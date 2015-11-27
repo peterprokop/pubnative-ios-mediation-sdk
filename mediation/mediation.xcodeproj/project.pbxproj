@@ -23,6 +23,7 @@
 		037486D91BF0DA3F004FFEA1 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037486D41BF0D961004FFEA1 /* FBAudienceNetwork.framework */; settings = {ASSET_TAGS = (); }; };
 		03A9A6A11BFDA32100993D9B /* PubnativeAdModelSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A9A6A01BFDA32100993D9B /* PubnativeAdModelSpec.m */; settings = {ASSET_TAGS = (); }; };
 		03D092841BFEFDB600A79CA7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D092831BFEFDB600A79CA7 /* MainViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		03D53E3F1C0743870028A4AF /* RequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D53E3E1C0743870028A4AF /* RequestHandler.swift */; settings = {ASSET_TAGS = (); }; };
 		25FFE773F39179F889518868 /* libPods-PubnativeMediationDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5734361BBDD660F73DCEB216 /* libPods-PubnativeMediationDemo.a */; };
 		A7790EE3605B243BD8C2DC3E /* libPods-PubnativeMediation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF7483EA05BDC146190BAAD6 /* libPods-PubnativeMediation.a */; };
 		D54384941BC528D000EBE27A /* PubnativeNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = D54384811BC528D000EBE27A /* PubnativeNetworkAdapter.m */; };
@@ -58,7 +59,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		D54384C91BC529D200EBE27A /* PBXContainerItemProxy */ = {
+		03CCA9FD1C084DB700C69D17 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D543845A1BC528A000EBE27A /* Project object */;
 			proxyType = 1;
@@ -103,7 +104,9 @@
 		037486D31BF0D961004FFEA1 /* FacebookNetworkAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookNetworkAdapter.m; sourceTree = "<group>"; };
 		037486D41BF0D961004FFEA1 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
 		03A9A6A01BFDA32100993D9B /* PubnativeAdModelSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeAdModelSpec.m; sourceTree = "<group>"; };
+		03CCAA011C08504100C69D17 /* PubnativeMediationDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PubnativeMediationDemo-Bridging-Header.h"; sourceTree = "<group>"; };
 		03D092831BFEFDB600A79CA7 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		03D53E3E1C0743870028A4AF /* RequestHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestHandler.swift; sourceTree = "<group>"; };
 		26B341AD5DD57D35AE7EEA05 /* Pods-PubnativeMediation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PubnativeMediation.release.xcconfig"; path = "../Pods/Target Support Files/Pods-PubnativeMediation/Pods-PubnativeMediation.release.xcconfig"; sourceTree = "<group>"; };
 		2A928042FE842AB25B74F7BB /* libPods-PubnativeMediationTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PubnativeMediationTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		455ABF7426830446DEDE34A1 /* Pods-PubnativeMediationDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PubnativeMediationDemo.release.xcconfig"; path = "../Pods/Target Support Files/Pods-PubnativeMediationDemo/Pods-PubnativeMediationDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -127,7 +130,6 @@
 		D54384BE1BC528F500EBE27A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D54384C11BC528F500EBE27A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D54384C31BC528F500EBE27A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D54384CB1BC529EA00EBE27A /* PubnativeMediationDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PubnativeMediationDemo-Bridging-Header.h"; sourceTree = "<group>"; };
 		D5E26AA51BEA4C1900888F42 /* PubnativeConfigManagerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeConfigManagerSpec.m; sourceTree = "<group>"; };
 		D5E26AA61BEA4C1900888F42 /* PubnativeConfigUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeConfigUtils.h; sourceTree = "<group>"; };
 		D5E26AA71BEA4C1900888F42 /* PubnativeConfigUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeConfigUtils.m; sourceTree = "<group>"; };
@@ -321,11 +323,12 @@
 				0336686D1BFE0FE100108944 /* PubnativeTestCrediantials.swift */,
 				031CFFB41BFF4AC500A0AECC /* CellRequestModel.swift */,
 				03484F591C02EBD000D193B5 /* AdCellTableViewCell.swift */,
+				03D53E3E1C0743870028A4AF /* RequestHandler.swift */,
 				036C92371C0318A400F8F128 /* FloatRatingView.swift */,
 				D54384BE1BC528F500EBE27A /* Assets.xcassets */,
 				D54384C01BC528F500EBE27A /* LaunchScreen.storyboard */,
 				D54384C31BC528F500EBE27A /* Info.plist */,
-				D54384CB1BC529EA00EBE27A /* PubnativeMediationDemo-Bridging-Header.h */,
+				03CCAA011C08504100C69D17 /* PubnativeMediationDemo-Bridging-Header.h */,
 			);
 			path = mediation.demo;
 			sourceTree = "<group>";
@@ -467,6 +470,7 @@
 				D543846F1BC528BC00EBE27A /* Frameworks */,
 				D54384701BC528BC00EBE27A /* Resources */,
 				37726F195D30C3E37002114A /* Copy Pods Resources */,
+				FEB52E00457CDFAEA46B3CFC /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -487,11 +491,12 @@
 				D54384B21BC528F500EBE27A /* Frameworks */,
 				D54384B31BC528F500EBE27A /* Resources */,
 				3570BB71B5D282D524BD7B33 /* Copy Pods Resources */,
+				73F4AE00859531CEC50D5ABB /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				D54384CA1BC529D200EBE27A /* PBXTargetDependency */,
+				03CCA9FE1C084DB700C69D17 /* PBXTargetDependency */,
 			);
 			name = PubnativeMediationDemo;
 			productName = mediation.demo;
@@ -657,6 +662,36 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		73F4AE00859531CEC50D5ABB /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-PubnativeMediationDemo/Pods-PubnativeMediationDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FEB52E00457CDFAEA46B3CFC /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-PubnativeMediationTests/Pods-PubnativeMediationTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -707,6 +742,7 @@
 				031A88D61BFE0CB50039D86F /* AppDelegate.swift in Sources */,
 				031A88D81BFE0CB50039D86F /* SettingViewController.swift in Sources */,
 				03D092841BFEFDB600A79CA7 /* MainViewController.swift in Sources */,
+				03D53E3F1C0743870028A4AF /* RequestHandler.swift in Sources */,
 				031CFFB51BFF4AC500A0AECC /* CellRequestModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -714,10 +750,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		D54384CA1BC529D200EBE27A /* PBXTargetDependency */ = {
+		03CCA9FE1C084DB700C69D17 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D54384611BC528A000EBE27A /* PubnativeMediation */;
-			targetProxy = D54384C91BC529D200EBE27A /* PBXContainerItemProxy */;
+			targetProxy = 03CCA9FD1C084DB700C69D17 /* PBXContainerItemProxy */;
 		};
 		D5E26AA21BEA4B7600888F42 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -886,6 +922,7 @@
 					"$(PROJECT_DIR)/mediation/adapter/networks/facebook",
 				);
 				INFOPLIST_FILE = mediation.demo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.pubnative.mediation-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -907,6 +944,7 @@
 					"$(PROJECT_DIR)/mediation/adapter/networks/facebook",
 				);
 				INFOPLIST_FILE = mediation.demo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.pubnative.mediation-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";

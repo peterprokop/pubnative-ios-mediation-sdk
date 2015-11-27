@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rNx-2j-KDO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rNx-2j-KDO">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -134,7 +135,7 @@
                                                             </constraints>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iHN-7X-h3X" userLabel="Ad Description">
-                                                            <rect key="frame" x="0.0" y="201" width="310" height="35"/>
+                                                            <rect key="frame" x="5" y="201" width="300" height="35"/>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="35" id="aud-1C-cf1"/>
@@ -151,12 +152,12 @@
                                                     <constraints>
                                                         <constraint firstItem="c35-Tv-x0u" firstAttribute="leading" secondItem="XRI-ZM-VHp" secondAttribute="trailing" constant="8" id="7SJ-0w-RUI"/>
                                                         <constraint firstItem="XRI-ZM-VHp" firstAttribute="top" secondItem="xUP-QD-oFh" secondAttribute="top" id="Biy-qR-O8A"/>
-                                                        <constraint firstItem="iHN-7X-h3X" firstAttribute="leading" secondItem="xUP-QD-oFh" secondAttribute="leading" id="Gzw-wV-Tbp"/>
+                                                        <constraint firstItem="iHN-7X-h3X" firstAttribute="leading" secondItem="xUP-QD-oFh" secondAttribute="leading" constant="5" id="Gzw-wV-Tbp"/>
                                                         <constraint firstItem="iHN-7X-h3X" firstAttribute="top" secondItem="T65-XP-OpR" secondAttribute="bottom" id="Mce-nR-0Rf"/>
                                                         <constraint firstAttribute="bottom" secondItem="iHN-7X-h3X" secondAttribute="bottom" constant="4" id="QkM-rh-lVN"/>
                                                         <constraint firstItem="c35-Tv-x0u" firstAttribute="top" secondItem="xUP-QD-oFh" secondAttribute="top" constant="33" id="T9p-12-v7D"/>
                                                         <constraint firstItem="Jbk-YC-dIY" firstAttribute="top" secondItem="xUP-QD-oFh" secondAttribute="top" constant="8" id="XUU-Gk-Bux"/>
-                                                        <constraint firstAttribute="trailing" secondItem="iHN-7X-h3X" secondAttribute="trailing" id="a7n-A1-Pfl"/>
+                                                        <constraint firstAttribute="trailing" secondItem="iHN-7X-h3X" secondAttribute="trailing" constant="5" id="a7n-A1-Pfl"/>
                                                         <constraint firstItem="j7V-hT-3IB" firstAttribute="centerX" secondItem="xUP-QD-oFh" secondAttribute="centerX" id="ar0-77-Hoc"/>
                                                         <constraint firstItem="c35-Tv-x0u" firstAttribute="leading" secondItem="XRI-ZM-VHp" secondAttribute="trailing" constant="8" id="eDg-dU-0F9"/>
                                                         <constraint firstItem="T65-XP-OpR" firstAttribute="leading" secondItem="xUP-QD-oFh" secondAttribute="leading" id="ebW-6u-HfJ"/>
@@ -193,6 +194,7 @@
                                         <color key="backgroundColor" red="0.22352941176470587" green="0.23529411764705882" blue="0.25098039215686274" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
                                             <outlet property="activityIndicator" destination="j7V-hT-3IB" id="6Bc-la-hnK"/>
+                                            <outlet property="buttonRequest" destination="mVm-iY-H5c" id="VVy-3C-lJO"/>
                                             <outlet property="imageViewAdBannerImage" destination="T65-XP-OpR" id="6bj-gx-zT2"/>
                                             <outlet property="imageViewAdThumbnail" destination="XRI-ZM-VHp" id="yDj-Wa-jEt"/>
                                             <outlet property="labelAdDescription" destination="iHN-7X-h3X" id="Plt-K9-zLu"/>

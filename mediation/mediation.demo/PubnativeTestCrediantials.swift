@@ -9,6 +9,7 @@
 import UIKit
 
 class PubnativeTestCrediantials: NSObject {
+    
     static let kUserDefaultsStoredPlacementsKey : String = "net.pubnative.mediation.demo.PubnativeTestCrediantials.placementsKey"
     static let kUserDefaultsStoredAppTokenKey   : String = "net.pubnative.mediation.demo.PubnativeTestCrediantials.app_token_key"
     
