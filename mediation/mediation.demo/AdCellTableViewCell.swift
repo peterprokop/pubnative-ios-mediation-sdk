@@ -23,6 +23,7 @@ class AdCellTableViewCell: UITableViewCell {
     @IBOutlet weak var starRatingView           : FloatRatingView!
     @IBOutlet weak var activityIndicator        : UIActivityIndicatorView!
     @IBOutlet weak var buttonRequest            : UIButton!
+    @IBOutlet weak var viewadContainer          : UIView!
     
     var delegate            : StartRequestDelegate!
     var cellRequest         : CellRequestModel!
@@ -82,7 +83,7 @@ class AdCellTableViewCell: UITableViewCell {
             starRatingView.hidden = false
             imageViewAdThumbnail.hnk_setImageFromURL(NSURL(string: cellRequest.ad.iconURL), placeholder: nil)
             imageViewAdBannerImage.hnk_setImageFromURL(NSURL(string: cellRequest.ad.bannerURL), placeholder: nil)
-            cellRequest.ad.pubantiveAdDidStartTrackingView(self, withViewController: viewController, delegate: nil)
+            cellRequest.ad.pubantiveAdDidStartTrackingView(viewadContainer, withViewController: viewController, delegate: nil)
         }
     }
 }

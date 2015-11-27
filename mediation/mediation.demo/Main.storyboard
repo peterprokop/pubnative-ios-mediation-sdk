@@ -202,6 +202,7 @@
                                             <outlet property="labelAdapterName" destination="yky-8d-f1h" id="1n4-Ge-QkR"/>
                                             <outlet property="labelPlacementId" destination="5mc-y5-gZd" id="NFN-mx-2KV"/>
                                             <outlet property="starRatingView" destination="c35-Tv-x0u" id="KdP-LU-YXF"/>
+                                            <outlet property="viewadContainer" destination="xUP-QD-oFh" id="o8E-ge-Bni"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
