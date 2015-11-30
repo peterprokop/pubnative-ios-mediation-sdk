@@ -70,6 +70,38 @@ describe(@"network request", ^{
     });
 });
 
+describe(@"network request callback", ^{
+    
+    __block id requestMock;
+    __block id delegateMock;
+    
+    before(^{
+        requestMock = OCMPartialMock([[PubnativeNetworkRequest alloc] init]);
+        delegateMock = OCMProtocolMock(@protocol(PubnativeNetworkRequestDelegate));
+        OCMStub([requestMock delegate]).andReturn(delegateMock);
+    });
+    
+    context(@"on failure", ^{
+        
+        it(@"callback and nullifies the delegate", ^{
+            id errorMock = OCMClassMock([NSError class]);
+            [requestMock invokeDidFail:errorMock];
+            OCMVerify([delegateMock request:[OCMArg isNotNil] didFail:errorMock]);
+            OCMVerify([requestMock setDelegate:nil]);
+        });
+    });
+    
+    context(@"on success", ^{
+        
+        it(@"callback and nullifies the delegate", ^{
+            id adMock = OCMClassMock([PubnativeAdModel class]);
+            [requestMock invokeDidLoad:adMock];
+            OCMVerify([delegateMock request:[OCMArg isNotNil] didLoad:adMock]);
+            OCMVerify([requestMock setDelegate:nil]);
+        });
+    });
+});
+
 describe(@"startRequestWithAppToken:placementID:delegate:", ^{
     
     __block id requestMock;

@@ -124,6 +124,7 @@
     if(self.delegate && [self.delegate respondsToSelector:@selector(request:didFail:)]){
         [self.delegate request:self didFail:error];
     }
+    self.delegate = nil;
 }
 
 - (void)invokeDidLoad:(PubnativeAdModel*)ad
@@ -131,6 +132,7 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(request:didLoad:)]) {
         [self.delegate request:self didLoad:ad];
     }
+    self.delegate = nil;    
 }
 
 #pragma mark - CALLBACKS -
