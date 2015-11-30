@@ -19,7 +19,9 @@ class SettingViewController: UIViewController, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initView()
+        navigationItem.title = "SettingViewController"
+        tableViewPlacements.registerClass(UITableViewCell.self, forCellReuseIdentifier: tableViewCellIdentifier)
+        displayStoredValues()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -29,13 +31,6 @@ class SettingViewController: UIViewController, UITableViewDataSource {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-    }
-    
-    // MARK: Setup
-    func initView() {
-        navigationItem.title = "SettingViewController"
-        tableViewPlacements.registerClass(UITableViewCell.self, forCellReuseIdentifier: tableViewCellIdentifier)
-        displayStoredValues()
     }
     
     // MARK: Values

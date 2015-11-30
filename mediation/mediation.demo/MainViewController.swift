@@ -17,20 +17,6 @@ class MainViewController: UIViewController, UITableViewDataSource, StartRequestD
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initView()
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        displayPlacementsList()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-
-    // MARK: Set Up
-    func initView() {
         navigationItem.title = "MainViewController"
         
         // Store test crediantials
@@ -43,6 +29,16 @@ class MainViewController: UIViewController, UITableViewDataSource, StartRequestD
         tableViewAds.reloadData()
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        displayPlacementsList()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+
+    // MARK: Set Up
     func displayPlacementsList() {
         let appToken : String? = PubnativeTestCrediantials.storedApptoken()
         var placements : [String]? = PubnativeTestCrediantials.storedPlacements()
@@ -108,7 +104,7 @@ class MainViewController: UIViewController, UITableViewDataSource, StartRequestD
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell: AdCellTableViewCell = tableView.dequeueReusableCellWithIdentifier("AdCellTableViewCell") as! AdCellTableViewCell
+        let cell: NativeAdTableViewCell = tableView.dequeueReusableCellWithIdentifier("NativeAdTableViewCell") as! NativeAdTableViewCell
         if indexPath.row < cellRequests.count {
             cell.setRequestModel(cellRequests[indexPath.row], indexPath:indexPath, viewController: self);
         }

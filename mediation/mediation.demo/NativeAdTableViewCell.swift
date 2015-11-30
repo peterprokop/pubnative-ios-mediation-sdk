@@ -1,5 +1,5 @@
 //
-//  AdCellTableViewCell.swift
+//  NativeAdTableViewCell.swift
 //  mediation
 //
 //  Created by Mohit on 23/11/15.
@@ -12,7 +12,7 @@ protocol StartRequestDelegate {
     func startRequest(indexPath: NSIndexPath)
 }
 
-class AdCellTableViewCell: UITableViewCell {
+class NativeAdTableViewCell: UITableViewCell {
     
     @IBOutlet weak var labelPlacementId         : UILabel!
     @IBOutlet weak var labelAdapterName         : UILabel!

@@ -56,8 +56,8 @@
         self.config = model;
         if (self.config.placements) {
             self.placement = [self.config.placements objectForKey:self.placementID];
-            if (self.placement && self.placement.delivery_rules) {
-                if (self.placement.delivery_rules.isActive) {
+            if (self.placement && self.placement.delivery_rule) {
+                if (self.placement.delivery_rule.isActive) {
                     [self startRequest];
                 } else {
                     NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.startRequestWithConfig:- Error: Inactive placement"
@@ -87,7 +87,7 @@
 
 - (void)startRequest
 {
-    if (self.placement && self.placement.delivery_rules) {
+    if (self.placement && self.placement.delivery_rule) {
         // TODO: Need to handle the scenario
         // This is related to delivery manager
         // Do next network request

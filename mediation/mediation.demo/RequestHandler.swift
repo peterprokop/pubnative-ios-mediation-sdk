@@ -30,19 +30,19 @@ class RequestHandler: NSObject, PubnativeNetworkRequestDelegate {
     }
     
     func requestDidStart(request: PubnativeNetworkRequest!) {
-        print("AdCellTableViewCell \(indexPath.row): requestDidStart")
+        print("NativeAdTableViewCell \(indexPath.row): requestDidStart")
     }
     
     func request(request: PubnativeNetworkRequest!, didLoad ad: PubnativeAdModel!) {
         if (delegate != nil) {
-            print("AdCellTableViewCell \(indexPath.row): request:didLoad:")
+            print("NativeAdTableViewCell \(indexPath.row): request:didLoad:")
             delegate.updateAdTableViewCell(indexPath, ad: ad)
         }
     }
     
     func request(request: PubnativeNetworkRequest!, didFail error: NSError!) {
         if (delegate != nil) {
-            print("AdCellTableViewCell \(indexPath.row): request:didFail:")
+            print("NativeAdTableViewCell \(indexPath.row): request:didFail:")
             delegate.updateAdTableViewCell(indexPath, error: error)
         }
     }
