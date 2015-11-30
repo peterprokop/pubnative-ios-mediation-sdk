@@ -52,17 +52,20 @@
     return 0.0;
 }
 
-- (void)pubantiveAdDidStartTrackingView:(UIView*)adView
-                     withViewController:(UIViewController*)viewController
-                               delegate:(NSObject<PubnativeAdModelDelegate>*)delegate
+- (void)startTrackingView:(UIView*)adView
+       withViewController:(UIViewController*)viewController
 {
-    self.delegate = delegate;
     NSLog(@"PubnativeAdModel - Error: override me");
 }
 
-- (void)pubantiveAdDidStopTrackingView:(UIView*)adView
+- (void)stopTrackingView:(UIView*)adView
 {
     NSLog(@"PubnativeAdModel - Error: override me");
+}
+
+- (void)setDelegate:(NSObject<PubnativeAdModelDelegate>*)delegate
+{
+    self.delegate = delegate;
 }
 
 - (void)invokeDidConfirmedImpression:(PubnativeAdModel*)ad

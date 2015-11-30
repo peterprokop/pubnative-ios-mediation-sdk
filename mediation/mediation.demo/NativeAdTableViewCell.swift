@@ -83,7 +83,7 @@ class NativeAdTableViewCell: UITableViewCell {
             starRatingView.hidden = false
             imageViewAdThumbnail.hnk_setImageFromURL(NSURL(string: cellRequest.ad.iconURL), placeholder: nil)
             imageViewAdBannerImage.hnk_setImageFromURL(NSURL(string: cellRequest.ad.bannerURL), placeholder: nil)
-            cellRequest.ad.pubantiveAdDidStartTrackingView(viewadContainer, withViewController: viewController, delegate: nil)
+            cellRequest.ad.startTrackingView(viewadContainer, withViewController: viewController)
         }
     }
 }

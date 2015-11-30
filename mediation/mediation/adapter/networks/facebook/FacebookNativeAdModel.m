@@ -95,18 +95,16 @@
     return starRating;
 }
 
-- (void)pubantiveAdDidStartTrackingView:(UIView*)adView
-                     withViewController:(UIViewController*)viewController
-                               delegate:(NSObject<PubnativeAdModelDelegate>*)delegate
+- (void)startTrackingView:(UIView*)adView
+       withViewController:(UIViewController*)viewController
 {
-    [super pubantiveAdDidStartTrackingView:adView withViewController:viewController delegate:delegate];
     if (self.nativeAd && adView) {
         self.nativeAd.delegate = self;
         [self.nativeAd registerViewForInteraction:adView withViewController:viewController];
     }
 }
 
-- (void)pubantiveAdDidStopTrackingView:(UIView*)adView
+- (void)stopTrackingView:(UIView*)adView
 {
     if (self.nativeAd) {
         [self.nativeAd unregisterView];

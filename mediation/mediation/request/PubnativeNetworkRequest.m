@@ -16,7 +16,7 @@
 @property (nonatomic, strong)NSString                                   *appToken;
 @property (nonatomic, strong)PubnativeConfigModel                       *config;
 @property (nonatomic, strong)PubnativePlacementModel                    *placement;
-@property (nonatomic, strong)NSObject <PubnativeNetworkRequestDelegate>  *delegate;
+@property (nonatomic, strong)NSObject <PubnativeNetworkRequestDelegate> *delegate;
 @property (nonatomic, assign)int                                        currentNetworkIndex;
 
 @end
@@ -50,29 +50,23 @@
     }
 }
 
-- (void)startRequestWithConfig:(PubnativeConfigModel*)model
+- (void)startRequestWithConfig:(PubnativeConfigModel*)config
 {
-    if (model) {
-        self.config = model;
-        if (self.config.placements) {
-            self.placement = [self.config.placements objectForKey:self.placementID];
-            if (self.placement && self.placement.delivery_rule) {
-                if (self.placement.delivery_rule.isActive) {
-                    [self startRequest];
-                } else {
-                    NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.startRequestWithConfig:- Error: Inactive placement"
-                                                         code:0
-                                                     userInfo:nil];
-                    [self invokeDidFail:error];
-                }
+    if (config && ![config isEmpty]) {
+        self.config = config;
+        PubnativePlacementModel *placement = [self.config.placements objectForKey:self.placementID];
+        if (placement) {
+            self.placement = placement;
+            if (self.placement.delivery_rule && [self.placement.delivery_rule isActive]) {
+                [self doNextNetworkRequest];
             } else {
-                NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.startRequestWithConfig:- Error: Invalid placement"
+                NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.startRequestWithConfig:- Error: Invalid/Inactive delivery_rules"
                                                      code:0
                                                  userInfo:nil];
                 [self invokeDidFail:error];
             }
         } else {
-            NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.startRequestWithConfig:- Error: Placements not available"
+            NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.startRequestWithConfig:- Error: Invalid placement"
                                                  code:0
                                              userInfo:nil];
             [self invokeDidFail:error];
@@ -85,57 +79,31 @@
     }
 }
 
-- (void)startRequest
-{
-    if (self.placement && self.placement.delivery_rule) {
-        // TODO: Need to handle the scenario
-        // This is related to delivery manager
-        // Do next network request
-        [self doNextNetworkRequest];
-    } else {
-        NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.startRequest- Error: Invalid placement"
-                                             code:0
-                                         userInfo:nil];
-        [self invokeDidFail:error];
-    }
-}
-
 - (void)doNextNetworkRequest
 {
-    if (self.placement &&
-        self.placement.priority_rules) {
-        if (self.currentNetworkIndex < self.placement.priority_rules.count) {
-            PubnativePriorityRulesModel * priorityRule = self.placement.priority_rules[self.currentNetworkIndex];
-            NSString *currentNetworkId = priorityRule.network_code;
-            PubnativeNetworkModel *network = nil;
-            if (currentNetworkId && [currentNetworkId length] > 0) {
-                if (self.config && self.config.networks) {
-                    network = [self.config.networks objectForKey:currentNetworkId];
-                }
-            }
-            
-            self.currentNetworkIndex++;
-
-            if (network) {
-                PubnativeNetworkAdapter *adapter = [PubnativeNetworkAdapterFactory createApdaterWithNetwork:network];
-                if (adapter) {
-                    [adapter requestWithTimeout:[network.timeout intValue] delegate:self];
-                } else {
-                    NSLog(@"PubnativeNetworkRequest.doNextNetworkRequest- Error: Invalid adapter");
-                    [self doNextNetworkRequest];
-                }
+    if (self.currentNetworkIndex < self.placement.priority_rules.count) {
+        PubnativePriorityRulesModel * priorityRule = self.placement.priority_rules[self.currentNetworkIndex];
+        self.currentNetworkIndex++;
+        NSString *currentNetworkId = priorityRule.network_code;
+        PubnativeNetworkModel *network = nil;
+        if (currentNetworkId && [currentNetworkId length] > 0 &&
+            self.config && self.config.networks) {
+            network = [self.config.networks objectForKey:currentNetworkId];
+        }
+        if (network) {
+            PubnativeNetworkAdapter *adapter = [PubnativeNetworkAdapterFactory createApdaterWithNetwork:network];
+            if (adapter) {
+                [adapter requestWithTimeout:[network.timeout intValue] delegate:self];
             } else {
-                NSLog(@"PubnativeNetworkRequest.doNextNetworkRequest- Error: Invalid network code");
+                NSLog(@"PubnativeNetworkRequest.doNextNetworkRequest- Error: Invalid adapter");
                 [self doNextNetworkRequest];
             }
         } else {
-            NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.doNextNetworkRequest- Error: No fill"
-                                                 code:0
-                                             userInfo:nil];
-            [self invokeDidFail:error];
+            NSLog(@"PubnativeNetworkRequest.doNextNetworkRequest- Error: Invalid network code");
+            [self doNextNetworkRequest];
         }
     } else {
-        NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.doNextNetworkRequest- Error: Invalid/No placement model"
+        NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.doNextNetworkRequest- Error: No fill"
                                              code:0
                                          userInfo:nil];
         [self invokeDidFail:error];
@@ -156,6 +124,7 @@
     if(self.delegate && [self.delegate respondsToSelector:@selector(request:didFail:)]){
         [self.delegate request:self didFail:error];
     }
+    self.delegate = nil;
 }
 
 - (void)invokeDidLoad:(PubnativeAdModel*)ad
@@ -163,6 +132,7 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(request:didLoad:)]) {
         [self.delegate request:self didLoad:ad];
     }
+    self.delegate = nil;    
 }
 
 #pragma mark - CALLBACKS -
