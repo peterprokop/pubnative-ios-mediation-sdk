@@ -628,6 +628,16 @@ describe(@"when starting a request through public inteface", ^{
                     OCMVerify([delegateMock requestDidStart:[OCMArg isNotNil]]);
                     OCMVerify([configManagerMock configWithAppToken:appToken delegate:[OCMArg isNotNil]]);
                 });
+                
+                it(@"save appToken, placementId, currentNetworkIndex", ^{
+                    OCMExpect([requestMock setAppToken:appToken]);
+                    OCMExpect([requestMock setPlacementID:placementId]);
+                    OCMExpect([requestMock setCurrentNetworkIndex:0]);
+                    [requestMock startRequestWithAppToken:appToken
+                                              placementID:placementId
+                                                 delegate:delegateMock];
+                    OCMVerifyAll(requestMock);
+                });
             });
         });
     });
