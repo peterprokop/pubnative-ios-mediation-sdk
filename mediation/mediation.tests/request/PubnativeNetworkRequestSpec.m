@@ -94,9 +94,10 @@ describe(@"while doing a request callback", ^{
         
         it(@"callback and nullifies the delegate", ^{
             OCMExpect([requestMock setDelegate:nil]);
+            OCMExpect([delegateMock pubnativeRequest:[OCMArg isNotNil] didFail:errorMock]);
             [requestMock invokeDidFail:errorMock];
-            OCMVerify([delegateMock request:[OCMArg isNotNil] didFail:errorMock]);
             OCMVerifyAll(requestMock);
+            OCMVerifyAll(delegateMock);
         });
     });
 
@@ -110,9 +111,10 @@ describe(@"while doing a request callback", ^{
         
         it(@"callback and nullifies the delegate", ^{
             OCMExpect([requestMock setDelegate:nil]);
+            OCMExpect([delegateMock pubnativeRequest:[OCMArg isNotNil] didLoad:adMock]);
             [requestMock invokeDidLoad:adMock];
-            OCMVerify([delegateMock request:[OCMArg isNotNil] didLoad:adMock]);
             OCMVerifyAll(requestMock);
+            OCMVerifyAll(delegateMock);
         });
     });
 });
@@ -154,11 +156,8 @@ describe(@"when starting a request", ^{
                 
                 context(@"with nil delievery rules ", ^{
                     
-                    __block id deliveryRules;
-                    
                     before(^{
-                        deliveryRules = nil;
-                        OCMStub([placementMock delivery_rules]).andReturn(deliveryRules);
+                        OCMStub([placementMock delivery_rule]).andReturn(nil);
                     });
                     
                     it(@"invoke fail", ^{
@@ -174,7 +173,7 @@ describe(@"when starting a request", ^{
                     
                     before(^{
                         deliveryRulesMock = OCMClassMock([PubnativeDeliveryRuleModel class]);;
-                        OCMStub([placementMock delivery_rules]).andReturn(deliveryRulesMock);
+                        OCMStub([placementMock delivery_rule]).andReturn(deliveryRulesMock);
                     });
                     
                     context(@"when active", ^{
@@ -207,11 +206,8 @@ describe(@"when starting a request", ^{
             
             context(@"which does not have placement corresponding to placement Id", ^{
                 
-                __block id placement;
-                
                 before(^{
-                    placement = nil;
-                    OCMStub([configPlacementsMock objectForKey:[OCMArg isNotNil]]).andReturn(placement);
+                    OCMStub([configPlacementsMock objectForKey:[OCMArg isNotNil]]).andReturn(nil);
                 });
                 
                 it(@"invoke fail", ^{
@@ -241,15 +237,9 @@ describe(@"when starting a request", ^{
     
     context(@"with nil config", ^{
         
-        __block id config;
-        
-        before(^{
-            config = nil;
-        });
-        
         it(@"invoke fail", ^{
             OCMExpect([requestMock invokeDidFail:[OCMArg isNotNil]]);
-            [requestMock startRequestWithConfig:config];
+            [requestMock startRequestWithConfig:nil];
             OCMVerifyAll(requestMock);
         });
     });
@@ -262,10 +252,9 @@ describe(@"when making next request", ^{
     before(^{
         requestMock = OCMPartialMock([[PubnativeNetworkRequest alloc] init]);
         OCMStub([requestMock currentNetworkIndex]).andReturn(0).andForwardToRealObject();
-        OCMStub([requestMock invokeDidFail:[OCMArg any]]).andDo(nil);
     });
     
-    context(@"with priority rules", ^{
+    context(@"with placement having priority rules", ^{
         
         __block id priorityRuleMock;
         __block id priorityRulesArrayMock;
@@ -281,15 +270,13 @@ describe(@"when making next request", ^{
             OCMStub([placememtMock priority_rules]).andReturn(priorityRulesArrayMock);
             
             OCMStub([requestMock placement]).andReturn(placememtMock);
+            OCMStub([requestMock invokeDidFail:[OCMArg any]]).andDo(nil);
         });
         
         context(@"with nil network code", ^{
             
-            __block id networkCode;
-            
             before(^{
-                networkCode = nil;
-                OCMStub([priorityRuleMock network_code]).andReturn(networkCode);
+                OCMStub([priorityRuleMock network_code]).andReturn(nil);
             });
             
             it(@"makes subsequent request", ^{
@@ -300,11 +287,8 @@ describe(@"when making next request", ^{
         
         context(@"with empty network code", ^{
             
-            __block id networkCode;
-            
             before(^{
-                networkCode = @"";
-                OCMStub([priorityRuleMock network_code]).andReturn(networkCode);
+                OCMStub([priorityRuleMock network_code]).andReturn(@"");
             });
             
             it(@"makes subsequent request", ^{
@@ -324,11 +308,8 @@ describe(@"when making next request", ^{
             
             context(@"and with nil config", ^{
                 
-                __block id config;
-                
                 before(^{
-                    config = nil;
-                    OCMStub([requestMock config]).andReturn(config);
+                    OCMStub([requestMock config]).andReturn(nil);
                 });
                 
                 it(@"makes subsequent request", ^{
@@ -377,7 +358,7 @@ describe(@"when making next request", ^{
                             
                             it(@"make request through adapter", ^{
                                 [requestMock doNextNetworkRequest];
-                                OCMVerify([[adapterMock ignoringNonObjectArgs] requestWithTimeout:0 delegate:[OCMArg isNotNil]]);
+                                OCMVerify([adapterMock startRequestWithDelegate:[OCMArg isNotNil]]);
                             });
                         });
                         
@@ -399,11 +380,8 @@ describe(@"when making next request", ^{
                     
                     context(@"which does not have network corresponding to network code", ^{
                         
-                        __block id network;
-                        
                         before(^{
-                            network = nil;
-                            OCMStub([networksMock objectForKey:networkCode]).andReturn(network);
+                            OCMStub([networksMock objectForKey:networkCode]).andReturn(nil);
                         });
                         
                         it(@"makes subsequent request", ^{
@@ -415,11 +393,8 @@ describe(@"when making next request", ^{
                 
                 context(@"without networks list", ^{
                     
-                    __block id networksMock;
-                    
                     before(^{
-                        networksMock = nil;
-                        OCMStub([configMock networks]).andReturn(networksMock);
+                        OCMStub([configMock networks]).andReturn(nil);
                     });
                     
                     it(@"makes subsequent request", ^{
@@ -428,6 +403,21 @@ describe(@"when making next request", ^{
                     });
                 });
             });
+        });
+    });
+    
+    context(@"with placement without priority rules", ^{
+        
+        before(^{
+            id placememtMock = OCMClassMock([PubnativePlacementModel class]);
+            OCMStub([placememtMock priority_rules]).andReturn(nil);
+            OCMStub([requestMock placement]).andReturn(placememtMock);
+        });
+        
+        it(@"invoke fail", ^{
+            OCMExpect([requestMock invokeDidFail:[OCMArg any]]);
+            [requestMock doNextNetworkRequest];
+            OCMVerifyAll(requestMock);
         });
     });
 });
@@ -468,8 +458,8 @@ describe(@"when starting a request through public inteface", ^{
                     [requestMock startRequestWithAppToken:appToken
                                               placementID:placementId
                                                  delegate:delegateMock];
-                    OCMVerify([delegateMock requestDidStart:[OCMArg isNotNil]]);
-                    OCMVerify([delegateMock request:[OCMArg isNotNil] didFail:[OCMArg isNotNil]]);
+                    OCMVerify([delegateMock pubnativeRequestDidStart:[OCMArg isNotNil]]);
+                    OCMVerify([delegateMock pubnativeRequest:[OCMArg isNotNil] didFail:[OCMArg isNotNil]]);
                 });
             });
             
@@ -485,8 +475,8 @@ describe(@"when starting a request through public inteface", ^{
                     [requestMock startRequestWithAppToken:appToken
                                               placementID:placementId
                                                  delegate:delegateMock];
-                    OCMVerify([delegateMock requestDidStart:[OCMArg isNotNil]]);
-                    OCMVerify([delegateMock request:[OCMArg isNotNil] didFail:[OCMArg isNotNil]]);
+                    OCMVerify([delegateMock pubnativeRequestDidStart:[OCMArg isNotNil]]);
+                    OCMVerify([delegateMock pubnativeRequest:[OCMArg isNotNil] didFail:[OCMArg isNotNil]]);
                 });
             });
             
@@ -502,8 +492,8 @@ describe(@"when starting a request through public inteface", ^{
                     [requestMock startRequestWithAppToken:appToken
                                               placementID:placementId
                                                  delegate:delegateMock];
-                    OCMVerify([delegateMock requestDidStart:[OCMArg isNotNil]]);
-                    OCMVerify([delegateMock request:[OCMArg isNotNil] didFail:[OCMArg isNotNil]]);
+                    OCMVerify([delegateMock pubnativeRequestDidStart:[OCMArg isNotNil]]);
+                    OCMVerify([delegateMock pubnativeRequest:[OCMArg isNotNil] didFail:[OCMArg isNotNil]]);
                 });
             });
         });
@@ -528,8 +518,8 @@ describe(@"when starting a request through public inteface", ^{
                     [requestMock startRequestWithAppToken:appToken
                                               placementID:placementId
                                                  delegate:delegateMock];
-                    OCMVerify([delegateMock requestDidStart:[OCMArg isNotNil]]);
-                    OCMVerify([delegateMock request:[OCMArg isNotNil] didFail:[OCMArg isNotNil]]);
+                    OCMVerify([delegateMock pubnativeRequestDidStart:[OCMArg isNotNil]]);
+                    OCMVerify([delegateMock pubnativeRequest:[OCMArg isNotNil] didFail:[OCMArg isNotNil]]);
                 });
             });
             
@@ -545,8 +535,8 @@ describe(@"when starting a request through public inteface", ^{
                     [requestMock startRequestWithAppToken:appToken
                                               placementID:placementId
                                                  delegate:delegateMock];
-                    OCMVerify([delegateMock requestDidStart:[OCMArg isNotNil]]);
-                    OCMVerify([delegateMock request:[OCMArg isNotNil] didFail:[OCMArg isNotNil]]);
+                    OCMVerify([delegateMock pubnativeRequestDidStart:[OCMArg isNotNil]]);
+                    OCMVerify([delegateMock pubnativeRequest:[OCMArg isNotNil] didFail:[OCMArg isNotNil]]);
                 });
             });
             
@@ -562,8 +552,8 @@ describe(@"when starting a request through public inteface", ^{
                     [requestMock startRequestWithAppToken:appToken
                                               placementID:placementId
                                                  delegate:delegateMock];
-                    OCMVerify([delegateMock requestDidStart:[OCMArg isNotNil]]);
-                    OCMVerify([delegateMock request:[OCMArg isNotNil] didFail:[OCMArg isNotNil]]);
+                    OCMVerify([delegateMock pubnativeRequestDidStart:[OCMArg isNotNil]]);
+                    OCMVerify([delegateMock pubnativeRequest:[OCMArg isNotNil] didFail:[OCMArg isNotNil]]);
                 });
             });
         });
@@ -588,8 +578,8 @@ describe(@"when starting a request through public inteface", ^{
                     [requestMock startRequestWithAppToken:appToken
                                               placementID:placementId
                                                  delegate:delegateMock];
-                    OCMVerify([delegateMock requestDidStart:[OCMArg isNotNil]]);
-                    OCMVerify([delegateMock request:[OCMArg isNotNil] didFail:[OCMArg isNotNil]]);
+                    OCMVerify([delegateMock pubnativeRequestDidStart:[OCMArg isNotNil]]);
+                    OCMVerify([delegateMock pubnativeRequest:[OCMArg isNotNil] didFail:[OCMArg isNotNil]]);
                 });
             });
             
@@ -605,8 +595,8 @@ describe(@"when starting a request through public inteface", ^{
                     [requestMock startRequestWithAppToken:appToken
                                               placementID:placementId
                                                  delegate:delegateMock];
-                    OCMVerify([delegateMock requestDidStart:[OCMArg isNotNil]]);
-                    OCMVerify([delegateMock request:[OCMArg isNotNil] didFail:[OCMArg isNotNil]]);
+                    OCMVerify([delegateMock pubnativeRequestDidStart:[OCMArg isNotNil]]);
+                    OCMVerify([delegateMock pubnativeRequest:[OCMArg isNotNil] didFail:[OCMArg isNotNil]]);
                 });
             });
             
@@ -618,18 +608,19 @@ describe(@"when starting a request through public inteface", ^{
                 before(^{
                     placementId = @"test_valid_placement_id";
                     configManagerMock = OCMClassMock([PubnativeConfigManager class]);
-                    OCMStub([configManagerMock configWithAppToken:appToken delegate:[OCMArg isNotNil]]).andDo(nil);
                 });
                 
                 it(@"make config fetch request", ^{
+                    OCMExpect([configManagerMock configWithAppToken:appToken delegate:[OCMArg isNotNil]]);
                     [requestMock startRequestWithAppToken:appToken
                                               placementID:placementId
                                                  delegate:delegateMock];
-                    OCMVerify([delegateMock requestDidStart:[OCMArg isNotNil]]);
-                    OCMVerify([configManagerMock configWithAppToken:appToken delegate:[OCMArg isNotNil]]);
+                    OCMVerify([delegateMock pubnativeRequestDidStart:[OCMArg isNotNil]]);
+                    OCMVerifyAll(configManagerMock);
                 });
                 
                 it(@"save appToken, placementId, currentNetworkIndex", ^{
+                    OCMExpect([configManagerMock configWithAppToken:appToken delegate:[OCMArg isNotNil]]);
                     OCMExpect([requestMock setAppToken:appToken]);
                     OCMExpect([requestMock setPlacementID:placementId]);
                     OCMExpect([requestMock setCurrentNetworkIndex:0]);
@@ -637,6 +628,10 @@ describe(@"when starting a request through public inteface", ^{
                                               placementID:placementId
                                                  delegate:delegateMock];
                     OCMVerifyAll(requestMock);
+                });
+                
+                after(^{
+                    [configManagerMock stopMocking];
                 });
             });
         });

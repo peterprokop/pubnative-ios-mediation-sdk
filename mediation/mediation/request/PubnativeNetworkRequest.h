@@ -13,9 +13,9 @@
 
 @protocol PubnativeNetworkRequestDelegate <NSObject>
 
--(void)requestDidStart:(PubnativeNetworkRequest *)request;
--(void)request:(PubnativeNetworkRequest *)request didLoad:(PubnativeAdModel*)ad;
--(void)request:(PubnativeNetworkRequest *)request didFail:(NSError*)error;
+-(void)pubnativeRequestDidStart:(PubnativeNetworkRequest *)request;
+-(void)pubnativeRequest:(PubnativeNetworkRequest *)request didLoad:(PubnativeAdModel*)ad;
+-(void)pubnativeRequest:(PubnativeNetworkRequest *)request didFail:(NSError*)error;
 
 @end
 

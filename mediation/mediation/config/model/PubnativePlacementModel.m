@@ -10,8 +10,4 @@
 
 @implementation PubnativePlacementModel
 
-+(JSONKeyMapper *)keyMapper{
-    return  [[JSONKeyMapper alloc] initWithDictionary:@{ @"delivery_rule" : @"delivery_rules"}];
-}
-
 @end

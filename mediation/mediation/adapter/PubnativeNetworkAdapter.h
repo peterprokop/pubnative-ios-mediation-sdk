@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "PubnativeAdModel.h"
+#import "PubnativeNetworkModel.h"
 
 @class PubnativeNetworkAdapter;
 
@@ -24,7 +25,7 @@
 @property (nonatomic, strong)   NSDictionary                                *params;
 @property (nonatomic, weak)     NSObject<PubnativeNetworkAdapterDelegate>   *delegate;
 
-- (instancetype)initWithDictionary:(NSDictionary*)dictionary;
-- (void)requestWithTimeout:(int)timeout delegate:(NSObject<PubnativeNetworkAdapterDelegate>*)delegate;
+- (instancetype)initWithNetwork:(PubnativeNetworkModel *)network;
+- (void)startRequestWithDelegate:(NSObject<PubnativeNetworkAdapterDelegate>*)delegate;
 
 @end
