@@ -60,13 +60,16 @@
             if (self.placement.delivery_rule && [self.placement.delivery_rule isActive]) {
                 [self doNextNetworkRequest];
             } else {
-                NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.startRequestWithConfig:- Error: Invalid/Inactive delivery_rules"
+                NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.startRequestWithConfig:- Error: Invalid/Inactive placement delivery rule"
                                                      code:0
                                                  userInfo:nil];
                 [self invokeDidFail:error];
             }
         } else {
-            NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.startRequestWithConfig:- Error: Invalid placement"
+            NSString *errorMessage = [NSString stringWithFormat:
+                                      @"PubnativeNetworkRequest.startRequestWithConfig:- Error: placementID: %@ not valid",
+                                      self.placementID];
+            NSError *error = [NSError errorWithDomain:errorMessage
                                                  code:0
                                              userInfo:nil];
             [self invokeDidFail:error];
@@ -93,7 +96,7 @@
         if (network) {
             PubnativeNetworkAdapter *adapter = [PubnativeNetworkAdapterFactory createApdaterWithNetwork:network];
             if (adapter) {
-                [adapter requestWithTimeout:[network.timeout intValue] delegate:self];
+                [adapter startRequestWithDelegate:self];
             } else {
                 NSLog(@"PubnativeNetworkRequest.doNextNetworkRequest- Error: Invalid adapter");
                 [self doNextNetworkRequest];
@@ -114,23 +117,23 @@
 
 - (void)invokeDidStart
 {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(requestDidStart:)]) {
-        [self.delegate requestDidStart:self];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(pubnativeRequestDidStart:)]) {
+        [self.delegate pubnativeRequestDidStart:self];
     }
 }
 
 - (void)invokeDidFail:(NSError*)error
 {
-    if(self.delegate && [self.delegate respondsToSelector:@selector(request:didFail:)]){
-        [self.delegate request:self didFail:error];
+    if(self.delegate && [self.delegate respondsToSelector:@selector(pubnativeRequest:didFail:)]){
+        [self.delegate pubnativeRequest:self didFail:error];
     }
     self.delegate = nil;
 }
 
 - (void)invokeDidLoad:(PubnativeAdModel*)ad
 {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(request:didLoad:)]) {
-        [self.delegate request:self didLoad:ad];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(pubnativeRequest:didLoad:)]) {
+        [self.delegate pubnativeRequest:self didLoad:ad];
     }
     self.delegate = nil;    
 }

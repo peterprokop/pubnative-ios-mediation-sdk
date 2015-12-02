@@ -29,20 +29,20 @@ class RequestHandler: NSObject, PubnativeNetworkRequestDelegate {
         cellRequest.networkRequest.startRequestWithAppToken(cellRequest.appToken, placementID: cellRequest.placementID, delegate: self)
     }
     
-    func requestDidStart(request: PubnativeNetworkRequest!) {
-        print("NativeAdTableViewCell \(indexPath.row): requestDidStart")
+    func pubnativeRequestDidStart(request: PubnativeNetworkRequest!) {
+        print("NativeAdTableViewCell \(indexPath.row): pubnativeRequestDidStart")
     }
     
-    func request(request: PubnativeNetworkRequest!, didLoad ad: PubnativeAdModel!) {
+    func pubnativeRequest(request: PubnativeNetworkRequest!, didLoad ad: PubnativeAdModel!) {
         if (delegate != nil) {
-            print("NativeAdTableViewCell \(indexPath.row): request:didLoad:")
+            print("NativeAdTableViewCell \(indexPath.row): pubnativeRequest:didLoad:")
             delegate.updateAdTableViewCell(indexPath, ad: ad)
         }
     }
     
-    func request(request: PubnativeNetworkRequest!, didFail error: NSError!) {
+    func pubnativeRequest(request: PubnativeNetworkRequest!, didFail error: NSError!) {
         if (delegate != nil) {
-            print("NativeAdTableViewCell \(indexPath.row): request:didFail:")
+            print("NativeAdTableViewCell \(indexPath.row): pubnativeRequest:didFail:")
             delegate.updateAdTableViewCell(indexPath, error: error)
         }
     }
