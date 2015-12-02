@@ -13,7 +13,7 @@
 
 static PubnativeConfigManager* _sharedInstance;
 
-NSString * const kDefaultConfigURL                  = @"http://ml.pubnative.net/ml/v1/config";
+NSString * const kDefaultConfigURL                  = @"https://ml.pubnative.net/ml/v1/config";
 NSString * const kAppTokenURLParameter              = @"app_token";
 
 NSString * const kUserDefaultsStoredConfigKey       = @"net.pubnative.mediation.PubnativeConfigManager.configJSON";

@@ -15,6 +15,7 @@ target 'PubnativeMediationTests' do
 end
 
 target 'PubnativeMediationDemo' do
+  platform :ios, '7.0'
   pod 'JSONModel'
   pod 'IQKeyboardManager'
   pod 'KSToastView', '0.5.6'
