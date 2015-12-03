@@ -107,17 +107,17 @@ describe(@"while doing request", ^{
 
         context(@"without timeout", ^{
             
-            __block int timeout;
+            __block id timeout;
             
             before(^{
-                timeout = 0;
+                timeout = @0;
                 OCMStub([networkAdapterMock timeOut]).andReturn(timeout);
             });
             
             it(@"callbacks start and starts request", ^{
                 OCMExpect([networkAdapterMock doRequest]);
                 OCMExpect([networkAdapterMock invokeDidStart]);
-                [networkAdapterMock startRequestWithDelegate:delegateMock];
+                [networkAdapterMock startWithDelegate:delegateMock];
                 
                 //Verify after some time that no reject is called
                 OCMVerifyAll(networkAdapterMock);
@@ -126,10 +126,10 @@ describe(@"while doing request", ^{
         
         context(@"with timeout", ^{
             
-            __block int timeout;
+            __block id timeout;
             
             before(^{
-                timeout = 500; // Half a second
+                timeout = @500; // Half a second
                 OCMStub([networkAdapterMock timeOut]).andReturn(timeout);
             });
             
@@ -137,8 +137,8 @@ describe(@"while doing request", ^{
                 OCMExpect([networkAdapterMock requestTimeout]);
                 OCMExpect([networkAdapterMock doRequest]);
                 OCMExpect([networkAdapterMock invokeDidStart]);
-                [networkAdapterMock startRequestWithDelegate:delegateMock];
-                OCMVerifyAllWithDelay(networkAdapterMock, timeout);
+                [networkAdapterMock startWithDelegate:delegateMock];
+                OCMVerifyAllWithDelay(networkAdapterMock, [timeout intValue]);
             });
         });
     });
@@ -153,7 +153,7 @@ describe(@"while doing request", ^{
         
         it(@"drops call", ^{
             [[networkAdapterMock reject] doRequest];
-            [networkAdapterMock startRequestWithDelegate:delegate];
+            [networkAdapterMock startWithDelegate:delegate];
             OCMVerifyAll(networkAdapterMock);
         });
     });

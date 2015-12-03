@@ -31,14 +31,21 @@
 {
     if (delegate) {
         self.delegate = delegate;
+        // Notify request has started
         [self invokeDidStart];
+        
         if (appToken && [appToken length] > 0 &&
             placementID && [placementID length] > 0) {
+            
+            //set the data
             self.appToken = appToken;
             self.placementID = placementID;
             self.currentNetworkIndex = 0;
+            
+            //fetch config corresponding to app token
             [PubnativeConfigManager configWithAppToken:appToken
                                               delegate:self];
+            
         } else {
             NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.startRequestWithAppToken:placementID:delegate:- Error: Invalid AppToken/PlacementID"
                                                  code:0
@@ -52,13 +59,18 @@
 
 - (void)startRequestWithConfig:(PubnativeConfigModel*)config
 {
+    //Check placements are available
     if (config && ![config isEmpty]) {
         self.config = config;
+        
         PubnativePlacementModel *placement = [self.config.placements objectForKey:self.placementID];
         if (placement) {
             self.placement = placement;
+            
             if (self.placement.delivery_rule && [self.placement.delivery_rule isActive]) {
+                //make request
                 [self doNextNetworkRequest];
+                
             } else {
                 NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.startRequestWithConfig:- Error: Invalid/Inactive placement delivery rule"
                                                      code:0
@@ -82,30 +94,50 @@
     }
 }
 
+/**
+ * Make next request. 
+ * Will make next request if current request has some priority rules defined
+ */
 - (void)doNextNetworkRequest
 {
+    //Check if priority rules avaliable
     if (self.currentNetworkIndex < self.placement.priority_rules.count) {
+        
         PubnativePriorityRulesModel * priorityRule = self.placement.priority_rules[self.currentNetworkIndex];
         self.currentNetworkIndex++;
+        
+        // Get the network code
         NSString *currentNetworkId = priorityRule.network_code;
+        
         PubnativeNetworkModel *network = nil;
+        
         if (currentNetworkId && [currentNetworkId length] > 0 &&
             self.config && self.config.networks) {
+            
+            //Associate network correponding to network code
             network = [self.config.networks objectForKey:currentNetworkId];
         }
+        
         if (network) {
+            // Create corresponding adapter for network
             PubnativeNetworkAdapter *adapter = [PubnativeNetworkAdapterFactory createApdaterWithNetwork:network];
+            
             if (adapter) {
-                [adapter startRequestWithDelegate:self];
+                //make request
+                [adapter startWithDelegate:self];
+                
             } else {
+                
                 NSLog(@"PubnativeNetworkRequest.doNextNetworkRequest- Error: Invalid adapter");
                 [self doNextNetworkRequest];
             }
         } else {
+            
             NSLog(@"PubnativeNetworkRequest.doNextNetworkRequest- Error: Invalid network code");
             [self doNextNetworkRequest];
         }
     } else {
+        
         NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.doNextNetworkRequest- Error: No fill"
                                              code:0
                                          userInfo:nil];
@@ -118,6 +150,7 @@
 - (void)invokeDidStart
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(pubnativeRequestDidStart:)]) {
+        //Update request has been started
         [self.delegate pubnativeRequestDidStart:self];
     }
 }
@@ -125,16 +158,20 @@
 - (void)invokeDidFail:(NSError*)error
 {
     if(self.delegate && [self.delegate respondsToSelector:@selector(pubnativeRequest:didFail:)]){
+        //Update request had failed
         [self.delegate pubnativeRequest:self didFail:error];
     }
+    
     self.delegate = nil;
 }
 
 - (void)invokeDidLoad:(PubnativeAdModel*)ad
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(pubnativeRequest:didLoad:)]) {
+        //Update request had succeed
         [self.delegate pubnativeRequest:self didLoad:ad];
     }
+    
     self.delegate = nil;    
 }
 
@@ -142,11 +179,20 @@
 
 #pragma mark PubnativeConfigManagerDelegate
 
+/**
+ * Callback when config is fetched using PubnativeConfigManager
+ * @param model : The fetched config model
+ */
 - (void)configDidFinishWithModel:(PubnativeConfigModel*)model
 {
+    //make request corresponding to the fetch config
     [self startRequestWithConfig:model];
 }
 
+/**
+ * Callback when config fetching failed using PubnativeConfigManager
+ * @param error : The error occured while fetching
+ */
 - (void)configDidFailWithError:(NSError*)error
 {
     [self invokeDidFail:error];
@@ -154,16 +200,30 @@
 
 #pragma mark PubnativeNetworkAdapterDelegate
 
+/**
+ * Callback when adapter stared making request
+ * @param adapter : The adapter used for making request
+ */
 - (void)adapterRequestDidStart:(PubnativeNetworkAdapter*)adapter
 {
     //Do nothing
 }
 
+/**
+ * Callback when adapter request succeed
+ * @param adapter : The adapter used for making request
+ * @param ad : The resultant ad, on making request
+ */
 - (void)adapter:(PubnativeNetworkAdapter*)adapter requestDidLoad:(PubnativeAdModel*)ad
 {
     [self invokeDidLoad:ad];
 }
 
+/**
+ * Callback when adapter request failed
+ * @param adapter : The adapter used for making request
+ * @param error : The resultant error, on making request
+ */
 - (void)adapter:(PubnativeNetworkAdapter*)adapter requestDidFail:(NSError*)error
 {
     NSLog(@"PubnativeNetworkRequest.adapter:requestDidFail:- Error %@",[error domain]);

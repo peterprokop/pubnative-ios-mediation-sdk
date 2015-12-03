@@ -25,7 +25,7 @@
 @property (nonatomic, strong)   NSDictionary                                *params;
 @property (nonatomic, weak)     NSObject<PubnativeNetworkAdapterDelegate>   *delegate;
 
-- (instancetype)initWithNetwork:(PubnativeNetworkModel *)network;
-- (void)startRequestWithDelegate:(NSObject<PubnativeNetworkAdapterDelegate>*)delegate;
+- (instancetype)initWithModel:(PubnativeNetworkModel *)model;
+- (void)startWithDelegate:(NSObject<PubnativeNetworkAdapterDelegate>*)delegate;
 
 @end
