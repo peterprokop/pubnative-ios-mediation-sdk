@@ -14,7 +14,6 @@
 		0336686E1BFE0FE100108944 /* PubnativeTestCrediantials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0336686D1BFE0FE100108944 /* PubnativeTestCrediantials.swift */; };
 		03484F5A1C02EBD000D193B5 /* NativeAdTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03484F591C02EBD000D193B5 /* NativeAdTableViewCell.swift */; };
 		034D6F5C1BEA5DE6001CF3A5 /* TestValidNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 034D6F5A1BEA5DAC001CF3A5 /* TestValidNetworkAdapter.m */; };
-		036C92381C0318A400F8F128 /* FloatRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 036C92371C0318A400F8F128 /* FloatRatingView.swift */; };
 		037486D51BF0D961004FFEA1 /* FacebookNativeAdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 037486D11BF0D961004FFEA1 /* FacebookNativeAdModel.m */; };
 		037486D61BF0D961004FFEA1 /* FacebookNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 037486D31BF0D961004FFEA1 /* FacebookNetworkAdapter.m */; };
 		037486D71BF0D961004FFEA1 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037486D41BF0D961004FFEA1 /* FBAudienceNetwork.framework */; };
@@ -95,7 +94,6 @@
 		03484F591C02EBD000D193B5 /* NativeAdTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAdTableViewCell.swift; sourceTree = "<group>"; };
 		034D6F591BEA5DAC001CF3A5 /* TestValidNetworkAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestValidNetworkAdapter.h; sourceTree = "<group>"; };
 		034D6F5A1BEA5DAC001CF3A5 /* TestValidNetworkAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestValidNetworkAdapter.m; sourceTree = "<group>"; };
-		036C92371C0318A400F8F128 /* FloatRatingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FloatRatingView.swift; sourceTree = "<group>"; };
 		037486D01BF0D961004FFEA1 /* FacebookNativeAdModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookNativeAdModel.h; sourceTree = "<group>"; };
 		037486D11BF0D961004FFEA1 /* FacebookNativeAdModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookNativeAdModel.m; sourceTree = "<group>"; };
 		037486D21BF0D961004FFEA1 /* FacebookNetworkAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookNetworkAdapter.h; sourceTree = "<group>"; };
@@ -312,7 +310,6 @@
 				0336686D1BFE0FE100108944 /* PubnativeTestCrediantials.swift */,
 				031CFFB41BFF4AC500A0AECC /* CellRequestModel.swift */,
 				03484F591C02EBD000D193B5 /* NativeAdTableViewCell.swift */,
-				036C92371C0318A400F8F128 /* FloatRatingView.swift */,
 				D54384BE1BC528F500EBE27A /* Assets.xcassets */,
 				D54384C01BC528F500EBE27A /* LaunchScreen.storyboard */,
 				D54384C31BC528F500EBE27A /* Info.plist */,
@@ -735,7 +732,6 @@
 			files = (
 				03484F5A1C02EBD000D193B5 /* NativeAdTableViewCell.swift in Sources */,
 				0336686E1BFE0FE100108944 /* PubnativeTestCrediantials.swift in Sources */,
-				036C92381C0318A400F8F128 /* FloatRatingView.swift in Sources */,
 				031A88D61BFE0CB50039D86F /* AppDelegate.swift in Sources */,
 				031A88D81BFE0CB50039D86F /* SettingViewController.swift in Sources */,
 				03D092841BFEFDB600A79CA7 /* MainViewController.swift in Sources */,

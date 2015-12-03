@@ -18,12 +18,13 @@ class NativeAdTableViewCell: UITableViewCell, UpdateRequestResponseDelegate {
     @IBOutlet weak var imageViewAdBannerImage   : UIImageView!
     @IBOutlet weak var activityIndicator        : UIActivityIndicatorView!
     @IBOutlet weak var buttonRequest            : UIButton!
-    @IBOutlet weak var viewadContainer          : UIView!
-    @IBOutlet weak var starRatingView           : FloatRatingView!
+    @IBOutlet weak var viewAdContainer          : UIView!
+    @IBOutlet weak var starRatingView           : UIView!
     
     var indexPath                               : NSIndexPath!
     var cellRequest                             : CellRequestModel!
     var viewController                          : MainViewController!
+    var ratingControl                           : AMRatingControl!
     
     @IBAction func onRequestTapped(sender: AnyObject) {
         cleanView()
@@ -58,7 +59,13 @@ class NativeAdTableViewCell: UITableViewCell, UpdateRequestResponseDelegate {
         labelAdapterName.text = ""
         imageViewAdBannerImage.image = nil
         imageViewAdThumbnail.image = nil
-        starRatingView.rating = 0
+        if (ratingControl == nil) {
+            ratingControl = AMRatingControl.init(location: CGPointZero, emptyColor: UIColor.lightGrayColor(), solidColor: UIColor.orangeColor(), andMaxRating: 5)
+            ratingControl.userInteractionEnabled = false
+            starRatingView.addSubview(ratingControl)
+        } else {
+            ratingControl.rating = 0
+        }
         starRatingView.hidden = true
         activityIndicator.hidden = true
         buttonRequest.userInteractionEnabled = true
@@ -74,11 +81,11 @@ class NativeAdTableViewCell: UITableViewCell, UpdateRequestResponseDelegate {
             labelAdapterName.text = String(cellRequest.ad!.dynamicType)
             labelAdTitle.text = cellRequest.ad.title
             labelAdDescription.text = cellRequest.ad.description
-            starRatingView.rating = cellRequest.ad.starRating
+            ratingControl.rating = Int(cellRequest.ad.starRating)
             starRatingView.hidden = false
             imageViewAdThumbnail.hnk_setImageFromURL(NSURL(string: cellRequest.ad.iconURL), placeholder: nil)
             imageViewAdBannerImage.hnk_setImageFromURL(NSURL(string: cellRequest.ad.bannerURL), placeholder: nil)
-            cellRequest.ad.startTrackingView(viewadContainer, withViewController: viewController)
+            cellRequest.ad.startTrackingView(viewAdContainer, withViewController: viewController)
         }
     }
     

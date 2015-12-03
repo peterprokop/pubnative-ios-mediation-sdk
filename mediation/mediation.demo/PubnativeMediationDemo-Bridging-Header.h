@@ -8,6 +8,7 @@
 #import <IQKeyboardManager.h>//For handling keybaord
 #import <KSToastView.h>
 #import <UIImageView+Haneke.h>
+#import "AMRatingControl.h"
 
 @interface PubnativeConfigManager (Private)
 + (BOOL)clean;
