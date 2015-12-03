@@ -23,7 +23,6 @@
 		0376A7D91C0C5B5B008D25A2 /* PubnativeNetworkRequestSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 0376A7D81C0C5B5B008D25A2 /* PubnativeNetworkRequestSpec.m */; };
 		0376A7DB1C0C5B6C008D25A2 /* PubnativeAdModelSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 0376A7DA1C0C5B6C008D25A2 /* PubnativeAdModelSpec.m */; };
 		03D092841BFEFDB600A79CA7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D092831BFEFDB600A79CA7 /* MainViewController.swift */; };
-		03D53E3F1C0743870028A4AF /* RequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D53E3E1C0743870028A4AF /* RequestHandler.swift */; };
 		25FFE773F39179F889518868 /* libPods-PubnativeMediationDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5734361BBDD660F73DCEB216 /* libPods-PubnativeMediationDemo.a */; };
 		A7790EE3605B243BD8C2DC3E /* libPods-PubnativeMediation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF7483EA05BDC146190BAAD6 /* libPods-PubnativeMediation.a */; };
 		D54384941BC528D000EBE27A /* PubnativeNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = D54384811BC528D000EBE27A /* PubnativeNetworkAdapter.m */; };
@@ -106,7 +105,6 @@
 		0376A7DA1C0C5B6C008D25A2 /* PubnativeAdModelSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeAdModelSpec.m; sourceTree = "<group>"; };
 		03CCAA011C08504100C69D17 /* PubnativeMediationDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PubnativeMediationDemo-Bridging-Header.h"; sourceTree = "<group>"; };
 		03D092831BFEFDB600A79CA7 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		03D53E3E1C0743870028A4AF /* RequestHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestHandler.swift; sourceTree = "<group>"; };
 		26B341AD5DD57D35AE7EEA05 /* Pods-PubnativeMediation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PubnativeMediation.release.xcconfig"; path = "../Pods/Target Support Files/Pods-PubnativeMediation/Pods-PubnativeMediation.release.xcconfig"; sourceTree = "<group>"; };
 		2A928042FE842AB25B74F7BB /* libPods-PubnativeMediationTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-PubnativeMediationTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		455ABF7426830446DEDE34A1 /* Pods-PubnativeMediationDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PubnativeMediationDemo.release.xcconfig"; path = "../Pods/Target Support Files/Pods-PubnativeMediationDemo/Pods-PubnativeMediationDemo.release.xcconfig"; sourceTree = "<group>"; };
@@ -314,7 +312,6 @@
 				0336686D1BFE0FE100108944 /* PubnativeTestCrediantials.swift */,
 				031CFFB41BFF4AC500A0AECC /* CellRequestModel.swift */,
 				03484F591C02EBD000D193B5 /* NativeAdTableViewCell.swift */,
-				03D53E3E1C0743870028A4AF /* RequestHandler.swift */,
 				036C92371C0318A400F8F128 /* FloatRatingView.swift */,
 				D54384BE1BC528F500EBE27A /* Assets.xcassets */,
 				D54384C01BC528F500EBE27A /* LaunchScreen.storyboard */,
@@ -742,7 +739,6 @@
 				031A88D61BFE0CB50039D86F /* AppDelegate.swift in Sources */,
 				031A88D81BFE0CB50039D86F /* SettingViewController.swift in Sources */,
 				03D092841BFEFDB600A79CA7 /* MainViewController.swift in Sources */,
-				03D53E3F1C0743870028A4AF /* RequestHandler.swift in Sources */,
 				031CFFB51BFF4AC500A0AECC /* CellRequestModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

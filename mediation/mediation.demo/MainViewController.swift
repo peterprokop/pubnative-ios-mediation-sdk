@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController, UITableViewDataSource, StartRequestDelegate, UpdateRequestResponseDelegate {
+class MainViewController: UIViewController, UITableViewDataSource, UpdateRequestResponseDelegate {
     
     let APP_TOKEN                           = "7c26af3aa5f6c0a4ab9f4414787215f3bdd004f80b1b358e72c3137c94f5033c"
     var cellRequests : [CellRequestModel]   = []
@@ -70,32 +70,9 @@ class MainViewController: UIViewController, UITableViewDataSource, StartRequestD
         }
     }
     
-    // MARK: StartRequestDelegate Callbacks
-    func startRequest(indexPath: NSIndexPath) {
-        if (indexPath.row < cellRequests.count) {
-            let cellRequest : CellRequestModel = cellRequests[indexPath.row]
-            cellRequest.isRequestLoading = true
-            let requestHandler : RequestHandler = RequestHandler(request: cellRequest, indexPath: indexPath, delegate: self)
-            requestHandler.startRequest()
-        }
-    }
-    
-    // MARK: UpdateRequestResponseDelegate Callbacks
-    func updateAdTableViewCell(indexPath: NSIndexPath, ad: PubnativeAdModel) {
-        let cellRequest : CellRequestModel = cellRequests[indexPath.row]
-        cellRequest.isRequestLoading = false
-        cellRequest.ad = ad
-        cellRequests[indexPath.row] = cellRequest
+    // MARK: UpdateRequestResponseDelegate Callback
+    func updateAdTableViewCell(indexPath: NSIndexPath) {
         tableViewAds.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
-    }
-    
-    func updateAdTableViewCell(indexPath: NSIndexPath, error: NSError) {
-        let cellRequest : CellRequestModel = cellRequests[indexPath.row]
-        cellRequest.isRequestLoading = false
-        cellRequest.ad = nil
-        cellRequests[indexPath.row] = cellRequest
-        tableViewAds.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
-        KSToastView.ks_showToast("\(error.domain)");
     }
     
     // MARK: Table View Data Source Methods
@@ -108,7 +85,6 @@ class MainViewController: UIViewController, UITableViewDataSource, StartRequestD
         if indexPath.row < cellRequests.count {
             cell.setRequestModel(cellRequests[indexPath.row], indexPath:indexPath, viewController: self);
         }
-        cell.delegate = self
         return cell
     }
 }

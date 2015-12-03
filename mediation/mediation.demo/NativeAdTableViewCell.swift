@@ -8,10 +8,6 @@
 
 import UIKit
 
-protocol StartRequestDelegate {
-    func startRequest(indexPath: NSIndexPath)
-}
-
 class NativeAdTableViewCell: UITableViewCell {
     
     @IBOutlet weak var labelPlacementId         : UILabel!
@@ -20,21 +16,20 @@ class NativeAdTableViewCell: UITableViewCell {
     @IBOutlet weak var labelAdDescription       : UILabel!
     @IBOutlet weak var imageViewAdThumbnail     : UIImageView!
     @IBOutlet weak var imageViewAdBannerImage   : UIImageView!
-    @IBOutlet weak var starRatingView           : FloatRatingView!
     @IBOutlet weak var activityIndicator        : UIActivityIndicatorView!
     @IBOutlet weak var buttonRequest            : UIButton!
     @IBOutlet weak var viewadContainer          : UIView!
+    @IBOutlet weak var starRatingView           : FloatRatingView!
     
-    var delegate            : StartRequestDelegate!
-    var cellRequest         : CellRequestModel!
-    var indexPath           : NSIndexPath!
-    var viewController      : MainViewController!
+    var indexPath                               : NSIndexPath!
+    var cellRequest                             : CellRequestModel!
+    var viewController                          : MainViewController!
     
     @IBAction func onRequestTapped(sender: AnyObject) {
         cleanView()
         activityIndicator.hidden = false
         activityIndicator.startAnimating()
-        delegate.startRequest(indexPath)
+        cellRequest.startRequest(indexPath, delegate: viewController)
         if (cellRequest.isRequestLoading == true) {
             buttonRequest.userInteractionEnabled = false
         }
