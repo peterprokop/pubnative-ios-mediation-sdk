@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NativeAdTableViewCell: UITableViewCell {
+class NativeAdTableViewCell: UITableViewCell, UpdateRequestResponseDelegate {
     
     @IBOutlet weak var labelPlacementId         : UILabel!
     @IBOutlet weak var labelAdapterName         : UILabel!
@@ -29,7 +29,7 @@ class NativeAdTableViewCell: UITableViewCell {
         cleanView()
         activityIndicator.hidden = false
         activityIndicator.startAnimating()
-        cellRequest.startRequest(indexPath, delegate: viewController)
+        cellRequest.startRequest(indexPath, delegate: self)
         if (cellRequest.isRequestLoading == true) {
             buttonRequest.userInteractionEnabled = false
         }
@@ -80,5 +80,11 @@ class NativeAdTableViewCell: UITableViewCell {
             imageViewAdBannerImage.hnk_setImageFromURL(NSURL(string: cellRequest.ad.bannerURL), placeholder: nil)
             cellRequest.ad.startTrackingView(viewadContainer, withViewController: viewController)
         }
+    }
+    
+    // MARK: UpdateRequestResponseDelegate Callback
+    func updateAdTableViewCell(indexPath: NSIndexPath) {
+        let adsTableView : UITableView = self.superview?.superview as! UITableView
+        adsTableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
     }
 }

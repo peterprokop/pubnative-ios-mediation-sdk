@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController, UITableViewDataSource, UpdateRequestResponseDelegate {
+class MainViewController: UIViewController, UITableViewDataSource {
     
     let APP_TOKEN                           = "7c26af3aa5f6c0a4ab9f4414787215f3bdd004f80b1b358e72c3137c94f5033c"
     var cellRequests : [CellRequestModel]   = []
@@ -68,11 +68,6 @@ class MainViewController: UIViewController, UITableViewDataSource, UpdateRequest
                 cellRequests = newRequests
                 tableViewAds.reloadData()
         }
-    }
-    
-    // MARK: UpdateRequestResponseDelegate Callback
-    func updateAdTableViewCell(indexPath: NSIndexPath) {
-        tableViewAds.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
     }
     
     // MARK: Table View Data Source Methods
