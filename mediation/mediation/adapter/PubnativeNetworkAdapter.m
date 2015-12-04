@@ -8,33 +8,40 @@
 
 #import "PubnativeNetworkAdapter.h"
 
+@interface PubnativeNetworkAdapter ()
+
+@property (nonatomic, strong) NSNumber *timeOut;
+
+@end
+
 @implementation PubnativeNetworkAdapter
 
-- (instancetype)initWithDictionary:(NSDictionary*)dictionary
+- (instancetype)initWithModel:(PubnativeNetworkModel *)model
 {
     self = [super init];
     if (self) {
-        self.params = dictionary;
+        self.params = model.params;
+        self.timeOut = model.timeout;
     }
     return self;
 }
 
 #pragma mark - Request -
-- (void)requestWithTimeout:(int)timeout delegate:(NSObject<PubnativeNetworkAdapterDelegate>*)delegate;
+- (void)startWithDelegate:(NSObject<PubnativeNetworkAdapterDelegate>*)delegate;
 {
     if (delegate) {
         self.delegate = delegate;
         [self invokeDidStart];
-        if (timeout > 0) {
+        if (self.timeOut > 0) {
             //timeout is in milliseconds
-            dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * timeout * 0.001);
+            dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * [self.timeOut intValue] * 0.001);
             dispatch_after(delay, dispatch_get_main_queue(), ^{
                 [self requestTimeout];
             });
         }
         [self doRequest];
     } else {
-        NSLog(@"PubnativeNetworkAdapter.requestWithTimeout:delegate: - Error: network adapter delegate not specified");
+        NSLog(@"PubnativeNetworkAdapter.startWithDelegate: - Error: network adapter delegate not specified");
     }
 }
 

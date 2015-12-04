@@ -13,7 +13,8 @@
 		037486D71BF0D961004FFEA1 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037486D41BF0D961004FFEA1 /* FBAudienceNetwork.framework */; };
 		037486D81BF0DA3E004FFEA1 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037486D41BF0D961004FFEA1 /* FBAudienceNetwork.framework */; };
 		037486D91BF0DA3F004FFEA1 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037486D41BF0D961004FFEA1 /* FBAudienceNetwork.framework */; };
-		03A9A6A11BFDA32100993D9B /* PubnativeAdModelSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 03A9A6A01BFDA32100993D9B /* PubnativeAdModelSpec.m */; };
+		037D87A41C08A4C80076164F /* PubnativeAdModelSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 037D87A31C08A4C80076164F /* PubnativeAdModelSpec.m */; };
+		03B9B4131C08A87500CCA0CE /* PubnativeNetworkRequestSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B9B4121C08A87500CCA0CE /* PubnativeNetworkRequestSpec.m */; };
 		03FE293B1C1064DD00E9BEC7 /* PNAdConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FE28941C1064DC00E9BEC7 /* PNAdConstants.m */; };
 		03FE293C1C1064DD00E9BEC7 /* PNVideoCacher.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FE28A71C1064DC00E9BEC7 /* PNVideoCacher.m */; };
 		03FE293D1C1064DD00E9BEC7 /* PNVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FE28A91C1064DC00E9BEC7 /* PNVideoPlayer.m */; };
@@ -144,8 +145,9 @@
 		037486D21BF0D961004FFEA1 /* FacebookNetworkAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookNetworkAdapter.h; sourceTree = "<group>"; };
 		037486D31BF0D961004FFEA1 /* FacebookNetworkAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookNetworkAdapter.m; sourceTree = "<group>"; };
 		037486D41BF0D961004FFEA1 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
+		037D87A31C08A4C80076164F /* PubnativeAdModelSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeAdModelSpec.m; sourceTree = "<group>"; };
 		0398546B1C10827F0008C326 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
-		03A9A6A01BFDA32100993D9B /* PubnativeAdModelSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeAdModelSpec.m; sourceTree = "<group>"; };
+		03B9B4121C08A87500CCA0CE /* PubnativeNetworkRequestSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeNetworkRequestSpec.m; sourceTree = "<group>"; };
 		03FE28931C1064DC00E9BEC7 /* PNAdConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNAdConstants.h; sourceTree = "<group>"; };
 		03FE28941C1064DC00E9BEC7 /* PNAdConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNAdConstants.m; sourceTree = "<group>"; };
 		03FE28961C1064DC00E9BEC7 /* PnClose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PnClose.png; sourceTree = "<group>"; };
@@ -387,18 +389,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		03A9A69E1BFDA2A000993D9B /* request */ = {
+		037D87A21C08A4C80076164F /* model */ = {
 			isa = PBXGroup;
 			children = (
-				03A9A69F1BFDA2B400993D9B /* model */,
-			);
-			path = request;
-			sourceTree = "<group>";
-		};
-		03A9A69F1BFDA2B400993D9B /* model */ = {
-			isa = PBXGroup;
-			children = (
-				03A9A6A01BFDA32100993D9B /* PubnativeAdModelSpec.m */,
+				037D87A31C08A4C80076164F /* PubnativeAdModelSpec.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -847,7 +841,7 @@
 		D54384731BC528BC00EBE27A /* mediation.tests */ = {
 			isa = PBXGroup;
 			children = (
-				03A9A69E1BFDA2A000993D9B /* request */,
+				D5E26AD61BEA528D00888F42 /* request */,
 				D5E26AC41BEA4F6E00888F42 /* adapter */,
 				D5E26AAA1BEA4CCA00888F42 /* resources */,
 				D5E26AA41BEA4C1900888F42 /* config */,
@@ -973,6 +967,15 @@
 			path = facebook;
 			sourceTree = "<group>";
 		};
+		D5E26AD61BEA528D00888F42 /* request */ = {
+			isa = PBXGroup;
+			children = (
+				037D87A21C08A4C80076164F /* model */,
+				03B9B4121C08A87500CCA0CE /* PubnativeNetworkRequestSpec.m */,
+			);
+			path = request;
+			sourceTree = "<group>";
+		};
 		D5FE080D1BEA170A007396B6 /* config */ = {
 			isa = PBXGroup;
 			children = (
@@ -1039,7 +1042,7 @@
 				D543846F1BC528BC00EBE27A /* Frameworks */,
 				D54384701BC528BC00EBE27A /* Resources */,
 				37726F195D30C3E37002114A /* Copy Pods Resources */,
-				9E1119867FCA81A2651AEBF3 /* Embed Pods Frameworks */,
+				3106C165FE8ACDD5422E17E1 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1060,7 +1063,7 @@
 				D54384B21BC528F500EBE27A /* Frameworks */,
 				D54384B31BC528F500EBE27A /* Resources */,
 				3570BB71B5D282D524BD7B33 /* Copy Pods Resources */,
-				DBE8972D54CE5FA4C98C237B /* Embed Pods Frameworks */,
+				3485115F360D361991121DC1 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1156,6 +1159,36 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+		3106C165FE8ACDD5422E17E1 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-PubnativeMediationTests/Pods-PubnativeMediationTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3485115F360D361991121DC1 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-PubnativeMediationDemo/Pods-PubnativeMediationDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		3570BB71B5D282D524BD7B33 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1229,36 +1262,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		9E1119867FCA81A2651AEBF3 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-PubnativeMediationTests/Pods-PubnativeMediationTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DBE8972D54CE5FA4C98C237B /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-PubnativeMediationDemo/Pods-PubnativeMediationDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1347,12 +1350,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03A9A6A11BFDA32100993D9B /* PubnativeAdModelSpec.m in Sources */,
+				037D87A41C08A4C80076164F /* PubnativeAdModelSpec.m in Sources */,
 				D5E26AC81BEA4F6E00888F42 /* PubnativeNetworkAdapterSpec.m in Sources */,
 				D5E26AA91BEA4C1900888F42 /* PubnativeConfigUtils.m in Sources */,
 				034D6F5C1BEA5DE6001CF3A5 /* TestValidNetworkAdapter.m in Sources */,
 				D5E26AC71BEA4F6E00888F42 /* PubnativeNetworkAdapterFactorySpec.m in Sources */,
 				D5E26AA81BEA4C1900888F42 /* PubnativeConfigManagerSpec.m in Sources */,
+				03B9B4131C08A87500CCA0CE /* PubnativeNetworkRequestSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
