@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NativeAdTableViewCell: UITableViewCell, UpdateRequestResponseDelegate {
+class NativeAdTableViewCell: UITableViewCell, CellRequestModelDelegate {
     
     @IBOutlet weak var labelPlacementId         : UILabel!
     @IBOutlet weak var labelAdapterName         : UILabel!
@@ -26,16 +26,6 @@ class NativeAdTableViewCell: UITableViewCell, UpdateRequestResponseDelegate {
     var viewController                          : MainViewController!
     var ratingControl                           : AMRatingControl!
     
-    @IBAction func onRequestTapped(sender: AnyObject) {
-        cleanView()
-        activityIndicator.hidden = false
-        activityIndicator.startAnimating()
-        cellRequest.startRequest(indexPath, delegate: self)
-        if (cellRequest.isRequestLoading == true) {
-            buttonRequest.userInteractionEnabled = false
-        }
-    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         cleanView()
@@ -45,6 +35,33 @@ class NativeAdTableViewCell: UITableViewCell, UpdateRequestResponseDelegate {
         super.setSelected(selected, animated: animated)
     }
     
+    func cleanView() {
+        labelAdTitle.text = ""
+        labelAdDescription.text = ""
+        labelAdapterName.text = ""
+        imageViewAdBannerImage.image = nil
+        imageViewAdThumbnail.image = nil
+        
+        if (ratingControl == nil) {
+            ratingControl = AMRatingControl.init(location: CGPointZero, emptyColor: UIColor.lightGrayColor(), solidColor: UIColor.orangeColor(), andMaxRating: 5)
+            ratingControl.userInteractionEnabled = false
+            starRatingView.addSubview(ratingControl)
+        } else {
+            ratingControl.rating = 0
+        }
+        
+        starRatingView.hidden = true
+        activityIndicator.hidden = true
+        buttonRequest.userInteractionEnabled = true
+    }
+    
+    /**
+     Assocaite the CellRequestModel to the cell.
+     
+     @param request CellRequestModel that need to be associated
+     @param indexPath An index path locating the row in tableView whose request need to be associated
+     @param viewController ViewController needed for tracking the ad
+     */
     func setRequestModel(request : CellRequestModel, indexPath : NSIndexPath, viewController: MainViewController) {
         self.cellRequest = request
         self.indexPath = indexPath
@@ -53,30 +70,9 @@ class NativeAdTableViewCell: UITableViewCell, UpdateRequestResponseDelegate {
         renderAd()
     }
     
-    func cleanView() {
-        labelAdTitle.text = ""
-        labelAdDescription.text = ""
-        labelAdapterName.text = ""
-        imageViewAdBannerImage.image = nil
-        imageViewAdThumbnail.image = nil
-        if (ratingControl == nil) {
-            ratingControl = AMRatingControl.init(location: CGPointZero, emptyColor: UIColor.lightGrayColor(), solidColor: UIColor.orangeColor(), andMaxRating: 5)
-            ratingControl.userInteractionEnabled = false
-            starRatingView.addSubview(ratingControl)
-        } else {
-            ratingControl.rating = 0
-        }
-        starRatingView.hidden = true
-        activityIndicator.hidden = true
-        buttonRequest.userInteractionEnabled = true
-    }
-    
     func renderAd() {
         labelPlacementId.text = "Placement ID: " + cellRequest.placementID
-        if (cellRequest.isRequestLoading == true) {
-            activityIndicator.hidden = false
-            activityIndicator.startAnimating()
-        }
+        
         if (cellRequest.ad != nil) {
             labelAdapterName.text = String(cellRequest.ad!.dynamicType)
             labelAdTitle.text = cellRequest.ad.title
@@ -89,9 +85,24 @@ class NativeAdTableViewCell: UITableViewCell, UpdateRequestResponseDelegate {
         }
     }
     
-    // MARK: UpdateRequestResponseDelegate Callback
+    // MARK: CellRequestModelDelegate Callback
+    
+    /**
+    Will update the cell by reloading the tableview for the @param indexPath.
+    
+    @param indexPath An index path locating the row in tableView from where request is made.
+    */
     func updateAdTableViewCell(indexPath: NSIndexPath) {
         let adsTableView : UITableView = self.superview?.superview as! UITableView
         adsTableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
+    }
+    
+    // MARK: IBActions
+    
+    @IBAction func onRequestTapped(sender: AnyObject) {
+        cleanView()
+        activityIndicator.hidden = false
+        activityIndicator.startAnimating()
+        cellRequest.startRequest(indexPath, delegate: self)
     }
 }

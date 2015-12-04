@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol UpdateRequestResponseDelegate {
+protocol CellRequestModelDelegate {
     func updateAdTableViewCell(indexPath: NSIndexPath)
 }
 
@@ -16,25 +16,31 @@ class CellRequestModel: NSObject, PubnativeNetworkRequestDelegate {
     
     var networkRequest      : PubnativeNetworkRequest!
     var ad                  : PubnativeAdModel!
-    var delegate            : UpdateRequestResponseDelegate!
+    var delegate            : CellRequestModelDelegate!
     var placementID         : String!
     var appToken            : String!
-    var isRequestLoading    : Bool!
     var indexPath           : NSIndexPath!
     
     init(appToken: String, placementID: String) {
         self.networkRequest = PubnativeNetworkRequest()
         self.appToken = appToken
         self.placementID = placementID
-        self.isRequestLoading = false
     }
     
-    func startRequest(indexPath: NSIndexPath, delegate:UpdateRequestResponseDelegate) {
-        self.isRequestLoading = true
+    /**
+     Start the PubnativeNetworkRequest.
+     
+     @param indexPath An index path locating the row in tableView from where request is made.
+     @param delegate To callback when the request is completed
+     */
+
+    func startRequest(indexPath: NSIndexPath, delegate:CellRequestModelDelegate) {
         self.indexPath = indexPath
         self.delegate = delegate
         networkRequest.startRequestWithAppToken(appToken, placementID: placementID, delegate: self)
     }
+    
+    // MARK: PubnativeNetworkRequestDelegate Callback
     
     func pubnativeRequestDidStart(request: PubnativeNetworkRequest) {
         print("Request at cell \(indexPath.row): started")
@@ -44,7 +50,6 @@ class CellRequestModel: NSObject, PubnativeNetworkRequestDelegate {
         print("Request at cell \(indexPath.row): succeed")
         if (delegate != nil) {
             self.ad = ad
-            self.isRequestLoading = false            
             delegate.updateAdTableViewCell(indexPath)
         }
     }
@@ -53,7 +58,6 @@ class CellRequestModel: NSObject, PubnativeNetworkRequestDelegate {
         print("Request at cell \(indexPath.row): failed")
         if (delegate != nil) {
             self.ad = nil
-            self.isRequestLoading = false
             KSToastView.ks_showToast("\(error.domain)");
             delegate.updateAdTableViewCell(indexPath)
         }
