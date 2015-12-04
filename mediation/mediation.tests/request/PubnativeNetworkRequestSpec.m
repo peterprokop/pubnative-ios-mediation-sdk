@@ -358,7 +358,7 @@ describe(@"when making next request", ^{
                             
                             it(@"make request through adapter", ^{
                                 [requestMock doNextNetworkRequest];
-                                OCMVerify([adapterMock startRequestWithDelegate:[OCMArg isNotNil]]);
+                                OCMVerify([adapterMock startWithDelegate:[OCMArg isNotNil]]);
                             });
                         });
                         
