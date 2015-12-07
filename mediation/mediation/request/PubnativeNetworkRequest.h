@@ -21,8 +21,8 @@
 
 @interface PubnativeNetworkRequest : NSObject
 
-- (void)startRequestWithAppToken:(NSString*)appToken
-                     placementID:(NSString*)placementID
-                        delegate:(NSObject<PubnativeNetworkRequestDelegate>*)delegate;
+- (void)startWithAppToken:(NSString*)appToken
+              placementID:(NSString*)placementID
+                 delegate:(NSObject<PubnativeNetworkRequestDelegate>*)delegate;
 
 @end
