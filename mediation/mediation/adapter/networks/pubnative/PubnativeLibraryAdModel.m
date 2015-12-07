@@ -93,7 +93,6 @@
     if (self.model && adView) {
         UITapGestureRecognizer *singleTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                               action:@selector(adViewTapped)];
-        singleTapRecognizer.numberOfTapsRequired = 1;
         [adView addGestureRecognizer:singleTapRecognizer];
     }
 }

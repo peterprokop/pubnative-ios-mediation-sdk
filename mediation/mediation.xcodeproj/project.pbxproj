@@ -15,6 +15,9 @@
 		037486D91BF0DA3F004FFEA1 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037486D41BF0D961004FFEA1 /* FBAudienceNetwork.framework */; };
 		037D87A41C08A4C80076164F /* PubnativeAdModelSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 037D87A31C08A4C80076164F /* PubnativeAdModelSpec.m */; };
 		03B9B4131C08A87500CCA0CE /* PubnativeNetworkRequestSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B9B4121C08A87500CCA0CE /* PubnativeNetworkRequestSpec.m */; };
+		03F8713A1C11D54B00A8889D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0398546B1C10827F0008C326 /* AdSupport.framework */; };
+		03F8713B1C11D55200A8889D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0398546B1C10827F0008C326 /* AdSupport.framework */; };
+		03F8713C1C11D55400A8889D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0398546B1C10827F0008C326 /* AdSupport.framework */; };
 		03FE293B1C1064DD00E9BEC7 /* PNAdConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FE28941C1064DC00E9BEC7 /* PNAdConstants.m */; };
 		03FE293C1C1064DD00E9BEC7 /* PNVideoCacher.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FE28A71C1064DC00E9BEC7 /* PNVideoCacher.m */; };
 		03FE293D1C1064DD00E9BEC7 /* PNVideoPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FE28A91C1064DC00E9BEC7 /* PNVideoPlayer.m */; };
@@ -363,6 +366,7 @@
 			files = (
 				037486D71BF0D961004FFEA1 /* FBAudienceNetwork.framework in Frameworks */,
 				A7790EE3605B243BD8C2DC3E /* libPods-PubnativeMediation.a in Frameworks */,
+				03F8713B1C11D55200A8889D /* AdSupport.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,6 +375,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				037486D81BF0DA3E004FFEA1 /* FBAudienceNetwork.framework in Frameworks */,
+				03F8713A1C11D54B00A8889D /* AdSupport.framework in Frameworks */,
 				D5E26AA31BEA4B7F00888F42 /* libPubnativeMediation.a in Frameworks */,
 				E69F6564C0ABFAAAC7183D70 /* libPods-PubnativeMediationTests.a in Frameworks */,
 			);
@@ -381,6 +386,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				037486D91BF0DA3F004FFEA1 /* FBAudienceNetwork.framework in Frameworks */,
+				03F8713C1C11D55400A8889D /* AdSupport.framework in Frameworks */,
 				D54384C81BC529CC00EBE27A /* libPubnativeMediation.a in Frameworks */,
 				25FFE773F39179F889518868 /* libPods-PubnativeMediationDemo.a in Frameworks */,
 			);
