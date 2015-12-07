@@ -37,7 +37,7 @@ class CellRequestModel: NSObject, PubnativeNetworkRequestDelegate {
     func startRequest(indexPath: NSIndexPath, delegate:CellRequestModelDelegate) {
         self.indexPath = indexPath
         self.delegate = delegate
-        networkRequest.startRequestWithAppToken(appToken, placementID: placementID, delegate: self)
+        networkRequest.startWithAppToken(appToken, placementID: placementID, delegate: self)
     }
     
     // MARK: PubnativeNetworkRequestDelegate Callback

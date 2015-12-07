@@ -455,9 +455,9 @@ describe(@"when starting a request through public inteface", ^{
                 });
                 
                 it(@"invoke fail", ^{
-                    [requestMock startRequestWithAppToken:appToken
-                                              placementID:placementId
-                                                 delegate:delegateMock];
+                    [requestMock startWithAppToken:appToken
+                                       placementID:placementId
+                                          delegate:delegateMock];
                     OCMVerify([delegateMock pubnativeRequestDidStart:[OCMArg isNotNil]]);
                     OCMVerify([delegateMock pubnativeRequest:[OCMArg isNotNil] didFail:[OCMArg isNotNil]]);
                 });
@@ -472,9 +472,9 @@ describe(@"when starting a request through public inteface", ^{
                 });
                 
                 it(@"invoke fail", ^{
-                    [requestMock startRequestWithAppToken:appToken
-                                              placementID:placementId
-                                                 delegate:delegateMock];
+                    [requestMock startWithAppToken:appToken
+                                       placementID:placementId
+                                          delegate:delegateMock];
                     OCMVerify([delegateMock pubnativeRequestDidStart:[OCMArg isNotNil]]);
                     OCMVerify([delegateMock pubnativeRequest:[OCMArg isNotNil] didFail:[OCMArg isNotNil]]);
                 });
@@ -489,9 +489,9 @@ describe(@"when starting a request through public inteface", ^{
                 });
                 
                 it(@"invoke fail", ^{
-                    [requestMock startRequestWithAppToken:appToken
-                                              placementID:placementId
-                                                 delegate:delegateMock];
+                    [requestMock startWithAppToken:appToken
+                                       placementID:placementId
+                                          delegate:delegateMock];
                     OCMVerify([delegateMock pubnativeRequestDidStart:[OCMArg isNotNil]]);
                     OCMVerify([delegateMock pubnativeRequest:[OCMArg isNotNil] didFail:[OCMArg isNotNil]]);
                 });
@@ -515,9 +515,9 @@ describe(@"when starting a request through public inteface", ^{
                 });
                 
                 it(@"invoke fail", ^{
-                    [requestMock startRequestWithAppToken:appToken
-                                              placementID:placementId
-                                                 delegate:delegateMock];
+                    [requestMock startWithAppToken:appToken
+                                       placementID:placementId
+                                          delegate:delegateMock];
                     OCMVerify([delegateMock pubnativeRequestDidStart:[OCMArg isNotNil]]);
                     OCMVerify([delegateMock pubnativeRequest:[OCMArg isNotNil] didFail:[OCMArg isNotNil]]);
                 });
@@ -532,9 +532,9 @@ describe(@"when starting a request through public inteface", ^{
                 });
                 
                 it(@"invoke fail", ^{
-                    [requestMock startRequestWithAppToken:appToken
-                                              placementID:placementId
-                                                 delegate:delegateMock];
+                    [requestMock startWithAppToken:appToken
+                                       placementID:placementId
+                                          delegate:delegateMock];
                     OCMVerify([delegateMock pubnativeRequestDidStart:[OCMArg isNotNil]]);
                     OCMVerify([delegateMock pubnativeRequest:[OCMArg isNotNil] didFail:[OCMArg isNotNil]]);
                 });
@@ -549,9 +549,9 @@ describe(@"when starting a request through public inteface", ^{
                 });
                 
                 it(@"invoke fail", ^{
-                    [requestMock startRequestWithAppToken:appToken
-                                              placementID:placementId
-                                                 delegate:delegateMock];
+                    [requestMock startWithAppToken:appToken
+                                       placementID:placementId
+                                          delegate:delegateMock];
                     OCMVerify([delegateMock pubnativeRequestDidStart:[OCMArg isNotNil]]);
                     OCMVerify([delegateMock pubnativeRequest:[OCMArg isNotNil] didFail:[OCMArg isNotNil]]);
                 });
@@ -575,9 +575,9 @@ describe(@"when starting a request through public inteface", ^{
                 });
                 
                 it(@"invoke fail", ^{
-                    [requestMock startRequestWithAppToken:appToken
-                                              placementID:placementId
-                                                 delegate:delegateMock];
+                    [requestMock startWithAppToken:appToken
+                                       placementID:placementId
+                                          delegate:delegateMock];
                     OCMVerify([delegateMock pubnativeRequestDidStart:[OCMArg isNotNil]]);
                     OCMVerify([delegateMock pubnativeRequest:[OCMArg isNotNil] didFail:[OCMArg isNotNil]]);
                 });
@@ -592,9 +592,9 @@ describe(@"when starting a request through public inteface", ^{
                 });
                 
                 it(@"invoke fail", ^{
-                    [requestMock startRequestWithAppToken:appToken
-                                              placementID:placementId
-                                                 delegate:delegateMock];
+                    [requestMock startWithAppToken:appToken
+                                       placementID:placementId
+                                          delegate:delegateMock];
                     OCMVerify([delegateMock pubnativeRequestDidStart:[OCMArg isNotNil]]);
                     OCMVerify([delegateMock pubnativeRequest:[OCMArg isNotNil] didFail:[OCMArg isNotNil]]);
                 });
@@ -612,9 +612,9 @@ describe(@"when starting a request through public inteface", ^{
                 
                 it(@"make config fetch request", ^{
                     OCMExpect([configManagerMock configWithAppToken:appToken delegate:[OCMArg isNotNil]]);
-                    [requestMock startRequestWithAppToken:appToken
-                                              placementID:placementId
-                                                 delegate:delegateMock];
+                    [requestMock startWithAppToken:appToken
+                                       placementID:placementId
+                                          delegate:delegateMock];
                     OCMVerify([delegateMock pubnativeRequestDidStart:[OCMArg isNotNil]]);
                     OCMVerifyAll(configManagerMock);
                 });
@@ -624,9 +624,9 @@ describe(@"when starting a request through public inteface", ^{
                     OCMExpect([requestMock setAppToken:appToken]);
                     OCMExpect([requestMock setPlacementID:placementId]);
                     OCMExpect([requestMock setCurrentNetworkIndex:0]);
-                    [requestMock startRequestWithAppToken:appToken
-                                              placementID:placementId
-                                                 delegate:delegateMock];
+                    [requestMock startWithAppToken:appToken
+                                       placementID:placementId
+                                          delegate:delegateMock];
                     OCMVerifyAll(requestMock);
                 });
                 

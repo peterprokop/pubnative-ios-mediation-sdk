@@ -25,9 +25,9 @@
 
 #pragma mark - Network Request -
 
-- (void)startRequestWithAppToken:(NSString*)appToken
-                     placementID:(NSString*)placementID
-                        delegate:(NSObject<PubnativeNetworkRequestDelegate>*)delegate
+- (void)startWithAppToken:(NSString*)appToken
+              placementID:(NSString*)placementID
+                 delegate:(NSObject<PubnativeNetworkRequestDelegate>*)delegate
 {
     if (delegate) {
         self.delegate = delegate;
@@ -47,13 +47,13 @@
                                               delegate:self];
             
         } else {
-            NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.startRequestWithAppToken:placementID:delegate:- Error: Invalid AppToken/PlacementID"
+            NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.startWithAppToken:placementID:delegate:- Error: Invalid AppToken/PlacementID"
                                                  code:0
                                              userInfo:nil];
             [self invokeDidFail:error];
         }
     } else {
-        NSLog(@"PubnativeNetworkRequest.startRequestWithAppToken:placementID:delegate:- Error: Delegate not specified");
+        NSLog(@"PubnativeNetworkRequest.startWithAppToken:placementID:delegate:- Error: Delegate not specified");
     }
 }
 
