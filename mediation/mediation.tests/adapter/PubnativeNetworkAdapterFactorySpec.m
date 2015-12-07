@@ -101,6 +101,10 @@ describe(@"adapter creation", ^{
         context(@"and facebook adapter name", ^{
             itShouldBehaveLike(sharedExampleCreateAdapter, @{ adapterKey : @"FacebookNetworkAdapter" });
         });
+        
+        context(@"and pubnative library adapter name", ^{
+            itShouldBehaveLike(sharedExampleCreateAdapter, @{ adapterKey : @"PubnativeLibraryNetworkAdapter" });
+        });
     });
 });
 
