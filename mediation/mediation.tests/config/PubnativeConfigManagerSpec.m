@@ -947,22 +947,19 @@ describe(@"processing download", ^{
             });
             
             context(@"non parseable", ^{
-               
-                __block id parseError;
                 
                 before(^{
-                    parseError = OCMClassMock([NSError class]);
-                    OCMStub([responseModelMock parseDictionary:[OCMArg any]
-                                                         error:[OCMArg setTo:parseError]]).andReturn(nil);
+                    OCMStub([responseModelMock parseDictionary:[OCMArg any]]).andReturn(nil);
                 });
                 
                 it(@"callback fail", ^{
-                    OCMExpect([managerMock invokeDidFailWithError:parseError
+                    OCMExpect([managerMock invokeDidFailWithError:[OCMArg isNotNil]
                                                          delegate:delegateMock]);
                     
                     [PubnativeConfigManager processDownloadResponseWithRequest:requestMock
                                                                       withJson:jsonParameter
                                                                          error:errorParameter];
+                    
                     OCMVerifyAll(managerMock);
                 });
             });
@@ -970,8 +967,7 @@ describe(@"processing download", ^{
             context(@"parseable", ^{
                 
                 before(^{
-                    OCMStub([responseModelMock parseDictionary:[OCMArg any]
-                                                         error:[OCMArg anyObjectRef]]).andReturn(responseModelMock);
+                    OCMStub([responseModelMock parseDictionary:[OCMArg any]]).andReturn(responseModelMock);
                 });
                 
                 context(@"with error response", ^{
@@ -989,6 +985,7 @@ describe(@"processing download", ^{
                                                                           withJson:jsonParameter
                                                                              error:errorParameter];
                         OCMVerifyAll(managerMock);
+                        
                         OCMVerifyAll(responseModelMock);
                     });
                 });

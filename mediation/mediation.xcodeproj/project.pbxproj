@@ -7,14 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		031A88D61BFE0CB50039D86F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031A88D31BFE0CB50039D86F /* AppDelegate.swift */; };
+		031A88D71BFE0CB50039D86F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 031A88D41BFE0CB50039D86F /* Main.storyboard */; };
+		031A88D81BFE0CB50039D86F /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031A88D51BFE0CB50039D86F /* SettingViewController.swift */; };
+		031CFFB51BFF4AC500A0AECC /* CellRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031CFFB41BFF4AC500A0AECC /* CellRequestModel.swift */; };
+		0336686E1BFE0FE100108944 /* PubnativeTestCrediantials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0336686D1BFE0FE100108944 /* PubnativeTestCrediantials.swift */; };
+		03484F5A1C02EBD000D193B5 /* NativeAdTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03484F591C02EBD000D193B5 /* NativeAdTableViewCell.swift */; };
 		034D6F5C1BEA5DE6001CF3A5 /* TestValidNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 034D6F5A1BEA5DAC001CF3A5 /* TestValidNetworkAdapter.m */; };
 		037486D51BF0D961004FFEA1 /* FacebookNativeAdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 037486D11BF0D961004FFEA1 /* FacebookNativeAdModel.m */; };
 		037486D61BF0D961004FFEA1 /* FacebookNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 037486D31BF0D961004FFEA1 /* FacebookNetworkAdapter.m */; };
 		037486D71BF0D961004FFEA1 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037486D41BF0D961004FFEA1 /* FBAudienceNetwork.framework */; };
 		037486D81BF0DA3E004FFEA1 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037486D41BF0D961004FFEA1 /* FBAudienceNetwork.framework */; };
 		037486D91BF0DA3F004FFEA1 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037486D41BF0D961004FFEA1 /* FBAudienceNetwork.framework */; };
-		037D87A41C08A4C80076164F /* PubnativeAdModelSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 037D87A31C08A4C80076164F /* PubnativeAdModelSpec.m */; };
-		03B9B4131C08A87500CCA0CE /* PubnativeNetworkRequestSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 03B9B4121C08A87500CCA0CE /* PubnativeNetworkRequestSpec.m */; };
+		0376A7D91C0C5B5B008D25A2 /* PubnativeNetworkRequestSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 0376A7D81C0C5B5B008D25A2 /* PubnativeNetworkRequestSpec.m */; };
+		0376A7DB1C0C5B6C008D25A2 /* PubnativeAdModelSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 0376A7DA1C0C5B6C008D25A2 /* PubnativeAdModelSpec.m */; };
+		03D092841BFEFDB600A79CA7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D092831BFEFDB600A79CA7 /* MainViewController.swift */; };
 		03F8713A1C11D54B00A8889D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0398546B1C10827F0008C326 /* AdSupport.framework */; };
 		03F8713B1C11D55200A8889D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0398546B1C10827F0008C326 /* AdSupport.framework */; };
 		03F8713C1C11D55400A8889D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0398546B1C10827F0008C326 /* AdSupport.framework */; };
@@ -80,9 +87,6 @@
 		D54384951BC528D000EBE27A /* PubnativeNetworkAdapterFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D54384831BC528D000EBE27A /* PubnativeNetworkAdapterFactory.m */; };
 		D54384991BC528D000EBE27A /* PubnativeAdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D54384911BC528D000EBE27A /* PubnativeAdModel.m */; };
 		D543849A1BC528D000EBE27A /* PubnativeNetworkRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D54384931BC528D000EBE27A /* PubnativeNetworkRequest.m */; };
-		D54384B81BC528F500EBE27A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54384B71BC528F500EBE27A /* AppDelegate.swift */; };
-		D54384BA1BC528F500EBE27A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54384B91BC528F500EBE27A /* ViewController.swift */; };
-		D54384BD1BC528F500EBE27A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D54384BB1BC528F500EBE27A /* Main.storyboard */; };
 		D54384BF1BC528F500EBE27A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D54384BE1BC528F500EBE27A /* Assets.xcassets */; };
 		D54384C21BC528F500EBE27A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D54384C01BC528F500EBE27A /* LaunchScreen.storyboard */; };
 		D54384C81BC529CC00EBE27A /* libPubnativeMediation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D54384621BC528A000EBE27A /* libPubnativeMediation.a */; };
@@ -112,7 +116,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		D54384C91BC529D200EBE27A /* PBXContainerItemProxy */ = {
+		03CCA9FD1C084DB700C69D17 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D543845A1BC528A000EBE27A /* Project object */;
 			proxyType = 1;
@@ -141,6 +145,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		031A88D31BFE0CB50039D86F /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		031A88D41BFE0CB50039D86F /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		031A88D51BFE0CB50039D86F /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		031CFFB41BFF4AC500A0AECC /* CellRequestModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellRequestModel.swift; sourceTree = "<group>"; };
+		0336686D1BFE0FE100108944 /* PubnativeTestCrediantials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PubnativeTestCrediantials.swift; sourceTree = "<group>"; };
+		03484F591C02EBD000D193B5 /* NativeAdTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAdTableViewCell.swift; sourceTree = "<group>"; };
 		034D6F591BEA5DAC001CF3A5 /* TestValidNetworkAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestValidNetworkAdapter.h; sourceTree = "<group>"; };
 		034D6F5A1BEA5DAC001CF3A5 /* TestValidNetworkAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestValidNetworkAdapter.m; sourceTree = "<group>"; };
 		037486D01BF0D961004FFEA1 /* FacebookNativeAdModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookNativeAdModel.h; sourceTree = "<group>"; };
@@ -148,9 +158,11 @@
 		037486D21BF0D961004FFEA1 /* FacebookNetworkAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookNetworkAdapter.h; sourceTree = "<group>"; };
 		037486D31BF0D961004FFEA1 /* FacebookNetworkAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookNetworkAdapter.m; sourceTree = "<group>"; };
 		037486D41BF0D961004FFEA1 /* FBAudienceNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBAudienceNetwork.framework; sourceTree = "<group>"; };
-		037D87A31C08A4C80076164F /* PubnativeAdModelSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeAdModelSpec.m; sourceTree = "<group>"; };
+		0376A7D81C0C5B5B008D25A2 /* PubnativeNetworkRequestSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeNetworkRequestSpec.m; sourceTree = "<group>"; };
+		0376A7DA1C0C5B6C008D25A2 /* PubnativeAdModelSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeAdModelSpec.m; sourceTree = "<group>"; };
 		0398546B1C10827F0008C326 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
-		03B9B4121C08A87500CCA0CE /* PubnativeNetworkRequestSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeNetworkRequestSpec.m; sourceTree = "<group>"; };
+		03CCAA011C08504100C69D17 /* PubnativeMediationDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PubnativeMediationDemo-Bridging-Header.h"; sourceTree = "<group>"; };
+		03D092831BFEFDB600A79CA7 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		03FE28931C1064DC00E9BEC7 /* PNAdConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNAdConstants.h; sourceTree = "<group>"; };
 		03FE28941C1064DC00E9BEC7 /* PNAdConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNAdConstants.m; sourceTree = "<group>"; };
 		03FE28961C1064DC00E9BEC7 /* PnClose.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PnClose.png; sourceTree = "<group>"; };
@@ -317,13 +329,9 @@
 		D54384921BC528D000EBE27A /* PubnativeNetworkRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeNetworkRequest.h; sourceTree = "<group>"; };
 		D54384931BC528D000EBE27A /* PubnativeNetworkRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeNetworkRequest.m; sourceTree = "<group>"; };
 		D54384B51BC528F500EBE27A /* PubnativeMediationDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PubnativeMediationDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		D54384B71BC528F500EBE27A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D54384B91BC528F500EBE27A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		D54384BC1BC528F500EBE27A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D54384BE1BC528F500EBE27A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D54384C11BC528F500EBE27A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D54384C31BC528F500EBE27A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D54384CB1BC529EA00EBE27A /* PubnativeMediationDemo-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PubnativeMediationDemo-Bridging-Header.h"; sourceTree = "<group>"; };
 		D5E26AA51BEA4C1900888F42 /* PubnativeConfigManagerSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeConfigManagerSpec.m; sourceTree = "<group>"; };
 		D5E26AA61BEA4C1900888F42 /* PubnativeConfigUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeConfigUtils.h; sourceTree = "<group>"; };
 		D5E26AA71BEA4C1900888F42 /* PubnativeConfigUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeConfigUtils.m; sourceTree = "<group>"; };
@@ -398,7 +406,7 @@
 		037D87A21C08A4C80076164F /* model */ = {
 			isa = PBXGroup;
 			children = (
-				037D87A31C08A4C80076164F /* PubnativeAdModelSpec.m */,
+				0376A7DA1C0C5B6C008D25A2 /* PubnativeAdModelSpec.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -890,13 +898,17 @@
 		D54384B61BC528F500EBE27A /* mediation.demo */ = {
 			isa = PBXGroup;
 			children = (
-				D54384B71BC528F500EBE27A /* AppDelegate.swift */,
-				D54384B91BC528F500EBE27A /* ViewController.swift */,
-				D54384BB1BC528F500EBE27A /* Main.storyboard */,
+				031A88D31BFE0CB50039D86F /* AppDelegate.swift */,
+				031A88D41BFE0CB50039D86F /* Main.storyboard */,
+				03D092831BFEFDB600A79CA7 /* MainViewController.swift */,
+				031A88D51BFE0CB50039D86F /* SettingViewController.swift */,
+				0336686D1BFE0FE100108944 /* PubnativeTestCrediantials.swift */,
+				031CFFB41BFF4AC500A0AECC /* CellRequestModel.swift */,
+				03484F591C02EBD000D193B5 /* NativeAdTableViewCell.swift */,
 				D54384BE1BC528F500EBE27A /* Assets.xcassets */,
 				D54384C01BC528F500EBE27A /* LaunchScreen.storyboard */,
 				D54384C31BC528F500EBE27A /* Info.plist */,
-				D54384CB1BC529EA00EBE27A /* PubnativeMediationDemo-Bridging-Header.h */,
+				03CCAA011C08504100C69D17 /* PubnativeMediationDemo-Bridging-Header.h */,
 			);
 			path = mediation.demo;
 			sourceTree = "<group>";
@@ -976,8 +988,8 @@
 		D5E26AD61BEA528D00888F42 /* request */ = {
 			isa = PBXGroup;
 			children = (
+				0376A7D81C0C5B5B008D25A2 /* PubnativeNetworkRequestSpec.m */,
 				037D87A21C08A4C80076164F /* model */,
-				03B9B4121C08A87500CCA0CE /* PubnativeNetworkRequestSpec.m */,
 			);
 			path = request;
 			sourceTree = "<group>";
@@ -1043,12 +1055,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D543847A1BC528BC00EBE27A /* Build configuration list for PBXNativeTarget "PubnativeMediationTests" */;
 			buildPhases = (
-				6394B2B329992E0FCBD2723C /* Check Pods Manifest.lock */,
 				D543846E1BC528BC00EBE27A /* Sources */,
 				D543846F1BC528BC00EBE27A /* Frameworks */,
 				D54384701BC528BC00EBE27A /* Resources */,
 				37726F195D30C3E37002114A /* Copy Pods Resources */,
-				3106C165FE8ACDD5422E17E1 /* Embed Pods Frameworks */,
+				FEB52E00457CDFAEA46B3CFC /* Check Pods Manifest.lock */,
+				9B34ADB933E13F78EA1C7A69 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1064,17 +1076,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D54384C41BC528F500EBE27A /* Build configuration list for PBXNativeTarget "PubnativeMediationDemo" */;
 			buildPhases = (
-				53EA25DF2F42AE4279B90C46 /* Check Pods Manifest.lock */,
 				D54384B11BC528F500EBE27A /* Sources */,
 				D54384B21BC528F500EBE27A /* Frameworks */,
 				D54384B31BC528F500EBE27A /* Resources */,
 				3570BB71B5D282D524BD7B33 /* Copy Pods Resources */,
-				3485115F360D361991121DC1 /* Embed Pods Frameworks */,
+				73F4AE00859531CEC50D5ABB /* Check Pods Manifest.lock */,
+				C8DBBAEB897FB9EEA6E9500B /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				D54384CA1BC529D200EBE27A /* PBXTargetDependency */,
+				03CCA9FE1C084DB700C69D17 /* PBXTargetDependency */,
 			);
 			name = PubnativeMediationDemo;
 			productName = mediation.demo;
@@ -1141,9 +1153,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				031A88D71BFE0CB50039D86F /* Main.storyboard in Resources */,
 				D54384C21BC528F500EBE27A /* LaunchScreen.storyboard in Resources */,
 				D54384BF1BC528F500EBE27A /* Assets.xcassets in Resources */,
-				D54384BD1BC528F500EBE27A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1163,36 +1175,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		3106C165FE8ACDD5422E17E1 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-PubnativeMediationTests/Pods-PubnativeMediationTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3485115F360D361991121DC1 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-PubnativeMediationDemo/Pods-PubnativeMediationDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		3570BB71B5D282D524BD7B33 /* Copy Pods Resources */ = {
@@ -1240,7 +1222,7 @@
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-PubnativeMediation/Pods-PubnativeMediation-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		53EA25DF2F42AE4279B90C46 /* Check Pods Manifest.lock */ = {
+		73F4AE00859531CEC50D5ABB /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1255,7 +1237,37 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		6394B2B329992E0FCBD2723C /* Check Pods Manifest.lock */ = {
+		9B34ADB933E13F78EA1C7A69 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-PubnativeMediationTests/Pods-PubnativeMediationTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C8DBBAEB897FB9EEA6E9500B /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-PubnativeMediationDemo/Pods-PubnativeMediationDemo-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FEB52E00457CDFAEA46B3CFC /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1356,13 +1368,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				037D87A41C08A4C80076164F /* PubnativeAdModelSpec.m in Sources */,
 				D5E26AC81BEA4F6E00888F42 /* PubnativeNetworkAdapterSpec.m in Sources */,
 				D5E26AA91BEA4C1900888F42 /* PubnativeConfigUtils.m in Sources */,
+				0376A7DB1C0C5B6C008D25A2 /* PubnativeAdModelSpec.m in Sources */,
 				034D6F5C1BEA5DE6001CF3A5 /* TestValidNetworkAdapter.m in Sources */,
 				D5E26AC71BEA4F6E00888F42 /* PubnativeNetworkAdapterFactorySpec.m in Sources */,
+				0376A7D91C0C5B5B008D25A2 /* PubnativeNetworkRequestSpec.m in Sources */,
 				D5E26AA81BEA4C1900888F42 /* PubnativeConfigManagerSpec.m in Sources */,
-				03B9B4131C08A87500CCA0CE /* PubnativeNetworkRequestSpec.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1370,18 +1382,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D54384BA1BC528F500EBE27A /* ViewController.swift in Sources */,
-				D54384B81BC528F500EBE27A /* AppDelegate.swift in Sources */,
+				03484F5A1C02EBD000D193B5 /* NativeAdTableViewCell.swift in Sources */,
+				0336686E1BFE0FE100108944 /* PubnativeTestCrediantials.swift in Sources */,
+				031A88D61BFE0CB50039D86F /* AppDelegate.swift in Sources */,
+				031A88D81BFE0CB50039D86F /* SettingViewController.swift in Sources */,
+				03D092841BFEFDB600A79CA7 /* MainViewController.swift in Sources */,
+				031CFFB51BFF4AC500A0AECC /* CellRequestModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		D54384CA1BC529D200EBE27A /* PBXTargetDependency */ = {
+		03CCA9FE1C084DB700C69D17 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D54384611BC528A000EBE27A /* PubnativeMediation */;
-			targetProxy = D54384C91BC529D200EBE27A /* PBXContainerItemProxy */;
+			targetProxy = 03CCA9FD1C084DB700C69D17 /* PBXContainerItemProxy */;
 		};
 		D5E26AA21BEA4B7600888F42 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1391,14 +1407,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		D54384BB1BC528F500EBE27A /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D54384BC1BC528F500EBE27A /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		D54384C01BC528F500EBE27A /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1558,6 +1566,7 @@
 					"$(PROJECT_DIR)/mediation/adapter/networks/facebook",
 				);
 				INFOPLIST_FILE = mediation.demo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.pubnative.mediation-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1579,6 +1588,7 @@
 					"$(PROJECT_DIR)/mediation/adapter/networks/facebook",
 				);
 				INFOPLIST_FILE = mediation.demo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.pubnative.mediation-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
