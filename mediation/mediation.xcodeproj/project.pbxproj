@@ -14,7 +14,6 @@
 		0336686E1BFE0FE100108944 /* PubnativeTestCrediantials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0336686D1BFE0FE100108944 /* PubnativeTestCrediantials.swift */; };
 		03484F5A1C02EBD000D193B5 /* NativeAdTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03484F591C02EBD000D193B5 /* NativeAdTableViewCell.swift */; };
 		034D6F5C1BEA5DE6001CF3A5 /* TestValidNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 034D6F5A1BEA5DAC001CF3A5 /* TestValidNetworkAdapter.m */; };
-		037486D51BF0D961004FFEA1 /* FacebookNativeAdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 037486D11BF0D961004FFEA1 /* FacebookNativeAdModel.m */; };
 		037486D61BF0D961004FFEA1 /* FacebookNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 037486D31BF0D961004FFEA1 /* FacebookNetworkAdapter.m */; };
 		037486D71BF0D961004FFEA1 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037486D41BF0D961004FFEA1 /* FBAudienceNetwork.framework */; };
 		037486D81BF0DA3E004FFEA1 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037486D41BF0D961004FFEA1 /* FBAudienceNetwork.framework */; };
@@ -23,6 +22,8 @@
 		0376A7DB1C0C5B6C008D25A2 /* PubnativeAdModelSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 0376A7DA1C0C5B6C008D25A2 /* PubnativeAdModelSpec.m */; };
 		03D092841BFEFDB600A79CA7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D092831BFEFDB600A79CA7 /* MainViewController.swift */; };
 		03E4F60F1C16A89A00C0C05F /* PNVideoBannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FE28F11C1064DC00E9BEC7 /* PNVideoBannerViewController.m */; };
+		03E4F6111C16AD5800C0C05F /* PNNativeVideoAdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FE292B1C1064DD00E9BEC7 /* PNNativeVideoAdModel.m */; };
+		03E4F6121C16AD6F00C0C05F /* FacebookNativeAdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 037486D11BF0D961004FFEA1 /* FacebookNativeAdModel.m */; };
 		03F8713A1C11D54B00A8889D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0398546B1C10827F0008C326 /* AdSupport.framework */; };
 		03F8713B1C11D55200A8889D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0398546B1C10827F0008C326 /* AdSupport.framework */; };
 		03F8713C1C11D55400A8889D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0398546B1C10827F0008C326 /* AdSupport.framework */; };
@@ -72,7 +73,6 @@
 		03FE29671C1064DD00E9BEC7 /* PNBeaconModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FE29251C1064DD00E9BEC7 /* PNBeaconModel.m */; };
 		03FE29681C1064DD00E9BEC7 /* PNNativeAdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FE29271C1064DD00E9BEC7 /* PNNativeAdModel.m */; };
 		03FE29691C1064DD00E9BEC7 /* PNNativeAPIModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FE29291C1064DD00E9BEC7 /* PNNativeAPIModel.m */; };
-		03FE296A1C1064DD00E9BEC7 /* PNNativeVideoAdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FE292B1C1064DD00E9BEC7 /* PNNativeVideoAdModel.m */; };
 		03FE296B1C1064DD00E9BEC7 /* PNNativeVideoAPIModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FE292D1C1064DD00E9BEC7 /* PNNativeVideoAPIModel.m */; };
 		03FE296C1C1064DD00E9BEC7 /* PNVastModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FE292F1C1064DD00E9BEC7 /* PNVastModel.m */; };
 		03FE296D1C1064DD00E9BEC7 /* Pubnative.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FE29311C1064DD00E9BEC7 /* Pubnative.m */; };
@@ -1290,8 +1290,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5FE08231BEA170B007396B6 /* PubnativeConfigAPIResponseModel.m in Sources */,
-				037486D51BF0D961004FFEA1 /* FacebookNativeAdModel.m in Sources */,
-				03FE296A1C1064DD00E9BEC7 /* PNNativeVideoAdModel.m in Sources */,
 				03FE29461C1064DD00E9BEC7 /* PNNativeTableViewCell.m in Sources */,
 				D54384941BC528D000EBE27A /* PubnativeNetworkAdapter.m in Sources */,
 				03FE293E1C1064DD00E9BEC7 /* PNVideoPlayerView.m in Sources */,
@@ -1332,7 +1330,9 @@
 				03FE29401C1064DD00E9BEC7 /* VastXMLParser.m in Sources */,
 				03FE29701C1064DD00E9BEC7 /* PubnativeExtension.m in Sources */,
 				D5FE082A1BEA170B007396B6 /* PubnativePriorityRulesModel.m in Sources */,
+				03E4F6121C16AD6F00C0C05F /* FacebookNativeAdModel.m in Sources */,
 				03FE293D1C1064DD00E9BEC7 /* PNVideoPlayer.m in Sources */,
+				03E4F6111C16AD5800C0C05F /* PNNativeVideoAdModel.m in Sources */,
 				03FE29441C1064DD00E9BEC7 /* PNCarouselTableViewCell.m in Sources */,
 				D5FE08271BEA170B007396B6 /* PubnativeDeliveryRuleModel.m in Sources */,
 				03FE296E1C1064DD00E9BEC7 /* PNAdRequest.m in Sources */,
