@@ -1505,6 +1505,7 @@
 					"$(PROJECT_DIR)/mediation/adapter/networks/facebook",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -1519,6 +1520,7 @@
 					"$(PROJECT_DIR)/mediation/adapter/networks/facebook",
 				);
 				OTHER_LDFLAGS = "$(inherited)";
+				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
