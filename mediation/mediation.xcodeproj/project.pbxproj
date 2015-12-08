@@ -22,6 +22,7 @@
 		0376A7D91C0C5B5B008D25A2 /* PubnativeNetworkRequestSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 0376A7D81C0C5B5B008D25A2 /* PubnativeNetworkRequestSpec.m */; };
 		0376A7DB1C0C5B6C008D25A2 /* PubnativeAdModelSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = 0376A7DA1C0C5B6C008D25A2 /* PubnativeAdModelSpec.m */; };
 		03D092841BFEFDB600A79CA7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03D092831BFEFDB600A79CA7 /* MainViewController.swift */; };
+		03E4F60F1C16A89A00C0C05F /* PNVideoBannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FE28F11C1064DC00E9BEC7 /* PNVideoBannerViewController.m */; };
 		03F8713A1C11D54B00A8889D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0398546B1C10827F0008C326 /* AdSupport.framework */; };
 		03F8713B1C11D55200A8889D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0398546B1C10827F0008C326 /* AdSupport.framework */; };
 		03F8713C1C11D55400A8889D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0398546B1C10827F0008C326 /* AdSupport.framework */; };
@@ -49,7 +50,6 @@
 		03FE29501C1064DD00E9BEC7 /* PNIconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FE28E41C1064DC00E9BEC7 /* PNIconViewController.m */; };
 		03FE29511C1064DD00E9BEC7 /* PNInterstitialAdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FE28E81C1064DC00E9BEC7 /* PNInterstitialAdViewController.m */; };
 		03FE29521C1064DD00E9BEC7 /* PNVideoInterstitialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FE28ED1C1064DC00E9BEC7 /* PNVideoInterstitialViewController.m */; };
-		03FE29531C1064DD00E9BEC7 /* PNVideoBannerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FE28F11C1064DC00E9BEC7 /* PNVideoBannerViewController.m */; };
 		03FE29541C1064DD00E9BEC7 /* NSObject+DictionaryValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FE28F51C1064DC00E9BEC7 /* NSObject+DictionaryValue.m */; };
 		03FE29551C1064DD00E9BEC7 /* NSString+PNMD5.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FE28F71C1064DC00E9BEC7 /* NSString+PNMD5.m */; };
 		03FE29561C1064DD00E9BEC7 /* NSString+PNSHA1.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FE28F91C1064DC00E9BEC7 /* NSString+PNSHA1.m */; };
@@ -1289,7 +1289,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03FE29531C1064DD00E9BEC7 /* PNVideoBannerViewController.m in Sources */,
 				D5FE08231BEA170B007396B6 /* PubnativeConfigAPIResponseModel.m in Sources */,
 				037486D51BF0D961004FFEA1 /* FacebookNativeAdModel.m in Sources */,
 				03FE296A1C1064DD00E9BEC7 /* PNNativeVideoAdModel.m in Sources */,
@@ -1356,6 +1355,7 @@
 				03FE29431C1064DD00E9BEC7 /* PNCarouselContainerView.m in Sources */,
 				03FE294C1C1064DD00E9BEC7 /* PNVideoTableViewCell.m in Sources */,
 				03FE29471C1064DD00E9BEC7 /* PNArrayModelTableViewCell.m in Sources */,
+				03E4F60F1C16A89A00C0C05F /* PNVideoBannerViewController.m in Sources */,
 				D5FE082C1BEA170B007396B6 /* PubnativeDeliveryManager.m in Sources */,
 				03FE29541C1064DD00E9BEC7 /* NSObject+DictionaryValue.m in Sources */,
 				03FE29571C1064DD00E9BEC7 /* PNAMRatingControl.m in Sources */,
