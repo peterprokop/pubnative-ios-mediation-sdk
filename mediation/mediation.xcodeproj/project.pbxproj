@@ -9,10 +9,6 @@
 /* Begin PBXBuildFile section */
 		031A88D61BFE0CB50039D86F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031A88D31BFE0CB50039D86F /* AppDelegate.swift */; };
 		031A88D71BFE0CB50039D86F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 031A88D41BFE0CB50039D86F /* Main.storyboard */; };
-		031A88D81BFE0CB50039D86F /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031A88D51BFE0CB50039D86F /* SettingViewController.swift */; };
-		031CFFB51BFF4AC500A0AECC /* CellRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 031CFFB41BFF4AC500A0AECC /* CellRequestModel.swift */; };
-		0336686E1BFE0FE100108944 /* PubnativeTestCrediantials.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0336686D1BFE0FE100108944 /* PubnativeTestCrediantials.swift */; };
-		03484F5A1C02EBD000D193B5 /* NativeAdTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03484F591C02EBD000D193B5 /* NativeAdTableViewCell.swift */; };
 		034D6F5C1BEA5DE6001CF3A5 /* TestValidNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 034D6F5A1BEA5DAC001CF3A5 /* TestValidNetworkAdapter.m */; };
 		037486D61BF0D961004FFEA1 /* FacebookNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 037486D31BF0D961004FFEA1 /* FacebookNetworkAdapter.m */; };
 		037486D71BF0D961004FFEA1 /* FBAudienceNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 037486D41BF0D961004FFEA1 /* FBAudienceNetwork.framework */; };
@@ -28,6 +24,7 @@
 		03FE29781C1065D600E9BEC7 /* PubnativeLibraryNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 03FE29761C1065D600E9BEC7 /* PubnativeLibraryNetworkAdapter.m */; };
 		25FFE773F39179F889518868 /* libPods-PubnativeMediationDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5734361BBDD660F73DCEB216 /* libPods-PubnativeMediationDemo.a */; };
 		A7790EE3605B243BD8C2DC3E /* libPods-PubnativeMediation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FF7483EA05BDC146190BAAD6 /* libPods-PubnativeMediation.a */; };
+		D53FB3AD1CAD81C9008DADFB /* PubnativeHttpRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D53FB3AC1CAD81C9008DADFB /* PubnativeHttpRequest.m */; };
 		D54384941BC528D000EBE27A /* PubnativeNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = D54384811BC528D000EBE27A /* PubnativeNetworkAdapter.m */; };
 		D54384951BC528D000EBE27A /* PubnativeNetworkAdapterFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = D54384831BC528D000EBE27A /* PubnativeNetworkAdapterFactory.m */; };
 		D54384991BC528D000EBE27A /* PubnativeAdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D54384911BC528D000EBE27A /* PubnativeAdModel.m */; };
@@ -103,7 +100,6 @@
 		D5E26AC71BEA4F6E00888F42 /* PubnativeNetworkAdapterFactorySpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E26AC51BEA4F6E00888F42 /* PubnativeNetworkAdapterFactorySpec.m */; };
 		D5E26AC81BEA4F6E00888F42 /* PubnativeNetworkAdapterSpec.m in Sources */ = {isa = PBXBuildFile; fileRef = D5E26AC61BEA4F6E00888F42 /* PubnativeNetworkAdapterSpec.m */; };
 		D5FE08231BEA170B007396B6 /* PubnativeConfigAPIResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FE08101BEA170A007396B6 /* PubnativeConfigAPIResponseModel.m */; };
-		D5FE08241BEA170B007396B6 /* PubnativeConfigGlobalsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FE08121BEA170A007396B6 /* PubnativeConfigGlobalsModel.m */; };
 		D5FE08251BEA170B007396B6 /* PubnativeConfigModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FE08141BEA170B007396B6 /* PubnativeConfigModel.m */; };
 		D5FE08261BEA170B007396B6 /* PubnativeConfigRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FE08161BEA170B007396B6 /* PubnativeConfigRequestModel.m */; };
 		D5FE08271BEA170B007396B6 /* PubnativeDeliveryRuleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D5FE08181BEA170B007396B6 /* PubnativeDeliveryRuleModel.m */; };
@@ -147,10 +143,6 @@
 /* Begin PBXFileReference section */
 		031A88D31BFE0CB50039D86F /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		031A88D41BFE0CB50039D86F /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		031A88D51BFE0CB50039D86F /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
-		031CFFB41BFF4AC500A0AECC /* CellRequestModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellRequestModel.swift; sourceTree = "<group>"; };
-		0336686D1BFE0FE100108944 /* PubnativeTestCrediantials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PubnativeTestCrediantials.swift; sourceTree = "<group>"; };
-		03484F591C02EBD000D193B5 /* NativeAdTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeAdTableViewCell.swift; sourceTree = "<group>"; };
 		034D6F591BEA5DAC001CF3A5 /* TestValidNetworkAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestValidNetworkAdapter.h; sourceTree = "<group>"; };
 		034D6F5A1BEA5DAC001CF3A5 /* TestValidNetworkAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestValidNetworkAdapter.m; sourceTree = "<group>"; };
 		037486D01BF0D961004FFEA1 /* FacebookNativeAdModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookNativeAdModel.h; sourceTree = "<group>"; };
@@ -175,6 +167,8 @@
 		87446776F06DEC2ED0E7FB0B /* Pods-PubnativeMediationDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PubnativeMediationDemo.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-PubnativeMediationDemo/Pods-PubnativeMediationDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		9A89C6BA0BD3623B9800B81D /* Pods-PubnativeMediationTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PubnativeMediationTests.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-PubnativeMediationTests/Pods-PubnativeMediationTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B01C148AAD62E5CE9D169C10 /* Pods-PubnativeMediation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PubnativeMediation.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-PubnativeMediation/Pods-PubnativeMediation.debug.xcconfig"; sourceTree = "<group>"; };
+		D53FB3AB1CAD81C9008DADFB /* PubnativeHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PubnativeHttpRequest.h; path = network/PubnativeHttpRequest.h; sourceTree = "<group>"; };
+		D53FB3AC1CAD81C9008DADFB /* PubnativeHttpRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeHttpRequest.m; path = network/PubnativeHttpRequest.m; sourceTree = "<group>"; };
 		D54384621BC528A000EBE27A /* libPubnativeMediation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPubnativeMediation.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D54384721BC528BC00EBE27A /* PubnativeMediationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PubnativeMediationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D54384761BC528BC00EBE27A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -346,8 +340,6 @@
 		D5E26AC61BEA4F6E00888F42 /* PubnativeNetworkAdapterSpec.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeNetworkAdapterSpec.m; sourceTree = "<group>"; };
 		D5FE080F1BEA170A007396B6 /* PubnativeConfigAPIResponseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeConfigAPIResponseModel.h; sourceTree = "<group>"; };
 		D5FE08101BEA170A007396B6 /* PubnativeConfigAPIResponseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeConfigAPIResponseModel.m; sourceTree = "<group>"; };
-		D5FE08111BEA170A007396B6 /* PubnativeConfigGlobalsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeConfigGlobalsModel.h; sourceTree = "<group>"; };
-		D5FE08121BEA170A007396B6 /* PubnativeConfigGlobalsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeConfigGlobalsModel.m; sourceTree = "<group>"; };
 		D5FE08131BEA170B007396B6 /* PubnativeConfigModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeConfigModel.h; sourceTree = "<group>"; };
 		D5FE08141BEA170B007396B6 /* PubnativeConfigModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeConfigModel.m; sourceTree = "<group>"; };
 		D5FE08151BEA170B007396B6 /* PubnativeConfigRequestModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeConfigRequestModel.h; sourceTree = "<group>"; };
@@ -447,6 +439,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D53FB3AA1CAD81AF008DADFB /* network */ = {
+			isa = PBXGroup;
+			children = (
+				D53FB3AB1CAD81C9008DADFB /* PubnativeHttpRequest.h */,
+				D53FB3AC1CAD81C9008DADFB /* PubnativeHttpRequest.m */,
+			);
+			name = network;
+			sourceTree = "<group>";
+		};
 		D54384591BC528A000EBE27A = {
 			isa = PBXGroup;
 			children = (
@@ -472,6 +473,7 @@
 		D54384641BC528A000EBE27A /* mediation */ = {
 			isa = PBXGroup;
 			children = (
+				D53FB3AA1CAD81AF008DADFB /* network */,
 				D543847D1BC528D000EBE27A /* adapter */,
 				D5FE080D1BEA170A007396B6 /* config */,
 				D543848E1BC528D000EBE27A /* request */,
@@ -528,10 +530,6 @@
 				031A88D31BFE0CB50039D86F /* AppDelegate.swift */,
 				031A88D41BFE0CB50039D86F /* Main.storyboard */,
 				03D092831BFEFDB600A79CA7 /* MainViewController.swift */,
-				031A88D51BFE0CB50039D86F /* SettingViewController.swift */,
-				0336686D1BFE0FE100108944 /* PubnativeTestCrediantials.swift */,
-				031CFFB41BFF4AC500A0AECC /* CellRequestModel.swift */,
-				03484F591C02EBD000D193B5 /* NativeAdTableViewCell.swift */,
 				D54384BE1BC528F500EBE27A /* Assets.xcassets */,
 				D54384C01BC528F500EBE27A /* LaunchScreen.storyboard */,
 				D54384C31BC528F500EBE27A /* Info.plist */,
@@ -1011,8 +1009,6 @@
 			children = (
 				D5FE080F1BEA170A007396B6 /* PubnativeConfigAPIResponseModel.h */,
 				D5FE08101BEA170A007396B6 /* PubnativeConfigAPIResponseModel.m */,
-				D5FE08111BEA170A007396B6 /* PubnativeConfigGlobalsModel.h */,
-				D5FE08121BEA170A007396B6 /* PubnativeConfigGlobalsModel.m */,
 				D5FE08131BEA170B007396B6 /* PubnativeConfigModel.h */,
 				D5FE08141BEA170B007396B6 /* PubnativeConfigModel.m */,
 				D5FE08151BEA170B007396B6 /* PubnativeConfigRequestModel.h */,
@@ -1294,6 +1290,7 @@
 				D5A844EB1C16E7C3008B3EF3 /* PNBannerTableViewCell.m in Sources */,
 				D5A844F71C16E7C3008B3EF3 /* PNBannerViewController.m in Sources */,
 				D5A844F11C16E7C3008B3EF3 /* PNArrayModelTableViewCell.m in Sources */,
+				D53FB3AD1CAD81C9008DADFB /* PubnativeHttpRequest.m in Sources */,
 				D54384941BC528D000EBE27A /* PubnativeNetworkAdapter.m in Sources */,
 				D5A844F31C16E7C3008B3EF3 /* PNTableViewCell.m in Sources */,
 				D5A844F41C16E7C3008B3EF3 /* PNTableViewManager.m in Sources */,
@@ -1358,7 +1355,6 @@
 				D5A844FE1C16E7C3008B3EF3 /* NSObject+DictionaryValue.m in Sources */,
 				D5A844FC1C16E7C3008B3EF3 /* PNVideoInterstitialViewController.m in Sources */,
 				D5A8450E1C16E7C3008B3EF3 /* PNAPIModel.m in Sources */,
-				D5FE08241BEA170B007396B6 /* PubnativeConfigGlobalsModel.m in Sources */,
 				D5A844EC1C16E7C3008B3EF3 /* PNCarouselCollectionViewCell.m in Sources */,
 				D5FE082C1BEA170B007396B6 /* PubnativeDeliveryManager.m in Sources */,
 			);
@@ -1382,12 +1378,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				03484F5A1C02EBD000D193B5 /* NativeAdTableViewCell.swift in Sources */,
-				0336686E1BFE0FE100108944 /* PubnativeTestCrediantials.swift in Sources */,
 				031A88D61BFE0CB50039D86F /* AppDelegate.swift in Sources */,
-				031A88D81BFE0CB50039D86F /* SettingViewController.swift in Sources */,
 				03D092841BFEFDB600A79CA7 /* MainViewController.swift in Sources */,
-				031CFFB51BFF4AC500A0AECC /* CellRequestModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

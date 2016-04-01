@@ -23,15 +23,17 @@
 
 @implementation PubnativeNetworkRequest
 
-#pragma mark - Network Request -
+#pragma mark - PubnativeNetworkRequest -
+
+#pragma mark Public
 
 - (void)startWithAppToken:(NSString*)appToken
               placementID:(NSString*)placementID
                  delegate:(NSObject<PubnativeNetworkRequestDelegate>*)delegate
 {
     if (delegate) {
+        
         self.delegate = delegate;
-        // Notify request has started
         [self invokeDidStart];
         
         if (appToken && [appToken length] > 0 &&
@@ -42,7 +44,6 @@
             self.placementID = placementID;
             self.currentNetworkIndex = 0;
             
-            //fetch config corresponding to app token
             [PubnativeConfigManager configWithAppToken:appToken
                                               delegate:self];
             
@@ -57,6 +58,8 @@
     }
 }
 
+#pragma mark Private
+
 - (void)startRequestWithConfig:(PubnativeConfigModel*)config
 {
     //Check placements are available
@@ -67,7 +70,7 @@
         if (placement) {
             self.placement = placement;
             
-            if (self.placement.delivery_rule && [self.placement.delivery_rule isActive]) {
+            if (self.placement.delivery_rule && ![self.placement.delivery_rule isDisabled]) {
                 //make request
                 [self doNextNetworkRequest];
                 
@@ -94,10 +97,6 @@
     }
 }
 
-/**
- * Make next request. 
- * Will make next request if current request has some priority rules defined
- */
 - (void)doNextNetworkRequest
 {
     //Check if priority rules avaliable
@@ -145,7 +144,7 @@
     }
 }
 
-#pragma mark - Network Request Status -
+#pragma mark Callback helpers
 
 - (void)invokeDidStart
 {
@@ -179,51 +178,28 @@
 
 #pragma mark PubnativeConfigManagerDelegate
 
-/**
- * Callback when config is fetched using PubnativeConfigManager
- * @param model : The fetched config model
- */
 - (void)configDidFinishWithModel:(PubnativeConfigModel*)model
 {
-    //make request corresponding to the fetch config
-    [self startRequestWithConfig:model];
-}
-
-/**
- * Callback when config fetching failed using PubnativeConfigManager
- * @param error : The error occured while fetching
- */
-- (void)configDidFailWithError:(NSError*)error
-{
-    [self invokeDidFail:error];
+    if(model) {
+        [self startRequestWithConfig:model];
+    } else {
+        NSError *configError = [NSError errorWithDomain:@"PubnativeNetworkRequest - config error" code:0 userInfo:nil];
+        [self invokeDidFail:configError];
+    }
 }
 
 #pragma mark PubnativeNetworkAdapterDelegate
 
-/**
- * Callback when adapter stared making request
- * @param adapter : The adapter used for making request
- */
 - (void)adapterRequestDidStart:(PubnativeNetworkAdapter*)adapter
 {
     //Do nothing
 }
 
-/**
- * Callback when adapter request succeed
- * @param adapter : The adapter used for making request
- * @param ad : The resultant ad, on making request
- */
 - (void)adapter:(PubnativeNetworkAdapter*)adapter requestDidLoad:(PubnativeAdModel*)ad
 {
     [self invokeDidLoad:ad];
 }
 
-/**
- * Callback when adapter request failed
- * @param adapter : The adapter used for making request
- * @param error : The resultant error, on making request
- */
 - (void)adapter:(PubnativeNetworkAdapter*)adapter requestDidFail:(NSError*)error
 {
     NSLog(@"PubnativeNetworkRequest.adapter:requestDidFail:- Error %@",[error domain]);

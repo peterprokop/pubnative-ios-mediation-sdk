@@ -7,9 +7,9 @@
 //
 
 #import "PubnativeConfigManager.h"
-#import <JSONModel/JSONApi.h>
 #import "PubnativeConfigAPIResponseModel.h"
 #import "PubnativeConfigRequestModel.h"
+#import "PubnativeHttpRequest.h"
 
 static PubnativeConfigManager* _sharedInstance;
 
@@ -59,79 +59,58 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
             [PubnativeConfigManager enqueueRequestModel:requestModel];
             [PubnativeConfigManager doNextRequest];
         } else {
-            NSError *error = [NSError errorWithDomain:@"PubnativeConfigManager - wrong app token" code:0 userInfo:nil];
-            [PubnativeConfigManager invokeDidFailWithError:error
+            NSLog(@"PubnativeConfigManager - invalid app token");
+            [PubnativeConfigManager invokeDidFinishWithModel:nil
                                                   delegate:delegate];
         }
+    } else {
+        NSLog(@"PubnativeConfigManager - delegate not specified, dropping the call");
     }
 }
 
 + (void)doNextRequest
 {
     if([PubnativeConfigManager sharedInstance].idle){
-        [PubnativeConfigManager sharedInstance].idle = NO;
         PubnativeConfigRequestModel *requestModel = [PubnativeConfigManager dequeueRequestDelegate];
         if(requestModel){
+            [PubnativeConfigManager sharedInstance].idle = NO;
             [PubnativeConfigManager getNextConfigWithModel:requestModel];
-        } else {
-            [PubnativeConfigManager sharedInstance].idle = YES;
         }
     }
 }
 
 + (void)getNextConfigWithModel:(PubnativeConfigRequestModel*)requestModel
 {
-    if(requestModel){
-        if([PubnativeConfigManager storedConfigNeedsUpdateWithAppToken:requestModel.appToken]){
-            // Download
-            [PubnativeConfigManager downloadConfigWithRequest:requestModel];
-        } else {
-            // Serve stored config
-            [PubnativeConfigManager serveStoredConfigWithRequest:requestModel];
-        }
+    if([PubnativeConfigManager storedConfigNeedsUpdateWithAppToken:requestModel.appToken]){
+        // Download
+        [PubnativeConfigManager downloadConfigWithRequest:requestModel];
+    } else {
+        // Serve stored config
+        [PubnativeConfigManager serveStoredConfigWithRequest:requestModel];
     }
 }
 
 + (BOOL)storedConfigNeedsUpdateWithAppToken:(NSString*)appToken
 {
-    BOOL result = NO;
+    BOOL result = YES;
     
-    PubnativeConfigModel *storedModel = [PubnativeConfigManager getStoredConfig];
-    if(storedModel){
+    PubnativeConfigModel    *storedModel    = [PubnativeConfigManager getStoredConfig];
+    NSString                *storedAppToken = [PubnativeConfigManager getStoredAppToken];
+    NSTimeInterval          storedTimestamp = [PubnativeConfigManager getStoredTimestamp];
+    
+    if(storedModel && storedAppToken && storedTimestamp){
+        NSNumber *refreshInMinutes = [storedModel.globals objectForKey:CONFIG_GLOBAL_KEY_REFRESH];
         
-        NSString *storedAppToken = [PubnativeConfigManager getStoredAppToken];
-        if(storedAppToken && [storedAppToken isEqualToString:appToken]){
+        if(refreshInMinutes && refreshInMinutes > 0) {
+            NSTimeInterval currentTimestamp = [[NSDate date] timeIntervalSince1970];
+            NSTimeInterval elapsedTime = currentTimestamp - storedTimestamp;
+            NSTimeInterval refreshSeconds = [refreshInMinutes intValue] * 60;
             
-            NSTimeInterval storedTimestamp = [PubnativeConfigManager getStoredTimestamp];
-            
-            if(storedTimestamp &&
-               storedModel.globals &&
-               storedModel.globals.refresh &&
-               storedModel.globals.refresh > 0) {
-                
-                NSTimeInterval currentTimestamp = [[NSDate date] timeIntervalSince1970];
-                NSTimeInterval elapsedTime = currentTimestamp - storedTimestamp;
-                
-                NSTimeInterval refreshSeconds = [storedModel.globals.refresh intValue] * 60;
-                if(elapsedTime > refreshSeconds){
-                    // Config overdue
-                    result = YES;
-                }
-                
-            } else {
-                // There was no previous stored timestamp
-                result = YES;
+            if(elapsedTime < refreshSeconds){
+                // Config still valid
+                result = NO;
             }
-            
-            
-        } else {
-            // Config app token is different than the one provided
-            result = YES;
         }
-        
-    } else {
-        // No config stored, need to download a new one
-        result = YES;
     }
     
     return result;
@@ -140,16 +119,11 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
 + (void)serveStoredConfigWithRequest:(PubnativeConfigRequestModel*)requestModel
 {
     PubnativeConfigModel *storedConfig = [PubnativeConfigManager getStoredConfig];
-    if(storedConfig){
-        [PubnativeConfigManager invokeDidFinishWithModel:storedConfig
-                                                delegate:requestModel.delegate];
-    } else {
-        NSError *storedConfigError = [NSError errorWithDomain:@"PubnativeConfigManager - error serving stored config"
-                                                         code:0
-                                                     userInfo:nil];
-        [PubnativeConfigManager invokeDidFailWithError:storedConfigError
-                                              delegate:requestModel.delegate];
+    if(!storedConfig){
+        NSLog(@"PubnativeConfigManager - error serving stored config");
     }
+    [PubnativeConfigManager invokeDidFinishWithModel:storedConfig
+                                            delegate:requestModel.delegate];
 }
 
 #pragma mark - QUEUE -
@@ -181,66 +155,56 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
 
 #pragma mark - DOWNLOAD -
 
-+ (void)downloadConfigWithRequest:(PubnativeConfigRequestModel*)requestModel
++ (NSString*)getConfigDownloadBaseURL
 {
-    // Handle only when correct request data
-    if(requestModel){
-        
-        [JSONAPI setAPIBaseURLWithString:kDefaultConfigURL];
-        [JSONAPI getWithPath:@""
-                   andParams:@{kAppTokenURLParameter : requestModel.appToken}
-                  completion:^(id json, JSONModelError *err)
-         {
-             [PubnativeConfigManager processDownloadResponseWithRequest:requestModel
-                                                               withJson:json
-                                                                  error:err];
-         }];
+    NSString *result = kDefaultConfigURL;
+    PubnativeConfigModel *storedConfig = [PubnativeConfigManager getStoredConfig];
+    if(storedConfig && ![storedConfig isEmpty]){
+        result = storedConfig.globals[CONFIG_GLOBAL_KEY_CONFIG_URL];
     }
+    return result;
 }
 
-+ (void)processDownloadResponseWithRequest:(PubnativeConfigRequestModel*)requestModel
-                                  withJson:(id)json
-                                     error:(JSONModelError*)error
+
++ (void)downloadConfigWithRequest:(PubnativeConfigRequestModel*)requestModel
 {
-    if(json){
-        
-        PubnativeConfigAPIResponseModel *responseModel = [PubnativeConfigAPIResponseModel parseDictionary:json];
-        if(responseModel == nil){
-            // ERROR: Parsing error
-            NSError *error = [NSError errorWithDomain:@"Pubnative - Invalid Config Api response" code:0 userInfo:nil];
-            [PubnativeConfigManager invokeDidFailWithError:error
-                                                  delegate:requestModel.delegate];
+    NSString *baseURL = [PubnativeConfigManager getConfigDownloadBaseURL];
+    NSString *requestURL = [NSString stringWithFormat:@"%@?%@=%@", baseURL, kAppTokenURLParameter, requestModel.appToken];
+    
+    __block PubnativeConfigRequestModel *requestModelBlock = requestModel;
+    [PubnativeHttpRequest requestWithURL:requestURL withCompletionHandler:^(NSString *result, NSError *error) {
+        if(error) {
+            [PubnativeConfigManager invokeDidFinishWithModel:nil delegate:requestModelBlock.delegate];
         } else {
-            if([responseModel success]){
-                
-                // SUCCESS
-                [PubnativeConfigManager updateStoredConfig:responseModel.config
-                                              withAppToken:requestModel.appToken];
-                [PubnativeConfigManager serveStoredConfigWithRequest:requestModel];
-                
+            
+            NSData *jsonData = [result dataUsingEncoding:NSUTF8StringEncoding];
+            NSError *dataError;
+            NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                           options:NSJSONReadingMutableContainers
+                                                                             error:&dataError];
+            if(dataError) {
+                NSLog(@"PubnativeConfigManager - data error: %@", dataError);
+                [PubnativeConfigManager invokeDidFinishWithModel:nil delegate:requestModelBlock.delegate];
             } else {
+                PubnativeConfigAPIResponseModel *apiResponse = [PubnativeConfigAPIResponseModel parseDictionary:jsonDictionary];
                 
-                // ERROR: Server returned error
-                NSString *errorString = [NSString stringWithFormat:@"Pubnative - Server error: %@", responseModel.error_message];
-                NSError *serverError = [NSError errorWithDomain:errorString
-                                                           code:0
-                                                       userInfo:nil];
-                [PubnativeConfigManager invokeDidFailWithError:serverError
-                                                      delegate:requestModel.delegate];
+                if(apiResponse) {
+                    if([apiResponse success]) {
+                        
+                        [PubnativeConfigManager updateStoredConfig:apiResponse.config
+                                                      withAppToken:requestModelBlock.appToken];
+                        [PubnativeConfigManager serveStoredConfigWithRequest:requestModelBlock];
+                    } else {
+                        NSLog(@"PubnativeConfigManager - server error: %@", apiResponse.error_message);
+                        [PubnativeConfigManager invokeDidFinishWithModel:nil delegate:requestModelBlock.delegate];
+                    }
+                } else {
+                    NSLog(@"PubnativeConfigManager - parsing error");
+                    [PubnativeConfigManager invokeDidFinishWithModel:nil delegate:requestModelBlock.delegate];
+                }
             }
         }
-    } else if (error) {
-        // ERROR: Connection error
-        [PubnativeConfigManager invokeDidFailWithError:error
-                                              delegate:requestModel.delegate];
-    } else {
-        // ERROR: Response empty
-        NSError *responseError = [NSError errorWithDomain:@"Pubnative - error downloading config, empty response"
-                                                     code:0
-                                                 userInfo:nil];
-        [PubnativeConfigManager invokeDidFailWithError:responseError
-                                              delegate:requestModel.delegate];
-    }
+    }];
 }
 
 + (void)updateStoredConfig:(PubnativeConfigModel*)model
@@ -254,7 +218,7 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
     }
 }
 
-#pragma mark - Callback -
+#pragma mark Callback helpers
 
 + (void)invokeDidFinishWithModel:(PubnativeConfigModel*)model
                         delegate:(NSObject<PubnativeConfigManagerDelegate>*)delegate
@@ -262,17 +226,6 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
     if(delegate &&
        [delegate respondsToSelector:@selector(configDidFinishWithModel:)]){
         [delegate configDidFinishWithModel:model];
-    }
-    [PubnativeConfigManager sharedInstance].idle = YES;
-    [PubnativeConfigManager doNextRequest];
-}
-
-+ (void)invokeDidFailWithError:(NSError*)error
-                      delegate:(NSObject<PubnativeConfigManagerDelegate>*)delegate
-{
-    if(delegate &&
-       [delegate respondsToSelector:@selector(configDidFailWithError:)]){
-        [delegate configDidFailWithError:error];
     }
     [PubnativeConfigManager sharedInstance].idle = YES;
     [PubnativeConfigManager doNextRequest];
@@ -295,8 +248,7 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
     if(timestamp > 0){
         [[NSUserDefaults standardUserDefaults] setDouble:timestamp forKey:kUserDefaultsStoredTimestampKey];
     } else {
-        //0 has been set as default value
-        [[NSUserDefaults standardUserDefaults] setDouble:0 forKey:kUserDefaultsStoredTimestampKey];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserDefaultsStoredTimestampKey];
     }
     
     [[NSUserDefaults standardUserDefaults] synchronize];

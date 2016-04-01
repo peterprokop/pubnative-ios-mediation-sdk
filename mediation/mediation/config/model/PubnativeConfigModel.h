@@ -7,15 +7,22 @@
 //
 
 #import <JSONModel/JSONModel.h>
-#import "PubnativeConfigGlobalsModel.h"
 #import "PubnativeNetworkModel.h"
 #import "PubnativePlacementModel.h"
 
+extern NSString * const CONFIG_GLOBAL_KEY_REFRESH;
+extern NSString * const CONFIG_GLOBAL_KEY_IMPRESSION_TIMEOUT;
+extern NSString * const CONFIG_GLOBAL_KEY_CONFIG_URL;
+extern NSString * const CONFIG_GLOBAL_KEY_IMPRESSION_BEACON;
+extern NSString * const CONFIG_GLOBAL_KEY_CLICK_BEACON;
+extern NSString * const CONFIG_GLOBAL_KEY_REQUEST_BEACON;
+
 @interface PubnativeConfigModel : JSONModel
 
-@property (nonatomic, strong) PubnativeConfigGlobalsModel   *globals;
-@property (nonatomic, strong) NSDictionary                  *networks;
-@property (nonatomic, strong) NSDictionary                  *placements;
+@property (nonatomic, strong) NSDictionary *globals;
+@property (nonatomic, strong) NSDictionary *request_params;
+@property (nonatomic, strong) NSDictionary *networks;
+@property (nonatomic, strong) NSDictionary *placements;
 
 - (BOOL)isEmpty;
 

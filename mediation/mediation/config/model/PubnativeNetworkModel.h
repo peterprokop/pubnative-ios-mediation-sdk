@@ -13,5 +13,6 @@
 @property (nonatomic, strong) NSDictionary  *params;
 @property (nonatomic, strong) NSString      *adapter;
 @property (nonatomic, strong) NSNumber      *timeout;
+@property (nonatomic, assign) BOOL          *crash_report;
 
 @end

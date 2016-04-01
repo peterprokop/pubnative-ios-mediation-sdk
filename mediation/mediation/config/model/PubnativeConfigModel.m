@@ -8,6 +8,13 @@
 
 #import "PubnativeConfigModel.h"
 
+NSString * const CONFIG_GLOBAL_KEY_REFRESH              = @"refresh";
+NSString * const CONFIG_GLOBAL_KEY_IMPRESSION_TIMEOUT   = @"impression_timeout";
+NSString * const CONFIG_GLOBAL_KEY_CONFIG_URL           = @"config_url";
+NSString * const CONFIG_GLOBAL_KEY_IMPRESSION_BEACON    = @"impression_beacon";
+NSString * const CONFIG_GLOBAL_KEY_CLICK_BEACON         = @"click_beacon";
+NSString * const CONFIG_GLOBAL_KEY_REQUEST_BEACON       = @"request_beacon";
+
 @interface PubnativeConfigModel ()
 
 @property (nonatomic, strong) NSDictionary<Ignore> *dictionaryValue;

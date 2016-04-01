@@ -12,7 +12,6 @@
 @protocol PubnativeConfigManagerDelegate <NSObject>
 
 - (void)configDidFinishWithModel:(PubnativeConfigModel*)model;
-- (void)configDidFailWithError:(NSError*)error;
 
 @end
 
