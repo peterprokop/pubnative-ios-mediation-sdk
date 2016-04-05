@@ -6,17 +6,15 @@
 //  Copyright © 2015 pubnative. All rights reserved.
 //
 
-#import "JSONModel.h"
+#import <Foundation/Foundation.h>
 
-@protocol PubnativePriorityRulesModel <NSObject>
+@interface PubnativePriorityRulesModel : NSObject
 
-@end
+@property (nonatomic, strong)NSNumber       *identifier;
+@property (nonatomic, strong)NSString       *network_code;
+@property (nonatomic, strong)NSDictionary   *params;
+@property (nonatomic, strong)NSArray        *segment_ids;
 
-@interface PubnativePriorityRulesModel : JSONModel
-
-@property (nonatomic, strong)NSNumber           *id;
-@property (nonatomic, strong)NSString           *network_code;
-@property (nonatomic, strong)NSDictionary       *params;
-@property (nonatomic, strong)NSArray<NSNumber*> *segment_ids;
++ (instancetype)modelWithDictionary:(NSDictionary*)dictionary;
 
 @end

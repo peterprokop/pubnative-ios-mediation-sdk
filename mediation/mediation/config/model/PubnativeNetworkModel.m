@@ -10,4 +10,26 @@
 
 @implementation PubnativeNetworkModel
 
++(instancetype)modelWithDictionary:(NSDictionary *)dictionary
+{
+    PubnativeNetworkModel *result;
+    if(dictionary){
+        result = [[PubnativeNetworkModel alloc] init];
+        result.params = dictionary[@"params"];
+        result.adapter = dictionary[@"adapter"];
+        result.timeout = dictionary[@"timeout"];
+        result.crash_report = dictionary[@"crash_report"];
+    }
+    return result;
+}
+
+- (BOOL)isCrashReportEnabled
+{
+    BOOL result = NO;
+    if(self.crash_report){
+    result = [self.crash_report boolValue];
+    }
+    return result;
+}
+
 @end

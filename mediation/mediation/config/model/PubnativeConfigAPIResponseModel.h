@@ -6,16 +6,16 @@
 //  Copyright © 2015 pubnative. All rights reserved.
 //
 
-#import <JSONModel/JSONModel.h>
+#import <Foundation/Foundation.h>
 #import "PubnativeConfigModel.h"
 
-@interface PubnativeConfigAPIResponseModel : JSONModel
+@interface PubnativeConfigAPIResponseModel : NSObject
 
-@property (nonatomic, strong) NSString                          *status;
-@property (nonatomic, strong) NSString<Optional>                *error_message;
-@property (nonatomic, strong) PubnativeConfigModel<Optional>    *config;
+@property (nonatomic, strong) NSString              *status;
+@property (nonatomic, strong) NSString              *error_message;
+@property (nonatomic, strong) PubnativeConfigModel  *config;
 
-+ (instancetype)parseDictionary:(NSDictionary*)dictionary;
-- (BOOL)success;
++ (instancetype)modelWithDictionary:(NSDictionary*)dictionary;
+- (BOOL)isSuccess;
 
 @end

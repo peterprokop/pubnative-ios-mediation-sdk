@@ -6,13 +6,16 @@
 //  Copyright © 2015 pubnative. All rights reserved.
 //
 
-#import <JSONModel/JSONModel.h>
+#import <Foundation/Foundation.h>
 
-@interface PubnativeNetworkModel : JSONModel
+@interface PubnativeNetworkModel : NSObject
 
 @property (nonatomic, strong) NSDictionary  *params;
 @property (nonatomic, strong) NSString      *adapter;
 @property (nonatomic, strong) NSNumber      *timeout;
-@property (nonatomic, assign) BOOL          *crash_report;
+@property (nonatomic, strong) NSNumber      *crash_report;
+
++ (instancetype)modelWithDictionary:(NSDictionary*)dictionary;
+- (BOOL)isCrashReportEnabled;
 
 @end
