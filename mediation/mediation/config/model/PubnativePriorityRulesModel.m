@@ -10,20 +10,16 @@
 
 @implementation PubnativePriorityRulesModel
 
-+ (instancetype)modelWithDictionary:(NSDictionary*)dictionary
+- (instancetype)initWithDictionary:(NSDictionary*)dictionary
 {
-    PubnativePriorityRulesModel *result;
-    
-    if(dictionary) {
-        
-        result = [[PubnativePriorityRulesModel alloc] init];
-        result.identifier = dictionary[@"id"];
-        result.network_code = dictionary[@"network_code"];
-        result.params = dictionary[@"params"];
-        result.segment_ids = dictionary[@"segment_ids"];
+    self = [super initWithDictionary:dictionary];
+    if(self) {
+        self.identifier = dictionary[@"id"];
+        self.network_code = dictionary[@"network_code"];
+        self.params = dictionary[@"params"];
+        self.segment_ids = dictionary[@"segment_ids"];
     }
-    
-    return result;
+    return self;
 }
 
 @end

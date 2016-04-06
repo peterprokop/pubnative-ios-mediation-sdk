@@ -13,20 +13,16 @@ NSString * const kAPIStatusErrorValue           = @"error";
 
 @implementation PubnativeConfigAPIResponseModel
 
-+ (instancetype)modelWithDictionary:(NSDictionary*)dictionary
+- (instancetype)initWithDictionary:(NSDictionary*)dictionary;
 {
-    PubnativeConfigAPIResponseModel *result = nil;
+    self = [super initWithDictionary:dictionary];
     
-    if(dictionary) {
-    
-        result = [[PubnativeConfigAPIResponseModel alloc] init];
-        
-        result.status = dictionary[@"status"];
-        result.error_message = dictionary[@"error_message"];
-        result.config = [PubnativeConfigModel modelWithDictionary:dictionary[@"config"]];
+    if(self) {
+        self.status = dictionary[@"status"];
+        self.error_message = dictionary[@"error_message"];
+        self.config = [PubnativeConfigModel modelWithDictionary:dictionary[@"config"]];
     }
-    
-    return result;
+    return self;
 }
 
 - (BOOL)isSuccess

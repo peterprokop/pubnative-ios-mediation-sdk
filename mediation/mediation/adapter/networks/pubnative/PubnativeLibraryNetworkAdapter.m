@@ -60,8 +60,6 @@ NSString * const kAppTokenKey = @"app_token";
                          withParameters:parameters
                           andCompletion:^(NSArray *ads, NSError *error) {
                               
-                              NSLog(@"PubnativeLibraryNetworkAdapter.createRequestWithAppToken - Request end");
-                              
                               if(error) {
                                   [weakSelf invokeDidFail:error];
                               }

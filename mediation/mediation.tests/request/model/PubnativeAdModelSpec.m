@@ -13,8 +13,6 @@
 
 @interface PubnativeAdModel (Private)
 
-@property (nonatomic, weak) NSObject<PubnativeAdModelDelegate> *delegate;
-
 - (void)invokeDidConfirmedImpression:(PubnativeAdModel*)ad;
 - (void)invokeDidClicked:(PubnativeAdModel*)ad;
 

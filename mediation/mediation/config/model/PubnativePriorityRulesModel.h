@@ -7,14 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PubnativeJSONModel.h"
 
-@interface PubnativePriorityRulesModel : NSObject
+@interface PubnativePriorityRulesModel : PubnativeJSONModel
 
 @property (nonatomic, strong)NSNumber       *identifier;
 @property (nonatomic, strong)NSString       *network_code;
 @property (nonatomic, strong)NSDictionary   *params;
 @property (nonatomic, strong)NSArray        *segment_ids;
-
-+ (instancetype)modelWithDictionary:(NSDictionary*)dictionary;
 
 @end

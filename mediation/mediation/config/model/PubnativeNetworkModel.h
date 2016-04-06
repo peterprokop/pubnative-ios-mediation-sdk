@@ -7,15 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PubnativeJSONModel.h"
 
-@interface PubnativeNetworkModel : NSObject
+@interface PubnativeNetworkModel : PubnativeJSONModel
 
 @property (nonatomic, strong) NSDictionary  *params;
 @property (nonatomic, strong) NSString      *adapter;
 @property (nonatomic, strong) NSNumber      *timeout;
 @property (nonatomic, strong) NSNumber      *crash_report;
 
-+ (instancetype)modelWithDictionary:(NSDictionary*)dictionary;
 - (BOOL)isCrashReportEnabled;
 
 @end

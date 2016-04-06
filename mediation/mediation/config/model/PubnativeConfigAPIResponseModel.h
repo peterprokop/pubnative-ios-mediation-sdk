@@ -7,15 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PubnativeJSONModel.h"
 #import "PubnativeConfigModel.h"
 
-@interface PubnativeConfigAPIResponseModel : NSObject
+@interface PubnativeConfigAPIResponseModel : PubnativeJSONModel
 
 @property (nonatomic, strong) NSString              *status;
 @property (nonatomic, strong) NSString              *error_message;
 @property (nonatomic, strong) PubnativeConfigModel  *config;
 
-+ (instancetype)modelWithDictionary:(NSDictionary*)dictionary;
 - (BOOL)isSuccess;
 
 @end

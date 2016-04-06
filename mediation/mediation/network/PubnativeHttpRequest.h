@@ -12,7 +12,7 @@ typedef void(^PubnativeHttpRequestBlock)(NSString *result, NSError *error);
 
 @interface PubnativeHttpRequest : NSObject
 
-+ (void)requestWithURL:(NSString*)urlString withCompletionHandler:(PubnativeHttpRequestBlock)completionHandler;
-+ (void)requestWithURL:(NSString*)urlString timeout:(NSTimeInterval)timeoutInSeconds withCompletionHandler:(PubnativeHttpRequestBlock)completionHandler;
++ (void)requestWithURL:(NSString*)urlString andCompletionHandler:(PubnativeHttpRequestBlock)completionHandler;
++ (void)requestWithURL:(NSString*)urlString timeout:(NSTimeInterval)timeoutInSeconds andCompletionHandler:(PubnativeHttpRequestBlock)completionHandler;
 
 @end

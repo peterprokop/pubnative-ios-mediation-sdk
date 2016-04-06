@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PubnativeJSONModel.h"
 
-@interface PubnativeDeliveryRuleModel : NSObject
+@interface PubnativeDeliveryRuleModel : PubnativeJSONModel
 
 @property (nonatomic, strong)NSNumber   *imp_cap_day;
 @property (nonatomic, strong)NSNumber   *imp_cap_hour;
@@ -17,7 +18,6 @@
 @property (nonatomic, assign)NSNumber   *no_ads;
 @property (nonatomic, strong)NSArray    *segment_ids;
 
-+ (instancetype)modelWithDictionary:(NSDictionary*)dictionary;
 - (BOOL)isDisabled;
 
 @end

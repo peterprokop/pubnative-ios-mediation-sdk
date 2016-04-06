@@ -8,10 +8,10 @@
 
 #import "FacebookNativeAdModel.h"
 
-@interface PubnativeAdModel (Private)
+@interface PubnativeAdModel ()
 
-- (void)invokeDidConfirmedImpression:(PubnativeAdModel*)ad;
-- (void)invokeDidClicked:(PubnativeAdModel*)ad;
+- (void)invokeDidConfirmImpression;
+- (void)invokeDidClick;
 
 @end
 
@@ -81,7 +81,7 @@
     return result;
 }
 
-- (float)starRating
+- (NSNumber*)starRating
 {
     float starRating = 0;
     if (self.nativeAd) {
@@ -92,7 +92,7 @@
             starRating = ((ratingValue / ratingScale) * 5.0);
         }
     }
-    return starRating;
+    return [NSNumber numberWithFloat:starRating];
 }
 
 - (void)startTrackingView:(UIView*)adView
@@ -104,7 +104,7 @@
     }
 }
 
-- (void)stopTrackingView:(UIView*)adView
+- (void)stopTracking
 {
     if (self.nativeAd) {
         [self.nativeAd unregisterView];
@@ -116,12 +116,12 @@
 
 - (void)nativeAdDidClick:(FBNativeAd*)nativeAd
 {
-    [self invokeDidClicked:self];
+    [self invokeDidClick];
 }
 
 - (void)nativeAdWillLogImpression:(FBNativeAd*)nativeAd
 {
-    [self invokeDidConfirmedImpression:self];
+    [self invokeDidConfirmImpression];
 }
 
 @end

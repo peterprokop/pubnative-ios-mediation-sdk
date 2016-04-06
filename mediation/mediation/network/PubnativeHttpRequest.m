@@ -14,12 +14,12 @@ NSURLRequestCachePolicy const NETWORK_REQUEST_DEFAULT_CACHE_POLICY = NSURLReques
 
 @implementation PubnativeHttpRequest
 
-+ (void)requestWithURL:(NSString*)urlString withCompletionHandler:(PubnativeHttpRequestBlock)completionHandler
++ (void)requestWithURL:(NSString*)urlString andCompletionHandler:(PubnativeHttpRequestBlock)completionHandler
 {
-    [self requestWithURL:urlString timeout:NETWORK_REQUEST_DEFAULT_TIMEOUT withCompletionHandler:completionHandler];
+    [self requestWithURL:urlString timeout:NETWORK_REQUEST_DEFAULT_TIMEOUT andCompletionHandler:completionHandler];
 }
 
-+ (void)requestWithURL:(NSString*)urlString timeout:(NSTimeInterval)timeoutInSeconds withCompletionHandler:(PubnativeHttpRequestBlock)completionHandler
++ (void)requestWithURL:(NSString*)urlString timeout:(NSTimeInterval)timeoutInSeconds andCompletionHandler:(PubnativeHttpRequestBlock)completionHandler
 {
     if(completionHandler){
         

@@ -172,7 +172,8 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
     NSString *requestURL = [NSString stringWithFormat:@"%@?%@=%@", baseURL, kAppTokenURLParameter, requestModel.appToken];
     
     __block PubnativeConfigRequestModel *requestModelBlock = requestModel;
-    [PubnativeHttpRequest requestWithURL:requestURL withCompletionHandler:^(NSString *result, NSError *error) {
+    [PubnativeHttpRequest requestWithURL:requestURL
+                    andCompletionHandler:^(NSString *result, NSError *error) {
         if(error) {
             [PubnativeConfigManager invokeDidFinishWithModel:nil delegate:requestModelBlock.delegate];
         } else {
@@ -186,10 +187,10 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
                 NSLog(@"PubnativeConfigManager - data error: %@", dataError);
                 [PubnativeConfigManager invokeDidFinishWithModel:nil delegate:requestModelBlock.delegate];
             } else {
-                PubnativeConfigAPIResponseModel *apiResponse = [PubnativeConfigAPIResponseModel parseDictionary:jsonDictionary];
+                PubnativeConfigAPIResponseModel *apiResponse = [PubnativeConfigAPIResponseModel modelWithDictionary:jsonDictionary];
                 
                 if(apiResponse) {
-                    if([apiResponse success]) {
+                    if([apiResponse isSuccess]) {
                         
                         [PubnativeConfigManager updateStoredConfig:apiResponse.config
                                                       withAppToken:requestModelBlock.appToken];
@@ -282,8 +283,10 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
 {
     if(model && ![model isEmpty])
     {
-        NSDictionary *dictionary = [model toDictionary];
-        [[NSUserDefaults standardUserDefaults] setObject:dictionary forKey:kUserDefaultsStoredConfigKey];
+        NSData *jsonData = [NSJSONSerialization  dataWithJSONObject:[model toDictionary]
+                                                            options:0
+                                                              error:nil];
+        [[NSUserDefaults standardUserDefaults] setObject:jsonData forKey:kUserDefaultsStoredConfigKey];
     } else {
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserDefaultsStoredConfigKey];
     }
@@ -292,8 +295,17 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
 
 + (PubnativeConfigModel*)getStoredConfig
 {
-    NSDictionary *dictionary = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsStoredConfigKey];
-    return [[PubnativeConfigModel alloc] initWithDictionary:dictionary error:nil];
+    PubnativeConfigModel *result;
+    
+    NSData *jsonData = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsStoredConfigKey];
+    
+    if(jsonData){
+        NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                       options:NSJSONReadingMutableContainers
+                                                                         error:nil];
+        result = [PubnativeConfigModel modelWithDictionary:jsonDictionary];
+    }
+    return result;
 }
 
 @end

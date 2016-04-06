@@ -10,32 +10,15 @@
 
 @implementation PubnativePlacementModel
 
-+ (instancetype)modelWithDictionary:(NSDictionary*)dictionary
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
-    PubnativePlacementModel *result;
-    if(dictionary){
-        result = [[PubnativePlacementModel alloc] init];
-
-        result.ad_format_code = dictionary[@"ad_format_code"];
-        
-        // priority_rules
-        NSArray *priorityRulesArrray = dictionary[@"priority_rules"];
-        NSMutableArray *priorityRules;
-        if(priorityRulesArrray){
-            priorityRules = [NSMutableArray array];
-            for (NSDictionary *priorityDictionary in priorityRulesArrray) {
-                PubnativePriorityRulesModel *priority = [PubnativePriorityRulesModel modelWithDictionary:priorityDictionary];
-                if(priority){
-                    [priorityRules addObject:priority];
-                }
-            }
-        }
-        result.priority_rules = priorityRules;
-        
-        // delivery_rule
-        result.delivery_rule = [PubnativeDeliveryRuleModel modelWithDictionary:dictionary[@"delivery_rule"]];
+    self = [super initWithDictionary:dictionary];
+    if(self){
+        self.ad_format_code = dictionary[@"ad_format_code"];
+        self.priority_rules = [PubnativePriorityRulesModel parseArrayValues:dictionary[@"priority_rules"]];
+        self.delivery_rule = [PubnativeDeliveryRuleModel modelWithDictionary:dictionary[@"delivery_rule"]];
     }
-    return result;
+    return self;
 }
 
 @end
