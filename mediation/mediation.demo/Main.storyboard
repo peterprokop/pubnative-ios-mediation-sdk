@@ -33,28 +33,28 @@
                                 <rect key="frame" x="16" y="66" width="288" height="486"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wKu-3W-95l" userLabel="banner">
-                                        <rect key="frame" x="8" y="8" width="272" height="150"/>
+                                        <rect key="frame" x="8" y="8" width="272" height="190"/>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="150" id="cy8-ed-we9"/>
+                                            <constraint firstAttribute="height" constant="190" id="cy8-ed-we9"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Mp-jy-JNf" userLabel="title">
-                                        <rect key="frame" x="66" y="166" width="214" height="50"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Mp-jy-JNf" userLabel="title">
+                                        <rect key="frame" x="96" y="206" width="184" height="80"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kvn-UX-5FM" userLabel="icon">
-                                        <rect key="frame" x="8" y="166" width="50" height="50"/>
+                                        <rect key="frame" x="8" y="206" width="80" height="80"/>
                                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="kvn-UX-5FM" secondAttribute="height" multiplier="1:1" id="UrW-Sb-FgH"/>
-                                            <constraint firstAttribute="width" constant="50" id="h6e-Hx-Xhc"/>
+                                            <constraint firstAttribute="width" constant="80" id="h6e-Hx-Xhc"/>
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oUN-vy-vuy">
-                                        <rect key="frame" x="8" y="224" width="272" height="30"/>
+                                        <rect key="frame" x="8" y="294" width="272" height="30"/>
                                         <color key="backgroundColor" red="0.16078431369999999" green="0.1450980392" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal" title="Button">

@@ -11,7 +11,7 @@ import UIKit
 class MainViewController: UIViewController, PubnativeNetworkRequestDelegate {
 
     let DEFAULT_APP_TOKEN = "e3886645aabbf0d5c06f841a3e6d77fcc8f9de4469d538ab8a96cb507d0f2660"
-    let PUBNATIVE_PLACEMENT = "pubnative_only";
+    let PUBNATIVE_PLACEMENT = "facebook_only";
     
     @IBOutlet weak var adView: UIView!
     @IBOutlet weak var adBanner: UIImageView!
@@ -28,6 +28,8 @@ class MainViewController: UIViewController, PubnativeNetworkRequestDelegate {
         super.viewDidLoad()
         hideAdView();
         hideLoading();
+        adIcon.layer.cornerRadius = 20;
+        adIcon.clipsToBounds = true;
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -41,8 +43,8 @@ class MainViewController: UIViewController, PubnativeNetworkRequestDelegate {
     // MARK: MainViewController
     
     func showLoading(){
-        self.adLoading.hidden = false;
-        self.adLoading.startAnimating();
+        adLoading.hidden = false;
+        adLoading.startAnimating();
     }
     
     func hideLoading(){
