@@ -7,6 +7,7 @@
 //
 
 #import "PubnativeHttpRequest.h"
+#import "PubnativeReachability.h"
 
 NSInteger const STATUS_CODE_OK = 200;
 NSTimeInterval const NETWORK_REQUEST_DEFAULT_TIMEOUT = 60;
@@ -30,28 +31,35 @@ NSURLRequestCachePolicy const NETWORK_REQUEST_DEFAULT_CACHE_POLICY = NSURLReques
                                                          cachePolicy:NETWORK_REQUEST_DEFAULT_CACHE_POLICY
                                                      timeoutInterval:timeoutInSeconds];
                 
-                __block PubnativeHttpRequestBlock completeBlock = [completionHandler copy];
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                    
-                    [NSURLConnection sendAsynchronousRequest:request
-                                                       queue:[NSOperationQueue mainQueue]
-                                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
-                     {
-                         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-                         if(error) {
-                             [PubnativeHttpRequest invokeBlock:completeBlock withResult:nil andError:error];
-                         } else if(httpResponse.statusCode != STATUS_CODE_OK) {
-                             NSString *statusCodeErrorString = [NSString stringWithFormat:@"PubnativeHttpRequest - Error: response status code %ld error", (long)httpResponse.statusCode];
-                             NSError *statusCodeError = [NSError errorWithDomain:statusCodeErrorString 
-                                                                            code:0
-                                                                        userInfo:nil];
-                             [PubnativeHttpRequest invokeBlock:completeBlock withResult:nil andError:statusCodeError];
-                         } else {
-                             NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                             [PubnativeHttpRequest invokeBlock:completeBlock withResult:result andError:nil];
-                         }
-                     }];
-                });
+                PubnativeReachability *reachability = [PubnativeReachability reachabilityForInternetConnection];
+                [reachability startNotifier];
+                if([reachability currentReachabilityStatus] == PubnativeNetworkStatus_NotReachable){
+                    NSError *internetError = [NSError errorWithDomain:@"PubnativeHttpRequest - Error: internet not available" code:0 userInfo:nil];
+                    [PubnativeHttpRequest invokeBlock:completionHandler withResult:nil andError:internetError];
+                } else {
+                    __block PubnativeHttpRequestBlock completeBlock = [completionHandler copy];
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                        
+                        [NSURLConnection sendAsynchronousRequest:request
+                                                           queue:[NSOperationQueue mainQueue]
+                                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+                         {
+                             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+                             if(error) {
+                                 [PubnativeHttpRequest invokeBlock:completeBlock withResult:nil andError:error];
+                             } else if(httpResponse.statusCode != STATUS_CODE_OK) {
+                                 NSString *statusCodeErrorString = [NSString stringWithFormat:@"PubnativeHttpRequest - Error: response status code %ld error", (long)httpResponse.statusCode];
+                                 NSError *statusCodeError = [NSError errorWithDomain:statusCodeErrorString 
+                                                                                code:0
+                                                                            userInfo:nil];
+                                 [PubnativeHttpRequest invokeBlock:completeBlock withResult:nil andError:statusCodeError];
+                             } else {
+                                 NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                 [PubnativeHttpRequest invokeBlock:completeBlock withResult:result andError:nil];
+                             }
+                         }];
+                    });
+                }
             } else {
                 NSError *requestError = [NSError errorWithDomain:@"PubnativeHttpRequest - Error: url format error" code:0 userInfo:nil];
                 [PubnativeHttpRequest invokeBlock:completionHandler withResult:nil andError:requestError];
