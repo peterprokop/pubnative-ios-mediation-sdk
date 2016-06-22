@@ -8,143 +8,114 @@
 
 import UIKit
 
-class MainViewController: UIViewController, UITableViewDataSource {
+class MainViewController: UIViewController, PubnativeNetworkRequestDelegate {
 
-    let APP_TOKEN                           = "e3886645aabbf0d5c06f841a3e6d77fcc8f9de4469d538ab8a96cb507d0f2660"
-    var cellRequests : [CellRequestModel]   = []
+    let DEFAULT_APP_TOKEN = "e3886645aabbf0d5c06f841a3e6d77fcc8f9de4469d538ab8a96cb507d0f2660"
+    let PUBNATIVE_PLACEMENT = "facebook_only";
     
-    @IBOutlet weak var tableViewAds: UITableView!
+    @IBOutlet weak var adView: UIView!
+    @IBOutlet weak var adBanner: UIImageView!
+    @IBOutlet weak var adIcon: UIImageView!
+    @IBOutlet weak var adTitle: UILabel!
+    @IBOutlet weak var adCTA: UIButton!
+    @IBOutlet weak var adLoading: UIActivityIndicatorView!
+    
+    var currentAd : PubnativeAdModel!;
+    
+    // MARK: UIViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Set the title at the navigation bar on top
-        navigationItem.title = "MainViewController"
-        
-        // Store test crediantials
-        let placements = ["facebook_only", "pubnative_only"]
-        PubnativeTestCrediantials.setStoredPlacements(placements)
-        PubnativeTestCrediantials.setStoredApptoken(APP_TOKEN)
-        
-        // Create requests corresponding to each placementId and add in cellRequests Array
-        for placementID in placements {
-            cellRequests.append(CellRequestModel.init(appToken: APP_TOKEN, placementID: placementID))
-        }
-        
-        // Load the table view
-        tableViewAds.reloadData()
+        hideAdView();
+        hideLoading();
+        adIcon.layer.cornerRadius = 20;
+        adIcon.clipsToBounds = true;
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-        displayPlacementsList()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
-    // MARK: Set Up
+    // MARK: MainViewController
     
-    /**
-    Load table view cells corresponding to Placements Id fetched from NSUserDefaults
-    */
-    func displayPlacementsList() {
-        
-        let appToken : String? = PubnativeTestCrediantials.storedApptoken()
-        var placements : [String]? = PubnativeTestCrediantials.storedPlacements()
-        
-        // Check if App token and placements available
-        if (appToken != nil && appToken?.characters.count > 0 &&
-            placements != nil && placements?.count > 0) {
-                
-                // Make an array of requests
-                var newRequests : [CellRequestModel] = []
-                
-                // Get the old requests (if any)
-                for request in cellRequests {
-                    
-                    // If there is some old request corresponding to placementId
-                    var isOldRequest    : Bool  = false
-                    
-                    // Get the index to remove from old requests
-                    var removeAtIndex   : Int   = 0
-                    
-                    for index in 0..<placements!.count {
-                        
-                        let placement = placements![index]
-                        
-                        if placement == request.placementID {
-                            
-                            // If there is some old request corresponding to placementId then that is old request
-                            isOldRequest = true
-                            
-                            // Get the index for the request that need to be removed from old requests
-                            removeAtIndex = index
-                            
-                            break
-                        }
-                    }
-                    
-                    // If old request so can reuse it
-                    if (isOldRequest) {
-                        
-                        // Add in new requests
-                        newRequests.append(request)
-                        
-                        // Remove from old requests
-                        placements?.removeAtIndex(removeAtIndex)
-                    }
-                }
-                
-                // Add the remaining requests corresponding to placementsId left
-                for placementID : String in placements! {
-                    newRequests.append(CellRequestModel.init(appToken: APP_TOKEN, placementID: placementID))
-                }
-                
-                // Update the cellRequest with new requests
-                cellRequests = newRequests
-                
-                // Reload the table view with new requests
-                tableViewAds.reloadData()
+    func showLoading(){
+        adLoading.hidden = false;
+        adLoading.startAnimating();
+    }
+    
+    func hideLoading(){
+        adLoading.stopAnimating();
+        adLoading.hidden = true;
+    }
+    
+    func hideAdView() {
+        adView.hidden = true;
+    }
+    
+    func showAdView() {
+        hideLoading();
+        adView.alpha = 0;
+        adView.hidden = false;
+        UIView.animateWithDuration(0.25) { 
+            self.adView.alpha=1;
         }
     }
     
-    // MARK: Table View Data Source Methods
+    // MARK: IBActions
     
-    /**
-    Tells the data source to return the number of rows in a given section of a table view.
-    The table-view object requesting this information
-
-    @param tableView The table-view object requesting this information.
-    @param section An index number identifying a section in tableView.
-    
-    @return The number of rows in section.
-    */
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cellRequests.count
+    @IBAction func requestTouchUpInside(sender: AnyObject) {
+        
+        hideAdView();
+        showLoading();
+        
+        currentAd?.stopTracking();
+        
+        let request:PubnativeNetworkRequest = PubnativeNetworkRequest();
+        request.startWithAppToken(DEFAULT_APP_TOKEN, placementID: PUBNATIVE_PLACEMENT, delegate: self);
     }
     
-    /**
-     Asks the data source for a cell to insert in a particular location of the table view.
-     A table-view object requesting the cell
-     
-     @param tableView The table-view object requesting the cell.
-     @param indexPath An index path locating a row in tableView.
-     
-     @return An object inheriting from UITableViewCell that the table view can use for the specified row
-     */
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    // MARK: -
+    // MARK: CALLBACKS
+    // MARK: -
+    
+    // MARK: PubnativeNetworkRequestDelegate
+    
+    func pubnativeRequestDidStart(request: PubnativeNetworkRequest!) {
+        print("pubnativeRequestDidStart");
+    }
+    
+    func pubnativeRequest(request: PubnativeNetworkRequest!, didFail error: NSError!) {
+        print("pubnativeRequest:didFail:%@", error);
+    }
+    
+    func pubnativeRequest(request: PubnativeNetworkRequest!, didLoad ad: PubnativeAdModel!) {
+        print("pubnativeRequest:didLoad:");
         
-        // Get the reusable cell
-        let cell: NativeAdTableViewCell = tableView.dequeueReusableCellWithIdentifier("NativeAdTableViewCell") as! NativeAdTableViewCell
+        currentAd = ad
         
-        // Set the model for cell
-        if indexPath.row < cellRequests.count {
-            cell.setRequestModel(cellRequests[indexPath.row], indexPath:indexPath, viewController: self);
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            
+            let iconData:NSData = NSData(contentsOfURL: NSURL(string:ad.iconURL)!)!;
+            let bannerData:NSData = NSData(contentsOfURL: NSURL(string:ad.bannerURL)!)!;
+            
+            dispatch_async(dispatch_get_main_queue()) {
+        
+                let iconImage:UIImage = UIImage(data: iconData)!;
+                let bannerImage:UIImage = UIImage(data: bannerData)!;
+                
+                self.adTitle.text = ad.title;
+                self.adCTA.setTitle(ad.callToAction, forState:UIControlState.Normal);
+                self.adBanner.image = bannerImage;
+                self.adIcon.image = iconImage;
+                
+                self.showAdView();
+            }
         }
         
-        return cell
+        currentAd?.startTrackingView(self.adView, withViewController: self);
     }
 }

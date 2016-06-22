@@ -13,19 +13,21 @@
 
 @protocol PubnativeAdModelDelegate <NSObject>
 
-- (void)pubantiveAdDidConfirmedImpression:(PubnativeAdModel *)ad;
-- (void)pubnativeAdDidClicked:(PubnativeAdModel *)ad;
+- (void)pubantiveAdDidConfirmImpression:(PubnativeAdModel *)ad;
+- (void)pubnativeAdDidClick:(PubnativeAdModel *)ad;
 
 @end
 
 @interface PubnativeAdModel : NSObject
 
-@property (nonatomic, readonly) NSString                    *title;
-@property (nonatomic, readonly) NSString                    *description;
-@property (nonatomic, readonly) NSString                    *iconURL;
-@property (nonatomic, readonly) NSString                    *bannerURL;
-@property (nonatomic, readonly) NSString                    *callToAction;
-@property (nonatomic, readonly) float                       starRating;
+@property (nonatomic, weak) NSObject<PubnativeAdModelDelegate> *delegate;
+
+@property (readonly) NSString *title;
+@property (readonly) NSString *description;
+@property (readonly) NSString *iconURL;
+@property (readonly) NSString *bannerURL;
+@property (readonly) NSString *callToAction;
+@property (readonly) NSNumber *starRating;
 
 /**
  * Start tracking Ad View
@@ -38,8 +40,6 @@
  * Stop tracking Ad View
  * @param adView View used to show the ad
  */
-- (void)stopTrackingView:(UIView*)adView;
-
-- (void)setDelegate:(NSObject<PubnativeAdModelDelegate>*)delegate;
+- (void)stopTracking;
 
 @end

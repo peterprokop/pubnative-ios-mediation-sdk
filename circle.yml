@@ -2,19 +2,15 @@ machine:
     timezone:
         Europe/Berlin
     xcode:
-        version: "7.1"
-
-dependencies:
-    pre:
-        - brew uninstall xctool && brew install --HEAD xctool
+        version: "7.3"
 
 test:
     override:
-        - xctool
+        - xcodebuild
             -workspace mediation.xcworkspace
-            -scheme PubnativeMediation
             -sdk iphonesimulator
-            clean test
+            -scheme mediation
+            clean test | xcpretty -c
 
 #---------------------- TODO:
 #   master:

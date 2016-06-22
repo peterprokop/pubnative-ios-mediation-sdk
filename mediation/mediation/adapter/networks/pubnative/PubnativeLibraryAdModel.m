@@ -7,17 +7,20 @@
 //
 
 #import "PubnativeLibraryAdModel.h"
+#import "PNTrackingManager.h"
 
 @interface PubnativeAdModel (Private)
 
-- (void)invokeDidConfirmedImpression:(PubnativeAdModel*)ad;
-- (void)invokeDidClicked:(PubnativeAdModel*)ad;
+- (void)invokeDidConfirmImpression;
+- (void)invokeDidClick;
 
 @end
 
 @interface PubnativeLibraryAdModel ()
 
-@property(nonatomic,strong)PNNativeAdModel *model;
+@property (nonatomic, strong)PNNativeAdModel *model;
+@property (nonatomic, weak) UIView *trackingView;
+@property (nonatomic, strong) UITapGestureRecognizer *tapRecognizer;
 
 @end
 
@@ -27,13 +30,14 @@
     self = [super init];
     if (self) {
         self.model = model;
+        self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(adViewTapped)];
     }
     return self;
 }
 
 - (NSString*)title
 {
-    NSString *result = nil;
+    NSString *result;
     if (self.model) {
         result = self.model.title;
     }
@@ -42,7 +46,7 @@
 
 - (NSString*)description
 {
-    NSString *result = nil;
+    NSString *result;
     if (self.model) {
         result = self.model.Description;
     }
@@ -51,7 +55,7 @@
 
 - (NSString*)iconURL
 {
-    NSString *result = nil;
+    NSString *result;
     if (self.model) {
         result = self.model.icon_url;
     }
@@ -60,7 +64,7 @@
 
 - (NSString*)bannerURL
 {
-    NSString *result = nil;
+    NSString *result;
     if (self.model) {
         result = self.model.banner_url;
     }
@@ -69,14 +73,14 @@
 
 - (NSString*)callToAction
 {
-    NSString *result = nil;
+    NSString *result;
     if (self.model) {
         result = self.model.cta_text;
     }
     return result;
 }
 
-- (float)starRating
+- (NSNumber*)starRating
 {
     float starRating = 0;
     if (self.model &&
@@ -84,22 +88,36 @@
         self.model.app_details.store_rating) {
         starRating = [self.model.app_details.store_rating floatValue];
     }
-    return starRating;
+    return [NSNumber numberWithFloat:starRating];
 }
 
 - (void)startTrackingView:(UIView*)adView
        withViewController:(UIViewController*)viewController
 {
     if (self.model && adView) {
-        UITapGestureRecognizer *singleTapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
-                                                                                              action:@selector(adViewTapped)];
-        [adView addGestureRecognizer:singleTapRecognizer];
+        
+        // Tracking click
+        self.trackingView = adView;
+        [self.trackingView addGestureRecognizer:self.tapRecognizer];
+        
+        [PNTrackingManager trackImpressionWithAd:self.model
+                                      completion:^(id result, NSError *error) {
+           
+            if(error){
+                NSLog(@"PubnativeLibraryAdModel - Error confirming impression: %@", error);
+            } else {
+                [self invokeDidConfirmImpression];
+            }
+        }];
+    
+    } else {
+        NSLog(@"PubnativeLibraryAdModel - Error: model or adView was null or empty, dropping this call, tracking won't start");
     }
 }
 
-- (void)stopTrackingView:(UIView*)adView
+- (void)stopTracking
 {
-    // Do nothing
+    [self.trackingView removeGestureRecognizer:self.tapRecognizer];
 }
 
 /**
@@ -107,7 +125,7 @@
  */
 - (void)adViewTapped {
     
-    [self invokeDidClicked:self];
+    [self invokeDidClick];
     if (self.model && self.model.click_url) {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.model.click_url]];
     }
