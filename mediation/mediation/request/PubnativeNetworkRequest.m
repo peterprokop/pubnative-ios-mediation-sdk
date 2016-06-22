@@ -149,7 +149,6 @@
 - (void)invokeDidStart
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(pubnativeRequestDidStart:)]) {
-        //Update request has been started
         [self.delegate pubnativeRequestDidStart:self];
     }
 }
@@ -157,7 +156,6 @@
 - (void)invokeDidFail:(NSError*)error
 {
     if(self.delegate && [self.delegate respondsToSelector:@selector(pubnativeRequest:didFail:)]){
-        //Update request had failed
         [self.delegate pubnativeRequest:self didFail:error];
     }
     
@@ -167,7 +165,6 @@
 - (void)invokeDidLoad:(PubnativeAdModel*)ad
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(pubnativeRequest:didLoad:)]) {
-        //Update request had succeed
         [self.delegate pubnativeRequest:self didLoad:ad];
     }
     
