@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D58E82031D1AD6CE0092F352 /* FacebookNativeAdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D58E81FF1D1AD6CE0092F352 /* FacebookNativeAdModel.m */; };
+		D58E82041D1AD6CE0092F352 /* FacebookNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = D58E82011D1AD6CE0092F352 /* FacebookNetworkAdapter.m */; };
 		D5BF0EEC1D1A8B8B00A05486 /* mediation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D5BF0EEB1D1A8B8B00A05486 /* mediation.h */; };
 		D5BF0EEE1D1A8B8B00A05486 /* mediation.m in Sources */ = {isa = PBXBuildFile; fileRef = D5BF0EED1D1A8B8B00A05486 /* mediation.m */; };
 		D5BF0EFD1D1A8BA700A05486 /* libPNmediation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5BF0EE81D1A8B8B00A05486 /* libPNmediation.a */; };
@@ -126,6 +128,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		D58E81FE1D1AD6CE0092F352 /* FacebookNativeAdModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookNativeAdModel.h; sourceTree = "<group>"; };
+		D58E81FF1D1AD6CE0092F352 /* FacebookNativeAdModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookNativeAdModel.m; sourceTree = "<group>"; };
+		D58E82001D1AD6CE0092F352 /* FacebookNetworkAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookNetworkAdapter.h; sourceTree = "<group>"; };
+		D58E82011D1AD6CE0092F352 /* FacebookNetworkAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookNetworkAdapter.m; sourceTree = "<group>"; };
 		D5BF0EE81D1A8B8B00A05486 /* libPNmediation.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPNmediation.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5BF0EEB1D1A8B8B00A05486 /* mediation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mediation.h; sourceTree = "<group>"; };
 		D5BF0EED1D1A8B8B00A05486 /* mediation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mediation.m; sourceTree = "<group>"; };
@@ -355,12 +361,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D58E81FC1D1AD6CE0092F352 /* mediation.adapters */ = {
+			isa = PBXGroup;
+			children = (
+				D58E81FD1D1AD6CE0092F352 /* facebook */,
+				D58E82021D1AD6CE0092F352 /* yahoo */,
+			);
+			path = mediation.adapters;
+			sourceTree = "<group>";
+		};
+		D58E81FD1D1AD6CE0092F352 /* facebook */ = {
+			isa = PBXGroup;
+			children = (
+				D58E81FE1D1AD6CE0092F352 /* FacebookNativeAdModel.h */,
+				D58E81FF1D1AD6CE0092F352 /* FacebookNativeAdModel.m */,
+				D58E82001D1AD6CE0092F352 /* FacebookNetworkAdapter.h */,
+				D58E82011D1AD6CE0092F352 /* FacebookNetworkAdapter.m */,
+			);
+			path = facebook;
+			sourceTree = "<group>";
+		};
+		D58E82021D1AD6CE0092F352 /* yahoo */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = yahoo;
+			sourceTree = "<group>";
+		};
 		D5BF0EDF1D1A8B8B00A05486 = {
 			isa = PBXGroup;
 			children = (
 				D5BF0F1B1D1A8E4000A05486 /* dependencies */,
 				D5BF0EEA1D1A8B8B00A05486 /* mediation */,
 				D5BF0EF91D1A8BA700A05486 /* mediation.test */,
+				D58E81FC1D1AD6CE0092F352 /* mediation.adapters */,
 				D5BF0F081D1A8BB500A05486 /* mediation.demo */,
 				D5BF0EE91D1A8B8B00A05486 /* Products */,
 			);
@@ -1194,8 +1228,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D58E82041D1AD6CE0092F352 /* FacebookNetworkAdapter.m in Sources */,
 				D5C8BAA21D1AB7DE0071C9E2 /* MainViewController.swift in Sources */,
 				D5BF0F0A1D1A8BB500A05486 /* AppDelegate.swift in Sources */,
+				D58E82031D1AD6CE0092F352 /* FacebookNativeAdModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
