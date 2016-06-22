@@ -11,7 +11,6 @@
 		D5BF0EEE1D1A8B8B00A05486 /* mediation.m in Sources */ = {isa = PBXBuildFile; fileRef = D5BF0EED1D1A8B8B00A05486 /* mediation.m */; };
 		D5BF0EFD1D1A8BA700A05486 /* libPNmediation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5BF0EE81D1A8B8B00A05486 /* libPNmediation.a */; };
 		D5BF0F0A1D1A8BB500A05486 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BF0F091D1A8BB500A05486 /* AppDelegate.swift */; };
-		D5BF0F0C1D1A8BB500A05486 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BF0F0B1D1A8BB500A05486 /* ViewController.swift */; };
 		D5BF0F0F1D1A8BB500A05486 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5BF0F0D1D1A8BB500A05486 /* Main.storyboard */; };
 		D5BF0F111D1A8BB600A05486 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D5BF0F101D1A8BB600A05486 /* Assets.xcassets */; };
 		D5BF0F141D1A8BB600A05486 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5BF0F121D1A8BB600A05486 /* LaunchScreen.storyboard */; };
@@ -92,6 +91,8 @@
 		D5BF10741D1A97D800A05486 /* PubnativeNetworkRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D5BF10731D1A97D800A05486 /* PubnativeNetworkRequestTest.m */; };
 		D5BF107A1D1A9C6B00A05486 /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5BF10791D1A9C6B00A05486 /* OCHamcrestIOS.framework */; };
 		D5BF107D1D1A9D6F00A05486 /* OCMockitoIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5BF107C1D1A9D6F00A05486 /* OCMockitoIOS.framework */; };
+		D5C8BA9F1D1AB7450071C9E2 /* libPNmediation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5BF0EE81D1A8B8B00A05486 /* libPNmediation.a */; };
+		D5C8BAA21D1AB7DE0071C9E2 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C8BAA01D1AB7DE0071C9E2 /* MainViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,7 +133,6 @@
 		D5BF0EFC1D1A8BA700A05486 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D5BF0F071D1A8BB500A05486 /* mediation.demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mediation.demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5BF0F091D1A8BB500A05486 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		D5BF0F0B1D1A8BB500A05486 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		D5BF0F0E1D1A8BB500A05486 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D5BF0F101D1A8BB600A05486 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D5BF0F131D1A8BB600A05486 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -320,6 +320,8 @@
 		D5BF10731D1A97D800A05486 /* PubnativeNetworkRequestTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeNetworkRequestTest.m; sourceTree = "<group>"; };
 		D5BF10791D1A9C6B00A05486 /* OCHamcrestIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCHamcrestIOS.framework; sourceTree = "<group>"; };
 		D5BF107C1D1A9D6F00A05486 /* OCMockitoIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCMockitoIOS.framework; sourceTree = "<group>"; };
+		D5C8BAA01D1AB7DE0071C9E2 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		D5C8BAA11D1AB7DE0071C9E2 /* PubnativeMediationDemo-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PubnativeMediationDemo-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -344,6 +346,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5C8BA9F1D1AB7450071C9E2 /* libPNmediation.a in Frameworks */,
 				D5BF0F4A1D1A973C00A05486 /* FBAudienceNetwork.framework in Frameworks */,
 				D5BF0F4B1D1A973C00A05486 /* FBSDKCoreKit.framework in Frameworks */,
 			);
@@ -406,10 +409,11 @@
 			isa = PBXGroup;
 			children = (
 				D5BF0F091D1A8BB500A05486 /* AppDelegate.swift */,
-				D5BF0F0B1D1A8BB500A05486 /* ViewController.swift */,
 				D5BF0F0D1D1A8BB500A05486 /* Main.storyboard */,
 				D5BF0F101D1A8BB600A05486 /* Assets.xcassets */,
 				D5BF0F121D1A8BB600A05486 /* LaunchScreen.storyboard */,
+				D5C8BAA01D1AB7DE0071C9E2 /* MainViewController.swift */,
+				D5C8BAA11D1AB7DE0071C9E2 /* PubnativeMediationDemo-Bridging-Header.h */,
 				D5BF0F151D1A8BB600A05486 /* Info.plist */,
 			);
 			path = mediation.demo;
@@ -1190,7 +1194,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5BF0F0C1D1A8BB500A05486 /* ViewController.swift in Sources */,
+				D5C8BAA21D1AB7DE0071C9E2 /* MainViewController.swift in Sources */,
 				D5BF0F0A1D1A8BB500A05486 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1375,9 +1379,11 @@
 					"$(SRCROOT)/../dependencies/**",
 				);
 				INFOPLIST_FILE = mediation.demo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.pubnative.mediation-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "mediation.demo/PubnativeMediationDemo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1392,9 +1398,11 @@
 					"$(SRCROOT)/../dependencies/**",
 				);
 				INFOPLIST_FILE = mediation.demo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.pubnative.mediation-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "mediation.demo/PubnativeMediationDemo-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
