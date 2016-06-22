@@ -6,15 +6,15 @@ machine:
 
 dependencies:
     pre:
-        - brew uninstall xctool && brew install --HEAD xctool
+        - brew install xcpretty
 
 test:
     override:
-        - xctool
+        - xcodebuild
             -workspace mediation.xcworkspace
-            -scheme PubnativeMediation
             -sdk iphonesimulator
-            clean test
+            -scheme mediation
+            clean test | xcpretty -c
 
 #---------------------- TODO:
 #   master:
