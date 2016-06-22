@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "PubnativeJSONModel.h"
 
-@interface PubnativePriorityRulesModel : PubnativeJSONModel
+@interface PubnativePriorityRuleModel : PubnativeJSONModel
 
 @property (nonatomic, strong)NSNumber       *identifier;
 @property (nonatomic, strong)NSString       *network_code;

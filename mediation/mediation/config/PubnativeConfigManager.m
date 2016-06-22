@@ -283,9 +283,9 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
 {
     if(model && ![model isEmpty])
     {
-        NSData *jsonData = [NSJSONSerialization  dataWithJSONObject:[model toDictionary]
-                                                            options:0
-                                                              error:nil];
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[model toDictionary]
+                                                           options:0
+                                                             error:nil];
         [[NSUserDefaults standardUserDefaults] setObject:jsonData forKey:kUserDefaultsStoredConfigKey];
     } else {
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserDefaultsStoredConfigKey];

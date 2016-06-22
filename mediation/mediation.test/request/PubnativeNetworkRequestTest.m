@@ -44,7 +44,7 @@
     PubnativeNetworkRequest *request = [[PubnativeNetworkRequest alloc] init];
     
     [request startWithAppToken:nil
-                   placementID:@"placement"
+                placementName:@"placement"
                       delegate:delegate];
     
     [verify(delegate) pubnativeRequest:is(request) didFail:instanceOf([NSError class])];
@@ -56,7 +56,7 @@
     PubnativeNetworkRequest *request = [[PubnativeNetworkRequest alloc] init];
     
     [request startWithAppToken:@""
-                   placementID:@"placement"
+                 placementName:@"placement"
                       delegate:delegate];
     
     [verify(delegate) pubnativeRequest:is(request) didFail:instanceOf([NSError class])];
@@ -68,7 +68,7 @@
     PubnativeNetworkRequest *request = [[PubnativeNetworkRequest alloc] init];
     
     [request startWithAppToken:@"app_token"
-                   placementID:nil
+                 placementName:nil
                       delegate:delegate];
     
     [verify(delegate) pubnativeRequest:is(request) didFail:instanceOf([NSError class])];
@@ -80,7 +80,7 @@
     PubnativeNetworkRequest *request = [[PubnativeNetworkRequest alloc] init];
     
     [request startWithAppToken:@"app_token"
-                   placementID:@""
+                 placementName:@""
                       delegate:delegate];
     
     [verify(delegate) pubnativeRequest:is(request) didFail:instanceOf([NSError class])];

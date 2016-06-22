@@ -19,5 +19,9 @@
 @property (nonatomic, strong)NSArray    *segment_ids;
 
 - (BOOL)isDisabled;
+- (BOOL)isDayImpressionCapActive;
+- (BOOL)isHourImpressionCapActive;
+- (BOOL)isPacingCapActive;
+- (BOOL)isFrequencyCapReachedWithPlacement:(NSString*)placementName;
 
 @end

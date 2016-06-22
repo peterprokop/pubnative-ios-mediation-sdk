@@ -11,7 +11,7 @@
 #import "PNAdRequest.h"
 #import "PNNativeAdModel.h"
 
-NSString * const kAppTokenKey = @"app_token";
+NSString * const kPubnativeLibraryNetworkAdapterAppTokenKey = @"app_token";
 
 @interface PubnativeNetworkAdapter (Private)
 
@@ -28,10 +28,12 @@ NSString * const kAppTokenKey = @"app_token";
 
 @implementation PubnativeLibraryNetworkAdapter
 
-- (void)doRequest
+- (void)doRequestWithData:(NSDictionary *)data
+                   extras:(NSDictionary<NSString *,NSString *> *)extras
 {
-    if (self.params) {
-        NSString *appToken = [self.params valueForKey:kAppTokenKey];
+    if (data) {
+        
+        NSString *appToken = [data objectForKey:kPubnativeLibraryNetworkAdapterAppTokenKey];
         
         if (appToken && [appToken length] > 0) {
             [self createRequestWithAppToken:appToken];
