@@ -4,10 +4,6 @@ machine:
     xcode:
         version: "7.1"
 
-dependencies:
-    pre:
-        - brew install xcpretty
-
 test:
     override:
         - xcodebuild
