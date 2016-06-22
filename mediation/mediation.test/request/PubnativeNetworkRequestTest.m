@@ -38,84 +38,80 @@
     [super tearDown];
 }
 
-- (void)test_empty
+- (void)test_startWithAppToken_withNilAppToken_shouldCallbackFail
 {
-    assertThatBool(3==3, isTrue());
+    NSObject<PubnativeNetworkRequestDelegate> *delegate = mockObjectAndProtocol([NSObject class], @protocol(PubnativeNetworkRequestDelegate));
+    PubnativeNetworkRequest *request = [[PubnativeNetworkRequest alloc] init];
+    
+    [request startWithAppToken:nil
+                   placementID:@"placement"
+                      delegate:delegate];
+    
+    [verify(delegate) pubnativeRequest:is(request) didFail:instanceOf([NSError class])];
 }
 
-//- (void)test_startWithAppToken_withNilAppToken_shouldCallbackFail
-//{
-//    NSObject<PubnativeNetworkRequestDelegate> *delegate = mockObjectAndProtocol([NSObject class], @protocol(PubnativeNetworkRequestDelegate));
-//    PubnativeNetworkRequest *request = [[PubnativeNetworkRequest alloc] init];
-//    
-//    [request startWithAppToken:nil
-//                   placementID:@"placement"
-//                      delegate:delegate];
-//    
-//    [verify(delegate) pubnativeRequest:is(request) didFail:instanceOf([NSError class])];
-//}
-//
-//- (void)test_startWithAppToken_withEmptyAppToken_shouldCallbackFail
-//{
-//    NSObject<PubnativeNetworkRequestDelegate> *delegate = mockProtocol(@protocol(PubnativeNetworkRequestDelegate));
-//    PubnativeNetworkRequest *request = [[PubnativeNetworkRequest alloc] init];
-//    
-//    [request startWithAppToken:@""
-//                   placementID:@"placement"
-//                      delegate:delegate];
-//    
-//    [verify(delegate) pubnativeRequest:is(request) didFail:instanceOf([NSError class])];
-//}
-//
-//- (void)test_startWithAppToken_withNilPlacement_shouldCallbackFail
-//{
-//    NSObject<PubnativeNetworkRequestDelegate> *delegate = mockProtocol(@protocol(PubnativeNetworkRequestDelegate));
-//    PubnativeNetworkRequest *request = [[PubnativeNetworkRequest alloc] init];
-//    
-//    [request startWithAppToken:@"app_token"
-//                   placementID:nil
-//                      delegate:delegate];
-//    
-//    [verify(delegate) pubnativeRequest:is(request) didFail:instanceOf([NSError class])];
-//}
-//
-//- (void)test_startWithAppToken_withEmptyPlacement_shouldCallbackFail
-//{
-//    NSObject<PubnativeNetworkRequestDelegate> *delegate = mockProtocol(@protocol(PubnativeNetworkRequestDelegate));
-//    PubnativeNetworkRequest *request = [[PubnativeNetworkRequest alloc] init];
-//    
-//    [request startWithAppToken:@"app_token"
-//                   placementID:@""
-//                      delegate:delegate];
-//    
-//    [verify(delegate) pubnativeRequest:is(request) didFail:instanceOf([NSError class])];
-//}
-//
-//- (void)test_invokeDidLoad_withValidListener_shouldCallback
-//{
-//    NSObject<PubnativeNetworkRequestDelegate> *delegate = mockProtocol(@protocol(PubnativeNetworkRequestDelegate));
-//    PubnativeAdModel *model = mock([PubnativeAdModel class]);
-//    PubnativeNetworkRequest *request = [[PubnativeNetworkRequest alloc] init];
-//    request.delegate = delegate;
-//    [request invokeDidLoad:model];
-//    [verify(delegate) pubnativeRequest:is(request) didLoad:is(model)];
-//}
-//
-//- (void)test_invokeDidFail_withValidListener_shouldCallback
-//{
-//    NSObject<PubnativeNetworkRequestDelegate> *delegate = mockProtocol(@protocol(PubnativeNetworkRequestDelegate));
-//    NSError *error = mock([NSError class]);
-//    PubnativeNetworkRequest *request = [[PubnativeNetworkRequest alloc] init];
-//    request.delegate = delegate;
-//    [request invokeDidFail:error];
-//    [verify(delegate) pubnativeRequest:is(request) didFail:is(error)];
-//}
-//
-- (void)test_invokeDidStart_withValidListener_shouldCallback
+- (void)test_startWithAppToken_withEmptyAppToken_shouldCallbackFail
 {
     NSObject<PubnativeNetworkRequestDelegate> *delegate = mockProtocol(@protocol(PubnativeNetworkRequestDelegate));
     PubnativeNetworkRequest *request = [[PubnativeNetworkRequest alloc] init];
+    
+    [request startWithAppToken:@""
+                   placementID:@"placement"
+                      delegate:delegate];
+    
+    [verify(delegate) pubnativeRequest:is(request) didFail:instanceOf([NSError class])];
+}
+
+- (void)test_startWithAppToken_withNilPlacement_shouldCallbackFail
+{
+    NSObject<PubnativeNetworkRequestDelegate> *delegate = mockProtocol(@protocol(PubnativeNetworkRequestDelegate));
+    PubnativeNetworkRequest *request = [[PubnativeNetworkRequest alloc] init];
+    
+    [request startWithAppToken:@"app_token"
+                   placementID:nil
+                      delegate:delegate];
+    
+    [verify(delegate) pubnativeRequest:is(request) didFail:instanceOf([NSError class])];
+}
+
+- (void)test_startWithAppToken_withEmptyPlacement_shouldCallbackFail
+{
+    NSObject<PubnativeNetworkRequestDelegate> *delegate = mockProtocol(@protocol(PubnativeNetworkRequestDelegate));
+    PubnativeNetworkRequest *request = [[PubnativeNetworkRequest alloc] init];
+    
+    [request startWithAppToken:@"app_token"
+                   placementID:@""
+                      delegate:delegate];
+    
+    [verify(delegate) pubnativeRequest:is(request) didFail:instanceOf([NSError class])];
+}
+
+- (void)test_invokeDidLoad_withValidListener_shouldCallback
+{
+    NSObject<PubnativeNetworkRequestDelegate> *delegate = mockProtocol(@protocol(PubnativeNetworkRequestDelegate));
+    PubnativeAdModel *model = mock([PubnativeAdModel class]);
+    PubnativeNetworkRequest *request = [[PubnativeNetworkRequest alloc] init];
     request.delegate = delegate;
+    [request invokeDidLoad:model];
+    [verify(delegate) pubnativeRequest:is(request) didLoad:is(model)];
+}
+
+- (void)test_invokeDidFail_withValidListener_shouldCallback
+{
+    NSObject<PubnativeNetworkRequestDelegate> *delegate = mockProtocol(@protocol(PubnativeNetworkRequestDelegate));
+    NSError *error = mock([NSError class]);
+    PubnativeNetworkRequest *request = [[PubnativeNetworkRequest alloc] init];
+    request.delegate = delegate;
+    [request invokeDidFail:error];
+    [verify(delegate) pubnativeRequest:is(request) didFail:is(error)];
+}
+
+- (void)test_invokeDidStart_withValidListener_shouldCallback
+{
+    NSObject<PubnativeNetworkRequestDelegate> *delegate = mockProtocol(@protocol(PubnativeNetworkRequestDelegate));
+    PubnativeNetworkRequest *request = [[PubnativeNetworkRequest alloc] init];;
+    request.delegate = delegate;
+    
     [request invokeDidStart];
     [verify(delegate) pubnativeRequestDidStart:is(request)];
 }

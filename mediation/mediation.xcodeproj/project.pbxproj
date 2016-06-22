@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		D5BF0EEC1D1A8B8B00A05486 /* mediation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D5BF0EEB1D1A8B8B00A05486 /* mediation.h */; };
 		D5BF0EEE1D1A8B8B00A05486 /* mediation.m in Sources */ = {isa = PBXBuildFile; fileRef = D5BF0EED1D1A8B8B00A05486 /* mediation.m */; };
-		D5BF0EFB1D1A8BA700A05486 /* mediation_test.m in Sources */ = {isa = PBXBuildFile; fileRef = D5BF0EFA1D1A8BA700A05486 /* mediation_test.m */; };
 		D5BF0EFD1D1A8BA700A05486 /* libPNmediation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5BF0EE81D1A8B8B00A05486 /* libPNmediation.a */; };
 		D5BF0F0A1D1A8BB500A05486 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BF0F091D1A8BB500A05486 /* AppDelegate.swift */; };
 		D5BF0F0C1D1A8BB500A05486 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5BF0F0B1D1A8BB500A05486 /* ViewController.swift */; };
@@ -130,7 +129,6 @@
 		D5BF0EEB1D1A8B8B00A05486 /* mediation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mediation.h; sourceTree = "<group>"; };
 		D5BF0EED1D1A8B8B00A05486 /* mediation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mediation.m; sourceTree = "<group>"; };
 		D5BF0EF81D1A8BA700A05486 /* mediation.test.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mediation.test.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		D5BF0EFA1D1A8BA700A05486 /* mediation_test.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mediation_test.m; sourceTree = "<group>"; };
 		D5BF0EFC1D1A8BA700A05486 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D5BF0F071D1A8BB500A05486 /* mediation.demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mediation.demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5BF0F091D1A8BB500A05486 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -399,7 +397,6 @@
 				D5BF10701D1A97D800A05486 /* network */,
 				D5BF10711D1A97D800A05486 /* parse */,
 				D5BF10721D1A97D800A05486 /* request */,
-				D5BF0EFA1D1A8BA700A05486 /* mediation_test.m */,
 				D5BF0EFC1D1A8BA700A05486 /* Info.plist */,
 			);
 			path = mediation.test;
@@ -1055,6 +1052,8 @@
 					};
 					D5BF0F061D1A8BB500A05486 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = TL55SBB4FM;
+						DevelopmentTeamName = "Pubnative GmbH";
 					};
 				};
 			};
@@ -1183,7 +1182,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D5BF0EFB1D1A8BA700A05486 /* mediation_test.m in Sources */,
 				D5BF10741D1A97D800A05486 /* PubnativeNetworkRequestTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1341,6 +1339,10 @@
 				);
 				INFOPLIST_FILE = mediation.test/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "net.pubnative.mediation-test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1355,6 +1357,10 @@
 				);
 				INFOPLIST_FILE = mediation.test/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "net.pubnative.mediation-test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1364,6 +1370,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../dependencies/**",
+				);
 				INFOPLIST_FILE = mediation.demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.pubnative.mediation-demo";
@@ -1377,6 +1387,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../dependencies/**",
+				);
 				INFOPLIST_FILE = mediation.demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "net.pubnative.mediation-demo";
