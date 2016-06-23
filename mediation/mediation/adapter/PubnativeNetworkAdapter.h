@@ -27,4 +27,7 @@
                extras:(NSDictionary<NSString *,NSString *> *)extras
              delegate:(NSObject<PubnativeNetworkAdapterDelegate> *)delegate;
 
+- (void)doRequestWithData:(NSDictionary *)data
+                   extras:(NSDictionary<NSString *,NSString *> *)extras;
+
 @end

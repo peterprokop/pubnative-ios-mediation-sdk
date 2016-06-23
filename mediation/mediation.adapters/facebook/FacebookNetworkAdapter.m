@@ -26,10 +26,11 @@ NSString * const kPlacementIdKey = @"placement_id";
 
 @implementation FacebookNetworkAdapter
 
-- (void)doRequest
+- (void)doRequestWithData:(NSDictionary *)data
+                   extras:(NSDictionary<NSString *,NSString *> *)extras
 {
-    if (self.params) {
-        NSString *placementId = self.params[kPlacementIdKey];
+    if (data == nil) {
+        NSString *placementId = data[kPlacementIdKey];
         if (placementId && [placementId length] > 0) {
             [self createRequestWithPlacementId:placementId];
         } else {
