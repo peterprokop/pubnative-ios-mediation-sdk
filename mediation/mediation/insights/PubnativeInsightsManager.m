@@ -8,6 +8,7 @@
 
 #import "PubnativeInsightsManager.h"
 #import "PubnativeInsightRequestModel.h"
+#import "PubnativeInsightApiResponseModel.h"
 #import "PubnativeHttpRequest.h"
 
 static PubnativeInsightsManager* _sharedInstance;
@@ -66,14 +67,42 @@ static PubnativeInsightsManager* _sharedInstance;
         PubnativeInsightRequestModel *requestModel = [PubnativeInsightsManager dequeueRequestDelegate];
         if(requestModel){
             [PubnativeInsightsManager sharedInstance].idle = NO;
-            [PubnativeInsightsManager sendRequest:requestModel];
+            [PubnativeInsightsManager sendRequest:requestModel withBaseUrl:@""];
         }
     }
 }
 
-+ (void)sendRequest:(PubnativeInsightRequestModel *) model
++ (void)sendRequest:(PubnativeInsightRequestModel *) model withBaseUrl:(NSString *) baseUrl
 {
-    
+    __block PubnativeInsightRequestModel *requestModelBlock = model;
+    [PubnativeHttpRequest requestWithURL:baseUrl andCompletionHandler:^(NSString *result, NSError *error) {
+        if (error) {
+            [PubnativeInsightsManager invokeDidFinishWithModel:nil delegate:requestModelBlock.delegate];
+        } else {
+            NSData *jsonData = [result dataUsingEncoding:NSUTF8StringEncoding];
+            NSError *dataError;
+            NSDictionary *jsonDictonary = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&dataError];
+            
+            if (dataError) {
+                NSLog(@"PubnativeInsightsManager - data error: %@", dataError);
+                [PubnativeInsightsManager invokeDidFinishWithModel:nil delegate:requestModelBlock.delegate];
+            } else {
+                PubnativeInsightApiResponseModel *apiResponse = [PubnativeInsightApiResponseModel modelWithDictionary:jsonDictonary];
+                if(apiResponse) {
+                    if([apiResponse isSuccess]) {
+                        NSLog(@"PubnativeInsightsManager - succes");
+                        //[PubnativeInsightsManager invokeDidFinishWithModel:requestModelBlock.dataModel delegate:requestModelBlock.delegate];
+                    } else {
+                        NSLog(@"PubnativeInsightsManager - server error: %@", apiResponse.error_message);
+                        [PubnativeInsightsManager invokeDidFinishWithModel:nil delegate:requestModelBlock.delegate];
+                    }
+                } else {
+                    NSLog(@"PubnativeInsightsManager - parsing error");
+                    [PubnativeInsightsManager invokeDidFinishWithModel:nil delegate:requestModelBlock.delegate];
+                }
+            }
+        }
+    }];
 }
 
 #pragma mark - QUEUE -

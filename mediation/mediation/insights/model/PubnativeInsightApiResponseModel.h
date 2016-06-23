@@ -1,0 +1,22 @@
+//
+//  PubnativeInsightApiResponseModel.h
+//  mediation
+//
+//  Created by Alvarlega on 23/06/16.
+//  Copyright © 2016 pubnative. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "PubnativeJSONModel.h"
+#import "PubnativeInsightModel.h"
+
+@interface PubnativeInsightApiResponseModel : PubnativeJSONModel
+
+@property (nonatomic, strong) NSString              *status;
+@property (nonatomic, strong) NSString              *error_message;
+@property (nonatomic, strong) PubnativeInsightModel *config;
+
+- (BOOL)isSuccess;
+
+@end
+

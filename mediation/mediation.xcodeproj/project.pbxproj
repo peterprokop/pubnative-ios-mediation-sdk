@@ -10,6 +10,7 @@
 		039FC0401D1BFA4300AF8011 /* PubnativeInsightsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 039FC03F1D1BFA4300AF8011 /* PubnativeInsightsManager.m */; };
 		039FC0431D1BFC1E00AF8011 /* PubnativeInsightRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 039FC0421D1BFC1E00AF8011 /* PubnativeInsightRequestModel.m */; };
 		039FC0471D1C01D500AF8011 /* PubnativeInsightModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 039FC0461D1C01D500AF8011 /* PubnativeInsightModel.m */; };
+		039FC0491D1C2EC700AF8011 /* PubnativeInsightApiResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 039FC0481D1C2EC700AF8011 /* PubnativeInsightApiResponseModel.m */; };
 		D58E82031D1AD6CE0092F352 /* FacebookNativeAdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D58E81FF1D1AD6CE0092F352 /* FacebookNativeAdModel.m */; };
 		D58E82041D1AD6CE0092F352 /* FacebookNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = D58E82011D1AD6CE0092F352 /* FacebookNetworkAdapter.m */; };
 		D5BF0EEC1D1A8B8B00A05486 /* mediation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D5BF0EEB1D1A8B8B00A05486 /* mediation.h */; };
@@ -137,6 +138,8 @@
 		039FC0441D1BFC2700AF8011 /* PubnativeInsightRequestModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PubnativeInsightRequestModel.h; sourceTree = "<group>"; };
 		039FC0451D1C01C600AF8011 /* PubnativeInsightModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PubnativeInsightModel.h; path = insights/model/PubnativeInsightModel.h; sourceTree = "<group>"; };
 		039FC0461D1C01D500AF8011 /* PubnativeInsightModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeInsightModel.m; path = insights/model/PubnativeInsightModel.m; sourceTree = "<group>"; };
+		039FC0481D1C2EC700AF8011 /* PubnativeInsightApiResponseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeInsightApiResponseModel.m; path = insights/model/PubnativeInsightApiResponseModel.m; sourceTree = "<group>"; };
+		039FC04A1D1C2ED700AF8011 /* PubnativeInsightApiResponseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PubnativeInsightApiResponseModel.h; path = insights/model/PubnativeInsightApiResponseModel.h; sourceTree = "<group>"; };
 		D58E81FE1D1AD6CE0092F352 /* FacebookNativeAdModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookNativeAdModel.h; sourceTree = "<group>"; };
 		D58E81FF1D1AD6CE0092F352 /* FacebookNativeAdModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookNativeAdModel.m; sourceTree = "<group>"; };
 		D58E82001D1AD6CE0092F352 /* FacebookNetworkAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookNetworkAdapter.h; sourceTree = "<group>"; };
@@ -387,6 +390,8 @@
 				039FC0441D1BFC2700AF8011 /* PubnativeInsightRequestModel.h */,
 				039FC0451D1C01C600AF8011 /* PubnativeInsightModel.h */,
 				039FC0461D1C01D500AF8011 /* PubnativeInsightModel.m */,
+				039FC0481D1C2EC700AF8011 /* PubnativeInsightApiResponseModel.m */,
+				039FC04A1D1C2ED700AF8011 /* PubnativeInsightApiResponseModel.h */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -1199,6 +1204,7 @@
 				D5BF10351D1A97C800A05486 /* PNVideoAdModelTableViewCell.m in Sources */,
 				D5BF102E1D1A97C800A05486 /* PNCarouselTableViewCell.m in Sources */,
 				D5BF105B1D1A97C800A05486 /* PubnativeLibraryAdModel.m in Sources */,
+				039FC0491D1C2EC700AF8011 /* PubnativeInsightApiResponseModel.m in Sources */,
 				D5BF10391D1A97C800A05486 /* PNGameListTableViewCell.m in Sources */,
 				D5BF10411D1A97C800A05486 /* PNAMRatingControl.m in Sources */,
 				D5BF10451D1A97C800A05486 /* PNYADMJSONApiModel.m in Sources */,

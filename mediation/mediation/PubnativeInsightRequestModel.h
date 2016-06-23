@@ -14,7 +14,7 @@
 
 @property (nonatomic, strong) NSString                                      *appToken;
 @property (nonatomic, strong) NSString                                      *baseUrl;
-@property (nonatomic, strong) NSObject<PubnativeInsightModel>               *dataModel;
+@property (nonatomic, strong) NSObject                                      *dataModel;
 @property (nonatomic, strong) NSObject<PubnativeInsightsManagerDelegate>    *delegate;
 
 @end
