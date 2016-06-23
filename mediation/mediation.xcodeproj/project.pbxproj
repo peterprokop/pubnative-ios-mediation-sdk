@@ -8,6 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		D531B0821D1AEFC4008A7A86 /* PubnativeDeliveryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D531B0811D1AEFC4008A7A86 /* PubnativeDeliveryManager.m */; };
+		D531B0841D1C21EE008A7A86 /* PubnativeConfigManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D531B0831D1C21EE008A7A86 /* PubnativeConfigManagerTest.m */; };
+		D531B08F1D1C28DE008A7A86 /* response_invalid.json in Resources */ = {isa = PBXBuildFile; fileRef = D531B0861D1C28DE008A7A86 /* response_invalid.json */; };
+		D531B0901D1C28DE008A7A86 /* response_error.json in Resources */ = {isa = PBXBuildFile; fileRef = D531B0881D1C28DE008A7A86 /* response_error.json */; };
+		D531B0911D1C28DE008A7A86 /* response_ok_empty.json in Resources */ = {isa = PBXBuildFile; fileRef = D531B0891D1C28DE008A7A86 /* response_ok_empty.json */; };
+		D531B0921D1C28DE008A7A86 /* response_ok_invalid.json in Resources */ = {isa = PBXBuildFile; fileRef = D531B08A1D1C28DE008A7A86 /* response_ok_invalid.json */; };
+		D531B0931D1C28DE008A7A86 /* response_ok_valid.json in Resources */ = {isa = PBXBuildFile; fileRef = D531B08B1D1C28DE008A7A86 /* response_ok_valid.json */; };
+		D531B0941D1C28DE008A7A86 /* config_empty.json in Resources */ = {isa = PBXBuildFile; fileRef = D531B08D1D1C28DE008A7A86 /* config_empty.json */; };
+		D531B0951D1C28DE008A7A86 /* config_valid.json in Resources */ = {isa = PBXBuildFile; fileRef = D531B08E1D1C28DE008A7A86 /* config_valid.json */; };
+		D531B0971D1C2931008A7A86 /* response_broken.json in Resources */ = {isa = PBXBuildFile; fileRef = D531B0961D1C2931008A7A86 /* response_broken.json */; };
+		D531B09A1D1C29F4008A7A86 /* PubnativeResourceUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D531B0991D1C29F4008A7A86 /* PubnativeResourceUtils.m */; };
 		D58E82031D1AD6CE0092F352 /* FacebookNativeAdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D58E81FF1D1AD6CE0092F352 /* FacebookNativeAdModel.m */; };
 		D58E82041D1AD6CE0092F352 /* FacebookNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = D58E82011D1AD6CE0092F352 /* FacebookNetworkAdapter.m */; };
 		D5BF0EFD1D1A8BA700A05486 /* libPNmediation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5BF0EE81D1A8B8B00A05486 /* libPNmediation.a */; };
@@ -127,6 +137,17 @@
 /* Begin PBXFileReference section */
 		D531B0801D1AEFC4008A7A86 /* PubnativeDeliveryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeDeliveryManager.h; sourceTree = "<group>"; };
 		D531B0811D1AEFC4008A7A86 /* PubnativeDeliveryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeDeliveryManager.m; sourceTree = "<group>"; };
+		D531B0831D1C21EE008A7A86 /* PubnativeConfigManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeConfigManagerTest.m; sourceTree = "<group>"; };
+		D531B0861D1C28DE008A7A86 /* response_invalid.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = response_invalid.json; path = ../response_invalid.json; sourceTree = "<group>"; };
+		D531B0881D1C28DE008A7A86 /* response_error.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = response_error.json; sourceTree = "<group>"; };
+		D531B0891D1C28DE008A7A86 /* response_ok_empty.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = response_ok_empty.json; sourceTree = "<group>"; };
+		D531B08A1D1C28DE008A7A86 /* response_ok_invalid.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = response_ok_invalid.json; sourceTree = "<group>"; };
+		D531B08B1D1C28DE008A7A86 /* response_ok_valid.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = response_ok_valid.json; sourceTree = "<group>"; };
+		D531B08D1D1C28DE008A7A86 /* config_empty.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config_empty.json; sourceTree = "<group>"; };
+		D531B08E1D1C28DE008A7A86 /* config_valid.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = config_valid.json; sourceTree = "<group>"; };
+		D531B0961D1C2931008A7A86 /* response_broken.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = response_broken.json; path = ../response_broken.json; sourceTree = "<group>"; };
+		D531B0981D1C29F4008A7A86 /* PubnativeResourceUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PubnativeResourceUtils.h; path = ../config/PubnativeResourceUtils.h; sourceTree = "<group>"; };
+		D531B0991D1C29F4008A7A86 /* PubnativeResourceUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeResourceUtils.m; path = ../config/PubnativeResourceUtils.m; sourceTree = "<group>"; };
 		D58E81FE1D1AD6CE0092F352 /* FacebookNativeAdModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookNativeAdModel.h; sourceTree = "<group>"; };
 		D58E81FF1D1AD6CE0092F352 /* FacebookNativeAdModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookNativeAdModel.m; sourceTree = "<group>"; };
 		D58E82001D1AD6CE0092F352 /* FacebookNetworkAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookNetworkAdapter.h; sourceTree = "<group>"; };
@@ -356,6 +377,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D531B0851D1C28DE008A7A86 /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				D531B0981D1C29F4008A7A86 /* PubnativeResourceUtils.h */,
+				D531B0991D1C29F4008A7A86 /* PubnativeResourceUtils.m */,
+				D531B0871D1C28DE008A7A86 /* PubnativeAPIConfigResponseModel */,
+				D531B08C1D1C28DE008A7A86 /* PubnativeConfigModel */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
+		D531B0871D1C28DE008A7A86 /* PubnativeAPIConfigResponseModel */ = {
+			isa = PBXGroup;
+			children = (
+				D531B0961D1C2931008A7A86 /* response_broken.json */,
+				D531B0861D1C28DE008A7A86 /* response_invalid.json */,
+				D531B0881D1C28DE008A7A86 /* response_error.json */,
+				D531B0891D1C28DE008A7A86 /* response_ok_empty.json */,
+				D531B08A1D1C28DE008A7A86 /* response_ok_invalid.json */,
+				D531B08B1D1C28DE008A7A86 /* response_ok_valid.json */,
+			);
+			path = PubnativeAPIConfigResponseModel;
+			sourceTree = "<group>";
+		};
+		D531B08C1D1C28DE008A7A86 /* PubnativeConfigModel */ = {
+			isa = PBXGroup;
+			children = (
+				D531B08D1D1C28DE008A7A86 /* config_empty.json */,
+				D531B08E1D1C28DE008A7A86 /* config_valid.json */,
+			);
+			path = PubnativeConfigModel;
+			sourceTree = "<group>";
+		};
 		D58E81FC1D1AD6CE0092F352 /* mediation.adapters */ = {
 			isa = PBXGroup;
 			children = (
@@ -421,6 +475,7 @@
 		D5BF0EF91D1A8BA700A05486 /* mediation.test */ = {
 			isa = PBXGroup;
 			children = (
+				D531B0851D1C28DE008A7A86 /* resources */,
 				D5BF106D1D1A97D800A05486 /* adapter */,
 				D5BF106E1D1A97D800A05486 /* config */,
 				D5BF106F1D1A97D800A05486 /* delivery */,
@@ -960,6 +1015,7 @@
 		D5BF106E1D1A97D800A05486 /* config */ = {
 			isa = PBXGroup;
 			children = (
+				D531B0831D1C21EE008A7A86 /* PubnativeConfigManagerTest.m */,
 			);
 			path = config;
 			sourceTree = "<group>";
@@ -1113,6 +1169,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D531B0951D1C28DE008A7A86 /* config_valid.json in Resources */,
+				D531B0911D1C28DE008A7A86 /* response_ok_empty.json in Resources */,
+				D531B08F1D1C28DE008A7A86 /* response_invalid.json in Resources */,
+				D531B0931D1C28DE008A7A86 /* response_ok_valid.json in Resources */,
+				D531B0971D1C2931008A7A86 /* response_broken.json in Resources */,
+				D531B0921D1C28DE008A7A86 /* response_ok_invalid.json in Resources */,
+				D531B0901D1C28DE008A7A86 /* response_error.json in Resources */,
+				D531B0941D1C28DE008A7A86 /* config_empty.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1212,6 +1276,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D531B09A1D1C29F4008A7A86 /* PubnativeResourceUtils.m in Sources */,
+				D531B0841D1C21EE008A7A86 /* PubnativeConfigManagerTest.m in Sources */,
 				D5BF10741D1A97D800A05486 /* PubnativeNetworkRequestTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
