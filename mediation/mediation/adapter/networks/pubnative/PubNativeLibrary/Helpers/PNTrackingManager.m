@@ -53,7 +53,6 @@ static PNTrackingManager *sharedManager = nil;
 + (void)setConfirmedAds:(NSMutableArray*)confirmedAds
 {
     [[NSUserDefaults standardUserDefaults] setObject:confirmedAds forKey:kPNAdConstantTrackingConfirmedAdsKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 + (void)trackURLString:(NSString*)confirmURLString completion:(PNTrackingCompletedBlock)completion
