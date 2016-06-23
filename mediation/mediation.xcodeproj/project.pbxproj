@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		039FC0401D1BFA4300AF8011 /* PubnativeInsightsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 039FC03F1D1BFA4300AF8011 /* PubnativeInsightsManager.m */; };
+		039FC0431D1BFC1E00AF8011 /* PubnativeInsightRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 039FC0421D1BFC1E00AF8011 /* PubnativeInsightRequestModel.m */; };
+		039FC0471D1C01D500AF8011 /* PubnativeInsightModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 039FC0461D1C01D500AF8011 /* PubnativeInsightModel.m */; };
 		D58E82031D1AD6CE0092F352 /* FacebookNativeAdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D58E81FF1D1AD6CE0092F352 /* FacebookNativeAdModel.m */; };
 		D58E82041D1AD6CE0092F352 /* FacebookNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = D58E82011D1AD6CE0092F352 /* FacebookNetworkAdapter.m */; };
 		D5BF0EEC1D1A8B8B00A05486 /* mediation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D5BF0EEB1D1A8B8B00A05486 /* mediation.h */; };
@@ -128,6 +131,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		039FC03E1D1BFA3300AF8011 /* PubnativeInsightsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PubnativeInsightsManager.h; path = insights/PubnativeInsightsManager.h; sourceTree = "<group>"; };
+		039FC03F1D1BFA4300AF8011 /* PubnativeInsightsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeInsightsManager.m; path = insights/PubnativeInsightsManager.m; sourceTree = "<group>"; };
+		039FC0421D1BFC1E00AF8011 /* PubnativeInsightRequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeInsightRequestModel.m; path = insights/model/PubnativeInsightRequestModel.m; sourceTree = "<group>"; };
+		039FC0441D1BFC2700AF8011 /* PubnativeInsightRequestModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PubnativeInsightRequestModel.h; sourceTree = "<group>"; };
+		039FC0451D1C01C600AF8011 /* PubnativeInsightModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PubnativeInsightModel.h; path = insights/model/PubnativeInsightModel.h; sourceTree = "<group>"; };
+		039FC0461D1C01D500AF8011 /* PubnativeInsightModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeInsightModel.m; path = insights/model/PubnativeInsightModel.m; sourceTree = "<group>"; };
 		D58E81FE1D1AD6CE0092F352 /* FacebookNativeAdModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookNativeAdModel.h; sourceTree = "<group>"; };
 		D58E81FF1D1AD6CE0092F352 /* FacebookNativeAdModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookNativeAdModel.m; sourceTree = "<group>"; };
 		D58E82001D1AD6CE0092F352 /* FacebookNetworkAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookNetworkAdapter.h; sourceTree = "<group>"; };
@@ -361,6 +370,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		039FC03D1D1BF9DF00AF8011 /* insights */ = {
+			isa = PBXGroup;
+			children = (
+				039FC0411D1BFBFE00AF8011 /* model */,
+				039FC03E1D1BFA3300AF8011 /* PubnativeInsightsManager.h */,
+				039FC03F1D1BFA4300AF8011 /* PubnativeInsightsManager.m */,
+			);
+			name = insights;
+			sourceTree = "<group>";
+		};
+		039FC0411D1BFBFE00AF8011 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				039FC0421D1BFC1E00AF8011 /* PubnativeInsightRequestModel.m */,
+				039FC0441D1BFC2700AF8011 /* PubnativeInsightRequestModel.h */,
+				039FC0451D1C01C600AF8011 /* PubnativeInsightModel.h */,
+				039FC0461D1C01D500AF8011 /* PubnativeInsightModel.m */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
 		D58E81FC1D1AD6CE0092F352 /* mediation.adapters */ = {
 			isa = PBXGroup;
 			children = (
@@ -413,6 +443,7 @@
 		D5BF0EEA1D1A8B8B00A05486 /* mediation */ = {
 			isa = PBXGroup;
 			children = (
+				039FC03D1D1BF9DF00AF8011 /* insights */,
 				D5BF0F4C1D1A97C800A05486 /* adapter */,
 				D5BF10021D1A97C800A05486 /* config */,
 				D5BF10161D1A97C800A05486 /* delivery */,
@@ -1159,8 +1190,10 @@
 				D5BF104B1D1A97C800A05486 /* PNCacheManager.m in Sources */,
 				D5BF102B1D1A97C800A05486 /* PNBannerTableViewCell.m in Sources */,
 				D5BF10251D1A97C800A05486 /* PNAdConstants.m in Sources */,
+				039FC0431D1BFC1E00AF8011 /* PubnativeInsightRequestModel.m in Sources */,
 				D5BF105A1D1A97C800A05486 /* PubnativeExtension.m in Sources */,
 				D5BF10531D1A97C800A05486 /* PNNativeAPIModel.m in Sources */,
+				039FC0401D1BFA4300AF8011 /* PubnativeInsightsManager.m in Sources */,
 				D5BF10341D1A97C800A05486 /* PNTableViewManager.m in Sources */,
 				D5BF10571D1A97C800A05486 /* Pubnative.m in Sources */,
 				D5BF10351D1A97C800A05486 /* PNVideoAdModelTableViewCell.m in Sources */,
@@ -1173,6 +1206,7 @@
 				D5BF10611D1A97C800A05486 /* PubnativeConfigRequestModel.m in Sources */,
 				D5BF10601D1A97C800A05486 /* PubnativeConfigModel.m in Sources */,
 				D5BF10381D1A97C800A05486 /* PNGameListAdViewController.m in Sources */,
+				039FC0471D1C01D500AF8011 /* PubnativeInsightModel.m in Sources */,
 				D5BF104C1D1A97C800A05486 /* PNNativeAdRenderItem.m in Sources */,
 				D5BF103D1D1A97C800A05486 /* PNVideoBannerViewController.m in Sources */,
 				D5BF103A1D1A97C800A05486 /* PNIconViewController.m in Sources */,
