@@ -48,10 +48,10 @@
 {
     BOOL frequencyCapReached = false;
     if ([self isDayImpressionCapActive]) {
-        frequencyCapReached = [self.imp_cap_day intValue] <= [PubnativeDeliveryManager currentDayCountForPlacementName:placementName];
+        frequencyCapReached = [self.imp_cap_day intValue] <= [PubnativeDeliveryManager dailyImpressionCountForPlacementName:placementName];
     }
     if (!frequencyCapReached && [self isHourImpressionCapActive]) {
-        frequencyCapReached = [self.imp_cap_hour intValue] <= [PubnativeDeliveryManager currentHourCountForPlacementName:placementName];
+        frequencyCapReached = [self.imp_cap_hour intValue] <= [PubnativeDeliveryManager hourlyImpressionCountForPlacementName:placementName];
     }
     return frequencyCapReached;
 }
