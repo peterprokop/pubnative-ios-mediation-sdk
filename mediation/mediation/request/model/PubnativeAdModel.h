@@ -22,12 +22,19 @@
 
 @property (nonatomic, weak) NSObject<PubnativeAdModelDelegate> *delegate;
 
-@property (readonly) NSString *title;
-@property (readonly) NSString *description;
-@property (readonly) NSString *iconURL;
-@property (readonly) NSString *bannerURL;
-@property (readonly) NSString *callToAction;
-@property (readonly) NSNumber *starRating;
+@property (readonly) NSString   *title;
+@property (readonly) NSString   *description;
+@property (readonly) NSString   *iconURL;
+@property (readonly) NSString   *bannerURL;
+@property (readonly) NSString   *callToAction;
+@property (readonly) NSNumber   *starRating;
+
+@property (nonatomic, weak) UIView  *titleView;
+@property (nonatomic, weak) UIView  *descriptionView;
+@property (nonatomic, weak) UIView  *iconView;
+@property (nonatomic, weak) UIView  *bannerView;
+@property (nonatomic, weak) UIView  *callToActionView;
+@property (nonatomic, weak) UIView  *starRatingView;
 
 /**
  * Start tracking Ad View

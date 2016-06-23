@@ -8,6 +8,24 @@
 
 #import "PubnativeAdModel.h"
 
+@interface PubnativeAdModel ()
+
+@property (nonatomic, weak) UIView      *titleView;
+@property (nonatomic, weak) UIView      *descriptionView;
+@property (nonatomic, weak) UIView      *iconView;
+@property (nonatomic, weak) UIView      *bannerView;
+@property (nonatomic, weak) UIView      *callToActionView;
+@property (nonatomic, weak) UIView      *starRatingView;
+
+@property (nonatomic, strong) NSString  *impressionURL;
+@property (nonatomic, strong) NSString  *clickURL;
+@property (nonatomic, assign) BOOL      isImpressionTracked;
+@property (nonatomic, assign) BOOL      isClickTracked;
+
+// TODO: Add insight data model
+
+@end
+
 @implementation PubnativeAdModel
 
 - (NSString*)title
@@ -46,6 +64,36 @@
     return @0;
 }
 
+- (void)setTitleView:(UIView*)titleView
+{
+    self.titleView = titleView;
+}
+
+- (void)setDescriptionView:(UIView*)descriptionView
+{
+    self.descriptionView = descriptionView;
+}
+
+- (void)setIconView:(UIView*)iconView
+{
+    self.iconView = iconView;
+}
+
+- (void)setBannerView:(UIView*)bannerView
+{
+    self.bannerView = bannerView;
+}
+
+- (void)setCallToActionView:(UIView*)callToActionView
+{
+    self.callToActionView = callToActionView;
+}
+
+- (void)setStarRating:(UIView*)starRatingView
+{
+    self.starRatingView = starRatingView;
+}
+
 - (void)startTrackingView:(UIView*)adView
        withViewController:(UIViewController*)viewController
 {
@@ -59,15 +107,30 @@
 
 - (void)invokeDidConfirmImpression
 {
-    if(self.delegate && [self.delegate respondsToSelector:@selector(pubantiveAdDidConfirmImpression:)]){
-        [self.delegate pubantiveAdDidConfirmImpression:self];
+    if(!self.isImpressionTracked) {
+        
+        self.isImpressionTracked = YES;
+        
+        // TODO: Log impression against delivery manager
+        // TODO: Track impression
+        
+        if(self.delegate && [self.delegate respondsToSelector:@selector(pubantiveAdDidConfirmImpression:)]){
+            [self.delegate pubantiveAdDidConfirmImpression:self];
+        }
     }
 }
 
 - (void)invokeDidClick
 {
-    if(self.delegate && [self.delegate respondsToSelector:@selector(pubnativeAdDidClick:)]){
-        [self.delegate pubnativeAdDidClick:self];
+    if(!self.isClickTracked){
+        
+        self.isClickTracked = YES;
+        
+        // TODO: track click
+        
+        if(self.delegate && [self.delegate respondsToSelector:@selector(pubnativeAdDidClick:)]){
+            [self.delegate pubnativeAdDidClick:self];
+        }
     }
 }
 
