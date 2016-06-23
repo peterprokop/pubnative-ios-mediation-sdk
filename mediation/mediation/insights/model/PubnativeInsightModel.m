@@ -25,19 +25,12 @@ NSString * const CONFIG_GLOBAL_KEY_REQUEST_BEACON       = @"request_beacon";
         self.request_params = dictionary[@"request_params"];
         self.networks = [PubnativeNetworkModel parseDictionaryValues:dictionary[@"networks"]];
         self.placements = [PubnativePlacementModel parseDictionaryValues:dictionary[@"placements"]];
+        self.network = dictionary[@"network"];
+        self.ad_format_code = dictionary[@"ad_format_code"];
+        self.age = dictionary[@"age"];
+        self.connection_type = dictionary[@"connection_type"];
     }
     return self;
-}
-
-- (BOOL)isEmpty
-{
-    BOOL result = YES;
-    if(self.networks && [self.networks count] > 0 &&
-       self.placements && [self.placements count] > 0)
-    {
-        result = NO;
-    }
-    return result;
 }
 
 @end

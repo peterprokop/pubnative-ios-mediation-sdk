@@ -8,12 +8,13 @@
 
 #import "Foundation/Foundation.h"
 #import "PubnativeInsightsManager.h"
+#import "PubnativeInsightModel.h"
 
 @interface PubnativeInsightRequestModel : NSObject
 
 @property (nonatomic, strong) NSString                                      *appToken;
 @property (nonatomic, strong) NSString                                      *baseUrl;
-@property (nonatomic, strong) NSObject<PubnativeInsightDataModel>           *dataModel;
+@property (nonatomic, strong) NSObject<PubnativeInsightModel>               *dataModel;
 @property (nonatomic, strong) NSObject<PubnativeInsightsManagerDelegate>    *delegate;
 
 @end
