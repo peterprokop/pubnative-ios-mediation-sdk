@@ -75,7 +75,7 @@ class MainViewController: UIViewController, PubnativeNetworkRequestDelegate {
         currentAd?.stopTracking();
         
         let request:PubnativeNetworkRequest = PubnativeNetworkRequest();
-        request.startWithAppToken(DEFAULT_APP_TOKEN, placementID: PUBNATIVE_PLACEMENT, delegate: self);
+        request.startWithAppToken(DEFAULT_APP_TOKEN, placementName: PUBNATIVE_PLACEMENT, delegate: self);
     }
     
     // MARK: -

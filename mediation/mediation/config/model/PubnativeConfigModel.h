@@ -27,4 +27,9 @@ extern NSString * const CONFIG_GLOBAL_KEY_REQUEST_BEACON;
 
 - (BOOL)isEmpty;
 
+- (NSObject*)globalWithKey:(NSString*)key;
+- (PubnativePlacementModel*)placementWithName:(NSString*)name;
+- (PubnativeNetworkModel*)networkWithID:(NSString*)networkID;
+- (PubnativePriorityRuleModel*)priorityRuleWithPlacementName:(NSString*)name andIndex:(int)index;
+
 @end
