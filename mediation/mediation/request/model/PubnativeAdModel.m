@@ -10,13 +10,6 @@
 
 @interface PubnativeAdModel ()
 
-@property (nonatomic, weak) UIView      *titleView;
-@property (nonatomic, weak) UIView      *descriptionView;
-@property (nonatomic, weak) UIView      *iconView;
-@property (nonatomic, weak) UIView      *bannerView;
-@property (nonatomic, weak) UIView      *callToActionView;
-@property (nonatomic, weak) UIView      *starRatingView;
-
 @property (nonatomic, strong) NSString  *impressionURL;
 @property (nonatomic, strong) NSString  *clickURL;
 @property (nonatomic, assign) BOOL      isImpressionTracked;
@@ -62,36 +55,6 @@
 {
     NSLog(@"PubnativeAdModel - Error: override me");
     return @0;
-}
-
-- (void)setTitleView:(UIView*)titleView
-{
-    self.titleView = titleView;
-}
-
-- (void)setDescriptionView:(UIView*)descriptionView
-{
-    self.descriptionView = descriptionView;
-}
-
-- (void)setIconView:(UIView*)iconView
-{
-    self.iconView = iconView;
-}
-
-- (void)setBannerView:(UIView*)bannerView
-{
-    self.bannerView = bannerView;
-}
-
-- (void)setCallToActionView:(UIView*)callToActionView
-{
-    self.callToActionView = callToActionView;
-}
-
-- (void)setStarRating:(UIView*)starRatingView
-{
-    self.starRatingView = starRatingView;
 }
 
 - (void)startTrackingView:(UIView*)adView
