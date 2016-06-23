@@ -99,7 +99,7 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
     NSTimeInterval          storedTimestamp = [PubnativeConfigManager getStoredTimestamp];
     
     if(storedModel && storedAppToken && storedTimestamp){
-        NSNumber *refreshInMinutes = [storedModel.globals objectForKey:CONFIG_GLOBAL_KEY_REFRESH];
+        NSNumber *refreshInMinutes = (NSNumber*) [storedModel.globals objectForKey:CONFIG_GLOBAL_KEY_REFRESH];
         
         if(refreshInMinutes && refreshInMinutes > 0) {
             NSTimeInterval currentTimestamp = [[NSDate date] timeIntervalSince1970];
@@ -160,7 +160,7 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
     NSString *result = kDefaultConfigURL;
     PubnativeConfigModel *storedConfig = [PubnativeConfigManager getStoredConfig];
     if(storedConfig && ![storedConfig isEmpty]){
-        result = storedConfig.globals[CONFIG_GLOBAL_KEY_CONFIG_URL];
+        result = (NSString*)storedConfig.globals[CONFIG_GLOBAL_KEY_CONFIG_URL];
     }
     return result;
 }
