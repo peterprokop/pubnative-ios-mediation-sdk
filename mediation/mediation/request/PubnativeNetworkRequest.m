@@ -25,7 +25,7 @@ NSString * const PNTrackingRequestIDKey = @"reqid";
 @property (nonatomic, strong)PubnativeAdModel                           *ad;
 @property (nonatomic, strong)NSObject <PubnativeNetworkRequestDelegate> *delegate;
 @property (nonatomic, strong)NSMutableDictionary<NSString*, NSString*>  *requestParameters;
-@property (nonatomic, assign)int                                        currentNetworkIndex;
+@property (nonatomic, assign)NSInteger                                  currentNetworkIndex;
 @property (nonatomic, assign)BOOL                                       isRunning;
 
 

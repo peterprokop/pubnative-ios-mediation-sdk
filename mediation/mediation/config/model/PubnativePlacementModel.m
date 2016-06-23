@@ -21,7 +21,7 @@
     return self;
 }
 
-- (PubnativePriorityRuleModel*)priorityRuleWithIndex:(int)index
+- (PubnativePriorityRuleModel*)priorityRuleWithIndex:(NSInteger)index
 {
     PubnativePriorityRuleModel *result = nil;
     if(self.priority_rules && index < self.priority_rules.count){

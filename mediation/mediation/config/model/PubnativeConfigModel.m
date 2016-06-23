@@ -54,7 +54,7 @@ NSString * const CONFIG_GLOBAL_KEY_REQUEST_BEACON       = @"request_beacon";
 {
     return self.networks[networkID];
 }
-- (PubnativePriorityRuleModel*)priorityRuleWithPlacementName:(NSString*)name andIndex:(int)index
+- (PubnativePriorityRuleModel*)priorityRuleWithPlacementName:(NSString*)name andIndex:(NSInteger)index
 {
     PubnativePriorityRuleModel *result = nil;
     PubnativePlacementModel *placement = [self placementWithName:name];
