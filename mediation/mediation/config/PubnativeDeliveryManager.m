@@ -32,7 +32,7 @@ NSString * const kPubnativeDeliveryManagerImpressionLastUpdateKey = @"_last_upda
 
 #pragma mark Pacing
 
-+ (NSDate*)getPacingDateForPlacementName:(NSString*)placementName;
++ (NSDate*)pacingDateForPlacementName:(NSString*)placementName;
 {
     NSDate *result = nil;
     if([self getSharedManager].currentPacing) {
@@ -108,7 +108,8 @@ NSString * const kPubnativeDeliveryManagerImpressionLastUpdateKey = @"_last_upda
 + (void)setLastImpressionUpdateForPlacementName:(NSString*)placementName
                                            date:(NSDate*)date
 {
-    if(placementName && placementName.length > 0){
+    if(placementName
+       && placementName.length > 0){
         
         NSString *key = [NSString stringWithFormat:@"%@%@", placementName, kPubnativeDeliveryManagerImpressionLastUpdateKey];
         if(date){
@@ -140,8 +141,10 @@ NSString * const kPubnativeDeliveryManagerImpressionLastUpdateKey = @"_last_upda
                                       type:(NSString*)type
                                      value:(NSInteger)value
 {
-    if(type && type.length > 0 &&
-       placementName && placementName.length > 0){
+    if(type
+       && type.length > 0
+       && placementName
+       && placementName.length > 0){
         
         NSString *key = [NSString stringWithFormat:@"%@%@", placementName, type];
         [[NSUserDefaults standardUserDefaults] setInteger:value forKey:key];
@@ -153,8 +156,10 @@ NSString * const kPubnativeDeliveryManagerImpressionLastUpdateKey = @"_last_upda
 {
     [self updateImpressionCountForPlacementName:placementName];
     NSInteger result = 0;
-    if(type && type.length > 0 &&
-       placementName && placementName.length > 0){
+    if(type
+       && type.length > 0
+       && placementName
+       && placementName.length > 0){
        
         NSString *key = [NSString stringWithFormat:@"%@%@", placementName, type];
         result = [[NSUserDefaults standardUserDefaults] integerForKey:key];

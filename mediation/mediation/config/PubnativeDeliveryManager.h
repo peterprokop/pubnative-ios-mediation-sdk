@@ -11,7 +11,7 @@
 @interface PubnativeDeliveryManager : NSObject
 
 // Pacing
-+ (NSDate*)getPacingDateForPlacementName:(NSString*)placementName;
++ (NSDate*)pacingDateForPlacementName:(NSString*)placementName;
 + (void)updatePacingDateForPlacementName:(NSString*)placementName;
 + (void)resetPacingDateForPlacementName:(NSString*)placementName;
 
@@ -20,5 +20,6 @@
 + (NSInteger)dailyImpressionCountForPlacementName:(NSString *)placementName;
 + (NSInteger)hourlyImpressionCountForPlacementName:(NSString *)placementName;
 + (void)resetDailyImpressionCountForPlacementName:(NSString *)placementName;
++ (void)resetHourlyImpressionCountForPlacementName:(NSString *)placementName;
 
 @end
