@@ -74,7 +74,7 @@
         self.isImpressionTracked = YES;
         
         [PubnativeDeliveryManager logImpressionForPlacementName:self.appToken];
-        // TODO: Log impression against delivery manager
+        
         // TODO: Track impression
         
         if(self.delegate && [self.delegate respondsToSelector:@selector(pubantiveAdDidConfirmImpression:)]){
