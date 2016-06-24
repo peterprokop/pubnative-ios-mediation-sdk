@@ -17,6 +17,7 @@
 		D531B0951D1C28DE008A7A86 /* config_valid.json in Resources */ = {isa = PBXBuildFile; fileRef = D531B08E1D1C28DE008A7A86 /* config_valid.json */; };
 		D531B0971D1C2931008A7A86 /* response_broken.json in Resources */ = {isa = PBXBuildFile; fileRef = D531B0961D1C2931008A7A86 /* response_broken.json */; };
 		D531B09A1D1C29F4008A7A86 /* PubnativeResourceUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D531B0991D1C29F4008A7A86 /* PubnativeResourceUtils.m */; };
+		D536EC671D1D80BB0028C6B9 /* PubnativeDeliveryManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D536EC661D1D80BB0028C6B9 /* PubnativeDeliveryManagerTest.m */; };
 		D58E82031D1AD6CE0092F352 /* FacebookNativeAdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D58E81FF1D1AD6CE0092F352 /* FacebookNativeAdModel.m */; };
 		D58E82041D1AD6CE0092F352 /* FacebookNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = D58E82011D1AD6CE0092F352 /* FacebookNetworkAdapter.m */; };
 		D5BF0EFD1D1A8BA700A05486 /* libPNmediation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5BF0EE81D1A8B8B00A05486 /* libPNmediation.a */; };
@@ -146,6 +147,7 @@
 		D531B0961D1C2931008A7A86 /* response_broken.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = response_broken.json; path = ../response_broken.json; sourceTree = "<group>"; };
 		D531B0981D1C29F4008A7A86 /* PubnativeResourceUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PubnativeResourceUtils.h; path = ../config/PubnativeResourceUtils.h; sourceTree = "<group>"; };
 		D531B0991D1C29F4008A7A86 /* PubnativeResourceUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeResourceUtils.m; path = ../config/PubnativeResourceUtils.m; sourceTree = "<group>"; };
+		D536EC661D1D80BB0028C6B9 /* PubnativeDeliveryManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeDeliveryManagerTest.m; sourceTree = "<group>"; };
 		D58E81FE1D1AD6CE0092F352 /* FacebookNativeAdModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookNativeAdModel.h; sourceTree = "<group>"; };
 		D58E81FF1D1AD6CE0092F352 /* FacebookNativeAdModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookNativeAdModel.m; sourceTree = "<group>"; };
 		D58E82001D1AD6CE0092F352 /* FacebookNetworkAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookNetworkAdapter.h; sourceTree = "<group>"; };
@@ -478,7 +480,6 @@
 				D531B0851D1C28DE008A7A86 /* resources */,
 				D5BF106D1D1A97D800A05486 /* adapter */,
 				D5BF106E1D1A97D800A05486 /* config */,
-				D5BF106F1D1A97D800A05486 /* delivery */,
 				D5BF10701D1A97D800A05486 /* network */,
 				D5BF10711D1A97D800A05486 /* parse */,
 				D5BF10721D1A97D800A05486 /* request */,
@@ -1016,15 +1017,9 @@
 			isa = PBXGroup;
 			children = (
 				D531B0831D1C21EE008A7A86 /* PubnativeConfigManagerTest.m */,
+				D536EC661D1D80BB0028C6B9 /* PubnativeDeliveryManagerTest.m */,
 			);
 			path = config;
-			sourceTree = "<group>";
-		};
-		D5BF106F1D1A97D800A05486 /* delivery */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = delivery;
 			sourceTree = "<group>";
 		};
 		D5BF10701D1A97D800A05486 /* network */ = {
@@ -1278,6 +1273,7 @@
 			files = (
 				D531B09A1D1C29F4008A7A86 /* PubnativeResourceUtils.m in Sources */,
 				D531B0841D1C21EE008A7A86 /* PubnativeConfigManagerTest.m in Sources */,
+				D536EC671D1D80BB0028C6B9 /* PubnativeDeliveryManagerTest.m in Sources */,
 				D5BF10741D1A97D800A05486 /* PubnativeNetworkRequestTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
