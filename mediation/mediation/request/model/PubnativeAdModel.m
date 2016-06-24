@@ -7,6 +7,8 @@
 //
 
 #import "PubnativeAdModel.h"
+#import "PubnativeInsightModel.h"
+#import "PubnativeInsightsManager.h"
 
 @implementation PubnativeAdModel
 
@@ -59,6 +61,7 @@
 
 - (void)invokeDidConfirmImpression
 {
+    [PubnativeInsightsManager configWithAppToken:@"" delegate:nil];
     if(self.delegate && [self.delegate respondsToSelector:@selector(pubantiveAdDidConfirmImpression:)]){
         [self.delegate pubantiveAdDidConfirmImpression:self];
     }

@@ -74,8 +74,9 @@ static PubnativeInsightsManager* _sharedInstance;
 
 + (void)sendRequest:(PubnativeInsightRequestModel *) model withBaseUrl:(NSString *) baseUrl
 {
+    NSString *requestURL = [NSString stringWithFormat:@"%@?%@=%@", baseUrl, @"", model.appToken];
     __block PubnativeInsightRequestModel *requestModelBlock = model;
-    [PubnativeHttpRequest requestWithURL:baseUrl andCompletionHandler:^(NSString *result, NSError *error) {
+    [PubnativeHttpRequest requestWithURL:requestURL andCompletionHandler:^(NSString *result, NSError *error) {
         if (error) {
             [PubnativeInsightsManager invokeDidFinishWithModel:nil delegate:requestModelBlock.delegate];
         } else {

@@ -11,12 +11,12 @@
 #import "PubnativeNetworkModel.h"
 #import "PubnativePlacementModel.h"
 
-extern NSString * const CONFIG_GLOBAL_KEY_REFRESH;
-extern NSString * const CONFIG_GLOBAL_KEY_IMPRESSION_TIMEOUT;
-extern NSString * const CONFIG_GLOBAL_KEY_CONFIG_URL;
-extern NSString * const CONFIG_GLOBAL_KEY_IMPRESSION_BEACON;
-extern NSString * const CONFIG_GLOBAL_KEY_CLICK_BEACON;
-extern NSString * const CONFIG_GLOBAL_KEY_REQUEST_BEACON;
+extern NSString * const kInsightModelKeyRefresh;
+extern NSString * const kInsightModelKeyImpressionTimeout;
+extern NSString * const kInsightModelKeyConfigUrl;
+extern NSString * const kInsightModelKeyImpressionBeacon;
+extern NSString * const kInsightModelKeyClickBeacon;
+extern NSString * const kInsightModelKeyRequestBeacon;
 
 @interface PubnativeInsightModel : PubnativeJSONModel
 

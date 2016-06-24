@@ -122,6 +122,7 @@
 - (void)nativeAdWillLogImpression:(FBNativeAd*)nativeAd
 {
     [self invokeDidConfirmImpression];
+    
 }
 
 @end

@@ -8,12 +8,12 @@
 
 #import "PubnativeInsightModel.h"
 
-NSString * const CONFIG_GLOBAL_KEY_REFRESH              = @"refresh";
-NSString * const CONFIG_GLOBAL_KEY_IMPRESSION_TIMEOUT   = @"impression_timeout";
-NSString * const CONFIG_GLOBAL_KEY_CONFIG_URL           = @"config_url";
-NSString * const CONFIG_GLOBAL_KEY_IMPRESSION_BEACON    = @"impression_beacon";
-NSString * const CONFIG_GLOBAL_KEY_CLICK_BEACON         = @"click_beacon";
-NSString * const CONFIG_GLOBAL_KEY_REQUEST_BEACON       = @"request_beacon";
+NSString * const kInsightModelKeyRefresh             = @"refresh";
+NSString * const kInsightModelKeyImpressionTimeout   = @"impression_timeout";
+NSString * const kInsightModelKeyConfigUrl           = @"config_url";
+NSString * const kInsightModelKeyImpressionBeacon    = @"impression_beacon";
+NSString * const kInsightModelKeyClickBeacon         = @"click_beacon";
+NSString * const kInsightModelKeyRequestBeacon       = @"request_beacon";
 
 @implementation PubnativeInsightModel
 

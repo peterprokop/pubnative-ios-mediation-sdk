@@ -8,7 +8,6 @@
 
 #import "Foundation/Foundation.h"
 #import "PubnativeInsightsManager.h"
-#import "PubnativeInsightModel.h"
 
 @interface PubnativeInsightRequestModel : NSObject
 
