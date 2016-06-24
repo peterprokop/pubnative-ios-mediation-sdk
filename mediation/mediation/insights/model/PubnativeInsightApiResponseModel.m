@@ -20,7 +20,6 @@ NSString * const kAPIStatusErrorValue           = @"error";
     if(self) {
         self.status = dictionary[@"status"];
         self.error_message = dictionary[@"error_message"];
-        self.config = [PubnativeInsightModel modelWithDictionary:dictionary[@"config"]];
     }
     return self;
 }

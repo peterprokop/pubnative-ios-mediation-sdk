@@ -8,13 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "PubnativeJSONModel.h"
-#import "PubnativeInsightModel.h"
 
 @interface PubnativeInsightApiResponseModel : PubnativeJSONModel
 
 @property (nonatomic, strong) NSString              *status;
 @property (nonatomic, strong) NSString              *error_message;
-@property (nonatomic, strong) PubnativeInsightModel *config;
 
 - (BOOL)isSuccess;
 

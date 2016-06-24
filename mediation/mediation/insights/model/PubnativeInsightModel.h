@@ -24,10 +24,8 @@ extern NSString * const CONFIG_GLOBAL_KEY_REQUEST_BEACON;
 @property (nonatomic, strong) NSDictionary<NSString*, NSString*>                  *request_params;
 @property (nonatomic, strong) NSDictionary<NSString*, PubnativeNetworkModel*>     *networks;
 @property (nonatomic, strong) NSDictionary<NSString*, PubnativePlacementModel*>   *placements;
-
-
 @property (nonatomic, strong) NSDictionary<NSString*, NSString*>                  *network;
-@property (nonatomic, strong) NSDictionary<NSString*, NSArray<NSString *>*>       *attempted_networks;
+@property (nonatomic, strong) NSDictionary<NSString*, NSArray*>                   *attempted_networks;
 @property (nonatomic, strong) NSDictionary<NSString*, NSArray*>                   *unreachable_networks;
 @property (nonatomic, strong) NSDictionary<NSString*, NSArray*>                   *delivery_segment_ids;
 @property (nonatomic, strong) NSDictionary<NSString*, NSString*>                  *placement_name;
@@ -42,7 +40,6 @@ extern NSString * const CONFIG_GLOBAL_KEY_REQUEST_BEACON;
 @property (nonatomic, strong) NSDictionary<NSString*, NSNumber*>                  *video_start;
 @property (nonatomic, strong) NSDictionary<NSString*, NSNumber*>                  *video_complete;
 @property (nonatomic, strong) NSDictionary<NSString*, NSNumber*>                  *retry;
-// User info
 @property (nonatomic, strong) NSDictionary<NSString*, NSNumber*>                  *age;
 @property (nonatomic, strong) NSDictionary<NSString*, NSString*>                  *education;
 @property (nonatomic, strong) NSDictionary<NSString*, NSArray*>                   *interests;
