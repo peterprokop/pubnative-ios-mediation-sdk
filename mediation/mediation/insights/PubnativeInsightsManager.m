@@ -10,13 +10,14 @@
 #import "PubnativeInsightRequestModel.h"
 #import "PubnativeInsightApiResponseModel.h"
 #import "PubnativeHttpRequest.h"
+#import "PubnativeConfigManager.h"
 
-static PubnativeInsightsManager* _sharedInstance;
+NSString * const kPubnativeInsightsManagerQueueKey = @"PubnativeInsightsManager.queue.key";
+NSString * const kPubnativeInsightsManagerFailedQueueKey = @"PubnativeInsightsManager.failedQueue.key";
 
 @interface PubnativeInsightsManager () <NSURLConnectionDataDelegate>
 
-@property (nonatomic, strong)NSMutableArray *requestQueue;
-@property (nonatomic, assign)BOOL           idle;
+@property (nonatomic, assign)BOOL idle;
 
 @end
 
@@ -31,7 +32,8 @@ static PubnativeInsightsManager* _sharedInstance;
     return self;
 }
 
-+ (instancetype)sharedInstance {
++ (instancetype)sharedInstance
+{
     static PubnativeInsightsManager *_sharedInstance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -40,110 +42,145 @@ static PubnativeInsightsManager* _sharedInstance;
     return _sharedInstance;
 }
 
-+ (void)configWithAppToken:(NSString*)appToken
-                  delegate:(NSObject<PubnativeInsightsManagerDelegate>*)delegate
++ (void)trackDataWithUrl:(NSString*)url
+              parameters:(NSDictionary<NSString*,NSString*>*)parameters
+                    data:(PubnativeInsightDataModel*)data
 {
-    // Drop the call if no completion handler specified
-    if(delegate){
-        if(appToken && [appToken length] > 0){
-            PubnativeInsightRequestModel *requestModel = [[PubnativeInsightRequestModel alloc] init];
-            requestModel.appToken = appToken;
-            requestModel.delegate = delegate;
-            [PubnativeInsightsManager enqueueRequestModel:requestModel];
-            [PubnativeInsightsManager doNextRequest];
-        } else {
-            NSLog(@"PubnativeInsightsManager - invalid app token");
-            [PubnativeInsightsManager invokeDidFinishWithModel:nil
-                                                    delegate:delegate];
-        }
+    if (data && url && url.length > 0) {
+        
+        PubnativeInsightRequestModel *model = [[PubnativeInsightRequestModel alloc] init];
+        model.data = data;
+        model.params = parameters;
+        model.url = url;
+        
+        // TODO: Enqueue all failed items
+        [PubnativeInsightsManager enqueueRequestModel:model];
+        [PubnativeInsightsManager doNextRequest];
+
     } else {
-        NSLog(@"PubnativeInsightsManager - delegate not specified, dropping the call");
+        NSLog(@"PubnativeInsightsManager - data or url to track are nil");
     }
 }
 
 + (void)doNextRequest
 {
     if([PubnativeInsightsManager sharedInstance].idle){
-        PubnativeInsightRequestModel *requestModel = [PubnativeInsightsManager dequeueRequestDelegate];
-        if(requestModel){
-            [PubnativeInsightsManager sharedInstance].idle = NO;
-            [PubnativeInsightsManager sendRequest:requestModel withBaseUrl:@""];
+        [PubnativeInsightsManager sharedInstance].idle = NO;
+        PubnativeInsightRequestModel *model = [PubnativeInsightsManager dequeueRequestDelegate];
+        if(model){
+            [PubnativeInsightsManager sendRequest:model];
+        } else {
+            [PubnativeInsightsManager sharedInstance].idle = YES;
         }
     }
 }
 
-+ (void)sendRequest:(PubnativeInsightRequestModel *) model withBaseUrl:(NSString *) baseUrl
++ (void)sendRequest:(PubnativeInsightRequestModel *) model
 {
-    NSString *requestURL = [NSString stringWithFormat:@"%@?%@=%@", baseUrl, @"", model.appToken];
+    NSString *url = [PubnativeInsightsManager requestUrlWithModel:model];
+    
     __block PubnativeInsightRequestModel *requestModelBlock = model;
-    [PubnativeHttpRequest requestWithURL:requestURL andCompletionHandler:^(NSString *result, NSError *error) {
+    [PubnativeHttpRequest requestWithURL:url andCompletionHandler:^(NSString *result, NSError *error) {
         if (error) {
-            [PubnativeInsightsManager invokeDidFinishWithModel:nil delegate:requestModelBlock.delegate];
+            NSLog(@"PubnativeInsightsManager - request error: %@", error.localizedDescription);
+            [PubnativeInsightsManager enqueueFailedRequestModel:requestModelBlock];
+            
         } else {
             NSData *jsonData = [result dataUsingEncoding:NSUTF8StringEncoding];
-            NSError *dataError;
-            NSDictionary *jsonDictonary = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingMutableContainers error:&dataError];
-            
-            if (dataError) {
-                NSLog(@"PubnativeInsightsManager - data error: %@", dataError);
-                [PubnativeInsightsManager invokeDidFinishWithModel:nil delegate:requestModelBlock.delegate];
+            NSError *parseError;
+            NSDictionary *jsonDictonary = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                          options:NSJSONReadingMutableContainers
+                                                                            error:&parseError];
+            if(parseError){
+                NSLog(@"");
+                // TODO: ADD EXTRAS TO INSIGHT
+                NSLog(@"PubnativeInsightsManager - tracking response parsing error: %@", result);
+                [PubnativeInsightsManager enqueueFailedRequestModel:requestModelBlock];
             } else {
+                
                 PubnativeInsightApiResponseModel *apiResponse = [PubnativeInsightApiResponseModel modelWithDictionary:jsonDictonary];
-                if(apiResponse) {
-                    if([apiResponse isSuccess]) {
-                        NSLog(@"PubnativeInsightsManager - succes");
-                        //[PubnativeInsightsManager invokeDidFinishWithModel:requestModelBlock.dataModel delegate:requestModelBlock.delegate];
-                    } else {
-                        NSLog(@"PubnativeInsightsManager - server error: %@", apiResponse.error_message);
-                        [PubnativeInsightsManager invokeDidFinishWithModel:nil delegate:requestModelBlock.delegate];
-                    }
+                if([apiResponse isSuccess]) {
+                    NSLog(@"PubnativeInsightsManager - tracking success: %@", result);
                 } else {
-                    NSLog(@"PubnativeInsightsManager - parsing error");
-                    [PubnativeInsightsManager invokeDidFinishWithModel:nil delegate:requestModelBlock.delegate];
+                    NSLog(@"PubnativeInsightsManager - tracking failed: %@", apiResponse.error_message);
+                    [PubnativeInsightsManager enqueueFailedRequestModel:requestModelBlock];
                 }
             }
         }
+        [PubnativeInsightsManager doNextRequest];
     }];
 }
 
++ (NSString*)requestUrlWithModel:(PubnativeInsightRequestModel*)model
+{
+    NSString *result = nil;
+    if (model) {
+        NSURLComponents *components = [[NSURLComponents alloc] initWithString:model.url];
+        if(model.params){
+            
+            NSMutableArray *queryItems = [NSMutableArray array];
+            for (NSString *key in model.params) {
+                
+                NSString *value = model.params[key];
+                NSURLQueryItem *item = [NSURLQueryItem queryItemWithName:key value:value];
+                [queryItems addObject:item];
+            }
+            [components setQueryItems:queryItems];
+        }
+        result = [components.URL absoluteString];
+    }
+    return result;
+}
+
 #pragma mark - QUEUE -
+
 + (void)enqueueRequestModel:(PubnativeInsightRequestModel *)request
 {
-    if(request &&
-       request.delegate &&
-       request.appToken && [request.appToken length] > 0)
-    {
-        if(![PubnativeInsightsManager sharedInstance].requestQueue){
-            [PubnativeInsightsManager sharedInstance].requestQueue = [[NSMutableArray alloc] init];
-        }
-        [[PubnativeInsightsManager sharedInstance].requestQueue addObject:request];
+    if(request){
+        NSMutableArray *queue = [PubnativeInsightsManager queueForKey:kPubnativeInsightsManagerQueueKey];
+        [queue addObject:request];
+        [PubnativeInsightsManager setQueue:queue forKey:kPubnativeInsightsManagerQueueKey];
     }
 }
 
 + (PubnativeInsightRequestModel*)dequeueRequestDelegate
 {
     PubnativeInsightRequestModel *result = nil;
-    
-    if([PubnativeInsightsManager sharedInstance].requestQueue &&
-       [[PubnativeInsightsManager sharedInstance].requestQueue count] > 0){
-        
-        result = [[PubnativeInsightsManager sharedInstance].requestQueue objectAtIndex:0];
-        [[PubnativeInsightsManager sharedInstance].requestQueue removeObjectAtIndex:0];
+    NSMutableArray *queue = [PubnativeInsightsManager queueForKey:kPubnativeInsightsManagerQueueKey];
+    if (queue.count > 0) {
+        result = queue[0];
+        [queue removeObjectAtIndex:0];
+        [PubnativeInsightsManager setQueue:queue forKey:kPubnativeInsightsManagerQueueKey];
     }
     return result;
 }
 
-#pragma mark Callback helpers
-
-+ (void)invokeDidFinishWithModel:(PubnativeInsightsManager*)model
-                        delegate:(NSObject<PubnativeInsightsManagerDelegate>*)delegate
++ (void)enqueueFailedRequestModel:(PubnativeInsightRequestModel *)request
 {
-    if(delegate &&
-       [delegate respondsToSelector:@selector(configDidFinishWithModel:)]){
-        [delegate configDidFinishWithModel:model];
+    if(request){
+        request.data.retry = [NSNumber numberWithInteger:[request.data.retry integerValue] + 1];
+        NSMutableArray *queue = [PubnativeInsightsManager queueForKey:kPubnativeInsightsManagerFailedQueueKey];
+        [queue addObject:request];
+        [PubnativeInsightsManager setQueue:queue forKey:kPubnativeInsightsManagerFailedQueueKey];
     }
-    [PubnativeInsightsManager sharedInstance].idle = YES;
-    [PubnativeInsightsManager doNextRequest];
+}
+
+#pragma mark NSUserDefaults
+
++ (NSMutableArray*)queueForKey:(NSString*)key
+{
+    NSArray *storedQueue = [[NSUserDefaults standardUserDefaults] objectForKey:kPubnativeInsightsManagerQueueKey];
+    NSMutableArray *result = [storedQueue mutableCopy];
+    if(result == nil){
+        result = [NSMutableArray array];
+    }
+    return result;
+}
+
++ (void)setQueue:(NSArray*)queue forKey:(NSString*)key
+{
+    [[NSUserDefaults standardUserDefaults] setObject:queue
+                                              forKey:kPubnativeInsightsManagerQueueKey];
 }
 
 @end

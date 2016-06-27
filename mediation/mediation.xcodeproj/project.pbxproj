@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03169CBD1D21384300E4BBCA /* PubnativeInsightDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03169CBC1D21384300E4BBCA /* PubnativeInsightDataModel.m */; };
+		03169CC11D2163E600E4BBCA /* PubnativeInsightNetworkModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03169CC01D2163E600E4BBCA /* PubnativeInsightNetworkModel.m */; };
+		03169CC41D2164B000E4BBCA /* PubnativeInsightCrashModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03169CC31D2164B000E4BBCA /* PubnativeInsightCrashModel.m */; };
+		03169CC71D217CED00E4BBCA /* PubnativeInsightModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03169CC61D217CED00E4BBCA /* PubnativeInsightModel.m */; };
 		039FC0401D1BFA4300AF8011 /* PubnativeInsightsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 039FC03F1D1BFA4300AF8011 /* PubnativeInsightsManager.m */; };
 		039FC0431D1BFC1E00AF8011 /* PubnativeInsightRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 039FC0421D1BFC1E00AF8011 /* PubnativeInsightRequestModel.m */; };
-		039FC0471D1C01D500AF8011 /* PubnativeInsightModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 039FC0461D1C01D500AF8011 /* PubnativeInsightModel.m */; };
 		039FC0491D1C2EC700AF8011 /* PubnativeInsightApiResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 039FC0481D1C2EC700AF8011 /* PubnativeInsightApiResponseModel.m */; };
 		D58E82031D1AD6CE0092F352 /* FacebookNativeAdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D58E81FF1D1AD6CE0092F352 /* FacebookNativeAdModel.m */; };
 		D58E82041D1AD6CE0092F352 /* FacebookNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = D58E82011D1AD6CE0092F352 /* FacebookNetworkAdapter.m */; };
@@ -132,12 +135,18 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		03169CBC1D21384300E4BBCA /* PubnativeInsightDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeInsightDataModel.m; path = insights/model/PubnativeInsightDataModel.m; sourceTree = "<group>"; };
+		03169CBE1D21385000E4BBCA /* PubnativeInsightDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PubnativeInsightDataModel.h; path = insights/model/PubnativeInsightDataModel.h; sourceTree = "<group>"; };
+		03169CBF1D2163E600E4BBCA /* PubnativeInsightNetworkModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PubnativeInsightNetworkModel.h; path = insights/model/PubnativeInsightNetworkModel.h; sourceTree = "<group>"; };
+		03169CC01D2163E600E4BBCA /* PubnativeInsightNetworkModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeInsightNetworkModel.m; path = insights/model/PubnativeInsightNetworkModel.m; sourceTree = "<group>"; };
+		03169CC21D2164B000E4BBCA /* PubnativeInsightCrashModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PubnativeInsightCrashModel.h; path = insights/model/PubnativeInsightCrashModel.h; sourceTree = "<group>"; };
+		03169CC31D2164B000E4BBCA /* PubnativeInsightCrashModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeInsightCrashModel.m; path = insights/model/PubnativeInsightCrashModel.m; sourceTree = "<group>"; };
+		03169CC51D217CED00E4BBCA /* PubnativeInsightModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PubnativeInsightModel.h; path = insights/model/PubnativeInsightModel.h; sourceTree = "<group>"; };
+		03169CC61D217CED00E4BBCA /* PubnativeInsightModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeInsightModel.m; path = insights/model/PubnativeInsightModel.m; sourceTree = "<group>"; };
 		039FC03E1D1BFA3300AF8011 /* PubnativeInsightsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PubnativeInsightsManager.h; path = insights/PubnativeInsightsManager.h; sourceTree = "<group>"; };
 		039FC03F1D1BFA4300AF8011 /* PubnativeInsightsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeInsightsManager.m; path = insights/PubnativeInsightsManager.m; sourceTree = "<group>"; };
 		039FC0421D1BFC1E00AF8011 /* PubnativeInsightRequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeInsightRequestModel.m; path = insights/model/PubnativeInsightRequestModel.m; sourceTree = "<group>"; };
 		039FC0441D1BFC2700AF8011 /* PubnativeInsightRequestModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PubnativeInsightRequestModel.h; sourceTree = "<group>"; };
-		039FC0451D1C01C600AF8011 /* PubnativeInsightModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PubnativeInsightModel.h; path = insights/model/PubnativeInsightModel.h; sourceTree = "<group>"; };
-		039FC0461D1C01D500AF8011 /* PubnativeInsightModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeInsightModel.m; path = insights/model/PubnativeInsightModel.m; sourceTree = "<group>"; };
 		039FC0481D1C2EC700AF8011 /* PubnativeInsightApiResponseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeInsightApiResponseModel.m; path = insights/model/PubnativeInsightApiResponseModel.m; sourceTree = "<group>"; };
 		039FC04A1D1C2ED700AF8011 /* PubnativeInsightApiResponseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PubnativeInsightApiResponseModel.h; path = insights/model/PubnativeInsightApiResponseModel.h; sourceTree = "<group>"; };
 		D58E81FE1D1AD6CE0092F352 /* FacebookNativeAdModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookNativeAdModel.h; sourceTree = "<group>"; };
@@ -386,12 +395,18 @@
 		039FC0411D1BFBFE00AF8011 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				039FC0421D1BFC1E00AF8011 /* PubnativeInsightRequestModel.m */,
-				039FC0441D1BFC2700AF8011 /* PubnativeInsightRequestModel.h */,
-				039FC0451D1C01C600AF8011 /* PubnativeInsightModel.h */,
-				039FC0461D1C01D500AF8011 /* PubnativeInsightModel.m */,
 				039FC0481D1C2EC700AF8011 /* PubnativeInsightApiResponseModel.m */,
 				039FC04A1D1C2ED700AF8011 /* PubnativeInsightApiResponseModel.h */,
+				039FC0421D1BFC1E00AF8011 /* PubnativeInsightRequestModel.m */,
+				039FC0441D1BFC2700AF8011 /* PubnativeInsightRequestModel.h */,
+				03169CBC1D21384300E4BBCA /* PubnativeInsightDataModel.m */,
+				03169CBE1D21385000E4BBCA /* PubnativeInsightDataModel.h */,
+				03169CBF1D2163E600E4BBCA /* PubnativeInsightNetworkModel.h */,
+				03169CC01D2163E600E4BBCA /* PubnativeInsightNetworkModel.m */,
+				03169CC21D2164B000E4BBCA /* PubnativeInsightCrashModel.h */,
+				03169CC31D2164B000E4BBCA /* PubnativeInsightCrashModel.m */,
+				03169CC51D217CED00E4BBCA /* PubnativeInsightModel.h */,
+				03169CC61D217CED00E4BBCA /* PubnativeInsightModel.m */,
 			);
 			name = model;
 			sourceTree = "<group>";
@@ -1189,6 +1204,7 @@
 				D5BF105D1D1A97C800A05486 /* PubnativeNetworkAdapter.m in Sources */,
 				D5BF10501D1A97C800A05486 /* PNBaseAdModel.m in Sources */,
 				D5BF103B1D1A97C800A05486 /* PNInterstitialAdViewController.m in Sources */,
+				03169CC41D2164B000E4BBCA /* PubnativeInsightCrashModel.m in Sources */,
 				D5BF10401D1A97C800A05486 /* NSString+PNSHA1.m in Sources */,
 				D5BF10371D1A97C800A05486 /* PNBannerViewController.m in Sources */,
 				D5BF102F1D1A97C800A05486 /* PNIconTableViewCell.m in Sources */,
@@ -1198,12 +1214,14 @@
 				039FC0431D1BFC1E00AF8011 /* PubnativeInsightRequestModel.m in Sources */,
 				D5BF105A1D1A97C800A05486 /* PubnativeExtension.m in Sources */,
 				D5BF10531D1A97C800A05486 /* PNNativeAPIModel.m in Sources */,
+				03169CC71D217CED00E4BBCA /* PubnativeInsightModel.m in Sources */,
 				039FC0401D1BFA4300AF8011 /* PubnativeInsightsManager.m in Sources */,
 				D5BF10341D1A97C800A05486 /* PNTableViewManager.m in Sources */,
 				D5BF10571D1A97C800A05486 /* Pubnative.m in Sources */,
 				D5BF10351D1A97C800A05486 /* PNVideoAdModelTableViewCell.m in Sources */,
 				D5BF102E1D1A97C800A05486 /* PNCarouselTableViewCell.m in Sources */,
 				D5BF105B1D1A97C800A05486 /* PubnativeLibraryAdModel.m in Sources */,
+				03169CC11D2163E600E4BBCA /* PubnativeInsightNetworkModel.m in Sources */,
 				039FC0491D1C2EC700AF8011 /* PubnativeInsightApiResponseModel.m in Sources */,
 				D5BF10391D1A97C800A05486 /* PNGameListTableViewCell.m in Sources */,
 				D5BF10411D1A97C800A05486 /* PNAMRatingControl.m in Sources */,
@@ -1212,7 +1230,6 @@
 				D5BF10611D1A97C800A05486 /* PubnativeConfigRequestModel.m in Sources */,
 				D5BF10601D1A97C800A05486 /* PubnativeConfigModel.m in Sources */,
 				D5BF10381D1A97C800A05486 /* PNGameListAdViewController.m in Sources */,
-				039FC0471D1C01D500AF8011 /* PubnativeInsightModel.m in Sources */,
 				D5BF104C1D1A97C800A05486 /* PNNativeAdRenderItem.m in Sources */,
 				D5BF103D1D1A97C800A05486 /* PNVideoBannerViewController.m in Sources */,
 				D5BF103A1D1A97C800A05486 /* PNIconViewController.m in Sources */,
@@ -1251,6 +1268,7 @@
 				D5BF10581D1A97C800A05486 /* PNAdRequest.m in Sources */,
 				D5BF10461D1A97C800A05486 /* PNYADMApiCall.m in Sources */,
 				D5BF103F1D1A97C800A05486 /* NSString+PNMD5.m in Sources */,
+				03169CBD1D21384300E4BBCA /* PubnativeInsightDataModel.m in Sources */,
 				D5BF10671D1A97C800A05486 /* PubnativeDeliveryManager.m in Sources */,
 				D5BF10261D1A97C800A05486 /* PNVideoCacher.m in Sources */,
 			);

@@ -8,8 +8,8 @@
 
 #import "PubnativeInsightApiResponseModel.h"
 
-NSString * const kAPIStatusSuccess         = @"ok";
-NSString * const kAPIStatusError           = @"error";
+NSString * const kPubnativeInsightApiResponseModelStatusSuccess = @"ok";
+NSString * const kPubnativeInsightApiResponseModelStatusError   = @"error";
 
 @implementation PubnativeInsightApiResponseModel
 
@@ -26,7 +26,7 @@ NSString * const kAPIStatusError           = @"error";
 
 - (BOOL)isSuccess
 {
-    return [kAPIStatusSuccess isEqualToString:[self.status lowercaseString]];
+    return [kPubnativeInsightApiResponseModelStatusSuccess isEqualToString:[self.status lowercaseString]];
 }
 
 @end

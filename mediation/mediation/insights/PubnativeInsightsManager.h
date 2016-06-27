@@ -7,16 +7,13 @@
 //
 
 #import "Foundation/Foundation.h"
-#import "PubnativeInsightModel.h"
-
-@protocol PubnativeInsightsManagerDelegate <NSObject>
-
-- (void)configDidFinishWithModel:(PubnativeInsightModel *)model;
-
-@end
+#import "PubnativeInsightApiResponseModel.h"
+#import "PubnativeInsightDataModel.h"
 
 @interface PubnativeInsightsManager : NSObject
 
-+ (void)configWithAppToken:(NSString *)appToken delegate:(NSObject<PubnativeInsightsManagerDelegate> *)delegate;
++ (void)trackDataWithUrl:(NSString*)url
+              parameters:(NSDictionary<NSString*, NSString*>*)parameters
+                    data:(PubnativeInsightDataModel*)data;
 
 @end

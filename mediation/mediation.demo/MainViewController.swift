@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MainViewController: UIViewController, PubnativeNetworkRequestDelegate {
+class MainViewController: UIViewController, PubnativeNetworkRequestDelegate, PubnativeInsightsManagerDelegate {
 
     let DEFAULT_APP_TOKEN = "e3886645aabbf0d5c06f841a3e6d77fcc8f9de4469d538ab8a96cb507d0f2660"
     let PUBNATIVE_PLACEMENT = "facebook_only";
@@ -117,5 +117,9 @@ class MainViewController: UIViewController, PubnativeNetworkRequestDelegate {
         }
         
         currentAd?.startTrackingView(self.adView, withViewController: self);
+    }
+    
+    func impressiongDidFinishWithModel(model: PubnativeInsightApiResponseModel) {
+        print("test")
     }
 }
