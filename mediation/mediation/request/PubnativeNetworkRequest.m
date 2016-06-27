@@ -10,6 +10,7 @@
 #import "PubnativeConfigManager.h"
 #import "PubnativeNetworkAdapterFactory.h"
 #import "PubnativeDeliveryRuleModel.h"
+#import "PubnativeDeliveryManager.h"
 #import "PubnativeAdModel.h"
 
 
@@ -153,9 +154,20 @@ NSString * const PNTrackingRequestIDKey = @"reqid";
         
     } else {
         
-        BOOL needsNewAd = true;
+        BOOL needsNewAd = YES;
         
-        // TODO: Check pacing dates
+        NSDate *pacingDate = [PubnativeDeliveryManager pacingDateForPlacementName:self.placementName];
+        NSDate *currentdate = [NSDate date];
+        NSTimeInterval intervalInSeconds = [currentdate timeIntervalSinceDate:pacingDate];
+        NSTimeInterval elapsedMinutes = (intervalInSeconds/60);
+        NSTimeInterval elapsedHours = (intervalInSeconds/3600);
+        
+        // If there is a pacing cap set and the elapsed time still didn't time for that pacing cap, we don't refresh
+        if ((deliveryRuleModel.pacing_cap_minute > 0 && [deliveryRuleModel.pacing_cap_minute doubleValue] < elapsedMinutes) ||
+           (deliveryRuleModel.pacing_cap_hour > 0 && [deliveryRuleModel.pacing_cap_hour doubleValue] < elapsedHours)){
+            
+            needsNewAd = NO;
+        }
         
         if(needsNewAd) {
             
@@ -269,6 +281,12 @@ NSString * const PNTrackingRequestIDKey = @"reqid";
 
 - (void)adapter:(PubnativeNetworkAdapter*)adapter requestDidLoad:(PubnativeAdModel*)ad
 {
+    [PubnativeDeliveryManager updatePacingDateForPlacementName:self.placementName];
+    
+    // TODO: Set insight data before invoke loading
+    // TODO: remove setting the app token since it should be inside the insight data
+    ad.appToken = self.appToken;
+    
     [self invokeDidLoad:ad];
 }
 

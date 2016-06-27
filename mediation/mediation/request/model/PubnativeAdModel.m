@@ -7,11 +7,10 @@
 //
 
 #import "PubnativeAdModel.h"
+#import "PubnativeDeliveryManager.h"
 
 @interface PubnativeAdModel ()
 
-@property (nonatomic, strong) NSString  *impressionURL;
-@property (nonatomic, strong) NSString  *clickURL;
 @property (nonatomic, assign) BOOL      isImpressionTracked;
 @property (nonatomic, assign) BOOL      isClickTracked;
 
@@ -74,7 +73,8 @@
         
         self.isImpressionTracked = YES;
         
-        // TODO: Log impression against delivery manager
+        [PubnativeDeliveryManager logImpressionForPlacementName:self.appToken];
+        
         // TODO: Track impression
         
         if(self.delegate && [self.delegate respondsToSelector:@selector(pubantiveAdDidConfirmImpression:)]){

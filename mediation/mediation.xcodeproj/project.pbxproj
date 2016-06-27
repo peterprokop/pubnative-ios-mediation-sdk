@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D531B0821D1AEFC4008A7A86 /* PubnativeDeliveryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D531B0811D1AEFC4008A7A86 /* PubnativeDeliveryManager.m */; };
 		D531B0841D1C21EE008A7A86 /* PubnativeConfigManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D531B0831D1C21EE008A7A86 /* PubnativeConfigManagerTest.m */; };
 		D531B08F1D1C28DE008A7A86 /* response_invalid.json in Resources */ = {isa = PBXBuildFile; fileRef = D531B0861D1C28DE008A7A86 /* response_invalid.json */; };
 		D531B0901D1C28DE008A7A86 /* response_error.json in Resources */ = {isa = PBXBuildFile; fileRef = D531B0881D1C28DE008A7A86 /* response_error.json */; };
@@ -18,6 +17,7 @@
 		D531B0951D1C28DE008A7A86 /* config_valid.json in Resources */ = {isa = PBXBuildFile; fileRef = D531B08E1D1C28DE008A7A86 /* config_valid.json */; };
 		D531B0971D1C2931008A7A86 /* response_broken.json in Resources */ = {isa = PBXBuildFile; fileRef = D531B0961D1C2931008A7A86 /* response_broken.json */; };
 		D531B09A1D1C29F4008A7A86 /* PubnativeResourceUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = D531B0991D1C29F4008A7A86 /* PubnativeResourceUtils.m */; };
+		D536EC671D1D80BB0028C6B9 /* PubnativeDeliveryManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D536EC661D1D80BB0028C6B9 /* PubnativeDeliveryManagerTest.m */; };
 		D58E82031D1AD6CE0092F352 /* FacebookNativeAdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D58E81FF1D1AD6CE0092F352 /* FacebookNativeAdModel.m */; };
 		D58E82041D1AD6CE0092F352 /* FacebookNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = D58E82011D1AD6CE0092F352 /* FacebookNetworkAdapter.m */; };
 		D5BF0EFD1D1A8BA700A05486 /* libPNmediation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5BF0EE81D1A8B8B00A05486 /* libPNmediation.a */; };
@@ -103,6 +103,7 @@
 		D5BF107D1D1A9D6F00A05486 /* OCMockitoIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5BF107C1D1A9D6F00A05486 /* OCMockitoIOS.framework */; };
 		D5C8BA9F1D1AB7450071C9E2 /* libPNmediation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D5BF0EE81D1A8B8B00A05486 /* libPNmediation.a */; };
 		D5C8BAA21D1AB7DE0071C9E2 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C8BAA01D1AB7DE0071C9E2 /* MainViewController.swift */; };
+		D5F2BDEA1D1C4C85004F1BE9 /* PubnativeDeliveryManager.m in Sources */ = {isa = PBXBuildFile; fileRef = D5F2BDE91D1C4C85004F1BE9 /* PubnativeDeliveryManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -135,8 +136,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		D531B0801D1AEFC4008A7A86 /* PubnativeDeliveryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeDeliveryManager.h; sourceTree = "<group>"; };
-		D531B0811D1AEFC4008A7A86 /* PubnativeDeliveryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeDeliveryManager.m; sourceTree = "<group>"; };
 		D531B0831D1C21EE008A7A86 /* PubnativeConfigManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeConfigManagerTest.m; sourceTree = "<group>"; };
 		D531B0861D1C28DE008A7A86 /* response_invalid.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = response_invalid.json; path = ../response_invalid.json; sourceTree = "<group>"; };
 		D531B0881D1C28DE008A7A86 /* response_error.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = response_error.json; sourceTree = "<group>"; };
@@ -148,6 +147,7 @@
 		D531B0961D1C2931008A7A86 /* response_broken.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = response_broken.json; path = ../response_broken.json; sourceTree = "<group>"; };
 		D531B0981D1C29F4008A7A86 /* PubnativeResourceUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PubnativeResourceUtils.h; path = ../config/PubnativeResourceUtils.h; sourceTree = "<group>"; };
 		D531B0991D1C29F4008A7A86 /* PubnativeResourceUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeResourceUtils.m; path = ../config/PubnativeResourceUtils.m; sourceTree = "<group>"; };
+		D536EC661D1D80BB0028C6B9 /* PubnativeDeliveryManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeDeliveryManagerTest.m; sourceTree = "<group>"; };
 		D58E81FE1D1AD6CE0092F352 /* FacebookNativeAdModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookNativeAdModel.h; sourceTree = "<group>"; };
 		D58E81FF1D1AD6CE0092F352 /* FacebookNativeAdModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookNativeAdModel.m; sourceTree = "<group>"; };
 		D58E82001D1AD6CE0092F352 /* FacebookNetworkAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookNetworkAdapter.h; sourceTree = "<group>"; };
@@ -344,6 +344,8 @@
 		D5BF107C1D1A9D6F00A05486 /* OCMockitoIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCMockitoIOS.framework; sourceTree = "<group>"; };
 		D5C8BAA01D1AB7DE0071C9E2 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		D5C8BAA11D1AB7DE0071C9E2 /* PubnativeMediationDemo-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PubnativeMediationDemo-Bridging-Header.h"; sourceTree = "<group>"; };
+		D5F2BDE81D1C4C85004F1BE9 /* PubnativeDeliveryManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeDeliveryManager.h; sourceTree = "<group>"; };
+		D5F2BDE91D1C4C85004F1BE9 /* PubnativeDeliveryManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeDeliveryManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -478,7 +480,6 @@
 				D531B0851D1C28DE008A7A86 /* resources */,
 				D5BF106D1D1A97D800A05486 /* adapter */,
 				D5BF106E1D1A97D800A05486 /* config */,
-				D5BF106F1D1A97D800A05486 /* delivery */,
 				D5BF10701D1A97D800A05486 /* network */,
 				D5BF10711D1A97D800A05486 /* parse */,
 				D5BF10721D1A97D800A05486 /* request */,
@@ -930,6 +931,8 @@
 			isa = PBXGroup;
 			children = (
 				D5BF10031D1A97C800A05486 /* model */,
+				D5F2BDE81D1C4C85004F1BE9 /* PubnativeDeliveryManager.h */,
+				D5F2BDE91D1C4C85004F1BE9 /* PubnativeDeliveryManager.m */,
 				D5BF10121D1A97C800A05486 /* PubnativeConfigManager.h */,
 				D5BF10131D1A97C800A05486 /* PubnativeConfigManager.m */,
 			);
@@ -960,8 +963,6 @@
 		D5BF10161D1A97C800A05486 /* delivery */ = {
 			isa = PBXGroup;
 			children = (
-				D531B0801D1AEFC4008A7A86 /* PubnativeDeliveryManager.h */,
-				D531B0811D1AEFC4008A7A86 /* PubnativeDeliveryManager.m */,
 			);
 			path = delivery;
 			sourceTree = "<group>";
@@ -1016,15 +1017,9 @@
 			isa = PBXGroup;
 			children = (
 				D531B0831D1C21EE008A7A86 /* PubnativeConfigManagerTest.m */,
+				D536EC661D1D80BB0028C6B9 /* PubnativeDeliveryManagerTest.m */,
 			);
 			path = config;
-			sourceTree = "<group>";
-		};
-		D5BF106F1D1A97D800A05486 /* delivery */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = delivery;
 			sourceTree = "<group>";
 		};
 		D5BF10701D1A97D800A05486 /* network */ = {
@@ -1198,6 +1193,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D5BF10491D1A97C800A05486 /* PNYADMJSONToDomainModelParser.m in Sources */,
+				D5F2BDEA1D1C4C85004F1BE9 /* PubnativeDeliveryManager.m in Sources */,
 				D5BF10661D1A97C800A05486 /* PubnativeConfigManager.m in Sources */,
 				D5BF10561D1A97C800A05486 /* PNVastModel.m in Sources */,
 				D5BF102C1D1A97C800A05486 /* PNCarouselCollectionViewCell.m in Sources */,
@@ -1231,7 +1227,6 @@
 				D5BF10601D1A97C800A05486 /* PubnativeConfigModel.m in Sources */,
 				D5BF10381D1A97C800A05486 /* PNGameListAdViewController.m in Sources */,
 				D5BF104C1D1A97C800A05486 /* PNNativeAdRenderItem.m in Sources */,
-				D531B0821D1AEFC4008A7A86 /* PubnativeDeliveryManager.m in Sources */,
 				D5BF103D1D1A97C800A05486 /* PNVideoBannerViewController.m in Sources */,
 				D5BF103A1D1A97C800A05486 /* PNIconViewController.m in Sources */,
 				D5BF10551D1A97C800A05486 /* PNNativeVideoAPIModel.m in Sources */,
@@ -1278,6 +1273,7 @@
 			files = (
 				D531B09A1D1C29F4008A7A86 /* PubnativeResourceUtils.m in Sources */,
 				D531B0841D1C21EE008A7A86 /* PubnativeConfigManagerTest.m in Sources */,
+				D536EC671D1D80BB0028C6B9 /* PubnativeDeliveryManagerTest.m in Sources */,
 				D5BF10741D1A97D800A05486 /* PubnativeNetworkRequestTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
