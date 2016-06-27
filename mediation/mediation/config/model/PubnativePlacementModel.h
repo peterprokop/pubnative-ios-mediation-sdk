@@ -17,6 +17,6 @@
 @property(nonatomic,strong)NSArray<PubnativePriorityRuleModel*>     *priority_rules;
 @property(nonatomic,strong)PubnativeDeliveryRuleModel               *delivery_rule;
 
-- (PubnativePriorityRuleModel*)priorityRuleWithIndex:(int)index;
+- (PubnativePriorityRuleModel*)priorityRuleWithIndex:(NSInteger)index;
 
 @end
