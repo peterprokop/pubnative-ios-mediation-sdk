@@ -8,6 +8,7 @@
 
 #import "PubnativeInsightModel.h"
 #import "PubnativeInsightCrashModel.h"
+#import "PubnativeDeliveryManager.h"
 
 @implementation PubnativeInsightModel
 
@@ -35,7 +36,7 @@
     [PubnativeInsightsManager trackDataWithUrl:self.clickInsightUrl parameters:self.params data:self.data];
 }
 
-- (void)trackUnreachableNetworkWithPriorityRuleModel:(PubnativePriorityRulesModel*)priorityRuleModel
+- (void)trackUnreachableNetworkWithPriorityRuleModel:(PubnativePriorityRuleModel*)priorityRuleModel
                                         responseTime:(NSNumber*)responseTime
                                            exception:(NSException*)exception
 {
@@ -46,7 +47,7 @@
     [self.data addNetworkWithPriorityRuleModel:priorityRuleModel responseTime:responseTime crashModel:crashModel];
 }
 
-- (void)trackAttemptedNetworkWithPriorityRuleModel:(PubnativePriorityRulesModel*)priorityRuleModel
+- (void)trackAttemptedNetworkWithPriorityRuleModel:(PubnativePriorityRuleModel*)priorityRuleModel
                                       responseTime:(NSNumber*)responseTime
                                          exception:(NSException*)exception
 {
@@ -57,14 +58,14 @@
     [self.data addNetworkWithPriorityRuleModel:priorityRuleModel responseTime:responseTime crashModel:crashModel];
 }
 
-- (void)trackSuccededNetworkWithPriorityRuleModel:(PubnativePriorityRulesModel*)priorityRuleModel
+- (void)trackSuccededNetworkWithPriorityRuleModel:(PubnativePriorityRuleModel*)priorityRuleModel
                                      responseTime:(NSNumber*)responseTime
                                         exception:(NSException*)exception
 {
     PubnativeInsightCrashModel *crashModel = [[PubnativeInsightCrashModel alloc] init];
     crashModel.error = exception.description;
     crashModel.details = exception.reason;
-    // TODO: Add delivery manager updatePacingCalendar method
+    [PubnativeDeliveryManager updatePacingDateForPlacementName:self.data.placement_name];
 }
 
 @end

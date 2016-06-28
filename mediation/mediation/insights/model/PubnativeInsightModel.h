@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "PubnativeInsightDataModel.h"
 #import "PubnativeInsightsManager.h"
-#import "PubnativePriorityRulesModel.h"
+#import "PubnativePriorityRuleModel.h"
 
 @interface PubnativeInsightModel : NSObject
 
@@ -22,8 +22,8 @@
 - (void)sendRequestInsight;
 - (void)sendImpressionInsight;
 - (void)sendClickInsight;
-- (void)trackUnreachableNetworkWithPriorityRuleModel:(PubnativePriorityRulesModel*)priorityRuleModel responseTime:(NSNumber*)responseTime exception:(NSException*)exception;
-- (void)trackAttemptedNetworkWithPriorityRuleModel:(PubnativePriorityRulesModel*)priorityRuleModel responseTime:(NSNumber*)responseTime exception:(NSException*)exception;
-- (void)trackSuccededNetworkWithPriorityRuleModel:(PubnativePriorityRulesModel*)priorityRuleModel responseTime:(NSNumber*)responseTime exception:(NSException*)exception;
+- (void)trackUnreachableNetworkWithPriorityRuleModel:(PubnativePriorityRuleModel*)priorityRuleModel responseTime:(NSNumber*)responseTime exception:(NSException*)exception;
+- (void)trackAttemptedNetworkWithPriorityRuleModel:(PubnativePriorityRuleModel*)priorityRuleModel responseTime:(NSNumber*)responseTime exception:(NSException*)exception;
+- (void)trackSuccededNetworkWithPriorityRuleModel:(PubnativePriorityRuleModel*)priorityRuleModel responseTime:(NSNumber*)responseTime exception:(NSException*)exception;
 
 @end
