@@ -12,12 +12,6 @@
 
 @interface PubnativeInsightNetworkModel : PubnativeJSONModel<NSCoding>
 
-//public String                     code;
-//public int                        priority_rule_id;
-//public List<Integer>              priority_segment_ids;
-//public long                       response_time;
-//public PubnativeInsightCrashModel crash_report;
-
 @property (nonatomic, strong) NSString                      *code;
 @property (nonatomic, strong) NSNumber                      *priority_rule_id;
 @property (nonatomic, strong) NSArray<NSNumber*>            *priority_segment_ids;

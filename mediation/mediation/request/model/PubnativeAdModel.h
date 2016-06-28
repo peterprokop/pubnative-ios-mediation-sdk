@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+#import "PubnativeInsightModel.h"
 
 @class PubnativeAdModel;
 
@@ -28,6 +29,8 @@
 @property (readonly) NSString *bannerURL;
 @property (readonly) NSString *callToAction;
 @property (readonly) NSNumber *starRating;
+
+@property (nonatomic, strong) PubnativeInsightModel *insightModel;
 
 /**
  * Start tracking Ad View

@@ -11,6 +11,7 @@
 		03169CC11D2163E600E4BBCA /* PubnativeInsightNetworkModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03169CC01D2163E600E4BBCA /* PubnativeInsightNetworkModel.m */; };
 		03169CC41D2164B000E4BBCA /* PubnativeInsightCrashModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03169CC31D2164B000E4BBCA /* PubnativeInsightCrashModel.m */; };
 		03169CC71D217CED00E4BBCA /* PubnativeInsightModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03169CC61D217CED00E4BBCA /* PubnativeInsightModel.m */; };
+		03169CCA1D22612300E4BBCA /* PubnativeAdTargetingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03169CC91D22612300E4BBCA /* PubnativeAdTargetingModel.m */; };
 		039FC0401D1BFA4300AF8011 /* PubnativeInsightsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 039FC03F1D1BFA4300AF8011 /* PubnativeInsightsManager.m */; };
 		039FC0431D1BFC1E00AF8011 /* PubnativeInsightRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 039FC0421D1BFC1E00AF8011 /* PubnativeInsightRequestModel.m */; };
 		039FC0491D1C2EC700AF8011 /* PubnativeInsightApiResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 039FC0481D1C2EC700AF8011 /* PubnativeInsightApiResponseModel.m */; };
@@ -143,6 +144,8 @@
 		03169CC31D2164B000E4BBCA /* PubnativeInsightCrashModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeInsightCrashModel.m; path = insights/model/PubnativeInsightCrashModel.m; sourceTree = "<group>"; };
 		03169CC51D217CED00E4BBCA /* PubnativeInsightModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PubnativeInsightModel.h; path = insights/model/PubnativeInsightModel.h; sourceTree = "<group>"; };
 		03169CC61D217CED00E4BBCA /* PubnativeInsightModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeInsightModel.m; path = insights/model/PubnativeInsightModel.m; sourceTree = "<group>"; };
+		03169CC81D22612300E4BBCA /* PubnativeAdTargetingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeAdTargetingModel.h; sourceTree = "<group>"; };
+		03169CC91D22612300E4BBCA /* PubnativeAdTargetingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeAdTargetingModel.m; sourceTree = "<group>"; };
 		039FC03E1D1BFA3300AF8011 /* PubnativeInsightsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PubnativeInsightsManager.h; path = insights/PubnativeInsightsManager.h; sourceTree = "<group>"; };
 		039FC03F1D1BFA4300AF8011 /* PubnativeInsightsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeInsightsManager.m; path = insights/PubnativeInsightsManager.m; sourceTree = "<group>"; };
 		039FC0421D1BFC1E00AF8011 /* PubnativeInsightRequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeInsightRequestModel.m; path = insights/model/PubnativeInsightRequestModel.m; sourceTree = "<group>"; };
@@ -1004,6 +1007,8 @@
 			children = (
 				D5BF10211D1A97C800A05486 /* PubnativeAdModel.h */,
 				D5BF10221D1A97C800A05486 /* PubnativeAdModel.m */,
+				03169CC81D22612300E4BBCA /* PubnativeAdTargetingModel.h */,
+				03169CC91D22612300E4BBCA /* PubnativeAdTargetingModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1213,6 +1218,7 @@
 				D5BF10251D1A97C800A05486 /* PNAdConstants.m in Sources */,
 				039FC0431D1BFC1E00AF8011 /* PubnativeInsightRequestModel.m in Sources */,
 				D5BF105A1D1A97C800A05486 /* PubnativeExtension.m in Sources */,
+				03169CCA1D22612300E4BBCA /* PubnativeAdTargetingModel.m in Sources */,
 				D5BF10531D1A97C800A05486 /* PNNativeAPIModel.m in Sources */,
 				03169CC71D217CED00E4BBCA /* PubnativeInsightModel.m in Sources */,
 				039FC0401D1BFA4300AF8011 /* PubnativeInsightsManager.m in Sources */,

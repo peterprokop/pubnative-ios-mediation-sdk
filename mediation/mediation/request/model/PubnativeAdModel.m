@@ -60,7 +60,9 @@
 
 - (void)invokeDidConfirmImpression
 {
-    [PubnativeInsightModel sendImpressionInsight];
+    if (self.insightModel) {
+        [self.insightModel sendImpressionInsight];
+    }
     if(self.delegate && [self.delegate respondsToSelector:@selector(pubantiveAdDidConfirmImpression:)]){
         [self.delegate pubantiveAdDidConfirmImpression:self];
     }
@@ -68,6 +70,9 @@
 
 - (void)invokeDidClick
 {
+    if (self.insightModel) {
+        [self.insightModel sendClickInsight];
+    }
     if(self.delegate && [self.delegate respondsToSelector:@selector(pubnativeAdDidClick:)]){
         [self.delegate pubnativeAdDidClick:self];
     }

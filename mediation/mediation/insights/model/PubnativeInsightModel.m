@@ -42,6 +42,29 @@
     PubnativeInsightCrashModel *crashModel = [[PubnativeInsightCrashModel alloc] init];
     crashModel.error = exception.description;
     crashModel.details = exception.reason;
+    [self.data addUnreachableNetworkWithNetworkCode:priorityRuleModel.network_code];
+    [self.data addNetworkWithPriorityRuleModel:priorityRuleModel responseTime:responseTime crashModel:crashModel];
+}
+
+- (void)trackAttemptedNetworkWithPriorityRuleModel:(PubnativePriorityRulesModel*)priorityRuleModel
+                                      responseTime:(NSNumber*)responseTime
+                                         exception:(NSException*)exception
+{
+    PubnativeInsightCrashModel *crashModel = [[PubnativeInsightCrashModel alloc] init];
+    crashModel.error = exception.description;
+    crashModel.details = exception.reason;
+    [self.data addAttemptedNetworkWithNetworkCode:priorityRuleModel.network_code];
+    [self.data addNetworkWithPriorityRuleModel:priorityRuleModel responseTime:responseTime crashModel:crashModel];
+}
+
+- (void)trackSuccededNetworkWithPriorityRuleModel:(PubnativePriorityRulesModel*)priorityRuleModel
+                                     responseTime:(NSNumber*)responseTime
+                                        exception:(NSException*)exception
+{
+    PubnativeInsightCrashModel *crashModel = [[PubnativeInsightCrashModel alloc] init];
+    crashModel.error = exception.description;
+    crashModel.details = exception.reason;
+    // TODO: Add delivery manager updatePacingCalendar method
 }
 
 @end

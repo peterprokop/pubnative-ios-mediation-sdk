@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "PubnativeJSONModel.h"
 #import "PubnativeInsightNetworkModel.h"
+#import "PubnativePriorityRulesModel.h"
 
 extern NSString * const kPubnativeInsightDataModelConnectionTypeWiFi;
 extern NSString * const kPubnativeInsightDataModelConnectionTypeCellular;
@@ -44,6 +45,8 @@ extern NSString * const kPubnativeInsightDataModelConnectionTypeCellular;
 @property (nonatomic, strong) NSNumber                                  *iap; // In app purchase enabled, Just open it for the user to fill
 @property (nonatomic, strong) NSNumber                                  *iap_total; // In app purchase total spent, just open for the user to fill
 
-+ (instancetype)insight;
+- (void)addUnreachableNetworkWithNetworkCode:(NSString*)networkCode;
+- (void)addAttemptedNetworkWithNetworkCode:(NSString*)networkCode;
+- (void)addNetworkWithPriorityRuleModel:(PubnativePriorityRulesModel*)priorityRuleModel responseTime:(NSNumber*)responseTime crashModel:(PubnativeInsightCrashModel*)crashModel;
 
 @end

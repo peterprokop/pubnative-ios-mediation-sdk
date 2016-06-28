@@ -85,4 +85,48 @@ NSString * const kPubnativeInsightDataModelConnectionTypeCellular = @"cellular";
     [coder encodeObject:self.iap_total forKey:@"iap_total"];
 }
 
+- (void)addAttemptedNetworkWithNetworkCode:(NSString *)networkCode
+{
+    if (networkCode && networkCode.length > 0) {
+        if (self.attempted_networks) {
+            self.attempted_networks = [[NSArray<NSString*> alloc] init];
+        }
+        NSMutableArray *stringArray = [self.attempted_networks mutableCopy];
+        [stringArray addObject:networkCode];
+        self.attempted_networks = stringArray;
+    }
+}
+
+- (void)addUnreachableNetworkWithNetworkCode:(NSString *)networkCode
+{
+    if (networkCode && networkCode.length > 0) {
+        if (self.unreachable_networks) {
+            self.unreachable_networks = [[NSArray<NSString*> alloc] init];
+        }
+        NSMutableArray *stringArray = [self.unreachable_networks mutableCopy];
+        [stringArray addObject:networkCode];
+        self.unreachable_networks = stringArray;
+    }
+}
+
+- (void)addNetworkWithPriorityRuleModel:(PubnativePriorityRulesModel *)priorityRuleModel responseTime:(NSNumber *)responseTime crashModel:(PubnativeInsightCrashModel *)crashModel
+{
+    if (priorityRuleModel) {
+        if (!self.networks) {
+            self.networks = [[NSArray<PubnativeInsightNetworkModel*> alloc] init];
+        }
+        PubnativeInsightNetworkModel *networkModel = [[PubnativeInsightNetworkModel alloc] init];
+        networkModel.code = priorityRuleModel.network_code;
+        networkModel.priority_rule_id = priorityRuleModel.identifier;
+        networkModel.priority_segment_ids = priorityRuleModel.segment_ids;
+        networkModel.response_time = responseTime;
+        if (crashModel) {
+            networkModel.crash_report = crashModel;
+        }
+        NSMutableArray *networksArray = [self.networks mutableCopy];
+        [networksArray addObject:networkModel];
+        self.networks = networksArray;
+    }
+}
+
 @end
