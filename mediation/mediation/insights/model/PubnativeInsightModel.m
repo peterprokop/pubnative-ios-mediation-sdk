@@ -17,6 +17,7 @@
     self = [super init];
     if (self) {
         self.data = [[PubnativeInsightDataModel alloc] init];
+        [self.data fillDefaults];
     }
     return self;
 }

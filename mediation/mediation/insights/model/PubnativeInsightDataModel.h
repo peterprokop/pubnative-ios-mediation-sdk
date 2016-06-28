@@ -48,5 +48,6 @@ extern NSString * const kPubnativeInsightDataModelConnectionTypeCellular;
 - (void)addUnreachableNetworkWithNetworkCode:(NSString*)networkCode;
 - (void)addAttemptedNetworkWithNetworkCode:(NSString*)networkCode;
 - (void)addNetworkWithPriorityRuleModel:(PubnativePriorityRuleModel*)priorityRuleModel responseTime:(NSNumber*)responseTime crashModel:(PubnativeInsightCrashModel*)crashModel;
+- (void)fillDefaults;
 
 @end

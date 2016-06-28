@@ -6,6 +6,7 @@
 //  Copyright © 2016 pubnative. All rights reserved.
 //
 
+#import "UIKit/UIKit.h"
 #import "PubnativeInsightDataModel.h"
 
 NSString * const kPubnativeInsightDataModelConnectionTypeWiFi = @"wifi";
@@ -127,6 +128,17 @@ NSString * const kPubnativeInsightDataModelConnectionTypeCellular = @"cellular";
         [networksArray addObject:networkModel];
         self.networks = networksArray;
     }
+}
+
+- (void)fillDefaults
+{
+    self.pub_app_version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    self.pub_app_bundle_id = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey];
+    self.os_version = [[UIDevice currentDevice] systemVersion];
+    //self.sdk_version
+    //self.connection_type
+    //self.device_name
+    self.retry = @0;
 }
 
 @end
