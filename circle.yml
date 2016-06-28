@@ -18,18 +18,18 @@ test:
                 -r html --output $CIRCLE_TEST_REPORTS/report.html
                 -r json-compilation-database --output $CIRCLE_TEST_REPORTS/report.json
 
-            post:
-                - bundle exec slather coverage
-                    --simple-output
-                    --circleci
-                    --coveralls
-                    --workspace mediation.xcworkspace
-                    --scheme mediation
-                    --ignore "dependencies/*"
-                    --ignore "library/library.test/*"
-                    --ignore "library/library.demo/*"
-                    --ignore "../*"
-                    mediation/mediation.xcodeproj
+    post:
+        - bundle exec slather coverage
+            --simple-output
+            --circleci
+            --coveralls
+            --workspace mediation.xcworkspace
+            --scheme mediation
+            --ignore "dependencies/*"
+            --ignore "library/library.test/*"
+            --ignore "library/library.demo/*"
+            --ignore "../*"
+            mediation/mediation.xcodeproj
 
 
 #---------------------- TODO:
