@@ -80,8 +80,6 @@
             [self.insightModel sendImpressionInsight];
         }
         
-        // TODO: Track impression
-        
         if(self.delegate && [self.delegate respondsToSelector:@selector(pubantiveAdDidConfirmImpression:)]){
             [self.delegate pubantiveAdDidConfirmImpression:self];
         }
@@ -97,7 +95,6 @@
         if (self.insightModel) {
             [self.insightModel sendClickInsight];
         }
-        // TODO: track click
         
         if(self.delegate && [self.delegate respondsToSelector:@selector(pubnativeAdDidClick:)]){
             [self.delegate pubnativeAdDidClick:self];

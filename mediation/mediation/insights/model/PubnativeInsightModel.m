@@ -60,11 +60,9 @@
 
 - (void)trackSuccededNetworkWithPriorityRuleModel:(PubnativePriorityRuleModel*)priorityRuleModel
                                      responseTime:(NSNumber*)responseTime
-                                        exception:(NSException*)exception
 {
-    PubnativeInsightCrashModel *crashModel = [[PubnativeInsightCrashModel alloc] init];
-    crashModel.error = exception.description;
-    crashModel.details = exception.reason;
+    self.data.network = priorityRuleModel.network_code;
+    [self.data addNetworkWithPriorityRuleModel:priorityRuleModel responseTime:responseTime crashModel:nil];
     [PubnativeDeliveryManager updatePacingDateForPlacementName:self.data.placement_name];
 }
 

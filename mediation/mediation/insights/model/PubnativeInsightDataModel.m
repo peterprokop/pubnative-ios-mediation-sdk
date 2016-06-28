@@ -109,7 +109,7 @@ NSString * const kPubnativeInsightDataModelConnectionTypeCellular = @"cellular";
     }
 }
 
-- (void)addNetworkWithPriorityRuleModel:(PubnativePriorityRulesModel *)priorityRuleModel responseTime:(NSNumber *)responseTime crashModel:(PubnativeInsightCrashModel *)crashModel
+- (void)addNetworkWithPriorityRuleModel:(PubnativePriorityRuleModel *)priorityRuleModel responseTime:(NSNumber *)responseTime crashModel:(PubnativeInsightCrashModel *)crashModel
 {
     if (priorityRuleModel) {
         if (!self.networks) {

@@ -89,7 +89,7 @@ class MainViewController: UIViewController, PubnativeNetworkRequestDelegate {
     }
     
     func pubnativeRequest(request: PubnativeNetworkRequest!, didFail error: NSError!) {
-        print("pubnativeRequest:didFail:%@", error);
+        print("pubnativeRequest:didFail: \(error)");
     }
     
     func pubnativeRequest(request: PubnativeNetworkRequest!, didLoad ad: PubnativeAdModel!) {

@@ -12,10 +12,13 @@
 #import "PubnativeDeliveryRuleModel.h"
 #import "PubnativeDeliveryManager.h"
 #import "PubnativeAdModel.h"
+#import "PubnativeInsightModel.h"
+#import "AdSupport/ASIdentifierManager.h"
 
 
 NSString * const PNTrackingAppTokenKey  = @"app_token";
 NSString * const PNTrackingRequestIDKey = @"reqid";
+NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.mediation.PubnativeConfigManager.configJSON";
 
 @interface PubnativeNetworkRequest () <PubnativeNetworkAdapterDelegate, PubnativeConfigManagerDelegate>
 
@@ -28,6 +31,7 @@ NSString * const PNTrackingRequestIDKey = @"reqid";
 @property (nonatomic, strong)NSMutableDictionary<NSString*, NSString*>  *requestParameters;
 @property (nonatomic, assign)NSInteger                                  currentNetworkIndex;
 @property (nonatomic, assign)BOOL                                       isRunning;
+@property (nonatomic, strong)PubnativeInsightModel                      *insight;
 
 
 @end
@@ -140,19 +144,31 @@ NSString * const PNTrackingRequestIDKey = @"reqid";
 }
 
 
-- (void)startTracking {
-    
-    // TODO: Start filling insight data model
-    
+- (void)startTracking
+{
+    PubnativeConfigModel *storedModel = [PubnativeNetworkRequest getStoredConfig];
+    PubnativePlacementModel *placementModel = [self.config placementWithName:self.placementName];
+    PubnativeDeliveryRuleModel *deliveryRuleModel = placementModel.delivery_rule;
+    NSString *impressionUrl = (NSString*)[storedModel.globals objectForKey:CONFIG_GLOBAL_KEY_IMPRESSION_BEACON];
+    NSString *requestUrl = (NSString*)[storedModel.globals objectForKey:CONFIG_GLOBAL_KEY_REQUEST_BEACON];
+    NSString *clickUrl = (NSString*)[storedModel.globals objectForKey:CONFIG_GLOBAL_KEY_CLICK_BEACON];
+    self.insight = [[PubnativeInsightModel alloc] init];
+    [self.insight setImpressionInsightUrl:impressionUrl];
+    [self.insight setRequestInsightUrl:requestUrl];
+    [self.insight setClickInsightUrl:clickUrl];
+    [self.insight.data setPlacement_name:self.placementName];
+    [self.insight.data setDelivery_segment_ids:deliveryRuleModel.segment_ids];
+    [self.insight.data setAd_format_code:placementModel.ad_format_code];
+    [self.insight setParams:@{@"app_token":self.appToken, @"reqid":self.requestID}];
+    [self.insight.data setUser_uid:[[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString]];
+    // TODO: Add request_params
     [self startRequest];
 }
 
 - (void)startRequest {
     
     PubnativeDeliveryRuleModel *deliveryRuleModel = [self.config placementWithName:self.placementName].delivery_rule;
-    if([deliveryRuleModel isFrequencyCapReachedWithPlacement:self.placementName]) {
-        
-    } else {
+
         
         BOOL needsNewAd = YES;
         
@@ -184,7 +200,7 @@ NSString * const PNTrackingRequestIDKey = @"reqid";
                                              userInfo:nil];
             [self invokeDidFail:error];
         }
-    }
+    
 }
 
 - (void)doNextNetworkRequest
@@ -195,9 +211,8 @@ NSString * const PNTrackingRequestIDKey = @"reqid";
     if (priorityRule) {
         
         self.currentNetworkIndex++;
-        PubnativeNetworkModel *network = [self.config networkWithID:priorityRule.network_code];;
+        PubnativeNetworkModel *network = [self.config networkWithID:priorityRule.network_code];
         if (network) {
-            
             PubnativeNetworkAdapter *adapter = [PubnativeNetworkAdapterFactory createApdaterWithAdapterName:network.adapter];
             if (adapter) {
                 
@@ -214,6 +229,8 @@ NSString * const PNTrackingRequestIDKey = @"reqid";
             } else {
                 
                 NSLog(@"PubnativeNetworkRequest.doNextNetworkRequest- Error: Invalid adapter");
+                // TODO: Add exception
+                [self.insight trackUnreachableNetworkWithPriorityRuleModel:priorityRule responseTime:0 exception:nil];
                 [self doNextNetworkRequest];
             }
         } else {
@@ -227,6 +244,7 @@ NSString * const PNTrackingRequestIDKey = @"reqid";
         NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.doNextNetworkRequest- Error: No fill"
                                              code:0
                                          userInfo:nil];
+        [self.insight sendRequestInsight];
         [self invokeDidFail:error];
     }
 }
@@ -282,18 +300,39 @@ NSString * const PNTrackingRequestIDKey = @"reqid";
 - (void)adapter:(PubnativeNetworkAdapter*)adapter requestDidLoad:(PubnativeAdModel*)ad
 {
     [PubnativeDeliveryManager updatePacingDateForPlacementName:self.placementName];
-    
     // TODO: Set insight data before invoke loading
     // TODO: remove setting the app token since it should be inside the insight data
-    ad.appToken = self.appToken;
-    
-    [self invokeDidLoad:ad];
+    if (!ad) {
+        [self doNextNetworkRequest];
+    } else {
+        // Track succeded network
+        [self.insight sendRequestInsight];
+        // Default tracking data
+        ad.appToken = self.appToken;
+        [ad setInsightModel:self.insight];
+        [self invokeDidLoad:ad];
+    }
 }
 
 - (void)adapter:(PubnativeNetworkAdapter*)adapter requestDidFail:(NSError*)error
 {
     NSLog(@"PubnativeNetworkRequest.adapter:requestDidFail:- Error %@",[error domain]);
     [self doNextNetworkRequest];
+}
+
++ (PubnativeConfigModel*)getStoredConfig
+{
+    PubnativeConfigModel *result;
+    
+    NSData *jsonData = [[NSUserDefaults standardUserDefaults] objectForKey:kPubnativeNetworkRequestStoredConfigKey];
+    
+    if(jsonData){
+        NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                       options:NSJSONReadingMutableContainers
+                                                                         error:nil];
+        result = [PubnativeConfigModel modelWithDictionary:jsonDictionary];
+    }
+    return result;
 }
 
 @end

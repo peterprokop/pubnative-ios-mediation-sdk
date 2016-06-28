@@ -24,6 +24,7 @@
 @property (nonatomic, weak) NSObject<PubnativeAdModelDelegate> *delegate;
 
 @property (nonatomic, strong) NSString *appToken;
+@property (nonatomic, strong) PubnativeInsightModel *insightModel;
 
 @property (readonly) NSString   *title;
 @property (readonly) NSString   *description;
@@ -38,8 +39,6 @@
 @property (nonatomic, weak) UIView  *bannerView;
 @property (nonatomic, weak) UIView  *callToActionView;
 @property (nonatomic, weak) UIView  *starRatingView;
-
-@property (nonatomic, strong) PubnativeInsightModel *insightModel;
 
 /**
  * Start tracking Ad View

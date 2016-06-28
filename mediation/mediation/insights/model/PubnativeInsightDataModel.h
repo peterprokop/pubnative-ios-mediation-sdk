@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "PubnativeJSONModel.h"
 #import "PubnativeInsightNetworkModel.h"
-#import "PubnativePriorityRulesModel.h"
+#import "PubnativePriorityRuleModel.h"
 
 extern NSString * const kPubnativeInsightDataModelConnectionTypeWiFi;
 extern NSString * const kPubnativeInsightDataModelConnectionTypeCellular;
@@ -47,6 +47,6 @@ extern NSString * const kPubnativeInsightDataModelConnectionTypeCellular;
 
 - (void)addUnreachableNetworkWithNetworkCode:(NSString*)networkCode;
 - (void)addAttemptedNetworkWithNetworkCode:(NSString*)networkCode;
-- (void)addNetworkWithPriorityRuleModel:(PubnativePriorityRulesModel*)priorityRuleModel responseTime:(NSNumber*)responseTime crashModel:(PubnativeInsightCrashModel*)crashModel;
+- (void)addNetworkWithPriorityRuleModel:(PubnativePriorityRuleModel*)priorityRuleModel responseTime:(NSNumber*)responseTime crashModel:(PubnativeInsightCrashModel*)crashModel;
 
 @end
