@@ -22,7 +22,10 @@
 @interface PubnativeNetworkRequest : NSObject
 
 - (void)startWithAppToken:(NSString*)appToken
-              placementID:(NSString*)placementID
+            placementName:(NSString*)placementName
                  delegate:(NSObject<PubnativeNetworkRequestDelegate>*)delegate;
+
+- (void)setParameterWithKey:(NSString*)key
+                      value:(NSString*)value;
 
 @end

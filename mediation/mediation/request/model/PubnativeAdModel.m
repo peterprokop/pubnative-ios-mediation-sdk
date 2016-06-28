@@ -8,6 +8,16 @@
 
 #import "PubnativeAdModel.h"
 #import "PubnativeInsightModel.h"
+#import "PubnativeDeliveryManager.h"
+
+@interface PubnativeAdModel ()
+
+@property (nonatomic, assign) BOOL      isImpressionTracked;
+@property (nonatomic, assign) BOOL      isClickTracked;
+
+// TODO: Add insight data model
+
+@end
 
 @implementation PubnativeAdModel
 
@@ -60,21 +70,38 @@
 
 - (void)invokeDidConfirmImpression
 {
-    if (self.insightModel) {
-        [self.insightModel sendImpressionInsight];
-    }
-    if(self.delegate && [self.delegate respondsToSelector:@selector(pubantiveAdDidConfirmImpression:)]){
-        [self.delegate pubantiveAdDidConfirmImpression:self];
+    if(!self.isImpressionTracked) {
+        
+        self.isImpressionTracked = YES;
+        
+        [PubnativeDeliveryManager logImpressionForPlacementName:self.appToken];
+        
+        if (self.insightModel) {
+            [self.insightModel sendImpressionInsight];
+        }
+        
+        // TODO: Track impression
+        
+        if(self.delegate && [self.delegate respondsToSelector:@selector(pubantiveAdDidConfirmImpression:)]){
+            [self.delegate pubantiveAdDidConfirmImpression:self];
+        }
     }
 }
 
 - (void)invokeDidClick
 {
-    if (self.insightModel) {
-        [self.insightModel sendClickInsight];
-    }
-    if(self.delegate && [self.delegate respondsToSelector:@selector(pubnativeAdDidClick:)]){
-        [self.delegate pubnativeAdDidClick:self];
+    if(!self.isClickTracked){
+        
+        self.isClickTracked = YES;
+        
+        if (self.insightModel) {
+            [self.insightModel sendClickInsight];
+        }
+        // TODO: track click
+        
+        if(self.delegate && [self.delegate respondsToSelector:@selector(pubnativeAdDidClick:)]){
+            [self.delegate pubnativeAdDidClick:self];
+        }
     }
 }
 

@@ -7,6 +7,7 @@
 //
 
 #import "PubnativeDeliveryRuleModel.h"
+#import "PubnativeDeliveryManager.h"
 
 @implementation PubnativeDeliveryRuleModel
 
@@ -27,6 +28,32 @@
 - (BOOL)isDisabled
 {
     return [self.no_ads boolValue];
+}
+
+- (BOOL)isDayImpressionCapActive
+{
+    return self.imp_cap_day > 0;
+}
+
+- (BOOL)isHourImpressionCapActive
+{
+    return self.imp_cap_hour > 0;
+}
+- (BOOL)isPacingCapActive
+{
+    return self.pacing_cap_hour > 00 || self.pacing_cap_minute > 0;
+}
+
+- (BOOL)isFrequencyCapReachedWithPlacement:(NSString*)placementName
+{
+    BOOL frequencyCapReached = false;
+    if ([self isDayImpressionCapActive]) {
+        frequencyCapReached = [self.imp_cap_day intValue] <= [PubnativeDeliveryManager dailyImpressionCountForPlacementName:placementName];
+    }
+    if (!frequencyCapReached && [self isHourImpressionCapActive]) {
+        frequencyCapReached = [self.imp_cap_hour intValue] <= [PubnativeDeliveryManager hourlyImpressionCountForPlacementName:placementName];
+    }
+    return frequencyCapReached;
 }
 
 @end

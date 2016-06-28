@@ -40,4 +40,28 @@ NSString * const CONFIG_GLOBAL_KEY_REQUEST_BEACON       = @"request_beacon";
     return result;
 }
 
+- (NSObject*)globalWithKey:(NSString*)key
+{
+    return self.globals[key];
+}
+
+- (PubnativePlacementModel*)placementWithName:(NSString*)name
+{
+    return self.placements[name];
+}
+
+- (PubnativeNetworkModel*)networkWithID:(NSString*)networkID
+{
+    return self.networks[networkID];
+}
+- (PubnativePriorityRuleModel*)priorityRuleWithPlacementName:(NSString*)name andIndex:(NSInteger)index
+{
+    PubnativePriorityRuleModel *result = nil;
+    PubnativePlacementModel *placement = [self placementWithName:name];
+    if(placement){
+        result = [placement priorityRuleWithIndex:index];
+    }
+    return result;
+}
+
 @end

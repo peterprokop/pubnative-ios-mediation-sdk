@@ -44,10 +44,10 @@
     PubnativeNetworkRequest *request = [[PubnativeNetworkRequest alloc] init];
     
     [request startWithAppToken:nil
-                   placementID:@"placement"
+                placementName:@"placement"
                       delegate:delegate];
     
-    [verify(delegate) pubnativeRequest:is(request) didFail:instanceOf([NSError class])];
+    [verify(delegate) pubnativeRequest:request didFail:instanceOf([NSError class])];
 }
 
 - (void)test_startWithAppToken_withEmptyAppToken_shouldCallbackFail
@@ -56,10 +56,10 @@
     PubnativeNetworkRequest *request = [[PubnativeNetworkRequest alloc] init];
     
     [request startWithAppToken:@""
-                   placementID:@"placement"
+                 placementName:@"placement"
                       delegate:delegate];
     
-    [verify(delegate) pubnativeRequest:is(request) didFail:instanceOf([NSError class])];
+    [verify(delegate) pubnativeRequest:request didFail:instanceOf([NSError class])];
 }
 
 - (void)test_startWithAppToken_withNilPlacement_shouldCallbackFail
@@ -68,10 +68,10 @@
     PubnativeNetworkRequest *request = [[PubnativeNetworkRequest alloc] init];
     
     [request startWithAppToken:@"app_token"
-                   placementID:nil
+                 placementName:nil
                       delegate:delegate];
     
-    [verify(delegate) pubnativeRequest:is(request) didFail:instanceOf([NSError class])];
+    [verify(delegate) pubnativeRequest:request didFail:instanceOf([NSError class])];
 }
 
 - (void)test_startWithAppToken_withEmptyPlacement_shouldCallbackFail
@@ -80,10 +80,10 @@
     PubnativeNetworkRequest *request = [[PubnativeNetworkRequest alloc] init];
     
     [request startWithAppToken:@"app_token"
-                   placementID:@""
+                 placementName:@""
                       delegate:delegate];
     
-    [verify(delegate) pubnativeRequest:is(request) didFail:instanceOf([NSError class])];
+    [verify(delegate) pubnativeRequest:request didFail:instanceOf([NSError class])];
 }
 
 - (void)test_invokeDidLoad_withValidListener_shouldCallback
@@ -93,7 +93,7 @@
     PubnativeNetworkRequest *request = [[PubnativeNetworkRequest alloc] init];
     request.delegate = delegate;
     [request invokeDidLoad:model];
-    [verify(delegate) pubnativeRequest:is(request) didLoad:is(model)];
+    [verify(delegate) pubnativeRequest:request didLoad:model];
 }
 
 - (void)test_invokeDidFail_withValidListener_shouldCallback
@@ -103,7 +103,7 @@
     PubnativeNetworkRequest *request = [[PubnativeNetworkRequest alloc] init];
     request.delegate = delegate;
     [request invokeDidFail:error];
-    [verify(delegate) pubnativeRequest:is(request) didFail:is(error)];
+    [verify(delegate) pubnativeRequest:request didFail:error];
 }
 
 - (void)test_invokeDidStart_withValidListener_shouldCallback
@@ -113,7 +113,7 @@
     request.delegate = delegate;
     
     [request invokeDidStart];
-    [verify(delegate) pubnativeRequestDidStart:is(request)];
+    [verify(delegate) pubnativeRequestDidStart:request];
 }
 
 - (void)test_invokeDidLoad_withNilListener_shouldPass

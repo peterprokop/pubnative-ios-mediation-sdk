@@ -10,22 +10,18 @@
 
 @implementation PubnativeNetworkAdapterFactory
 
-+ (PubnativeNetworkAdapter *)createApdaterWithNetwork:(PubnativeNetworkModel*)model
++ (PubnativeNetworkAdapter *)createApdaterWithAdapterName:(NSString*)adapterName
 {
     PubnativeNetworkAdapter *adapter = nil;
-    if (model) {
-        if (model.adapter && [model.adapter length] > 0) {
-            Class adapterClass = NSClassFromString(model.adapter);
-            if (adapterClass && [adapterClass isSubclassOfClass:[PubnativeNetworkAdapter class]]) {
-                adapter = [[adapterClass alloc] initWithModel:model];
-            } else {
-                NSLog(@"PubnativeNetworkAdapterFactory.createApdaterWithNetwork - Adapter not available");
-            }
-        } else {
-            NSLog(@"PubnativeNetworkAdapterFactory.createApdaterWithNetwork - Invalid adapter name");
-        }
+    if (adapterName == nil || [adapterName length] == 0) {
+        NSLog(@"PubnativeNetworkAdapterFactory.createApdaterWithNetwork - Invalid adapter name");
     } else {
-        NSLog(@"PubnativeNetworkAdapterFactory.createApdaterWithNetwork - Invalid network");
+        Class adapterClass = NSClassFromString(adapterName);
+        if (adapterClass && [adapterClass isSubclassOfClass:[PubnativeNetworkAdapter class]]) {
+            adapter = [[adapterClass alloc] init];
+        } else {
+            NSLog(@"PubnativeNetworkAdapterFactory.createApdaterWithNetwork - Adapter not available");
+        }
     }
     return adapter;
 }

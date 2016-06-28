@@ -6,9 +6,9 @@
 //  Copyright © 2015 pubnative. All rights reserved.
 //
 
-#import "PubnativePriorityRulesModel.h"
+#import "PubnativePriorityRuleModel.h"
 
-@implementation PubnativePriorityRulesModel
+@implementation PubnativePriorityRuleModel
 
 - (instancetype)initWithDictionary:(NSDictionary*)dictionary
 {

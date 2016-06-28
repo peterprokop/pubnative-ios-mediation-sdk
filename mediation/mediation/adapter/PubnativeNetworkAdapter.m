@@ -10,42 +10,39 @@
 
 @interface PubnativeNetworkAdapter ()
 
-@property (nonatomic, strong) NSNumber *timeOut;
+@property (nonatomic, strong) NSObject<PubnativeNetworkAdapterDelegate> *delegate;
 
 @end
 
 @implementation PubnativeNetworkAdapter
 
-- (instancetype)initWithModel:(PubnativeNetworkModel *)model
-{
-    self = [super init];
-    if (self) {
-        self.params = model.params;
-        self.timeOut = model.timeout;
-    }
-    return self;
-}
-
 #pragma mark - Request -
-- (void)startWithDelegate:(NSObject<PubnativeNetworkAdapterDelegate>*)delegate;
+- (void)startWithData:(NSDictionary *)data
+              timeout:(NSTimeInterval)timeout
+               extras:(NSDictionary<NSString *,NSString *> *)extras
+             delegate:(NSObject<PubnativeNetworkAdapterDelegate> *)delegate
 {
     if (delegate) {
+        
         self.delegate = delegate;
         [self invokeDidStart];
-        if (self.timeOut > 0) {
+        if (timeout > 0) {
             //timeout is in milliseconds
-            dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * [self.timeOut intValue] * 0.001);
+            dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * timeout * 0.001);
             dispatch_after(delay, dispatch_get_main_queue(), ^{
                 [self requestTimeout];
             });
         }
-        [self doRequest];
+        [self doRequestWithData:data
+                         extras:extras];
+        
     } else {
         NSLog(@"PubnativeNetworkAdapter.startWithDelegate: - Error: network adapter delegate not specified");
     }
 }
 
-- (void)doRequest
+- (void)doRequestWithData:(NSDictionary *)data
+                   extras:(NSDictionary<NSString *,NSString *> *)extras
 {
     NSLog(@"PubnativeNetworkAdapter.doRequest - Error: override me");
 }
@@ -53,7 +50,7 @@
 #pragma mark - Request Timeout -
 - (void)requestTimeout
 {
-    NSError *error = [NSError errorWithDomain:@"PubnativeNetworkAdapter - Error: request timeout"
+    NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"%@ - Error: request timeout", NSStringFromClass([self class])]
                                          code:0
                                      userInfo:nil];
     
@@ -73,7 +70,6 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(adapter:requestDidLoad:)]) {
         [self.delegate adapter:self requestDidLoad:ad];
     }
-    //To cancel the timeout callback
     self.delegate = nil;
 }
 
@@ -82,7 +78,6 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(adapter:requestDidFail:)]) {
         [self.delegate adapter:self requestDidFail:error];
     }
-    //To cancel the timeout callback
     self.delegate = nil;
 }
 
