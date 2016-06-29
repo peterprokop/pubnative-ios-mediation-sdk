@@ -107,7 +107,6 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey = @"PubnativeInsightsMa
                 PubnativeInsightApiResponseModel *apiResponse = [PubnativeInsightApiResponseModel modelWithDictionary:jsonDictonary];
                 if([apiResponse isSuccess]) {
                     NSLog(@"PubnativeInsightsManager - tracking %@ success: %@", url, result);
-                    [PubnativeInsightsManager dequeueRequestModel];
                 } else {
                     NSLog(@"PubnativeInsightsManager - tracking failed: %@", apiResponse.error_message);
                     [PubnativeInsightsManager enqueueFailedRequestModel:requestModelBlock];
