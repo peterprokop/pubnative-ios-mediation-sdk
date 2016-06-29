@@ -86,6 +86,70 @@ NSString * const kPubnativeInsightDataModelConnectionTypeCellular = @"cellular";
     [coder encodeObject:self.iap_total forKey:@"iap_total"];
 }
 
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary
+{
+    self = [super initWithDictionary:dictionary];
+    if(self){
+        self.network = dictionary[@"network"];
+        self.attempted_networks = [PubnativeJSONModel parseArrayValues:dictionary[@"attempted_networks"]];
+        self.unreachable_networks = [PubnativeJSONModel parseArrayValues:dictionary[@"unreachable_networks"]];
+        self.delivery_segment_ids = [PubnativeJSONModel parseArrayValues:dictionary[@"delivery_segment_ids"]];
+        self.networks = [PubnativeInsightNetworkModel parseArrayValues:dictionary[@"networks"]];
+        self.placement_name = dictionary[@"placement_name"];
+        self.pub_app_version = dictionary[@"pub_app_version"];
+        self.pub_app_bundle_id = dictionary[@"pub_app_bundle_id"];
+        self.os_version = dictionary[@"os_version"];
+        self.sdk_version = dictionary[@"sdk_version"];
+        self.user_uid = dictionary[@"user_uid"];
+        self.connection_type = dictionary[@"connection_type"];
+        self.device_name = dictionary[@"device_name"];
+        self.ad_format_code = dictionary[@"ad_format_code"];
+        self.creative_url = dictionary[@"creative_url"];
+        self.video_start = dictionary[@"video_start"];
+        self.video_complete = dictionary[@"video_complete"];
+        self.retry = dictionary[@"retry"];
+        self.age = dictionary[@"age"];
+        self.education = dictionary[@"education"];
+        self.interests = [PubnativeJSONModel parseArrayValues:dictionary[@"interests"]];
+        self.gender = dictionary[@"gender"];
+        self.keywords = [PubnativeJSONModel parseArrayValues:dictionary[@"keywords"]];
+        self.iap = dictionary[@"iap"];
+        self.iap_total = dictionary[@"iap_total"];
+    }
+    return self;
+}
+
+- (NSDictionary *)toDictionary
+{
+    NSMutableDictionary *result =[[NSMutableDictionary alloc] init];
+    [result setValue:self.network forKey:@"network"];
+    [result setValue:self.attempted_networks forKey:@"attempted_networks"];
+    [result setValue:self.unreachable_networks forKey:@"unreachable_networks"];
+    [result setValue:self.delivery_segment_ids forKey:@"delivery_segment_ids"];
+    [result setValue:self.networks forKey:@"networks"];
+    [result setValue:self.placement_name forKey:@"placement_name"];
+    [result setValue:self.pub_app_version forKey:@"pub_app_version"];
+    [result setValue:self.pub_app_bundle_id forKey:@"pub_app_bundle_id"];
+    [result setValue:self.os_version forKey:@"os_version"];
+    [result setValue:self.sdk_version forKey:@"sdk_version"];
+    [result setValue:self.user_uid forKey:@"user_uid"];
+    [result setValue:self.connection_type forKey:@"connection_type"];
+    [result setValue:self.device_name forKey:@"device_name"];
+    [result setValue:self.ad_format_code forKey:@"ad_format_code"];
+    [result setValue:self.creative_url forKey:@"creative_url"];
+    [result setValue:self.video_start forKey:@"video_start"];
+    [result setValue:self.video_complete forKey:@"video_complete"];
+    [result setValue:self.retry forKey:@"retry"];
+    [result setValue:self.age forKey:@"age"];
+    [result setValue:self.education forKey:@"education"];
+    [result setValue:self.interests forKey:@"interests"];
+    [result setValue:self.gender forKey:@"gender"];
+    [result setValue:self.keywords forKey:@"keywords"];
+    [result setValue:self.iap forKey:@"iap"];
+    [result setValue:self.iap_total forKey:@"iap_total"];
+    return result;
+}
+
 - (void)addAttemptedNetworkWithNetworkCode:(NSString *)networkCode
 {
     if (networkCode && networkCode.length > 0) {
@@ -133,12 +197,33 @@ NSString * const kPubnativeInsightDataModelConnectionTypeCellular = @"cellular";
 - (void)fillDefaults
 {
     self.pub_app_version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    self.pub_app_bundle_id = [[[NSBundle mainBundle] infoDictionary] objectForKey:(NSString *)kCFBundleVersionKey];
+    self.pub_app_bundle_id = [[NSBundle mainBundle] bundleIdentifier];
     self.os_version = [[UIDevice currentDevice] systemVersion];
-    //self.sdk_version
+    self.sdk_version = [self buildVersion];
     //self.connection_type
-    //self.device_name
+    self.device_name = [[UIDevice currentDevice] name];
     self.retry = @0;
+}
+
+- (NSString *)buildVersion
+{
+    // form character set of digits and punctuation
+    NSMutableCharacterSet *characterSet =
+    [[NSCharacterSet decimalDigitCharacterSet] mutableCopy];
+    
+    [characterSet formUnionWithCharacterSet:
+     [NSCharacterSet punctuationCharacterSet]];
+    
+    // get only those things in characterSet from the SDK name
+    NSString *SDKName = [[NSBundle mainBundle] infoDictionary][@"DTSDKName"];
+    NSArray *components =
+    [[SDKName componentsSeparatedByCharactersInSet:
+      [characterSet invertedSet]]
+     filteredArrayUsingPredicate:
+     [NSPredicate predicateWithFormat:@"length != 0"]];
+    
+    if([components count]) return components[0];
+    return nil;
 }
 
 @end

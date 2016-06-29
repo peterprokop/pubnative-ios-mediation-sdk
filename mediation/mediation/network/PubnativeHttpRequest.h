@@ -14,5 +14,6 @@ typedef void(^PubnativeHttpRequestBlock)(NSString *result, NSError *error);
 
 + (void)requestWithURL:(NSString*)urlString andCompletionHandler:(PubnativeHttpRequestBlock)completionHandler;
 + (void)requestWithURL:(NSString*)urlString timeout:(NSTimeInterval)timeoutInSeconds andCompletionHandler:(PubnativeHttpRequestBlock)completionHandler;
++ (void)requestWithURL:(NSString*)urlString httpBody:(NSData*)httpBody andCompletionHandler:(PubnativeHttpRequestBlock)completionHandler;
 
 @end

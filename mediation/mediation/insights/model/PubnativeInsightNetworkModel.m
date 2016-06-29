@@ -10,6 +10,30 @@
 
 @implementation PubnativeInsightNetworkModel
 
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary
+{
+    self = [super initWithDictionary:dictionary];
+    if(self){
+        self.code = dictionary[@"code"];
+        self.priority_rule_id = dictionary[@"priority_rule_id"];
+        self.priority_segment_ids = dictionary[@"priority_segment_ids"];
+        self.response_time = dictionary[@"response_time"];
+        self.crash_report = [PubnativeInsightCrashModel modelWithDictionary:dictionary[@"crash_report"]];
+    }
+    return self;
+}
+
+- (NSDictionary *)toDictionary
+{
+    NSMutableDictionary *result =[[NSMutableDictionary alloc] init];
+    [result setValue:self.code forKey:@"code"];
+    [result setValue:self.priority_rule_id forKey:@"priority_rule_id"];
+    [result setValue:self.priority_segment_ids forKey:@"priority_segment_ids"];
+    [result setValue:self.response_time forKey:@"response_time"];
+    [result setValue:self.crash_report forKey:@"crash_report"];
+    return result;
+}
+
 - (instancetype)initWithCoder:(NSCoder *)coder
 {
     self = [super init];

@@ -66,7 +66,7 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey = @"PubnativeInsightsMa
 {
     if([PubnativeInsightsManager sharedInstance].idle){
         [PubnativeInsightsManager sharedInstance].idle = NO;
-        PubnativeInsightRequestModel *model = [PubnativeInsightsManager dequeueRequestDelegate];
+        PubnativeInsightRequestModel *model = [PubnativeInsightsManager dequeueRequestModel];
         if(model){
             [PubnativeInsightsManager sendRequest:model];
         } else {
@@ -78,13 +78,14 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey = @"PubnativeInsightsMa
 + (void)sendRequest:(PubnativeInsightRequestModel *) model
 {
     NSString *url = [PubnativeInsightsManager requestUrlWithModel:model];
-    
+    NSError *error = nil;
+    NSData *json = [NSJSONSerialization dataWithJSONObject:[model.data toDictionary] options:NSJSONWritingPrettyPrinted error:&error];
+
     __block PubnativeInsightRequestModel *requestModelBlock = model;
-    [PubnativeHttpRequest requestWithURL:url andCompletionHandler:^(NSString *result, NSError *error) {
+    [PubnativeHttpRequest requestWithURL:url httpBody:json andCompletionHandler:^(NSString *result, NSError *error) {
         if (error) {
             NSLog(@"PubnativeInsightsManager - request error: %@", error.localizedDescription);
             [PubnativeInsightsManager enqueueFailedRequestModel:requestModelBlock];
-            
         } else {
             NSData *jsonData = [result dataUsingEncoding:NSUTF8StringEncoding];
             NSError *parseError;
@@ -92,21 +93,20 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey = @"PubnativeInsightsMa
                                                                           options:NSJSONReadingMutableContainers
                                                                             error:&parseError];
             if(parseError){
-                NSLog(@"");
                 // TODO: ADD EXTRAS TO INSIGHT
                 NSLog(@"PubnativeInsightsManager - tracking response parsing error: %@", result);
-                [PubnativeInsightsManager enqueueFailedRequestModel:requestModelBlock];
             } else {
-                
                 PubnativeInsightApiResponseModel *apiResponse = [PubnativeInsightApiResponseModel modelWithDictionary:jsonDictonary];
                 if([apiResponse isSuccess]) {
                     NSLog(@"PubnativeInsightsManager - tracking success: %@", result);
+                    [PubnativeInsightsManager dequeueRequestModel];
                 } else {
                     NSLog(@"PubnativeInsightsManager - tracking failed: %@", apiResponse.error_message);
                     [PubnativeInsightsManager enqueueFailedRequestModel:requestModelBlock];
                 }
             }
         }
+        [PubnativeInsightsManager sharedInstance].idle = YES;
         [PubnativeInsightsManager doNextRequest];
     }];
 }
@@ -144,7 +144,7 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey = @"PubnativeInsightsMa
     }
 }
 
-+ (PubnativeInsightRequestModel*)dequeueRequestDelegate
++ (PubnativeInsightRequestModel*)dequeueRequestModel
 {
     PubnativeInsightRequestModel *result = nil;
     NSMutableArray *queue = [PubnativeInsightsManager queueForKey:kPubnativeInsightsManagerQueueKey];

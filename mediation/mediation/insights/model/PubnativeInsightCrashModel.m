@@ -15,6 +15,24 @@ NSString * const kPubnativeInsightCrashModelErrorAdapter = @"adapter";
 
 @implementation PubnativeInsightCrashModel
 
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary
+{
+    self = [super initWithDictionary:dictionary];
+    if(self){
+        self.error = dictionary[@"error"];
+        self.details = dictionary[@"details"];
+    }
+    return self;
+}
+
+- (NSDictionary *)toDictionary
+{
+    NSMutableDictionary *result =[[NSMutableDictionary alloc] init];
+    [result setValue:self.error forKey:@"error"];
+    [result setValue:self.details forKey:@"details"];
+    return result;
+}
+
 - (nullable instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super init];
