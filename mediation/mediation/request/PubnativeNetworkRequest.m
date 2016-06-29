@@ -179,8 +179,8 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
         NSTimeInterval elapsedHours = (intervalInSeconds/3600);
         
         // If there is a pacing cap set and the elapsed time still didn't time for that pacing cap, we don't refresh
-        if ((deliveryRuleModel.pacing_cap_minute > 0 && [deliveryRuleModel.pacing_cap_minute doubleValue] < elapsedMinutes) ||
-           (deliveryRuleModel.pacing_cap_hour > 0 && [deliveryRuleModel.pacing_cap_hour doubleValue] < elapsedHours)){
+        if (([deliveryRuleModel.pacing_cap_minute doubleValue] > 0 && [deliveryRuleModel.pacing_cap_minute doubleValue] < elapsedMinutes)
+            || ([deliveryRuleModel.pacing_cap_hour doubleValue] > 0 && [deliveryRuleModel.pacing_cap_hour doubleValue] < elapsedHours)){
             
             needsNewAd = NO;
         }
