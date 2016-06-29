@@ -14,11 +14,12 @@ extern NSString * const kPubnativeInsightCrashModelErrorTimeout;
 extern NSString * const kPubnativeInsightCrashModelErrorConfig;
 extern NSString * const kPubnativeInsightCrashModelErrorAdapter;
 
-@interface PubnativeInsightCrashModel : PubnativeJSONModel<NSCoding>
+@interface PubnativeInsightCrashModel : PubnativeJSONModel
 
 @property (nonatomic, strong) NSString  *error;
 @property (nonatomic, strong) NSString  *details;
 
-
+- (instancetype)initWithDictionary:(NSDictionary*)dictionary;
+- (NSDictionary*)toDictionary;
 
 @end

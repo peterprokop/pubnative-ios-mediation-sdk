@@ -430,8 +430,8 @@
 				03169CC61D217CED00E4BBCA /* PubnativeInsightModel.m */,
 			);
 			name = model;
-            sourceTree = "<group>";
-        };
+			sourceTree = "<group>";
+		};
 		D531B0851D1C28DE008A7A86 /* resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -477,8 +477,8 @@
 		D58E81FD1D1AD6CE0092F352 /* facebook */ = {
 			isa = PBXGroup;
 			children = (
-				D58E81FE1D1AD6CE0092F352 /* FacebookNativeAdModel.h */,
 				D58E81FF1D1AD6CE0092F352 /* FacebookNativeAdModel.m */,
+				D58E81FE1D1AD6CE0092F352 /* FacebookNativeAdModel.h */,
 				D58E82001D1AD6CE0092F352 /* FacebookNetworkAdapter.h */,
 				D58E82011D1AD6CE0092F352 /* FacebookNetworkAdapter.m */,
 			);
@@ -1327,7 +1327,6 @@
 				D5BF10461D1A97C800A05486 /* PNYADMApiCall.m in Sources */,
 				D5BF103F1D1A97C800A05486 /* NSString+PNMD5.m in Sources */,
 				03169CBD1D21384300E4BBCA /* PubnativeInsightDataModel.m in Sources */,
-				D5BF10671D1A97C800A05486 /* PubnativeDeliveryManager.m in Sources */,
 				D5BF10261D1A97C800A05486 /* PNVideoCacher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

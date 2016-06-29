@@ -113,9 +113,8 @@ class MainViewController: UIViewController, PubnativeNetworkRequestDelegate {
                 self.adIcon.image = iconImage;
                 
                 self.showAdView();
+                self.currentAd?.startTrackingView(self.adView, withViewController: self);
             }
         }
-        
-        currentAd?.startTrackingView(self.adView, withViewController: self);
     }
 }

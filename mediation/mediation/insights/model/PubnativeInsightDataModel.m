@@ -23,77 +23,14 @@ NSString * const kPubnativeInsightDataModelConnectionTypeCellular = @"cellular";
     return self;
 }
 
-- (instancetype)initWithCoder:(NSCoder *)coder
-{
-    self = [self init];
-    if (self) {
-        self.network = [coder decodeObjectForKey:@"network"];
-        self.attempted_networks = [coder decodeObjectForKey:@"attempted_networks"];
-        self.unreachable_networks = [coder decodeObjectForKey:@"unreachable_networks"];
-        self.delivery_segment_ids = [coder decodeObjectForKey:@"delivery_segment_ids"];
-        self.networks = [coder decodeObjectForKey:@"networks"];
-        self.placement_name = [coder decodeObjectForKey:@"placement_name"];
-        self.pub_app_version = [coder decodeObjectForKey:@"pub_app_version"];
-        self.pub_app_bundle_id = [coder decodeObjectForKey:@"pub_app_bundle_id"];
-        self.os_version = [coder decodeObjectForKey:@"os_version"];
-        self.sdk_version = [coder decodeObjectForKey:@"sdk_version"];
-        self.user_uid = [coder decodeObjectForKey:@"user_uid"];
-        self.connection_type = [coder decodeObjectForKey:@"connection_type"];
-        self.device_name = [coder decodeObjectForKey:@"device_name"];
-        self.ad_format_code = [coder decodeObjectForKey:@"ad_format_code"];
-        self.creative_url = [coder decodeObjectForKey:@"creative_url"];
-        self.video_start = [coder decodeObjectForKey:@"video_start"];
-        self.video_complete = [coder decodeObjectForKey:@"video_complete"];
-        self.retry = [coder decodeObjectForKey:@"retry"];
-        self.age = [coder decodeObjectForKey:@"age"];
-        self.education = [coder decodeObjectForKey:@"education"];
-        self.interests = [coder decodeObjectForKey:@"interests"];
-        self.gender = [coder decodeObjectForKey:@"gender"];
-        self.keywords = [coder decodeObjectForKey:@"keywords"];
-        self.iap = [coder decodeObjectForKey:@"iap"];
-        self.iap_total = [coder decodeObjectForKey:@"iap_total"];
-    }
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)coder
-{
-    
-    [coder encodeObject:self.network forKey:@"network"];
-    [coder encodeObject:self.attempted_networks forKey:@"attempted_networks"];
-    [coder encodeObject:self.unreachable_networks forKey:@"unreachable_networks"];
-    [coder encodeObject:self.delivery_segment_ids forKey:@"delivery_segment_ids"];
-    [coder encodeObject:self.networks forKey:@"networks"];
-    [coder encodeObject:self.placement_name forKey:@"placement_name"];
-    [coder encodeObject:self.pub_app_version forKey:@"pub_app_version"];
-    [coder encodeObject:self.pub_app_bundle_id forKey:@"pub_app_bundle_id"];
-    [coder encodeObject:self.os_version forKey:@"os_version"];
-    [coder encodeObject:self.sdk_version forKey:@"sdk_version"];
-    [coder encodeObject:self.user_uid forKey:@"user_uid"];
-    [coder encodeObject:self.connection_type forKey:@"connection_type"];
-    [coder encodeObject:self.device_name forKey:@"device_name"];
-    [coder encodeObject:self.ad_format_code forKey:@"ad_format_code"];
-    [coder encodeObject:self.creative_url forKey:@"creative_url"];
-    [coder encodeObject:self.video_start forKey:@"video_start"];
-    [coder encodeObject:self.video_complete forKey:@"video_complete"];
-    [coder encodeObject:self.retry forKey:@"retry"];
-    [coder encodeObject:self.age forKey:@"age"];
-    [coder encodeObject:self.education forKey:@"education"];
-    [coder encodeObject:self.interests forKey:@"interests"];
-    [coder encodeObject:self.gender forKey:@"gender"];
-    [coder encodeObject:self.keywords forKey:@"keywords"];
-    [coder encodeObject:self.iap forKey:@"iap"];
-    [coder encodeObject:self.iap_total forKey:@"iap_total"];
-}
-
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
     self = [super initWithDictionary:dictionary];
     if(self){
         self.network = dictionary[@"network"];
-        self.attempted_networks = [PubnativeJSONModel parseArrayValues:dictionary[@"attempted_networks"]];
-        self.unreachable_networks = [PubnativeJSONModel parseArrayValues:dictionary[@"unreachable_networks"]];
-        self.delivery_segment_ids = [PubnativeJSONModel parseArrayValues:dictionary[@"delivery_segment_ids"]];
+        self.attempted_networks = dictionary[@"attempted_networks"];
+        self.unreachable_networks = dictionary[@"unreachable_networks"];
+        self.delivery_segment_ids = dictionary[@"delivery_segment_ids"];
         self.networks = [PubnativeInsightNetworkModel parseArrayValues:dictionary[@"networks"]];
         self.placement_name = dictionary[@"placement_name"];
         self.pub_app_version = dictionary[@"pub_app_version"];
@@ -110,9 +47,9 @@ NSString * const kPubnativeInsightDataModelConnectionTypeCellular = @"cellular";
         self.retry = dictionary[@"retry"];
         self.age = dictionary[@"age"];
         self.education = dictionary[@"education"];
-        self.interests = [PubnativeJSONModel parseArrayValues:dictionary[@"interests"]];
+        self.interests = dictionary[@"interests"];
         self.gender = dictionary[@"gender"];
-        self.keywords = [PubnativeJSONModel parseArrayValues:dictionary[@"keywords"]];
+        self.keywords = dictionary[@"keywords"];
         self.iap = dictionary[@"iap"];
         self.iap_total = dictionary[@"iap_total"];
     }
@@ -122,31 +59,36 @@ NSString * const kPubnativeInsightDataModelConnectionTypeCellular = @"cellular";
 - (NSDictionary *)toDictionary
 {
     NSMutableDictionary *result =[[NSMutableDictionary alloc] init];
-    [result setValue:self.network forKey:@"network"];
-    [result setValue:self.attempted_networks forKey:@"attempted_networks"];
-    [result setValue:self.unreachable_networks forKey:@"unreachable_networks"];
-    [result setValue:self.delivery_segment_ids forKey:@"delivery_segment_ids"];
-    [result setValue:self.networks forKey:@"networks"];
-    [result setValue:self.placement_name forKey:@"placement_name"];
-    [result setValue:self.pub_app_version forKey:@"pub_app_version"];
-    [result setValue:self.pub_app_bundle_id forKey:@"pub_app_bundle_id"];
-    [result setValue:self.os_version forKey:@"os_version"];
-    [result setValue:self.sdk_version forKey:@"sdk_version"];
-    [result setValue:self.user_uid forKey:@"user_uid"];
-    [result setValue:self.connection_type forKey:@"connection_type"];
-    [result setValue:self.device_name forKey:@"device_name"];
-    [result setValue:self.ad_format_code forKey:@"ad_format_code"];
-    [result setValue:self.creative_url forKey:@"creative_url"];
-    [result setValue:self.video_start forKey:@"video_start"];
-    [result setValue:self.video_complete forKey:@"video_complete"];
-    [result setValue:self.retry forKey:@"retry"];
-    [result setValue:self.age forKey:@"age"];
-    [result setValue:self.education forKey:@"education"];
-    [result setValue:self.interests forKey:@"interests"];
-    [result setValue:self.gender forKey:@"gender"];
-    [result setValue:self.keywords forKey:@"keywords"];
-    [result setValue:self.iap forKey:@"iap"];
-    [result setValue:self.iap_total forKey:@"iap_total"];
+    result[@"network"] = self.network;
+    result[@"attempted_networks"] = self.attempted_networks;
+    result[@"unreachable_networks"] = self.unreachable_networks;
+    result[@"delivery_segment_ids"] = self.delivery_segment_ids;
+    NSMutableArray *networksArray = [NSMutableArray array];
+    for (PubnativeInsightNetworkModel *networkObject in self.networks) {
+        NSDictionary *networkDictionary = [networkObject toDictionary];
+        [networksArray addObject:networkDictionary];
+    }
+    result[@"networks"] = networksArray;
+    result[@"placement_name"] = self.placement_name;
+    result[@"pub_app_version"] = self.pub_app_version;
+    result[@"pub_app_bundle_id"] = self.pub_app_bundle_id;
+    result[@"os_version"] = self.os_version;
+    result[@"sdk_version"] = self.sdk_version;
+    result[@"user_uid"] = self.user_uid;
+    result[@"connection_type"] = self.connection_type;
+    result[@"device_name"] = self.device_name;
+    result[@"ad_format_code"] = self.ad_format_code;
+    result[@"creative_url"] = self.creative_url;
+    result[@"video_start"] = self.video_start;
+    result[@"video_complete"] = self.video_complete;
+    result[@"retry"] = self.retry;
+    result[@"age"] = self.age;
+    result[@"education"] = self.education;
+    result[@"interests"] = self.interests;
+    result[@"gender"] = self.gender;
+    result[@"keywords"] = self.keywords;
+    result[@"iap"] = self.iap;
+    result[@"iap_total"] = self.iap_total;
     return result;
 }
 

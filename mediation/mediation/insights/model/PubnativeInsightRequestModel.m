@@ -14,22 +14,26 @@ NSString * const kInsightRequestModelDataKey = @"data";
 
 @implementation PubnativeInsightRequestModel
 
-- (nullable instancetype)initWithCoder:(NSCoder *)aDecoder
+- (instancetype)initWithDictionary:(NSDictionary*)dictionary
 {
     self = [super init];
     if (self) {
-        self.url = [aDecoder decodeObjectForKey:kInsightRequestModelUrlKey];
-        self.params = [aDecoder decodeObjectForKey:kInsightRequestModelParametersKey];
-        self.data = [aDecoder decodeObjectForKey:kInsightRequestModelDataKey];
+        self.url = dictionary[kInsightRequestModelUrlKey];
+        self.params = dictionary[kInsightRequestModelParametersKey];
+        self.data = [PubnativeInsightDataModel modelWithDictionary:dictionary[kInsightRequestModelDataKey]];
     }
     return self;
 }
 
-- (void)encodeWithCoder:(NSCoder *)aCoder
+- (NSDictionary*)toDictionary
 {
-    [aCoder encodeObject:self.url forKey:kInsightRequestModelUrlKey];
-    [aCoder encodeObject:self.params forKey:kInsightRequestModelParametersKey];
-    [aCoder encodeObject:self.data forKey:kInsightRequestModelDataKey];
+    NSMutableDictionary *result = [NSMutableDictionary dictionary];
+    
+    result[kInsightRequestModelUrlKey] = self.url;
+    result[kInsightRequestModelParametersKey] = self.params;
+    result[kInsightRequestModelDataKey] = [self.data toDictionary];
+    
+    return result;
 }
 
 @end

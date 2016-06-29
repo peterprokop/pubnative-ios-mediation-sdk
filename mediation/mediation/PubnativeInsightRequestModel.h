@@ -10,10 +10,13 @@
 #import "PubnativeInsightsManager.h"
 #import "PubnativeInsightDataModel.h"
 
-@interface PubnativeInsightRequestModel : NSObject<NSCoding>
+@interface PubnativeInsightRequestModel : NSObject
 
 @property (nonatomic, strong) NSString                              *url;
 @property (nonatomic, strong) PubnativeInsightDataModel             *data;
 @property (nonatomic, strong) NSDictionary<NSString*, NSString*>    *params;
+
+- (instancetype)initWithDictionary:(NSDictionary*)dictionary;
+- (NSDictionary*)toDictionary;
 
 @end

@@ -10,12 +10,15 @@
 #import "PubnativeJSONModel.h"
 #import "PubnativeInsightCrashModel.h"
 
-@interface PubnativeInsightNetworkModel : PubnativeJSONModel<NSCoding>
+@interface PubnativeInsightNetworkModel : PubnativeJSONModel
 
 @property (nonatomic, strong) NSString                      *code;
 @property (nonatomic, strong) NSNumber                      *priority_rule_id;
 @property (nonatomic, strong) NSArray<NSNumber*>            *priority_segment_ids;
 @property (nonatomic, strong) NSNumber                      *response_time;
 @property (nonatomic, strong) PubnativeInsightCrashModel    *crash_report;
+
+- (instancetype)initWithDictionary:(NSDictionary*)dictionary;
+- (NSDictionary*)toDictionary;
 
 @end

@@ -24,16 +24,19 @@
 
 - (void)sendRequestInsight
 {
+    NSLog(@"sendRequestInsight");
     [PubnativeInsightsManager trackDataWithUrl:self.requestInsightUrl parameters:self.params data:self.data];
 }
 
 - (void)sendImpressionInsight
 {
+    NSLog(@"sendImpressionInsight");
     [PubnativeInsightsManager trackDataWithUrl:self.impressionInsightUrl parameters:self.params data:self.data];
 }
 
 - (void)sendClickInsight
 {
+    NSLog(@"sendClickInsight");
     [PubnativeInsightsManager trackDataWithUrl:self.clickInsightUrl parameters:self.params data:self.data];
 }
 

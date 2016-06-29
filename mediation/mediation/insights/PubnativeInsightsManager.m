@@ -49,11 +49,19 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey = @"PubnativeInsightsMa
     if (data && url && url.length > 0) {
         
         PubnativeInsightRequestModel *model = [[PubnativeInsightRequestModel alloc] init];
+        // TODO: data.generated_at = TIMESTAMP IN NANOSECONDS
+        model.data.generated_at = [NSNumber numberWithDouble:([NSDate timeIntervalSinceReferenceDate]*1000*1000)];
         model.data = data;
         model.params = parameters;
         model.url = url;
         
         // TODO: Enqueue all failed items
+        NSMutableArray *failedQueue = [PubnativeInsightsManager queueForKey:kPubnativeInsightsManagerFailedQueueKey];
+        for (PubnativeInsightRequestModel *failedModel in failedQueue) {
+            [PubnativeInsightsManager enqueueRequestModel:failedModel];
+        }
+        [PubnativeInsightsManager setQueue:nil forKey:kPubnativeInsightsManagerFailedQueueKey];
+        
         [PubnativeInsightsManager enqueueRequestModel:model];
         [PubnativeInsightsManager doNextRequest];
 
@@ -98,7 +106,7 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey = @"PubnativeInsightsMa
             } else {
                 PubnativeInsightApiResponseModel *apiResponse = [PubnativeInsightApiResponseModel modelWithDictionary:jsonDictonary];
                 if([apiResponse isSuccess]) {
-                    NSLog(@"PubnativeInsightsManager - tracking success: %@", result);
+                    NSLog(@"PubnativeInsightsManager - tracking %@ success: %@", url, result);
                     [PubnativeInsightsManager dequeueRequestModel];
                 } else {
                     NSLog(@"PubnativeInsightsManager - tracking failed: %@", apiResponse.error_message);
@@ -138,9 +146,8 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey = @"PubnativeInsightsMa
 {
     if(request){
         NSMutableArray *queue = [PubnativeInsightsManager queueForKey:kPubnativeInsightsManagerQueueKey];
-        [queue addObject:request];
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:queue];
-        [PubnativeInsightsManager setQueue:data forKey:kPubnativeInsightsManagerQueueKey];
+        [queue addObject:[request toDictionary]];
+        [PubnativeInsightsManager setQueue:queue forKey:kPubnativeInsightsManagerQueueKey];
     }
 }
 
@@ -149,10 +156,10 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey = @"PubnativeInsightsMa
     PubnativeInsightRequestModel *result = nil;
     NSMutableArray *queue = [PubnativeInsightsManager queueForKey:kPubnativeInsightsManagerQueueKey];
     if (queue.count > 0) {
-        result = queue[0];
+        result = [[PubnativeInsightRequestModel alloc] initWithDictionary:queue[0]];
         [queue removeObjectAtIndex:0];
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:queue];
-        [PubnativeInsightsManager setQueue:data forKey:kPubnativeInsightsManagerQueueKey];
+        [PubnativeInsightsManager setQueue:queue forKey:kPubnativeInsightsManagerQueueKey];
+    } else{
     }
     return result;
 }
@@ -162,9 +169,8 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey = @"PubnativeInsightsMa
     if(request){
         request.data.retry = [NSNumber numberWithInteger:[request.data.retry integerValue] + 1];
         NSMutableArray *queue = [PubnativeInsightsManager queueForKey:kPubnativeInsightsManagerFailedQueueKey];
-        [queue addObject:request];
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:queue];
-        [PubnativeInsightsManager setQueue:data forKey:kPubnativeInsightsManagerFailedQueueKey];
+        [queue addObject:[request toDictionary]];
+        [PubnativeInsightsManager setQueue:queue forKey:kPubnativeInsightsManagerFailedQueueKey];
     }
 }
 
@@ -172,16 +178,16 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey = @"PubnativeInsightsMa
 
 + (NSMutableArray*)queueForKey:(NSString*)key
 {
-    NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:kPubnativeInsightsManagerQueueKey];
-    NSArray *storedQueue = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-    NSMutableArray *result = [storedQueue mutableCopy];
-    if(result == nil){
-        result = [NSMutableArray array];
+    NSArray *queue = [[NSUserDefaults standardUserDefaults] objectForKey:kPubnativeInsightsManagerQueueKey];
+    NSMutableArray *result = [NSMutableArray array];
+
+    if(queue){
+        result = [queue mutableCopy];
     }
     return result;
 }
 
-+ (void)setQueue:(NSData*)queue forKey:(NSString*)key
++ (void)setQueue:(NSArray*)queue forKey:(NSString*)key
 {
     [[NSUserDefaults standardUserDefaults] setObject:queue
                                               forKey:kPubnativeInsightsManagerQueueKey];

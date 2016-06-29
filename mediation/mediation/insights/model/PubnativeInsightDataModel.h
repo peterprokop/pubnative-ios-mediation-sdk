@@ -14,7 +14,7 @@
 extern NSString * const kPubnativeInsightDataModelConnectionTypeWiFi;
 extern NSString * const kPubnativeInsightDataModelConnectionTypeCellular;
 
-@interface PubnativeInsightDataModel : PubnativeJSONModel<NSCoding>
+@interface PubnativeInsightDataModel : PubnativeJSONModel
 
 //// Tracking info
 @property (nonatomic, strong) NSString                                  *network;
@@ -44,6 +44,9 @@ extern NSString * const kPubnativeInsightDataModelConnectionTypeCellular;
 @property (nonatomic, strong) NSArray<NSString*>                        *keywords;
 @property (nonatomic, strong) NSNumber                                  *iap; // In app purchase enabled, Just open it for the user to fill
 @property (nonatomic, strong) NSNumber                                  *iap_total; // In app purchase total spent, just open for the user to fill
+
+- (instancetype)initWithDictionary:(NSDictionary*)dictionary;
+- (NSDictionary*)toDictionary;
 
 - (void)addUnreachableNetworkWithNetworkCode:(NSString*)networkCode;
 - (void)addAttemptedNetworkWithNetworkCode:(NSString*)networkCode;

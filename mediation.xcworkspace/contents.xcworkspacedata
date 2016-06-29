@@ -5,6 +5,9 @@
       location = "group:circle.yml">
    </FileRef>
    <FileRef
+      location = "group:Gemfile">
+   </FileRef>
+   <FileRef
       location = "group:LICENSE">
    </FileRef>
    <FileRef
