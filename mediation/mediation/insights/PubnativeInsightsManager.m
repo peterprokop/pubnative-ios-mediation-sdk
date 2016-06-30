@@ -12,8 +12,8 @@
 #import "PubnativeHttpRequest.h"
 #import "PubnativeConfigManager.h"
 
-NSString * const kPubnativeInsightsManagerQueueKey = @"PubnativeInsightsManager.queue.key";
-NSString * const kPubnativeInsightsManagerFailedQueueKey = @"PubnativeInsightsManager.failedQueue.key";
+NSString * const kPubnativeInsightsManagerQueueKey          = @"PubnativeInsightsManager.queue.key";
+NSString * const kPubnativeInsightsManagerFailedQueueKey    = @"PubnativeInsightsManager.failedQueue.key";
 
 @interface PubnativeInsightsManager () <NSURLConnectionDataDelegate>
 

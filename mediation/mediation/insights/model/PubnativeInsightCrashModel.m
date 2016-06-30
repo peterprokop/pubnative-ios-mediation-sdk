@@ -8,10 +8,10 @@
 
 #import "PubnativeInsightCrashModel.h"
 
-NSString * const kPubnativeInsightCrashModelErrorNoFill = @"no_fill";
-NSString * const kPubnativeInsightCrashModelErrorTimeout = @"timeout";
-NSString * const kPubnativeInsightCrashModelErrorConfig = @"configuration";
-NSString * const kPubnativeInsightCrashModelErrorAdapter = @"adapter";
+NSString * const kPubnativeInsightCrashModelErrorNoFill     = @"no_fill";
+NSString * const kPubnativeInsightCrashModelErrorTimeout    = @"timeout";
+NSString * const kPubnativeInsightCrashModelErrorConfig     = @"configuration";
+NSString * const kPubnativeInsightCrashModelErrorAdapter    = @"adapter";
 
 @implementation PubnativeInsightCrashModel
 

@@ -8,9 +8,9 @@
 
 #import "PubnativeInsightRequestModel.h"
 
-NSString * const kInsightRequestModelUrlKey = @"url";
-NSString * const kInsightRequestModelParametersKey = @"parameters";
-NSString * const kInsightRequestModelDataKey = @"data";
+NSString * const kInsightRequestModelUrlKey         = @"url";
+NSString * const kInsightRequestModelParametersKey  = @"parameters";
+NSString * const kInsightRequestModelDataKey        = @"data";
 
 @implementation PubnativeInsightRequestModel
 

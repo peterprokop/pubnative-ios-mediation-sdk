@@ -9,8 +9,8 @@
 #import "UIKit/UIKit.h"
 #import "PubnativeInsightDataModel.h"
 
-NSString * const kPubnativeInsightDataModelConnectionTypeWiFi = @"wifi";
-NSString * const kPubnativeInsightDataModelConnectionTypeCellular = @"cellular";
+NSString * const kPubnativeInsightDataModelConnectionTypeWiFi       = @"wifi";
+NSString * const kPubnativeInsightDataModelConnectionTypeCellular   = @"cellular";
 
 @implementation PubnativeInsightDataModel
 
