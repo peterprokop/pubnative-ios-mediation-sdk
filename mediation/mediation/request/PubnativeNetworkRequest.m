@@ -152,54 +152,58 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
     NSString *impressionUrl = (NSString*)[storedModel.globals objectForKey:CONFIG_GLOBAL_KEY_IMPRESSION_BEACON];
     NSString *requestUrl = (NSString*)[storedModel.globals objectForKey:CONFIG_GLOBAL_KEY_REQUEST_BEACON];
     NSString *clickUrl = (NSString*)[storedModel.globals objectForKey:CONFIG_GLOBAL_KEY_CLICK_BEACON];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:self.appToken forKey:@"app_token"];
+    [params setObject:self.requestID forKey:@"reqid"];
+    if (self.requestParameters) {
+        [params addEntriesFromDictionary:self.requestParameters];
+    }
     self.insight = [[PubnativeInsightModel alloc] init];
-    [self.insight setImpressionInsightUrl:impressionUrl];
-    [self.insight setRequestInsightUrl:requestUrl];
-    [self.insight setClickInsightUrl:clickUrl];
-    [self.insight.data setPlacement_name:self.placementName];
-    [self.insight.data setDelivery_segment_ids:deliveryRuleModel.segment_ids];
-    [self.insight.data setAd_format_code:placementModel.ad_format_code];
-    [self.insight setParams:@{@"app_token":self.appToken, @"reqid":self.requestID}];
+    self.insight.impressionInsightUrl = impressionUrl;
+    self.insight.requestInsightUrl = requestUrl;
+    self.insight.clickInsightUrl = clickUrl;
+    self.insight.data.placement_name = self.placementName;
+    self.insight.data.delivery_segment_ids = deliveryRuleModel.segment_ids;
+    self.insight.data.ad_format_code = placementModel.ad_format_code;
+    [self.insight setParams:params];
     [self.insight.data setUser_uid:[[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString]];
-    // TODO: Add request_params
     [self startRequest];
 }
 
 - (void)startRequest {
     
     PubnativeDeliveryRuleModel *deliveryRuleModel = [self.config placementWithName:self.placementName].delivery_rule;
-
         
-        BOOL needsNewAd = YES;
+    BOOL needsNewAd = YES;
         
-        NSDate *pacingDate = [PubnativeDeliveryManager pacingDateForPlacementName:self.placementName];
-        NSDate *currentdate = [NSDate date];
-        NSTimeInterval intervalInSeconds = [currentdate timeIntervalSinceDate:pacingDate];
-        NSTimeInterval elapsedMinutes = (intervalInSeconds/60);
-        NSTimeInterval elapsedHours = (intervalInSeconds/3600);
+    NSDate *pacingDate = [PubnativeDeliveryManager pacingDateForPlacementName:self.placementName];
+    NSDate *currentdate = [NSDate date];
+    NSTimeInterval intervalInSeconds = [currentdate timeIntervalSinceDate:pacingDate];
+    NSTimeInterval elapsedMinutes = (intervalInSeconds/60);
+    NSTimeInterval elapsedHours = (intervalInSeconds/3600);
         
-        // If there is a pacing cap set and the elapsed time still didn't time for that pacing cap, we don't refresh
-        if (([deliveryRuleModel.pacing_cap_minute doubleValue] > 0 && [deliveryRuleModel.pacing_cap_minute doubleValue] < elapsedMinutes)
-            || ([deliveryRuleModel.pacing_cap_hour doubleValue] > 0 && [deliveryRuleModel.pacing_cap_hour doubleValue] < elapsedHours)){
-            
-            needsNewAd = NO;
-        }
+    // If there is a pacing cap set and the elapsed time still didn't time for that pacing cap, we don't refresh
+    if (([deliveryRuleModel.pacing_cap_minute doubleValue] > 0 && [deliveryRuleModel.pacing_cap_minute doubleValue] < elapsedMinutes)
+        || ([deliveryRuleModel.pacing_cap_hour doubleValue] > 0 && [deliveryRuleModel.pacing_cap_hour doubleValue] < elapsedHours)){
         
-        if(needsNewAd) {
+        needsNewAd = NO;
+    }
+        
+    if(needsNewAd) {
+        
+        [self doNextNetworkRequest];
             
-            [self doNextNetworkRequest];
+    } else if(self.ad) {
             
-        } else if(self.ad) {
+        [self invokeDidLoad:self.ad];
             
-            [self invokeDidLoad:self.ad];
+    } else {
             
-        } else {
-            
-            NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"Error: (pacing_cap) too many ads for placement %@", self.placementName]
+        NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"Error: (pacing_cap) too many ads for placement %@", self.placementName]
                                                  code:0
                                              userInfo:nil];
-            [self invokeDidFail:error];
-        }
+        [self invokeDidFail:error];
+    }
     
 }
 
