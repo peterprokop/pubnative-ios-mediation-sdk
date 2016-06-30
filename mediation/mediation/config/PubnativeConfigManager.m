@@ -48,8 +48,9 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
     return _sharedInstance;
 }
 
-+ (void)configWithAppToken:(NSString*)appToken
-                  delegate:(NSObject<PubnativeConfigManagerDelegate>*)delegate
++ (void)configWithAppToken:(NSString *)appToken
+                    extras:(NSDictionary *)extras
+                  delegate:(NSObject<PubnativeConfigManagerDelegate> *)delegate
 {
     // Drop the call if no completion handler specified
     if (delegate){
@@ -57,12 +58,13 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
             PubnativeConfigRequestModel *requestModel = [[PubnativeConfigRequestModel alloc] init];
             requestModel.appToken = appToken;
             requestModel.delegate = delegate;
+            requestModel.extras = extras;
             [PubnativeConfigManager enqueueRequestModel:requestModel];
             [PubnativeConfigManager doNextRequest];
         } else {
             NSLog(@"PubnativeConfigManager - invalid app token");
             [PubnativeConfigManager invokeDidFinishWithModel:nil
-                                                  delegate:delegate];
+                                                    delegate:delegate];
         }
     } else {
         NSLog(@"PubnativeConfigManager - delegate not specified, dropping the call");

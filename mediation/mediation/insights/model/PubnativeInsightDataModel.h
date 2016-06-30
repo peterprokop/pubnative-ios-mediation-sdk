@@ -10,6 +10,7 @@
 #import "PubnativeJSONModel.h"
 #import "PubnativeInsightNetworkModel.h"
 #import "PubnativePriorityRuleModel.h"
+#import "PubnativeAdTargetingModel.h"
 
 extern NSString * const kPubnativeInsightDataModelConnectionTypeWiFi;
 extern NSString * const kPubnativeInsightDataModelConnectionTypeCellular;
@@ -46,9 +47,10 @@ extern NSString * const kPubnativeInsightDataModelSdkVersion;
 @property (nonatomic, strong) NSNumber                                  *iap; // In app purchase enabled, Just open it for the user to fill
 @property (nonatomic, strong) NSNumber                                  *iap_total; // In app purchase total spent, just open for the user to fill
 
+- (instancetype)initWithTargeting:(PubnativeAdTargetingModel*)targeting;
 - (void)addUnreachableNetworkWithNetworkCode:(NSString*)networkCode;
 - (void)addAttemptedNetworkWithNetworkCode:(NSString*)networkCode;
 - (void)addNetworkWithPriorityRuleModel:(PubnativePriorityRuleModel*)priorityRuleModel responseTime:(NSNumber*)responseTime crashModel:(PubnativeInsightCrashModel*)crashModel;
-- (void)fillDefaults;
+- (void)fillWithDefaults;
 
 @end

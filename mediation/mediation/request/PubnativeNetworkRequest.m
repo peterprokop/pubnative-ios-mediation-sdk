@@ -13,7 +13,6 @@
 #import "PubnativeDeliveryManager.h"
 #import "PubnativeAdModel.h"
 #import "PubnativeInsightModel.h"
-#import "AdSupport/ASIdentifierManager.h"
 #import "PubnativeAdTargetingModel.h"
 
 
@@ -69,7 +68,12 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
                 self.currentNetworkIndex = 0;
                 self.requestID = [[NSUUID UUID] UUIDString];
             
+                NSDictionary *extras = nil;
+                if(self.targeting) {
+                    extras = [self.targeting toDictionary];
+                }
                 [PubnativeConfigManager configWithAppToken:appToken
+                                                    extras:extras
                                                   delegate:self];
             
             } else {
@@ -90,6 +94,11 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
         self.requestParameters = [NSMutableDictionary dictionary];
     }
     [self.requestParameters setObject:value forKey:key];
+}
+
+- (void)setTargeting:(PubnativeAdTargetingModel *)targeting
+{
+    self.targeting = targeting;
 }
 
 #pragma mark Private
@@ -144,14 +153,14 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
     }
 }
 
-
 - (void)startTracking
 {
     PubnativePlacementModel *placementModel = [self.config placementWithName:self.placementName];
     PubnativeDeliveryRuleModel *deliveryRuleModel = placementModel.delivery_rule;
-    NSString *impressionUrl = (NSString*)[self.config.globals objectForKey:CONFIG_GLOBAL_KEY_IMPRESSION_BEACON];
-    NSString *requestUrl = (NSString*)[self.config.globals objectForKey:CONFIG_GLOBAL_KEY_REQUEST_BEACON];
-    NSString *clickUrl = (NSString*)[self.config.globals objectForKey:CONFIG_GLOBAL_KEY_CLICK_BEACON];
+    NSString *impressionUrl = (NSString*)self.config.globals[CONFIG_GLOBAL_KEY_IMPRESSION_BEACON];
+    NSString *requestUrl = (NSString*)self.config.globals[CONFIG_GLOBAL_KEY_REQUEST_BEACON];
+    NSString *clickUrl = (NSString*)self.config.globals[CONFIG_GLOBAL_KEY_CLICK_BEACON];
+    // Params
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params setObject:self.appToken forKey:@"app_token"];
     [params setObject:self.requestID forKey:@"reqid"];
@@ -162,11 +171,14 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
     self.insight.impressionInsightUrl = impressionUrl;
     self.insight.requestInsightUrl = requestUrl;
     self.insight.clickInsightUrl = clickUrl;
-    self.insight.data.placement_name = self.placementName;
-    self.insight.data.delivery_segment_ids = deliveryRuleModel.segment_ids;
-    self.insight.data.ad_format_code = placementModel.ad_format_code;
     self.insight.params = params;
-    [self.insight.data setUser_uid:[[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString]];
+    
+    PubnativeInsightDataModel *data = [[PubnativeInsightDataModel alloc] initWithTargeting:self.targeting];
+    [data fillWithDefaults];
+    data.placement_name = self.placementName;
+    data.delivery_segment_ids = deliveryRuleModel.segment_ids;
+    data.ad_format_code = placementModel.ad_format_code;
+    self.insight.data = data;
     [self startRequest];
 }
 
@@ -222,10 +234,12 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
                 
                 NSMutableDictionary<NSString*, NSString*> *extras = [NSMutableDictionary dictionary];
                 [extras setObject:self.requestID forKey:PNTrackingRequestIDKey];
+                if (self.targeting) {
+                    [extras addEntriesFromDictionary:[self.targeting toDictionary]];
+                }
                 if(self.requestParameters){
                     [extras setDictionary:self.requestParameters];
                 }
-                adapter.targeting = self.targeting;
                 [adapter startWithData:network.params
                                timeout:[network.timeout doubleValue]
                                 extras:extras

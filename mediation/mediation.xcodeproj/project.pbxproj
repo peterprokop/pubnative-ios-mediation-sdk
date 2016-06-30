@@ -416,12 +416,12 @@
 		039FC0411D1BFBFE00AF8011 /* model */ = {
 			isa = PBXGroup;
 			children = (
-				039FC0481D1C2EC700AF8011 /* PubnativeInsightApiResponseModel.m */,
 				039FC04A1D1C2ED700AF8011 /* PubnativeInsightApiResponseModel.h */,
-				039FC0421D1BFC1E00AF8011 /* PubnativeInsightRequestModel.m */,
+				039FC0481D1C2EC700AF8011 /* PubnativeInsightApiResponseModel.m */,
 				039FC0441D1BFC2700AF8011 /* PubnativeInsightRequestModel.h */,
-				03169CBC1D21384300E4BBCA /* PubnativeInsightDataModel.m */,
+				039FC0421D1BFC1E00AF8011 /* PubnativeInsightRequestModel.m */,
 				03169CBE1D21385000E4BBCA /* PubnativeInsightDataModel.h */,
+				03169CBC1D21384300E4BBCA /* PubnativeInsightDataModel.m */,
 				03169CBF1D2163E600E4BBCA /* PubnativeInsightNetworkModel.h */,
 				03169CC01D2163E600E4BBCA /* PubnativeInsightNetworkModel.m */,
 				03169CC21D2164B000E4BBCA /* PubnativeInsightCrashModel.h */,

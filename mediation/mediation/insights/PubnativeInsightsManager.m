@@ -104,7 +104,6 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey    = @"PubnativeInsight
                                                                               options:NSJSONReadingMutableContainers
                                                                                 error:&parseError];
                 if(parseError){
-                    // TODO: ADD EXTRAS TO INSIGHT
                     NSLog(@"PubnativeInsightsManager - tracking response parsing error: %@", result);
                 } else {
                     PubnativeInsightApiResponseModel *apiResponse = [PubnativeInsightApiResponseModel modelWithDictionary:jsonDictonary];

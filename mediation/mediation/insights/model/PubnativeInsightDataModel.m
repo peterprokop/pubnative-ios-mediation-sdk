@@ -7,7 +7,9 @@
 //
 
 #import "UIKit/UIKit.h"
+#import "AdSupport/ASIdentifierManager.h"
 #import "PubnativeInsightDataModel.h"
+#import "PubnativeReachability.h"
 
 NSString * const kPubnativeInsightDataModelConnectionTypeWiFi       = @"wifi";
 NSString * const kPubnativeInsightDataModelConnectionTypeCellular   = @"cellular";
@@ -21,6 +23,18 @@ NSString * const kPubnativeInsightDataModelSdkVersion               = @"1.0.0";
     if (self) {
         self.retry = @0;
     }
+    return self;
+}
+
+- (instancetype)initWithTargeting:(PubnativeAdTargetingModel*)targeting
+{
+    self = [super init];
+    self.age = targeting.age;
+    self.education = targeting.education;
+    self.interests = targeting.interests;
+    self.gender = targeting.gender;
+    self.iap = targeting.iap;
+    self.iap_total = targeting.iap_total;
     return self;
 }
 
@@ -137,15 +151,42 @@ NSString * const kPubnativeInsightDataModelSdkVersion               = @"1.0.0";
     }
 }
 
-- (void)fillDefaults
+- (void)fillWithDefaults
 {
-    self.pub_app_version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    self.pub_app_bundle_id = [[NSBundle mainBundle] bundleIdentifier];
-    self.os_version = [[UIDevice currentDevice] systemVersion];
-    self.sdk_version = kPubnativeInsightDataModelSdkVersion;
-    //self.connection_type
-    self.device_name = [[UIDevice currentDevice] name];
-    self.retry = @0;
+    if (!self.pub_app_version) {
+        self.pub_app_version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    }
+    if (!self.pub_app_bundle_id) {
+        self.pub_app_bundle_id = [[NSBundle mainBundle] bundleIdentifier];
+    }
+    if (!self.os_version) {
+        self.os_version = [[UIDevice currentDevice] systemVersion];
+    }
+    if (!self.sdk_version) {
+        self.sdk_version = kPubnativeInsightDataModelSdkVersion;
+    }
+    if (!self.connection_type) {
+        
+        PubnativeReachability *reachability = [PubnativeReachability reachabilityForInternetConnection];
+        [reachability startNotifier];
+        if(PubnativeNetworkStatus_ReachableViaWiFi == reachability.currentReachabilityStatus) {
+            self.connection_type = kPubnativeInsightDataModelConnectionTypeWiFi;
+        } else {
+            self.connection_type = kPubnativeInsightDataModelConnectionTypeCellular;
+        }
+    }
+    if (!self.device_name) {
+        self.device_name = [[UIDevice currentDevice] name];
+    }
+    if (self.retry) {
+        self.retry = @0;
+    }
+    
+    if(NSClassFromString(@"ASIdentifierManager")){
+        if([[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]){
+            self.user_uid = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+        }
+    }
 }
 
 @end

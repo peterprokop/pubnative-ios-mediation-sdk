@@ -19,11 +19,11 @@ NSString *kPubnativeReachabilityChangedNotification = @"kNetworkReachabilityChan
 
 #pragma mark - Supporting functions
 
-#define kShouldPrintReachabilityFlags 1
+#define kPubnativeShouldPrintReachabilityFlags 1
 
-static void PrintReachabilityFlags(SCNetworkReachabilityFlags flags, const char* comment)
+static void PubnativePrintReachabilityFlags(SCNetworkReachabilityFlags flags, const char* comment)
 {
-#if kShouldPrintReachabilityFlags
+#if kPubnativeShouldPrintReachabilityFlags
 
     NSLog(@"Reachability Flag Status: %c%c %c%c%c%c%c%c%c %s\n",
           (flags & kSCNetworkReachabilityFlagsIsWWAN)				? 'W' : '-',
@@ -178,7 +178,7 @@ static void PubnativeReachabilityCallback(SCNetworkReachabilityRef target, SCNet
 
 - (PubnativeNetworkStatus)localWiFiStatusForFlags:(SCNetworkReachabilityFlags)flags
 {
-	PrintReachabilityFlags(flags, "localWiFiStatusForFlags");
+	PubnativePrintReachabilityFlags(flags, "localWiFiStatusForFlags");
 	PubnativeNetworkStatus returnValue = PubnativeNetworkStatus_NotReachable;
 
 	if ((flags & kSCNetworkReachabilityFlagsReachable) && (flags & kSCNetworkReachabilityFlagsIsDirect))
@@ -192,7 +192,7 @@ static void PubnativeReachabilityCallback(SCNetworkReachabilityRef target, SCNet
 
 - (PubnativeNetworkStatus)networkStatusForFlags:(SCNetworkReachabilityFlags)flags
 {
-	PrintReachabilityFlags(flags, "networkStatusForFlags");
+	PubnativePrintReachabilityFlags(flags, "networkStatusForFlags");
 	if ((flags & kSCNetworkReachabilityFlagsReachable) == 0)
 	{
 		// The target host is not reachable.
