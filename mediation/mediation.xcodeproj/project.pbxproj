@@ -1473,7 +1473,10 @@
 		D5BF0EF21D1A8B8B00A05486 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "PN$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -1482,7 +1485,10 @@
 		D5BF0EF31D1A8B8B00A05486 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "PN$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
