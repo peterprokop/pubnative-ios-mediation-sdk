@@ -58,7 +58,7 @@ NSString * const kPubnativeInsightDataModelConnectionTypeCellular   = @"cellular
 
 - (NSDictionary *)toDictionary
 {
-    NSMutableDictionary *result =[[NSMutableDictionary alloc] init];
+    NSMutableDictionary *result = [NSMutableDictionary dictionary];
     result[@"network"] = self.network;
     result[@"attempted_networks"] = self.attempted_networks;
     result[@"unreachable_networks"] = self.unreachable_networks;

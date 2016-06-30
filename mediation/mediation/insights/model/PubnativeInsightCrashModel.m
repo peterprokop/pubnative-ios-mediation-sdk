@@ -27,7 +27,7 @@ NSString * const kPubnativeInsightCrashModelErrorAdapter    = @"adapter";
 
 - (NSDictionary *)toDictionary
 {
-    NSMutableDictionary *result =[[NSMutableDictionary alloc] init];
+    NSMutableDictionary *result = [NSMutableDictionary dictionary];
     result[@"error"] = self.error;
     result[@"details"] = self.details;
     return result;

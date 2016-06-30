@@ -25,7 +25,7 @@
 
 - (NSDictionary *)toDictionary
 {
-    NSMutableDictionary *result =[[NSMutableDictionary alloc] init];
+    NSMutableDictionary *result = [NSMutableDictionary dictionary];
     result[@"code"] = self.code;
     result[@"priority_rule_id"] = self.priority_rule_id;
     result[@"priority_segment_ids"] = self.priority_segment_ids;
