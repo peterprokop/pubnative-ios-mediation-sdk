@@ -164,7 +164,7 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
     self.insight.data.placement_name = self.placementName;
     self.insight.data.delivery_segment_ids = deliveryRuleModel.segment_ids;
     self.insight.data.ad_format_code = placementModel.ad_format_code;
-    [self.insight setParams:params];
+    self.insight.params = params;
     [self.insight.data setUser_uid:[[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString]];
     [self startRequest];
 }
@@ -232,8 +232,8 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
             } else {
                 
                 NSLog(@"PubnativeNetworkRequest.doNextNetworkRequest- Error: Invalid adapter");
-                // TODO: Add exception
-                [self.insight trackUnreachableNetworkWithPriorityRuleModel:priorityRule responseTime:0 exception:nil];
+                NSError *error = [NSError errorWithDomain:@"ERROR MESSAGE" code:0 userInfo:nil];
+                [self.insight trackUnreachableNetworkWithPriorityRuleModel:priorityRule responseTime:0 error:error];
                 [self doNextNetworkRequest];
             }
         } else {

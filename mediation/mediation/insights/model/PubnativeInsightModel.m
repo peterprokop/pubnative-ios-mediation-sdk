@@ -39,22 +39,22 @@
 
 - (void)trackUnreachableNetworkWithPriorityRuleModel:(PubnativePriorityRuleModel*)priorityRuleModel
                                         responseTime:(NSNumber*)responseTime
-                                           exception:(NSException*)exception
+                                           error:(NSError*)error
 {
     PubnativeInsightCrashModel *crashModel = [[PubnativeInsightCrashModel alloc] init];
-    crashModel.error = exception.description;
-    crashModel.details = exception.reason;
+    crashModel.error = error.domain;
+    crashModel.details = error.description;
     [self.data addUnreachableNetworkWithNetworkCode:priorityRuleModel.network_code];
     [self.data addNetworkWithPriorityRuleModel:priorityRuleModel responseTime:responseTime crashModel:crashModel];
 }
 
 - (void)trackAttemptedNetworkWithPriorityRuleModel:(PubnativePriorityRuleModel*)priorityRuleModel
                                       responseTime:(NSNumber*)responseTime
-                                         exception:(NSException*)exception
+                                         error:(NSError*)error
 {
     PubnativeInsightCrashModel *crashModel = [[PubnativeInsightCrashModel alloc] init];
-    crashModel.error = exception.description;
-    crashModel.details = exception.reason;
+    crashModel.error = error.domain;
+    crashModel.details = error.description;
     [self.data addAttemptedNetworkWithNetworkCode:priorityRuleModel.network_code];
     [self.data addNetworkWithPriorityRuleModel:priorityRuleModel responseTime:responseTime crashModel:crashModel];
 }

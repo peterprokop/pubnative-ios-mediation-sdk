@@ -93,7 +93,7 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey    = @"PubnativeInsight
         NSLog(@"PubnativeInsightsManager - request model parsing error: %@", error);
     } else {
         __block PubnativeInsightRequestModel *requestModelBlock = model;
-        [PubnativeHttpRequest requestWithURL:url httpBody:json andCompletionHandler:^(NSString *result, NSError *error) {
+        [PubnativeHttpRequest requestWithURL:url httpBody:json timeout:60 andCompletionHandler:^(NSString *result, NSError *error) {
             if (error) {
                 NSLog(@"PubnativeInsightsManager - request error: %@", error.localizedDescription);
                 [PubnativeInsightsManager enqueueFailedRequestModel:requestModelBlock];

@@ -22,8 +22,8 @@
 - (void)sendRequestInsight;
 - (void)sendImpressionInsight;
 - (void)sendClickInsight;
-- (void)trackUnreachableNetworkWithPriorityRuleModel:(PubnativePriorityRuleModel*)priorityRuleModel responseTime:(NSNumber*)responseTime exception:(NSException*)exception;
-- (void)trackAttemptedNetworkWithPriorityRuleModel:(PubnativePriorityRuleModel*)priorityRuleModel responseTime:(NSNumber*)responseTime exception:(NSException*)exception;
+- (void)trackUnreachableNetworkWithPriorityRuleModel:(PubnativePriorityRuleModel*)priorityRuleModel responseTime:(NSNumber*)responseTime error:(NSError*)error;
+- (void)trackAttemptedNetworkWithPriorityRuleModel:(PubnativePriorityRuleModel*)priorityRuleModel responseTime:(NSNumber*)responseTime error:(NSError*)error;
 - (void)trackSuccededNetworkWithPriorityRuleModel:(PubnativePriorityRuleModel*)priorityRuleModel responseTime:(NSNumber*)responseTime;
 
 @end
