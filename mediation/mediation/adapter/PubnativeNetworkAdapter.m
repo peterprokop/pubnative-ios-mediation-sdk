@@ -24,6 +24,13 @@
 {
     if (delegate) {
         
+        if (self.targeting) {
+            NSDictionary *dict = [self.targeting toDictionary];
+            for (NSString* key in dict) {
+                [extras setValue:[dict objectForKey:key] forKey:key];
+            }
+        }
+        
         self.delegate = delegate;
         [self invokeDidStart];
         if (timeout > 0) {
