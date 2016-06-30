@@ -193,7 +193,6 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey = @"PubnativeInsightsMa
 {
     [[NSUserDefaults standardUserDefaults] setObject:queue
                                               forKey:kPubnativeInsightsManagerQueueKey];
-    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 @end
