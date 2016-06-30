@@ -146,12 +146,11 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
 
 - (void)startTracking
 {
-    PubnativeConfigModel *storedModel = [PubnativeNetworkRequest getStoredConfig];
     PubnativePlacementModel *placementModel = [self.config placementWithName:self.placementName];
     PubnativeDeliveryRuleModel *deliveryRuleModel = placementModel.delivery_rule;
-    NSString *impressionUrl = (NSString*)[storedModel.globals objectForKey:CONFIG_GLOBAL_KEY_IMPRESSION_BEACON];
-    NSString *requestUrl = (NSString*)[storedModel.globals objectForKey:CONFIG_GLOBAL_KEY_REQUEST_BEACON];
-    NSString *clickUrl = (NSString*)[storedModel.globals objectForKey:CONFIG_GLOBAL_KEY_CLICK_BEACON];
+    NSString *impressionUrl = (NSString*)[self.config.globals objectForKey:CONFIG_GLOBAL_KEY_IMPRESSION_BEACON];
+    NSString *requestUrl = (NSString*)[self.config.globals objectForKey:CONFIG_GLOBAL_KEY_REQUEST_BEACON];
+    NSString *clickUrl = (NSString*)[self.config.globals objectForKey:CONFIG_GLOBAL_KEY_CLICK_BEACON];
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [params setObject:self.appToken forKey:@"app_token"];
     [params setObject:self.requestID forKey:@"reqid"];
@@ -304,17 +303,16 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
 - (void)adapter:(PubnativeNetworkAdapter*)adapter requestDidLoad:(PubnativeAdModel*)ad
 {
     [PubnativeDeliveryManager updatePacingDateForPlacementName:self.placementName];
-    // TODO: Set insight data before invoke loading
     // TODO: remove setting the app token since it should be inside the insight data
-    if (!ad) {
-        [self doNextNetworkRequest];
-    } else {
+    if (ad) {
         // Track succeded network
         [self.insight sendRequestInsight];
         // Default tracking data
         ad.appToken = self.appToken;
-        [ad setInsightModel:self.insight];
+        ad.insightModel = self.insight;
         [self invokeDidLoad:ad];
+    } else {
+        [self doNextNetworkRequest];
     }
 }
 
@@ -322,21 +320,6 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
 {
     NSLog(@"PubnativeNetworkRequest.adapter:requestDidFail:- Error %@",[error domain]);
     [self doNextNetworkRequest];
-}
-
-+ (PubnativeConfigModel*)getStoredConfig
-{
-    PubnativeConfigModel *result;
-    
-    NSData *jsonData = [[NSUserDefaults standardUserDefaults] objectForKey:kPubnativeNetworkRequestStoredConfigKey];
-    
-    if(jsonData){
-        NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                                       options:NSJSONReadingMutableContainers
-                                                                         error:nil];
-        result = [PubnativeConfigModel modelWithDictionary:jsonDictionary];
-    }
-    return result;
 }
 
 @end
