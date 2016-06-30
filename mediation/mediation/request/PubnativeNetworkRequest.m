@@ -328,6 +328,7 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
         ad.insightModel = self.insight;
         [self invokeDidLoad:ad];
     } else {
+        NSLog(@"PubnativeNetworkRequest.adapter - No fill");
         [self doNextNetworkRequest];
     }
 }
