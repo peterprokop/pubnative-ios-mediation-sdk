@@ -49,7 +49,7 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey = @"PubnativeInsightsMa
     if (data && url && url.length > 0) {
         
         PubnativeInsightRequestModel *model = [[PubnativeInsightRequestModel alloc] init];
-        model.data.generated_at = [NSNumber numberWithDouble:([NSDate timeIntervalSinceReferenceDate]*1000*1000)];
+        model.data.generated_at = [NSNumber numberWithDouble:([[NSDate date] timeIntervalSince1970]*1000000)];
         model.data = data;
         model.params = parameters;
         model.url = url;
