@@ -248,7 +248,7 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
             } else {
                 
                 NSLog(@"PubnativeNetworkRequest.doNextNetworkRequest- Error: Invalid adapter");
-                NSError *error = [NSError errorWithDomain:@"ERROR MESSAGE" code:0 userInfo:nil];
+                NSError *error = [NSError errorWithDomain:@"Adapter doesn't implements this type" code:0 userInfo:nil];
                 [self.insight trackUnreachableNetworkWithPriorityRuleModel:priorityRule responseTime:0 error:error];
                 [self doNextNetworkRequest];
             }
