@@ -11,6 +11,7 @@
 
 NSString * const kPubnativeInsightDataModelConnectionTypeWiFi       = @"wifi";
 NSString * const kPubnativeInsightDataModelConnectionTypeCellular   = @"cellular";
+NSString * const kPubnativeInsightDataModelSdkVersion               = @"1.0.0";
 
 @implementation PubnativeInsightDataModel
 
@@ -141,31 +142,10 @@ NSString * const kPubnativeInsightDataModelConnectionTypeCellular   = @"cellular
     self.pub_app_version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     self.pub_app_bundle_id = [[NSBundle mainBundle] bundleIdentifier];
     self.os_version = [[UIDevice currentDevice] systemVersion];
-    self.sdk_version = [self buildVersion];
+    self.sdk_version = kPubnativeInsightDataModelSdkVersion;
     //self.connection_type
     self.device_name = [[UIDevice currentDevice] name];
     self.retry = @0;
-}
-
-- (NSString *)buildVersion
-{
-    // form character set of digits and punctuation
-    NSMutableCharacterSet *characterSet =
-    [[NSCharacterSet decimalDigitCharacterSet] mutableCopy];
-    
-    [characterSet formUnionWithCharacterSet:
-     [NSCharacterSet punctuationCharacterSet]];
-    
-    // get only those things in characterSet from the SDK name
-    NSString *SDKName = [[NSBundle mainBundle] infoDictionary][@"DTSDKName"];
-    NSArray *components =
-    [[SDKName componentsSeparatedByCharactersInSet:
-      [characterSet invertedSet]]
-     filteredArrayUsingPredicate:
-     [NSPredicate predicateWithFormat:@"length != 0"]];
-    
-    if([components count]) return components[0];
-    return nil;
 }
 
 @end

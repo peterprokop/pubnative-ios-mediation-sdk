@@ -13,6 +13,7 @@
 
 extern NSString * const kPubnativeInsightDataModelConnectionTypeWiFi;
 extern NSString * const kPubnativeInsightDataModelConnectionTypeCellular;
+extern NSString * const kPubnativeInsightDataModelSdkVersion;
 
 @interface PubnativeInsightDataModel : PubnativeJSONModel
 
