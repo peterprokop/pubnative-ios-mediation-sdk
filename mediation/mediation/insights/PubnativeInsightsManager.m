@@ -85,35 +85,41 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey = @"PubnativeInsightsMa
 {
     NSString *url = [PubnativeInsightsManager requestUrlWithModel:model];
     NSError *error = nil;
-    NSData *json = [NSJSONSerialization dataWithJSONObject:[model.data toDictionary] options:NSJSONWritingPrettyPrinted error:&error];
-
-    __block PubnativeInsightRequestModel *requestModelBlock = model;
-    [PubnativeHttpRequest requestWithURL:url httpBody:json andCompletionHandler:^(NSString *result, NSError *error) {
-        if (error) {
-            NSLog(@"PubnativeInsightsManager - request error: %@", error.localizedDescription);
-            [PubnativeInsightsManager enqueueFailedRequestModel:requestModelBlock];
-        } else {
-            NSData *jsonData = [result dataUsingEncoding:NSUTF8StringEncoding];
-            NSError *parseError;
-            NSDictionary *jsonDictonary = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                                          options:NSJSONReadingMutableContainers
-                                                                            error:&parseError];
-            if(parseError){
-                // TODO: ADD EXTRAS TO INSIGHT
-                NSLog(@"PubnativeInsightsManager - tracking response parsing error: %@", result);
+    NSData *json = [NSJSONSerialization dataWithJSONObject:[model.data toDictionary]
+                                                   options:NSJSONWritingPrettyPrinted
+                                                     error:&error];
+    
+    if(error){
+        NSLog(@"PubnativeInsightsManager - request model parsing error: %@", error);
+    } else {
+        __block PubnativeInsightRequestModel *requestModelBlock = model;
+        [PubnativeHttpRequest requestWithURL:url httpBody:json andCompletionHandler:^(NSString *result, NSError *error) {
+            if (error) {
+                NSLog(@"PubnativeInsightsManager - request error: %@", error.localizedDescription);
+                [PubnativeInsightsManager enqueueFailedRequestModel:requestModelBlock];
             } else {
-                PubnativeInsightApiResponseModel *apiResponse = [PubnativeInsightApiResponseModel modelWithDictionary:jsonDictonary];
-                if([apiResponse isSuccess]) {
-                    NSLog(@"PubnativeInsightsManager - tracking %@ success: %@", url, result);
+                NSData *jsonData = [result dataUsingEncoding:NSUTF8StringEncoding];
+                NSError *parseError;
+                NSDictionary *jsonDictonary = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                              options:NSJSONReadingMutableContainers
+                                                                                error:&parseError];
+                if(parseError){
+                    // TODO: ADD EXTRAS TO INSIGHT
+                    NSLog(@"PubnativeInsightsManager - tracking response parsing error: %@", result);
                 } else {
-                    NSLog(@"PubnativeInsightsManager - tracking failed: %@", apiResponse.error_message);
-                    [PubnativeInsightsManager enqueueFailedRequestModel:requestModelBlock];
+                    PubnativeInsightApiResponseModel *apiResponse = [PubnativeInsightApiResponseModel modelWithDictionary:jsonDictonary];
+                    if([apiResponse isSuccess]) {
+                        NSLog(@"PubnativeInsightsManager - tracking %@ success: %@", url, result);
+                    } else {
+                        NSLog(@"PubnativeInsightsManager - tracking failed: %@", apiResponse.error_message);
+                        [PubnativeInsightsManager enqueueFailedRequestModel:requestModelBlock];
+                    }
                 }
             }
-        }
-        [PubnativeInsightsManager sharedInstance].idle = YES;
-        [PubnativeInsightsManager doNextRequest];
-    }];
+            [PubnativeInsightsManager sharedInstance].idle = YES;
+            [PubnativeInsightsManager doNextRequest];
+        }];
+    }
 }
 
 + (NSString*)requestUrlWithModel:(PubnativeInsightRequestModel*)model
@@ -156,7 +162,6 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey = @"PubnativeInsightsMa
         result = [[PubnativeInsightRequestModel alloc] initWithDictionary:queue[0]];
         [queue removeObjectAtIndex:0];
         [PubnativeInsightsManager setQueue:queue forKey:kPubnativeInsightsManagerQueueKey];
-    } else{
     }
     return result;
 }
