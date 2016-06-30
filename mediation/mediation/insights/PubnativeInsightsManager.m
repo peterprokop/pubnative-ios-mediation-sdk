@@ -181,10 +181,12 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey    = @"PubnativeInsight
 + (NSMutableArray*)queueForKey:(NSString*)key
 {
     NSArray *queue = [[NSUserDefaults standardUserDefaults] objectForKey:kPubnativeInsightsManagerQueueKey];
-    NSMutableArray *result = [NSMutableArray array];
+    NSMutableArray *result;
 
     if(queue){
         result = [queue mutableCopy];
+    } else {
+        result = [NSMutableArray array];
     }
     return result;
 }
