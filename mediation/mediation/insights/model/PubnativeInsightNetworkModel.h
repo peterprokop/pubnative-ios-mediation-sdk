@@ -18,7 +18,4 @@
 @property (nonatomic, strong) NSNumber                      *response_time;
 @property (nonatomic, strong) PubnativeInsightCrashModel    *crash_report;
 
-- (instancetype)initWithDictionary:(NSDictionary*)dictionary;
-- (NSDictionary*)toDictionary;
-
 @end

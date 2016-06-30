@@ -19,7 +19,4 @@ extern NSString * const kPubnativeInsightCrashModelErrorAdapter;
 @property (nonatomic, strong) NSString  *error;
 @property (nonatomic, strong) NSString  *details;
 
-- (instancetype)initWithDictionary:(NSDictionary*)dictionary;
-- (NSDictionary*)toDictionary;
-
 @end
