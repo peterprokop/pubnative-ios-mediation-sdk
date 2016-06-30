@@ -40,7 +40,7 @@ NSString * const kPlacementIdKey = @"placement_id";
             [self invokeDidFail:error];
         }
     } else {
-        NSError *error = [NSError errorWithDomain:@"FacebookNetworkAdapter.doRequest - Placement id not avaliable"
+        NSError *error = [NSError errorWithDomain:@"FacebookNetworkAdapter.doRequest - illegal data"
                                              code:0
                                          userInfo:nil];
         [self invokeDidFail:error];
