@@ -12,6 +12,8 @@
 		03169CC41D2164B000E4BBCA /* PubnativeInsightCrashModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03169CC31D2164B000E4BBCA /* PubnativeInsightCrashModel.m */; };
 		03169CC71D217CED00E4BBCA /* PubnativeInsightModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03169CC61D217CED00E4BBCA /* PubnativeInsightModel.m */; };
 		03169CCA1D22612300E4BBCA /* PubnativeAdTargetingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03169CC91D22612300E4BBCA /* PubnativeAdTargetingModel.m */; };
+		031714E61D25803A00817AEF /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 031714E51D25803A00817AEF /* AdSupport.framework */; };
+		031714E81D25804B00817AEF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 031714E71D25804B00817AEF /* SystemConfiguration.framework */; };
 		039FC0401D1BFA4300AF8011 /* PubnativeInsightsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 039FC03F1D1BFA4300AF8011 /* PubnativeInsightsManager.m */; };
 		039FC0431D1BFC1E00AF8011 /* PubnativeInsightRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 039FC0421D1BFC1E00AF8011 /* PubnativeInsightRequestModel.m */; };
 		039FC0491D1C2EC700AF8011 /* PubnativeInsightApiResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 039FC0481D1C2EC700AF8011 /* PubnativeInsightApiResponseModel.m */; };
@@ -154,6 +156,8 @@
 		03169CC61D217CED00E4BBCA /* PubnativeInsightModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeInsightModel.m; path = insights/model/PubnativeInsightModel.m; sourceTree = "<group>"; };
 		03169CC81D22612300E4BBCA /* PubnativeAdTargetingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeAdTargetingModel.h; sourceTree = "<group>"; };
 		03169CC91D22612300E4BBCA /* PubnativeAdTargetingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeAdTargetingModel.m; sourceTree = "<group>"; };
+		031714E51D25803A00817AEF /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		031714E71D25804B00817AEF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		039FC03E1D1BFA3300AF8011 /* PubnativeInsightsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PubnativeInsightsManager.h; path = insights/PubnativeInsightsManager.h; sourceTree = "<group>"; };
 		039FC03F1D1BFA4300AF8011 /* PubnativeInsightsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeInsightsManager.m; path = insights/PubnativeInsightsManager.m; sourceTree = "<group>"; };
 		039FC0421D1BFC1E00AF8011 /* PubnativeInsightRequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeInsightRequestModel.m; path = insights/model/PubnativeInsightRequestModel.m; sourceTree = "<group>"; };
@@ -394,6 +398,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				031714E81D25804B00817AEF /* SystemConfiguration.framework in Frameworks */,
+				031714E61D25803A00817AEF /* AdSupport.framework in Frameworks */,
 				D5C8BA9F1D1AB7450071C9E2 /* libPNmediation.a in Frameworks */,
 				D5BF0F4A1D1A973C00A05486 /* FBAudienceNetwork.framework in Frameworks */,
 				D5BF0F4B1D1A973C00A05486 /* FBSDKCoreKit.framework in Frameworks */,
@@ -559,6 +565,8 @@
 		D5BF0F1B1D1A8E4000A05486 /* dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				031714E71D25804B00817AEF /* SystemConfiguration.framework */,
+				031714E51D25803A00817AEF /* AdSupport.framework */,
 				D5BF107B1D1A9D6F00A05486 /* ocmockito-3.0.1 */,
 				D5BF10781D1A9C4F00A05486 /* ochamcrest-5.4.0 */,
 				D5BF0F471D1A973C00A05486 /* facebook-4.1 */,
