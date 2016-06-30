@@ -14,6 +14,7 @@
 #import "PubnativeAdModel.h"
 #import "PubnativeInsightModel.h"
 #import "AdSupport/ASIdentifierManager.h"
+#import "PubnativeAdTargetingModel.h"
 
 
 NSString * const PNTrackingAppTokenKey  = @"app_token";
@@ -32,7 +33,7 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
 @property (nonatomic, assign)NSInteger                                  currentNetworkIndex;
 @property (nonatomic, assign)BOOL                                       isRunning;
 @property (nonatomic, strong)PubnativeInsightModel                      *insight;
-
+@property (nonatomic, strong)PubnativeAdTargetingModel                  *targeting;
 
 @end
 
@@ -224,6 +225,7 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
                 if(self.requestParameters){
                     [extras setDictionary:self.requestParameters];
                 }
+                adapter.targeting = self.targeting;
                 [adapter startWithData:network.params
                                timeout:[network.timeout doubleValue]
                                 extras:extras
