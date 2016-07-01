@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B4E0AEF21D2533DA00163C08 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E0AEF11D2533DA00163C08 /* SettingsViewController.swift */; };
 		B4E0AEF41D2553F600163C08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4E0AEF31D2553F600163C08 /* Main.storyboard */; };
 		B4E0AEF61D256E4300163C08 /* NativeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E0AEF51D256E4300163C08 /* NativeTableViewController.swift */; };
 		B4E0AEF81D256E6500163C08 /* NativeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E0AEF71D256E6500163C08 /* NativeTableViewCell.swift */; };
 		B4E0AEFA1D25727400163C08 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E0AEF91D25727400163C08 /* Settings.swift */; };
+		B4E0AEFC1D25D06A00163C08 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E0AEFB1D25D06A00163C08 /* SettingsViewController.swift */; };
+		B4E0AF011D265A1200163C08 /* CellRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E0AF001D265A1200163C08 /* CellRequestModel.swift */; };
 		D531B0841D1C21EE008A7A86 /* PubnativeConfigManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D531B0831D1C21EE008A7A86 /* PubnativeConfigManagerTest.m */; };
 		D531B08F1D1C28DE008A7A86 /* response_invalid.json in Resources */ = {isa = PBXBuildFile; fileRef = D531B0861D1C28DE008A7A86 /* response_invalid.json */; };
 		D531B0901D1C28DE008A7A86 /* response_error.json in Resources */ = {isa = PBXBuildFile; fileRef = D531B0881D1C28DE008A7A86 /* response_error.json */; };
@@ -139,11 +140,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B4E0AEF11D2533DA00163C08 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		B4E0AEF31D2553F600163C08 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		B4E0AEF51D256E4300163C08 /* NativeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeTableViewController.swift; sourceTree = "<group>"; };
 		B4E0AEF71D256E6500163C08 /* NativeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeTableViewCell.swift; sourceTree = "<group>"; };
 		B4E0AEF91D25727400163C08 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		B4E0AEFB1D25D06A00163C08 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		B4E0AF001D265A1200163C08 /* CellRequestModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CellRequestModel.swift; sourceTree = "<group>"; };
 		D531B0831D1C21EE008A7A86 /* PubnativeConfigManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeConfigManagerTest.m; sourceTree = "<group>"; };
 		D531B0861D1C28DE008A7A86 /* response_invalid.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = response_invalid.json; path = ../response_invalid.json; sourceTree = "<group>"; };
 		D531B0881D1C28DE008A7A86 /* response_error.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = response_error.json; sourceTree = "<group>"; };
@@ -503,10 +505,11 @@
 				D5BF0F121D1A8BB600A05486 /* LaunchScreen.storyboard */,
 				D5C8BAA11D1AB7DE0071C9E2 /* PubnativeMediationDemo-Bridging-Header.h */,
 				D5BF0F151D1A8BB600A05486 /* Info.plist */,
-				B4E0AEF11D2533DA00163C08 /* SettingsViewController.swift */,
 				B4E0AEF51D256E4300163C08 /* NativeTableViewController.swift */,
 				B4E0AEF71D256E6500163C08 /* NativeTableViewCell.swift */,
+				B4E0AEFB1D25D06A00163C08 /* SettingsViewController.swift */,
 				B4E0AEF91D25727400163C08 /* Settings.swift */,
+				B4E0AF001D265A1200163C08 /* CellRequestModel.swift */,
 			);
 			path = mediation.demo;
 			sourceTree = "<group>";
@@ -1293,11 +1296,12 @@
 			files = (
 				B4E0AEF61D256E4300163C08 /* NativeTableViewController.swift in Sources */,
 				D58E82041D1AD6CE0092F352 /* FacebookNetworkAdapter.m in Sources */,
+				B4E0AEFC1D25D06A00163C08 /* SettingsViewController.swift in Sources */,
 				D5BF0F0A1D1A8BB500A05486 /* AppDelegate.swift in Sources */,
 				D58E82031D1AD6CE0092F352 /* FacebookNativeAdModel.m in Sources */,
 				B4E0AEFA1D25727400163C08 /* Settings.swift in Sources */,
+				B4E0AF011D265A1200163C08 /* CellRequestModel.swift in Sources */,
 				B4E0AEF81D256E6500163C08 /* NativeTableViewCell.swift in Sources */,
-				B4E0AEF21D2533DA00163C08 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1475,6 +1479,10 @@
 				INFOPLIST_FILE = mediation.demo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "net.pubnative.mediation-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "mediation.demo/PubnativeMediationDemo-Bridging-Header.h";
@@ -1494,6 +1502,10 @@
 				INFOPLIST_FILE = mediation.demo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "net.pubnative.mediation-demo";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "mediation.demo/PubnativeMediationDemo-Bridging-Header.h";

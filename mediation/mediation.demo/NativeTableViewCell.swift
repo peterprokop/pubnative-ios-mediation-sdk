@@ -12,17 +12,17 @@ class NativeTableViewCell: UITableViewCell, PubnativeNetworkRequestDelegate {
     
     // MARK: Properties
 
-    private var model : PubnativeAdModel!
-    
-    var placementName : String! {
-        
+    var controller : NativeTableViewController!
+    weak var data : CellRequestModel? {
         didSet {
             
-            placement.text = "Placement ID: " + placementName
+            placement.text = "Placement ID: " + (data?.placement)!
+            adapter.text = ""
+            if(data?.model != nil) {
+                renderAd(data!.model)
+            }
         }
     }
-    
-    var controller : UITableViewController!
     
     // MARK: OUTLETS
 
@@ -41,12 +41,11 @@ class NativeTableViewCell: UITableViewCell, PubnativeNetworkRequestDelegate {
     
     @IBAction func requestTouchUpInside(sender: AnyObject){
         
-        print("REQUEST PUSHED")
         adView.hidden = true
         adapter.text = ""
         loader.startAnimating()
-        let request:PubnativeNetworkRequest = PubnativeNetworkRequest();
-        request.startWithAppToken(Settings.appToken, placementName:placementName, delegate:self);
+        
+        data?.request.startWithAppToken(Settings.appToken, placementName:data?.placement, delegate: self)
     }
     
     // MARK: -
@@ -61,36 +60,43 @@ class NativeTableViewCell: UITableViewCell, PubnativeNetworkRequestDelegate {
     
     func pubnativeRequest(request: PubnativeNetworkRequest!, didFail error: NSError!) {
         print("pubnativeRequest:didFail:%@", error);
+        
+        controller.showMessage("Error: \(error)")
+        
+        self.loader.stopAnimating()
     }
     
     func pubnativeRequest(request: PubnativeNetworkRequest!, didLoad ad: PubnativeAdModel!) {
         print("pubnativeRequest:didLoad:");
         
-        model = ad
-        if(model != nil) {
-            adapter.text = String(model)
+        if(ad != nil){
+            data?.model = ad
+            renderAd(data?.model)
         }
+    }
+    func renderAd(model:PubnativeAdModel!) {
         
+        self.adapter.text = NSStringFromClass(model.classForCoder)
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             
-            let iconData:NSData = NSData(contentsOfURL: NSURL(string:ad.iconURL)!)!;
-            let bannerData:NSData = NSData(contentsOfURL: NSURL(string:ad.bannerURL)!)!;
+            let iconData:NSData? = NSData(contentsOfURL: NSURL(string:model.iconURL)!)!;
+            let bannerData:NSData? = NSData(contentsOfURL: NSURL(string:model.bannerURL)!)!;
+            
             
             dispatch_async(dispatch_get_main_queue()) {
                 
-                let iconImage:UIImage = UIImage(data: iconData)!;
-                let bannerImage:UIImage = UIImage(data: bannerData)!;
+                let iconImage:UIImage = UIImage(data: iconData!)!;
+                let bannerImage:UIImage = UIImage(data: bannerData!)!;
                 
-                self.adTitle.text = ad.title;
-                self.adDescription.text = ad.description;
+                self.adTitle.text = model.title;
+                self.adDescription.text = model.description;
                 self.adBanner.image = bannerImage;
                 self.adIcon.image = iconImage;
-                
+        
                 self.loader.stopAnimating()
                 self.adView.hidden = false;
+                model.startTrackingView(self.adView, withViewController:self.controller);
             }
         }
-        
-        model?.startTrackingView(self, withViewController:self.controller);
     }
 }

@@ -2,18 +2,18 @@
 //  SettingsViewController.swift
 //  mediation
 //
-//  Created by David Martin on 6/30/16.
+//  Created by David Martin on 7/1/16.
 //  Copyright © 2016 pubnative. All rights reserved.
 //
 
 import Foundation
-import UIKit
 
-class SettingsViewController: UIViewController {
 
-    @IBAction func reset(sender: AnyObject) {
-     
-        print("RESET PUSHED")
+class SettingsViewController: UIViewController, UIAlertViewDelegate {
+    
+    @IBAction func reset(sender: UIButton) {
+        
         PubnativeConfigManager.reset()
+        UIAlertView(title: "success", message: "config reset completed", delegate: self, cancelButtonTitle: "ok").show()
     }
 }

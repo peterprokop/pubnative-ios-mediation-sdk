@@ -8,38 +8,62 @@
 
 import Foundation
 
-class NativeTableViewController: UITableViewController {
+class NativeTableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    @IBOutlet weak var message: UILabel!
     // MARK: - UIViewController -
+    @IBOutlet weak var tableView: UITableView!
+    
+    var data : [CellRequestModel] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.message.layer.masksToBounds = true
+        self.message.layer.cornerRadius = 5
+        for placement in Settings.placements {
+            
+            data.append(CellRequestModel(placement:placement))
+        }
     }
     
     // MARK: - UITableViewController -
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         
         var result = 0
-        if(Settings.placements.count>0) {
+        if(data.count>0) {
             result = 1
         }
         return result
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Settings.placements.count
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return data.count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cellIdentifier = "NativeTableViewCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as! NativeTableViewCell
+        cell.data = data[indexPath.row]
         cell.controller = self
-        cell.placementName = Settings.placements[indexPath.row]
         return cell
     }
     
     // MARK: - NativeTableViewController -
     
+    func showMessage(message:String!) {
+        
+        self.message.text = message
+        self.message.alpha = 0
+        self.message.hidden = false
+        
+        UIView.animateWithDuration(0.25, animations: { self.message.alpha = 0.75 }, completion:{ (completed) in
+            let delayTime = 3
+            let dispatchTime: dispatch_time_t = dispatch_time(DISPATCH_TIME_NOW, Int64(Double(delayTime) * Double(NSEC_PER_SEC)))
+            dispatch_after(dispatchTime, dispatch_get_main_queue(), {
+                UIView.animateWithDuration(0.25, animations: { self.message.alpha = 0 }, completion:{ (value: Bool) in self.message.hidden = true })
+            })})
+    }
 }
