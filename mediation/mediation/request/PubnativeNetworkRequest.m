@@ -320,8 +320,11 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
 {
     [PubnativeDeliveryManager updatePacingDateForPlacementName:self.placementName];
     // TODO: remove setting the app token since it should be inside the insight data
+    PubnativePriorityRuleModel *priorityRule = [self.config priorityRuleWithPlacementName:self.placementName
+                                                                                 andIndex:self.currentNetworkIndex];
     if (ad) {
         // Track succeded network
+        [self.insight trackSuccededNetworkWithPriorityRuleModel:priorityRule responseTime:0];
         [self.insight sendRequestInsight];
         // Default tracking data
         ad.appToken = self.appToken;
@@ -329,6 +332,8 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
         [self invokeDidLoad:ad];
     } else {
         NSLog(@"PubnativeNetworkRequest.adapter - No fill");
+        NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.adapter - No fill" code:0 userInfo:nil];
+        [self.insight trackAttemptedNetworkWithPriorityRuleModel:priorityRule responseTime:0 error:error];
         [self doNextNetworkRequest];
     }
 }
