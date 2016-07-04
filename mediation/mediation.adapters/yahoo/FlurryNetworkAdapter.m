@@ -30,16 +30,11 @@
     if (data == nil) {
         NSString *placementId = data[@"placement_id"];
         if (placementId && placementId.length > 0) {
-            [self createRequestWithPlacementId:placementId];
+            self.nativeAd = [[FlurryAdNative alloc] initWithSpace:placementId];
+            self.nativeAd.adDelegate = self;
+            [self.nativeAd fetchAd];
         }
     }
-}
-
-- (void)createRequestWithPlacementId:(NSString*)placementId
-{
-    self.nativeAd = [[FlurryAdNative alloc] initWithSpace:placementId];
-    self.nativeAd.adDelegate = self;
-    [self.nativeAd fetchAd];
 }
 
 #pragma mark - FlurryAdNativeDelegate delegates
