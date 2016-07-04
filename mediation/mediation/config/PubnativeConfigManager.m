@@ -48,6 +48,13 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
     return _sharedInstance;
 }
 
++ (void)reset
+{
+    [PubnativeConfigManager setStoredConfig:nil];
+    [PubnativeConfigManager setStoredAppToken:nil];
+    [PubnativeConfigManager setStoredTimestamp:0];
+}
+
 + (void)configWithAppToken:(NSString *)appToken
                     extras:(NSDictionary *)extras
                   delegate:(NSObject<PubnativeConfigManagerDelegate> *)delegate
@@ -300,13 +307,6 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
 }
 
 #pragma mark - NSUserDefaults -
-
-+ (void)clean
-{
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserDefaultsStoredAppTokenKey];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserDefaultsStoredConfigKey];
-    [[NSUserDefaults standardUserDefaults] setDouble:0 forKey:kUserDefaultsStoredTimestampKey];
-}
 
 #pragma mark Timestamp
 

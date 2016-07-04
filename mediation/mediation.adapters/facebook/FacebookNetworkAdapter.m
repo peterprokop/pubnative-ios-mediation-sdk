@@ -29,7 +29,7 @@ NSString * const kPlacementIdKey = @"placement_id";
 - (void)doRequestWithData:(NSDictionary *)data
                    extras:(NSDictionary<NSString *,NSString *> *)extras
 {
-    if (data) {
+    if (data != nil) {
         NSString *placementId = data[kPlacementIdKey];
         if (placementId && [placementId length] > 0) {
             [self createRequestWithPlacementId:placementId];
@@ -40,7 +40,7 @@ NSString * const kPlacementIdKey = @"placement_id";
             [self invokeDidFail:error];
         }
     } else {
-        NSError *error = [NSError errorWithDomain:@"FacebookNetworkAdapter.doRequest - illegal data"
+        NSError *error = [NSError errorWithDomain:@"FacebookNetworkAdapter.doRequest - Illegal data detected"
                                              code:0
                                          userInfo:nil];
         [self invokeDidFail:error];

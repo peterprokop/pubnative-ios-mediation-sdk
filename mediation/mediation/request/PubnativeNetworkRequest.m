@@ -186,6 +186,11 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
     
     PubnativeDeliveryRuleModel *deliveryRuleModel = [self.config placementWithName:self.placementName].delivery_rule;
         
+        NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"Error: (frequency_cap) too many ads for placement %@", self.placementName]
+                                             code:0
+                                         userInfo:nil];
+        [self invokeDidFail:error];
+    } else {
     BOOL needsNewAd = YES;
         
     NSDate *pacingDate = [PubnativeDeliveryManager pacingDateForPlacementName:self.placementName];
