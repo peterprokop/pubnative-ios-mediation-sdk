@@ -72,7 +72,7 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
                     [extras setDictionary:self.requestParameters];
                 }
                 if(self.targeting) {
-                    extras = [self.targeting toDictionary];
+                    [extras setDictionary:[self.targeting toDictionary]];
                 }
             
                 [PubnativeConfigManager configWithAppToken:appToken
