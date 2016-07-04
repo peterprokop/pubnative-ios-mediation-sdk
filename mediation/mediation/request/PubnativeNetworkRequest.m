@@ -64,7 +64,12 @@ NSString * const PNTrackingRequestIDKey = @"reqid";
                 self.currentNetworkIndex = 0;
                 self.requestID = [[NSUUID UUID] UUIDString];
             
+                NSMutableDictionary<NSString*, NSString*> *extras = [NSMutableDictionary dictionary];
+                if(self.requestParameters){
+                    [extras setDictionary:self.requestParameters];
+                }
                 [PubnativeConfigManager configWithAppToken:appToken
+                                                    extras:extras
                                                   delegate:self];
             
             } else {
@@ -209,6 +214,9 @@ NSString * const PNTrackingRequestIDKey = @"reqid";
                 [extras setObject:self.requestID forKey:PNTrackingRequestIDKey];
                 if(self.requestParameters){
                     [extras setDictionary:self.requestParameters];
+                }
+                if(self.config.request_params) {
+                    [extras setDictionary:self.config.request_params];
                 }
                 [adapter startWithData:network.params
                                timeout:[network.timeout doubleValue]
