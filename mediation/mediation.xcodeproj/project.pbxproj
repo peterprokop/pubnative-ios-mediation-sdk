@@ -14,6 +14,19 @@
 		0351D1E51D2A6627008A6A6C /* libFlurryWatch_7.6.4.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0351D1CE1D2A6627008A6A6C /* libFlurryWatch_7.6.4.a */; };
 		0351D1E61D2A6627008A6A6C /* FlurryAdsEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = 0351D1DB1D2A6627008A6A6C /* FlurryAdsEmpty.m */; };
 		0351D1E71D2A6627008A6A6C /* libFlurryAds_7.6.4.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0351D1DC1D2A6627008A6A6C /* libFlurryAds_7.6.4.a */; };
+		0351D1F21D2A8129008A6A6C /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0351D1E81D2A8129008A6A6C /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		0351D1F31D2A8129008A6A6C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0351D1E91D2A8129008A6A6C /* AVFoundation.framework */; };
+		0351D1F41D2A8129008A6A6C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0351D1EA1D2A8129008A6A6C /* CoreGraphics.framework */; };
+		0351D1F51D2A8129008A6A6C /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0351D1EB1D2A8129008A6A6C /* CoreMedia.framework */; };
+		0351D1F61D2A8129008A6A6C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0351D1EC1D2A8129008A6A6C /* Foundation.framework */; };
+		0351D1F71D2A8129008A6A6C /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0351D1ED1D2A8129008A6A6C /* MediaPlayer.framework */; };
+		0351D1F81D2A8129008A6A6C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0351D1EE1D2A8129008A6A6C /* Security.framework */; };
+		0351D1F91D2A8129008A6A6C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0351D1EF1D2A8129008A6A6C /* StoreKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		0351D1FA1D2A8129008A6A6C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0351D1F01D2A8129008A6A6C /* SystemConfiguration.framework */; };
+		0351D1FB1D2A8129008A6A6C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0351D1F11D2A8129008A6A6C /* UIKit.framework */; };
+		0351D1FC1D2A8154008A6A6C /* libFlurryAds_7.6.4.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0351D1DC1D2A6627008A6A6C /* libFlurryAds_7.6.4.a */; };
+		0351D1FD1D2A816F008A6A6C /* libFlurry_7.6.4.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0351D1CD1D2A6627008A6A6C /* libFlurry_7.6.4.a */; };
+		0351D1FF1D2A81AC008A6A6C /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0351D1FE1D2A81AC008A6A6C /* libz.1.dylib */; };
 		D531B0841D1C21EE008A7A86 /* PubnativeConfigManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D531B0831D1C21EE008A7A86 /* PubnativeConfigManagerTest.m */; };
 		D531B08F1D1C28DE008A7A86 /* response_invalid.json in Resources */ = {isa = PBXBuildFile; fileRef = D531B0861D1C28DE008A7A86 /* response_invalid.json */; };
 		D531B0901D1C28DE008A7A86 /* response_error.json in Resources */ = {isa = PBXBuildFile; fileRef = D531B0881D1C28DE008A7A86 /* response_error.json */; };
@@ -166,6 +179,17 @@
 		0351D1DF1D2A6627008A6A6C /* FlurryAdTargeting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAdTargeting.h; sourceTree = "<group>"; };
 		0351D1E11D2A6627008A6A6C /* FlurryAdDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAdDelegate.h; sourceTree = "<group>"; };
 		0351D1E21D2A6627008A6A6C /* FlurryAds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAds.h; sourceTree = "<group>"; };
+		0351D1E81D2A8129008A6A6C /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		0351D1E91D2A8129008A6A6C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		0351D1EA1D2A8129008A6A6C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		0351D1EB1D2A8129008A6A6C /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		0351D1EC1D2A8129008A6A6C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		0351D1ED1D2A8129008A6A6C /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		0351D1EE1D2A8129008A6A6C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		0351D1EF1D2A8129008A6A6C /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		0351D1F01D2A8129008A6A6C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		0351D1F11D2A8129008A6A6C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		0351D1FE1D2A81AC008A6A6C /* libz.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.dylib; path = ../../../../../../usr/lib/libz.1.dylib; sourceTree = "<group>"; };
 		D531B0831D1C21EE008A7A86 /* PubnativeConfigManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeConfigManagerTest.m; sourceTree = "<group>"; };
 		D531B0861D1C28DE008A7A86 /* response_invalid.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = response_invalid.json; path = ../response_invalid.json; sourceTree = "<group>"; };
 		D531B0881D1C28DE008A7A86 /* response_error.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = response_error.json; sourceTree = "<group>"; };
@@ -403,6 +427,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0351D1FF1D2A81AC008A6A6C /* libz.1.dylib in Frameworks */,
+				0351D1FD1D2A816F008A6A6C /* libFlurry_7.6.4.a in Frameworks */,
+				0351D1FC1D2A8154008A6A6C /* libFlurryAds_7.6.4.a in Frameworks */,
+				0351D1F21D2A8129008A6A6C /* AdSupport.framework in Frameworks */,
+				0351D1F31D2A8129008A6A6C /* AVFoundation.framework in Frameworks */,
+				0351D1F41D2A8129008A6A6C /* CoreGraphics.framework in Frameworks */,
+				0351D1F51D2A8129008A6A6C /* CoreMedia.framework in Frameworks */,
+				0351D1F61D2A8129008A6A6C /* Foundation.framework in Frameworks */,
+				0351D1F71D2A8129008A6A6C /* MediaPlayer.framework in Frameworks */,
+				0351D1F81D2A8129008A6A6C /* Security.framework in Frameworks */,
+				0351D1F91D2A8129008A6A6C /* StoreKit.framework in Frameworks */,
+				0351D1FA1D2A8129008A6A6C /* SystemConfiguration.framework in Frameworks */,
+				0351D1FB1D2A8129008A6A6C /* UIKit.framework in Frameworks */,
 				D5C8BA9F1D1AB7450071C9E2 /* libPNmediation.a in Frameworks */,
 				D5BF0F4A1D1A973C00A05486 /* FBAudienceNetwork.framework in Frameworks */,
 				D5BF0F4B1D1A973C00A05486 /* FBSDKCoreKit.framework in Frameworks */,
@@ -563,6 +600,17 @@
 		D5BF0EDF1D1A8B8B00A05486 = {
 			isa = PBXGroup;
 			children = (
+				0351D1FE1D2A81AC008A6A6C /* libz.1.dylib */,
+				0351D1E81D2A8129008A6A6C /* AdSupport.framework */,
+				0351D1E91D2A8129008A6A6C /* AVFoundation.framework */,
+				0351D1EA1D2A8129008A6A6C /* CoreGraphics.framework */,
+				0351D1EB1D2A8129008A6A6C /* CoreMedia.framework */,
+				0351D1EC1D2A8129008A6A6C /* Foundation.framework */,
+				0351D1ED1D2A8129008A6A6C /* MediaPlayer.framework */,
+				0351D1EE1D2A8129008A6A6C /* Security.framework */,
+				0351D1EF1D2A8129008A6A6C /* StoreKit.framework */,
+				0351D1F01D2A8129008A6A6C /* SystemConfiguration.framework */,
+				0351D1F11D2A8129008A6A6C /* UIKit.framework */,
 				D5BF0F1B1D1A8E4000A05486 /* dependencies */,
 				D5BF0EEA1D1A8B8B00A05486 /* mediation */,
 				D5BF0EF91D1A8BA700A05486 /* mediation.test */,
