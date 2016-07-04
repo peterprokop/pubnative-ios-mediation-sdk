@@ -67,11 +67,14 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
                 self.placementName = placementName;
                 self.currentNetworkIndex = 0;
                 self.requestID = [[NSUUID UUID] UUIDString];
-                
-                NSDictionary *extras = nil;
+                NSMutableDictionary<NSString*, NSString*> *extras = [NSMutableDictionary dictionary];
+                if(self.requestParameters){
+                    [extras setDictionary:self.requestParameters];
+                }
                 if(self.targeting) {
                     extras = [self.targeting toDictionary];
                 }
+            
                 [PubnativeConfigManager configWithAppToken:appToken
                                                     extras:extras
                                                   delegate:self];
@@ -239,6 +242,9 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
                 }
                 if(self.requestParameters){
                     [extras setDictionary:self.requestParameters];
+                }
+                if(self.config.request_params) {
+                    [extras setDictionary:self.config.request_params];
                 }
                 [adapter startWithData:network.params
                                timeout:[network.timeout doubleValue]

@@ -36,7 +36,7 @@ NSString * const kPubnativeLibraryNetworkAdapterAppTokenKey = @"apptoken";
         NSString *appToken = [data objectForKey:kPubnativeLibraryNetworkAdapterAppTokenKey];
         
         if (appToken && [appToken length] > 0) {
-            [self createRequestWithAppToken:appToken];
+            [self createRequestWithAppToken:appToken extras:extras];
         } else {
             NSError *error = [NSError errorWithDomain:@"PubnativeLibraryNetworkAdapter.doRequest - Invalid apptoken provided"
                                                  code:0
@@ -52,14 +52,16 @@ NSString * const kPubnativeLibraryNetworkAdapterAppTokenKey = @"apptoken";
     }
 }
 
-- (void)createRequestWithAppToken:(NSString*)appToken
+- (void)createRequestWithAppToken:(NSString*)appToken extras:(NSDictionary<NSString*, NSString*>*)extras
 {
     PNAdRequestParameters *parameters = [PNAdRequestParameters requestParameters];
     parameters.app_token = appToken;
+    // TODO: add extras
     
     __weak typeof(self) weakSelf = self;
     self.request = [PNAdRequest request:PNAdRequest_Native
                          withParameters:parameters
+                    
                           andCompletion:^(NSArray *ads, NSError *error) {
                               
                               if(error) {
