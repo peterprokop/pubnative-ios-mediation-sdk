@@ -11,7 +11,7 @@
 #import "PNAdRequest.h"
 #import "PNNativeAdModel.h"
 
-NSString * const kPubnativeLibraryNetworkAdapterAppTokenKey = @"app_token";
+NSString * const kPubnativeLibraryNetworkAdapterAppTokenKey = @"apptoken";
 
 @interface PubnativeNetworkAdapter (Private)
 
