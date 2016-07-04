@@ -189,7 +189,7 @@
 		0351D1EF1D2A8129008A6A6C /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		0351D1F01D2A8129008A6A6C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0351D1F11D2A8129008A6A6C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		0351D1FE1D2A81AC008A6A6C /* libz.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.dylib; path = ../../../../../../usr/lib/libz.1.dylib; sourceTree = "<group>"; };
+		0351D1FE1D2A81AC008A6A6C /* libz.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.dylib; path = /usr/lib/libz.1.dylib; sourceTree = "<absolute>"; };
 		D531B0831D1C21EE008A7A86 /* PubnativeConfigManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeConfigManagerTest.m; sourceTree = "<group>"; };
 		D531B0861D1C28DE008A7A86 /* response_invalid.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = response_invalid.json; path = ../response_invalid.json; sourceTree = "<group>"; };
 		D531B0881D1C28DE008A7A86 /* response_error.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = response_error.json; sourceTree = "<group>"; };
@@ -600,17 +600,6 @@
 		D5BF0EDF1D1A8B8B00A05486 = {
 			isa = PBXGroup;
 			children = (
-				0351D1FE1D2A81AC008A6A6C /* libz.1.dylib */,
-				0351D1E81D2A8129008A6A6C /* AdSupport.framework */,
-				0351D1E91D2A8129008A6A6C /* AVFoundation.framework */,
-				0351D1EA1D2A8129008A6A6C /* CoreGraphics.framework */,
-				0351D1EB1D2A8129008A6A6C /* CoreMedia.framework */,
-				0351D1EC1D2A8129008A6A6C /* Foundation.framework */,
-				0351D1ED1D2A8129008A6A6C /* MediaPlayer.framework */,
-				0351D1EE1D2A8129008A6A6C /* Security.framework */,
-				0351D1EF1D2A8129008A6A6C /* StoreKit.framework */,
-				0351D1F01D2A8129008A6A6C /* SystemConfiguration.framework */,
-				0351D1F11D2A8129008A6A6C /* UIKit.framework */,
 				D5BF0F1B1D1A8E4000A05486 /* dependencies */,
 				D5BF0EEA1D1A8B8B00A05486 /* mediation */,
 				D5BF0EF91D1A8BA700A05486 /* mediation.test */,
@@ -674,6 +663,17 @@
 		D5BF0F1B1D1A8E4000A05486 /* dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				0351D1FE1D2A81AC008A6A6C /* libz.1.dylib */,
+				0351D1E81D2A8129008A6A6C /* AdSupport.framework */,
+				0351D1E91D2A8129008A6A6C /* AVFoundation.framework */,
+				0351D1EA1D2A8129008A6A6C /* CoreGraphics.framework */,
+				0351D1EB1D2A8129008A6A6C /* CoreMedia.framework */,
+				0351D1EC1D2A8129008A6A6C /* Foundation.framework */,
+				0351D1ED1D2A8129008A6A6C /* MediaPlayer.framework */,
+				0351D1EE1D2A8129008A6A6C /* Security.framework */,
+				0351D1EF1D2A8129008A6A6C /* StoreKit.framework */,
+				0351D1F01D2A8129008A6A6C /* SystemConfiguration.framework */,
+				0351D1F11D2A8129008A6A6C /* UIKit.framework */,
 				0351D1C81D2A6433008A6A6C /* flurry-7.6.4 */,
 				D5BF107B1D1A9D6F00A05486 /* ocmockito-3.0.1 */,
 				D5BF10781D1A9C4F00A05486 /* ochamcrest-5.4.0 */,
