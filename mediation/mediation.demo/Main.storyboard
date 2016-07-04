@@ -207,7 +207,7 @@
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cEB-pf-d9I" userLabel="title">
                                                                     <rect key="frame" x="88" y="0.0" width="488" height="80"/>
-                                                                    <mutableString key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eu mattis dolor, quis egestas neque.
+                                                                    <string key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eu mattis dolor, quis egestas neque.
 
 </string>
                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
