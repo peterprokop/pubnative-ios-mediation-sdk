@@ -37,6 +37,7 @@ extern NSString * const kPubnativeInsightDataModelSdkVersion;
 @property (nonatomic, strong) NSNumber                                  *video_start;
 @property (nonatomic, strong) NSNumber                                  *video_complete;
 @property (nonatomic, strong) NSNumber                                  *retry;
+@property (nonatomic, strong) NSString                                  *retry_error;
 @property (nonatomic, strong) NSNumber                                  *generated_at; // Nanoseconds
 // User info
 @property (nonatomic, strong) NSNumber                                  *age;

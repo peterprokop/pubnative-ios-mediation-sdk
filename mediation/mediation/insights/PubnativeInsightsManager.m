@@ -96,7 +96,8 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey    = @"PubnativeInsight
         [PubnativeHttpRequest requestWithURL:url httpBody:json timeout:60 andCompletionHandler:^(NSString *result, NSError *error) {
             if (error) {
                 NSLog(@"PubnativeInsightsManager - request error: %@", error.localizedDescription);
-                [PubnativeInsightsManager enqueueFailedRequestModel:requestModelBlock];
+                [PubnativeInsightsManager enqueueFailedRequestModel:requestModelBlock
+                                                          withError:error.localizedDescription];
             } else {
                 NSData *jsonData = [result dataUsingEncoding:NSUTF8StringEncoding];
                 NSError *parseError;
@@ -111,7 +112,8 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey    = @"PubnativeInsight
                         NSLog(@"PubnativeInsightsManager - tracking %@ success: %@", url, result);
                     } else {
                         NSLog(@"PubnativeInsightsManager - tracking failed: %@", apiResponse.error_message);
-                        [PubnativeInsightsManager enqueueFailedRequestModel:requestModelBlock];
+                        [PubnativeInsightsManager enqueueFailedRequestModel:requestModelBlock
+                                                                  withError:apiResponse.error_message];
                     }
                 }
             }
@@ -166,9 +168,11 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey    = @"PubnativeInsight
 }
 
 + (void)enqueueFailedRequestModel:(PubnativeInsightRequestModel *)request
+                        withError:(NSString*)error
 {
     if(request){
         request.data.retry = [NSNumber numberWithInteger:[request.data.retry integerValue] + 1];
+        request.data.retry_error = error;
         NSMutableArray *queue = [PubnativeInsightsManager queueForKey:kPubnativeInsightsManagerFailedQueueKey];
         [queue addObject:[request toDictionary]];
         [PubnativeInsightsManager setQueue:queue forKey:kPubnativeInsightsManagerFailedQueueKey];
