@@ -162,7 +162,7 @@
                                         <rect key="frame" x="0.0" y="92" width="600" height="369"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dY6-iX-TrG" id="plJ-TW-LWz">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="369"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="368.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mjH-Nc-LVg">
@@ -207,7 +207,7 @@
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cEB-pf-d9I" userLabel="title">
                                                                     <rect key="frame" x="88" y="0.0" width="488" height="80"/>
-                                                                    <string key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eu mattis dolor, quis egestas neque.
+                                                                    <mutableString key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris eu mattis dolor, quis egestas neque.
 
 </string>
                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
@@ -332,7 +332,7 @@
                                     <constraint firstAttribute="height" constant="60" id="I2B-Kl-GFk"/>
                                     <constraint firstAttribute="width" constant="300" id="o8o-QV-Kww"/>
                                 </constraints>
-                                <string key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin porttitor mattis ultrices. Proin tincidunt nisi sapien, vitae efficitur mi suscipit non. Sed tincidunt risus id tellus iaculis, ac fringilla enim blandit. Pellentesque quis vulputate massa. Quisque non ipsum ornare, feugiat ipsum non, laoreet turpis. Sed at libero at mi convallis accumsan. Sed sagittis est non gravida finibus. Phasellus sollicitudin interdum facilisis. Donec molestie orci lorem, sit amet maximus diam fermentum ut. Vivamus vitae nulla eu libero consectetur dignissim. Duis volutpat lorem nec sem semper faucibus. Morbi pellentesque lacus in nulla ornare, nec sodales enim pretium. Etiam a mi est.</string>
+                                <mutableString key="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin porttitor mattis ultrices. Proin tincidunt nisi sapien, vitae efficitur mi suscipit non. Sed tincidunt risus id tellus iaculis, ac fringilla enim blandit. Pellentesque quis vulputate massa. Quisque non ipsum ornare, feugiat ipsum non, laoreet turpis. Sed at libero at mi convallis accumsan. Sed sagittis est non gravida finibus. Phasellus sollicitudin interdum facilisis. Donec molestie orci lorem, sit amet maximus diam fermentum ut. Vivamus vitae nulla eu libero consectetur dignissim. Duis volutpat lorem nec sem semper faucibus. Morbi pellentesque lacus in nulla ornare, nec sodales enim pretium. Etiam a mi est.</mutableString>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="10"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
