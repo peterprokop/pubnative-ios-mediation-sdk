@@ -39,7 +39,7 @@ extern NSString * const kUserDefaultsStoredTimestampKey;
     
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
-    [PubnativeConfigManager clean];
+    [PubnativeConfigManager reset];
 }
 
 - (void)tearDown {

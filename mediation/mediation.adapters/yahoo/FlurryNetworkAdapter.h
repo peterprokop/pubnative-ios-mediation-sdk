@@ -7,7 +7,6 @@
 //
 
 #import "PubnativeNetworkAdapter.h"
-#import "FlurryAdNative.h"
 
 @interface FlurryNetworkAdapter : PubnativeNetworkAdapter
 
