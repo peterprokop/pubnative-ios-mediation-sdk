@@ -51,20 +51,20 @@ extern NSString * const kUserDefaultsStoredTimestampKey;
 - (void)test_configWithAppToken_withEmptyAppToken_shouldReturnNil {
     
     NSObject<PubnativeConfigManagerDelegate> *delegate = mockProtocol(@protocol(PubnativeConfigManagerDelegate));
-    [PubnativeConfigManager configWithAppToken:@"" delegate:delegate];
+    [PubnativeConfigManager configWithAppToken:@"" extras:nil delegate:delegate];
     [verify(delegate) configDidFinishWithModel:nilValue()];
 }
 
 - (void)test_configWithAppToken_withNilAppToken_shouldReturnNil {
     
     NSObject<PubnativeConfigManagerDelegate> *delegate = mockProtocol(@protocol(PubnativeConfigManagerDelegate));
-    [PubnativeConfigManager configWithAppToken:nil delegate:delegate];
+    [PubnativeConfigManager configWithAppToken:nil extras:nil delegate:delegate];
     [verify(delegate) configDidFinishWithModel:nilValue()];
 }
 
 - (void)test_configWithAppToken_withNilDelegateAndvalidAppToken_shouldPass {
     
-    [PubnativeConfigManager configWithAppToken:@"apptoken" delegate:nil];
+    [PubnativeConfigManager configWithAppToken:@"apptoken" extras:nil delegate:nil];
 }
 
 - (void)test_setStoredTimestamp_withNegativeValue_shouldClearValue {
