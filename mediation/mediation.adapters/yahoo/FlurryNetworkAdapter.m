@@ -41,7 +41,7 @@
 //The Flurry SDK receives the ad’s assets and calls back ``adNativeDidFetchAd`` with the FlurryAdNative object reference.
 - (void) adNativeDidFetchAd:(FlurryAdNative *)nativeAd
 {
-    NSLog(@"Native Ad for Space [%@] Received Ad with [%lu] assets", nativeAd.space, (unsigned long)nativeAd.assetList.count);
+    NSLog(@"adNativeDidFetchAd");
     FlurryNativeAdModel *wrapModel = [[FlurryNativeAdModel alloc] initWithNativeAd:nativeAd];
     [self invokeDidLoad:wrapModel];
 }
@@ -54,8 +54,17 @@
     //FLURRY_AD_ERROR_DID_FAIL_TO_RENDER   = 0,
     //FLURRY_AD_ERROR_DID_FAIL_TO_FETCH_AD = 1,
     //FLURRY_AD_ERROR_CLICK_ACTION_FAILED  = 2,
-    NSLog(@" Native Ad for Space [%@] Received Error # [%d], with description: [%@]  ================ ", nativeAd.space, adError, errorDescription );
-    [self invokeDidFail:errorDescription];
+    NSLog(@"adNative: %u", adError);
+    
+    if (adError) {
+        [self invokeDidFail:errorDescription];
+    } else if (adError == FLURRY_AD_ERROR_DID_FAIL_TO_FETCH_AD) {
+        NSLog(@"FlurryNetworkAdapter - Fail to fetch Ad");
+        [self invokeDidLoad:nil];
+    } else {
+        NSLog(@"FlurryNetworkAdapter - Unknown error");
+        [self invokeDidFail:errorDescription];
+    }
 }
 
 @end
