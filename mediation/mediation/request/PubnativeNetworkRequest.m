@@ -152,6 +152,10 @@ NSString * const PNTrackingRequestIDKey = @"reqid";
     PubnativeDeliveryRuleModel *deliveryRuleModel = [self.config placementWithName:self.placementName].delivery_rule;
     if([deliveryRuleModel isFrequencyCapReachedWithPlacement:self.placementName]) {
         
+        NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"Error: (frequency_cap) too many ads for placement %@", self.placementName]
+                                             code:0
+                                         userInfo:nil];
+        [self invokeDidFail:error];
     } else {
         
         BOOL needsNewAd = YES;

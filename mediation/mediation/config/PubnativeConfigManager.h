@@ -18,5 +18,6 @@
 @interface PubnativeConfigManager : NSObject
 
 + (void)configWithAppToken:(NSString *)appToken delegate:(NSObject<PubnativeConfigManagerDelegate> *)delegate;
++ (void)reset;
 
 @end

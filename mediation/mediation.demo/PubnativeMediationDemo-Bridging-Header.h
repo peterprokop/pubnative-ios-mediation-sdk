@@ -3,4 +3,5 @@
 //
 
 #import "PubnativeNetworkRequest.h"
+#import "PubnativeConfigManager.h"
 #import "PubnativeAdModel.h"

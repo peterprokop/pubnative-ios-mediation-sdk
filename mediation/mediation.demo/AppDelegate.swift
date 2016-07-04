@@ -15,7 +15,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Keyboard handling
+        
+        if #available(iOS 8.0, *) {
+            let types: UIUserNotificationType = [.Alert, .Badge, .Sound]
+            let settings = UIUserNotificationSettings(forTypes: types, categories: nil)
+            application.registerUserNotificationSettings(settings)
+            application.registerForRemoteNotifications()
+        } else {
+            let types: UIRemoteNotificationType = [.Alert, .Badge, .Sound]
+            application.registerForRemoteNotificationTypes(types)
+        }
+        
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions);
         return true
     }

@@ -32,26 +32,26 @@
 
 - (BOOL)isDayImpressionCapActive
 {
-    return self.imp_cap_day > 0;
+    return [self.imp_cap_day integerValue] > 0;
 }
 
 - (BOOL)isHourImpressionCapActive
 {
-    return self.imp_cap_hour > 0;
+    return [self.imp_cap_hour integerValue] > 0;
 }
 - (BOOL)isPacingCapActive
 {
-    return self.pacing_cap_hour > 00 || self.pacing_cap_minute > 0;
+    return [self.pacing_cap_hour integerValue] > 0 || [self.pacing_cap_minute integerValue] > 0;
 }
 
 - (BOOL)isFrequencyCapReachedWithPlacement:(NSString*)placementName
 {
     BOOL frequencyCapReached = false;
     if ([self isDayImpressionCapActive]) {
-        frequencyCapReached = [self.imp_cap_day intValue] <= [PubnativeDeliveryManager dailyImpressionCountForPlacementName:placementName];
+        frequencyCapReached = [self.imp_cap_day integerValue] <= [PubnativeDeliveryManager dailyImpressionCountForPlacementName:placementName];
     }
     if (!frequencyCapReached && [self isHourImpressionCapActive]) {
-        frequencyCapReached = [self.imp_cap_hour intValue] <= [PubnativeDeliveryManager hourlyImpressionCountForPlacementName:placementName];
+        frequencyCapReached = [self.imp_cap_hour integerValue] <= [PubnativeDeliveryManager hourlyImpressionCountForPlacementName:placementName];
     }
     return frequencyCapReached;
 }
