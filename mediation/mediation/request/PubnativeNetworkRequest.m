@@ -53,21 +53,21 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
         if(self.isRunning) {
             
             NSLog(@"Request already running, dropping the call");
-        
+            
         } else {
-        
+            
             self.isRunning = YES;
             [self invokeDidStart];
-        
+            
             if (appToken && [appToken length] > 0 &&
                 placementName && [placementName length] > 0) {
-            
+                
                 //set the data
                 self.appToken = appToken;
                 self.placementName = placementName;
                 self.currentNetworkIndex = 0;
                 self.requestID = [[NSUUID UUID] UUIDString];
-            
+                
                 NSDictionary *extras = nil;
                 if(self.targeting) {
                     extras = [self.targeting toDictionary];
@@ -75,7 +75,7 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
                 [PubnativeConfigManager configWithAppToken:appToken
                                                     extras:extras
                                                   delegate:self];
-            
+                
             } else {
                 NSError *error = [NSError errorWithDomain:@"Error: Invalid AppToken/PlacementID"
                                                      code:0
@@ -128,22 +128,22 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
         } else if (placement.delivery_rule == nil || placement.priority_rules == nil) {
             
             NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"Error: config contains null elements for placement %@ ", self.placementName]
-                                                          code:0
-                                                      userInfo:nil];
+                                                 code:0
+                                             userInfo:nil];
             [self invokeDidFail:error];
             
         } else if ([placement.delivery_rule isDisabled]) {
             
             NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"Error: placement %@ is disabled", self.placementName]
-                                                          code:0
-                                                      userInfo:nil];
+                                                 code:0
+                                             userInfo:nil];
             [self invokeDidFail:error];
             
         } else if (placement.priority_rules.count == 0) {
             
             NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"Error: no networks configured for placement %@", self.placementName]
-                                                          code:0
-                                                      userInfo:nil];
+                                                 code:0
+                                             userInfo:nil];
             [self invokeDidFail:error];
             
         } else {
@@ -185,40 +185,35 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
 - (void)startRequest {
     
     PubnativeDeliveryRuleModel *deliveryRuleModel = [self.config placementWithName:self.placementName].delivery_rule;
-        
-        NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"Error: (frequency_cap) too many ads for placement %@", self.placementName]
-                                             code:0
-                                         userInfo:nil];
-        [self invokeDidFail:error];
-    } else {
+    
     BOOL needsNewAd = YES;
-        
+    
     NSDate *pacingDate = [PubnativeDeliveryManager pacingDateForPlacementName:self.placementName];
     NSDate *currentdate = [NSDate date];
     NSTimeInterval intervalInSeconds = [currentdate timeIntervalSinceDate:pacingDate];
     NSTimeInterval elapsedMinutes = (intervalInSeconds/60);
     NSTimeInterval elapsedHours = (intervalInSeconds/3600);
-        
+    
     // If there is a pacing cap set and the elapsed time still didn't time for that pacing cap, we don't refresh
     if (([deliveryRuleModel.pacing_cap_minute doubleValue] > 0 && [deliveryRuleModel.pacing_cap_minute doubleValue] < elapsedMinutes)
         || ([deliveryRuleModel.pacing_cap_hour doubleValue] > 0 && [deliveryRuleModel.pacing_cap_hour doubleValue] < elapsedHours)){
         
         needsNewAd = NO;
     }
-        
+    
     if(needsNewAd) {
         
         [self doNextNetworkRequest];
-            
+        
     } else if(self.ad) {
-            
+        
         [self invokeDidLoad:self.ad];
-            
+        
     } else {
-            
+        
         NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"Error: (pacing_cap) too many ads for placement %@", self.placementName]
-                                                 code:0
-                                             userInfo:nil];
+                                             code:0
+                                         userInfo:nil];
         [self invokeDidFail:error];
     }
     
@@ -297,7 +292,7 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
     if (self.delegate && [self.delegate respondsToSelector:@selector(pubnativeRequest:didLoad:)]) {
         [self.delegate pubnativeRequest:self didLoad:ad];
     }
-    self.delegate = nil;    
+    self.delegate = nil;
 }
 
 #pragma mark - CALLBACKS -

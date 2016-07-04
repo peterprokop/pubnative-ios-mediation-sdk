@@ -20,5 +20,6 @@
 + (void)configWithAppToken:(NSString *)appToken
                     extras:(NSDictionary*)extras
                   delegate:(NSObject<PubnativeConfigManagerDelegate> *)delegate;
++ (void)reset;
 
 @end
