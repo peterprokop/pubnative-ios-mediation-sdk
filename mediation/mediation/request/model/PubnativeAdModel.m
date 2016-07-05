@@ -7,6 +7,7 @@
 //
 
 #import "PubnativeAdModel.h"
+#import "PubnativeInsightModel.h"
 #import "PubnativeDeliveryManager.h"
 
 @interface PubnativeAdModel ()
@@ -75,7 +76,9 @@
         
         [PubnativeDeliveryManager logImpressionForPlacementName:self.appToken];
         
-        // TODO: Track impression
+        if (self.insightModel) {
+            [self.insightModel sendImpressionInsight];
+        }
         
         if(self.delegate && [self.delegate respondsToSelector:@selector(pubantiveAdDidConfirmImpression:)]){
             [self.delegate pubantiveAdDidConfirmImpression:self];
@@ -89,7 +92,9 @@
         
         self.isClickTracked = YES;
         
-        // TODO: track click
+        if (self.insightModel) {
+            [self.insightModel sendClickInsight];
+        }
         
         if(self.delegate && [self.delegate respondsToSelector:@selector(pubnativeAdDidClick:)]){
             [self.delegate pubnativeAdDidClick:self];
