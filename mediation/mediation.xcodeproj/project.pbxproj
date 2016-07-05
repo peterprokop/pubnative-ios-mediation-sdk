@@ -7,6 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0351D1F21D2A8129008A6A6C /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0351D1E81D2A8129008A6A6C /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		0351D1F31D2A8129008A6A6C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0351D1E91D2A8129008A6A6C /* AVFoundation.framework */; };
+		0351D1F41D2A8129008A6A6C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0351D1EA1D2A8129008A6A6C /* CoreGraphics.framework */; };
+		0351D1F51D2A8129008A6A6C /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0351D1EB1D2A8129008A6A6C /* CoreMedia.framework */; };
+		0351D1F61D2A8129008A6A6C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0351D1EC1D2A8129008A6A6C /* Foundation.framework */; };
+		0351D1F71D2A8129008A6A6C /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0351D1ED1D2A8129008A6A6C /* MediaPlayer.framework */; };
+		0351D1F81D2A8129008A6A6C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0351D1EE1D2A8129008A6A6C /* Security.framework */; };
+		0351D1F91D2A8129008A6A6C /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0351D1EF1D2A8129008A6A6C /* StoreKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		0351D1FA1D2A8129008A6A6C /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0351D1F01D2A8129008A6A6C /* SystemConfiguration.framework */; };
+		0351D1FB1D2A8129008A6A6C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0351D1F11D2A8129008A6A6C /* UIKit.framework */; };
+		0351D2001D2A8E5D008A6A6C /* FlurryNativeAdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0351D1C31D2A6376008A6A6C /* FlurryNativeAdModel.m */; };
+		0351D2011D2A8E62008A6A6C /* FlurryNetworkAdapter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0351D1C61D2A639D008A6A6C /* FlurryNetworkAdapter.m */; };
+		0351D2061D2A8F58008A6A6C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 0351D2051D2A8F58008A6A6C /* libz.tbd */; };
+		0351D2281D2AA6CB008A6A6C /* libFlurry_7.6.4.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0351D20D1D2AA6AE008A6A6C /* libFlurry_7.6.4.a */; };
+		0351D2291D2AA6D6008A6A6C /* libFlurryAds_7.6.4.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0351D21C1D2AA6AE008A6A6C /* libFlurryAds_7.6.4.a */; };
 		03169CBD1D21384300E4BBCA /* PubnativeInsightDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03169CBC1D21384300E4BBCA /* PubnativeInsightDataModel.m */; };
 		03169CC11D2163E600E4BBCA /* PubnativeInsightNetworkModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03169CC01D2163E600E4BBCA /* PubnativeInsightNetworkModel.m */; };
 		03169CC41D2164B000E4BBCA /* PubnativeInsightCrashModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03169CC31D2164B000E4BBCA /* PubnativeInsightCrashModel.m */; };
@@ -150,6 +165,40 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0351D1C21D2A6376008A6A6C /* FlurryNativeAdModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryNativeAdModel.h; sourceTree = "<group>"; };
+		0351D1C31D2A6376008A6A6C /* FlurryNativeAdModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlurryNativeAdModel.m; sourceTree = "<group>"; };
+		0351D1C51D2A639D008A6A6C /* FlurryNetworkAdapter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryNetworkAdapter.h; sourceTree = "<group>"; };
+		0351D1C61D2A639D008A6A6C /* FlurryNetworkAdapter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlurryNetworkAdapter.m; sourceTree = "<group>"; };
+		0351D1E81D2A8129008A6A6C /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		0351D1E91D2A8129008A6A6C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		0351D1EA1D2A8129008A6A6C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		0351D1EB1D2A8129008A6A6C /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		0351D1EC1D2A8129008A6A6C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		0351D1ED1D2A8129008A6A6C /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		0351D1EE1D2A8129008A6A6C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		0351D1EF1D2A8129008A6A6C /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		0351D1F01D2A8129008A6A6C /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		0351D1F11D2A8129008A6A6C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		0351D2051D2A8F58008A6A6C /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		0351D20A1D2AA6AE008A6A6C /* Flurry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Flurry.h; sourceTree = "<group>"; };
+		0351D20B1D2AA6AE008A6A6C /* FlurryEmpty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlurryEmpty.m; sourceTree = "<group>"; };
+		0351D20C1D2AA6AE008A6A6C /* FlurryWatch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryWatch.h; sourceTree = "<group>"; };
+		0351D20D1D2AA6AE008A6A6C /* libFlurry_7.6.4.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurry_7.6.4.a; sourceTree = "<group>"; };
+		0351D20E1D2AA6AE008A6A6C /* libFlurryWatch_7.6.4.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurryWatch_7.6.4.a; sourceTree = "<group>"; };
+		0351D2111D2AA6AE008A6A6C /* FlurryAdBanner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAdBanner.h; sourceTree = "<group>"; };
+		0351D2121D2AA6AE008A6A6C /* FlurryAdBannerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAdBannerDelegate.h; sourceTree = "<group>"; };
+		0351D2141D2AA6AE008A6A6C /* FlurryAdInterstitial.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAdInterstitial.h; sourceTree = "<group>"; };
+		0351D2151D2AA6AE008A6A6C /* FlurryAdInterstitialDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAdInterstitialDelegate.h; sourceTree = "<group>"; };
+		0351D2171D2AA6AE008A6A6C /* FlurryAdNative.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAdNative.h; sourceTree = "<group>"; };
+		0351D2181D2AA6AE008A6A6C /* FlurryAdNativeAsset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAdNativeAsset.h; sourceTree = "<group>"; };
+		0351D2191D2AA6AE008A6A6C /* FlurryAdNativeDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAdNativeDelegate.h; sourceTree = "<group>"; };
+		0351D21A1D2AA6AE008A6A6C /* FlurryAdNativeStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAdNativeStyle.h; sourceTree = "<group>"; };
+		0351D21B1D2AA6AE008A6A6C /* FlurryAdsEmpty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlurryAdsEmpty.m; sourceTree = "<group>"; };
+		0351D21C1D2AA6AE008A6A6C /* libFlurryAds_7.6.4.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libFlurryAds_7.6.4.a; sourceTree = "<group>"; };
+		0351D21E1D2AA6AE008A6A6C /* FlurryAdError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAdError.h; sourceTree = "<group>"; };
+		0351D21F1D2AA6AE008A6A6C /* FlurryAdTargeting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAdTargeting.h; sourceTree = "<group>"; };
+		0351D2211D2AA6AE008A6A6C /* FlurryAdDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAdDelegate.h; sourceTree = "<group>"; };
+		0351D2221D2AA6AE008A6A6C /* FlurryAds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlurryAds.h; sourceTree = "<group>"; };
 		03169CBC1D21384300E4BBCA /* PubnativeInsightDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeInsightDataModel.m; path = insights/model/PubnativeInsightDataModel.m; sourceTree = "<group>"; };
 		03169CBE1D21385000E4BBCA /* PubnativeInsightDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PubnativeInsightDataModel.h; path = insights/model/PubnativeInsightDataModel.h; sourceTree = "<group>"; };
 		03169CBF1D2163E600E4BBCA /* PubnativeInsightNetworkModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PubnativeInsightNetworkModel.h; path = insights/model/PubnativeInsightNetworkModel.h; sourceTree = "<group>"; };
@@ -406,6 +455,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0351D2291D2AA6D6008A6A6C /* libFlurryAds_7.6.4.a in Frameworks */,
+				0351D2281D2AA6CB008A6A6C /* libFlurry_7.6.4.a in Frameworks */,
+				0351D2061D2A8F58008A6A6C /* libz.tbd in Frameworks */,
+				0351D1F21D2A8129008A6A6C /* AdSupport.framework in Frameworks */,
+				0351D1F31D2A8129008A6A6C /* AVFoundation.framework in Frameworks */,
+				0351D1F41D2A8129008A6A6C /* CoreGraphics.framework in Frameworks */,
+				0351D1F51D2A8129008A6A6C /* CoreMedia.framework in Frameworks */,
+				0351D1F61D2A8129008A6A6C /* Foundation.framework in Frameworks */,
+				0351D1F71D2A8129008A6A6C /* MediaPlayer.framework in Frameworks */,
+				0351D1F81D2A8129008A6A6C /* Security.framework in Frameworks */,
+				0351D1F91D2A8129008A6A6C /* StoreKit.framework in Frameworks */,
+				0351D1FA1D2A8129008A6A6C /* SystemConfiguration.framework in Frameworks */,
+				0351D1FB1D2A8129008A6A6C /* UIKit.framework in Frameworks */,
 				031714E81D25804B00817AEF /* SystemConfiguration.framework in Frameworks */,
 				031714E61D25803A00817AEF /* AdSupport.framework in Frameworks */,
 				D5C8BA9F1D1AB7450071C9E2 /* libPNmediation.a in Frameworks */,
@@ -417,6 +479,88 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0351D1C81D2A6433008A6A6C /* flurry-7.6.4 */ = {
+			isa = PBXGroup;
+			children = (
+				0351D2091D2AA6AE008A6A6C /* Flurry */,
+				0351D20F1D2AA6AE008A6A6C /* FlurryAds */,
+			);
+			path = "flurry-7.6.4";
+			sourceTree = "<group>";
+		};
+		0351D2091D2AA6AE008A6A6C /* Flurry */ = {
+			isa = PBXGroup;
+			children = (
+				0351D20A1D2AA6AE008A6A6C /* Flurry.h */,
+				0351D20B1D2AA6AE008A6A6C /* FlurryEmpty.m */,
+				0351D20C1D2AA6AE008A6A6C /* FlurryWatch.h */,
+				0351D20D1D2AA6AE008A6A6C /* libFlurry_7.6.4.a */,
+				0351D20E1D2AA6AE008A6A6C /* libFlurryWatch_7.6.4.a */,
+			);
+			path = Flurry;
+			sourceTree = "<group>";
+		};
+		0351D20F1D2AA6AE008A6A6C /* FlurryAds */ = {
+			isa = PBXGroup;
+			children = (
+				0351D2101D2AA6AE008A6A6C /* FlurryAdBanner */,
+				0351D2131D2AA6AE008A6A6C /* FlurryAdInterstitial */,
+				0351D2161D2AA6AE008A6A6C /* FlurryAdNative */,
+				0351D21B1D2AA6AE008A6A6C /* FlurryAdsEmpty.m */,
+				0351D21C1D2AA6AE008A6A6C /* libFlurryAds_7.6.4.a */,
+				0351D21D1D2AA6AE008A6A6C /* Shared */,
+				0351D2201D2AA6AE008A6A6C /* StaticAPI */,
+			);
+			path = FlurryAds;
+			sourceTree = "<group>";
+		};
+		0351D2101D2AA6AE008A6A6C /* FlurryAdBanner */ = {
+			isa = PBXGroup;
+			children = (
+				0351D2111D2AA6AE008A6A6C /* FlurryAdBanner.h */,
+				0351D2121D2AA6AE008A6A6C /* FlurryAdBannerDelegate.h */,
+			);
+			path = FlurryAdBanner;
+			sourceTree = "<group>";
+		};
+		0351D2131D2AA6AE008A6A6C /* FlurryAdInterstitial */ = {
+			isa = PBXGroup;
+			children = (
+				0351D2141D2AA6AE008A6A6C /* FlurryAdInterstitial.h */,
+				0351D2151D2AA6AE008A6A6C /* FlurryAdInterstitialDelegate.h */,
+			);
+			path = FlurryAdInterstitial;
+			sourceTree = "<group>";
+		};
+		0351D2161D2AA6AE008A6A6C /* FlurryAdNative */ = {
+			isa = PBXGroup;
+			children = (
+				0351D2171D2AA6AE008A6A6C /* FlurryAdNative.h */,
+				0351D2181D2AA6AE008A6A6C /* FlurryAdNativeAsset.h */,
+				0351D2191D2AA6AE008A6A6C /* FlurryAdNativeDelegate.h */,
+				0351D21A1D2AA6AE008A6A6C /* FlurryAdNativeStyle.h */,
+			);
+			path = FlurryAdNative;
+			sourceTree = "<group>";
+		};
+		0351D21D1D2AA6AE008A6A6C /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				0351D21E1D2AA6AE008A6A6C /* FlurryAdError.h */,
+				0351D21F1D2AA6AE008A6A6C /* FlurryAdTargeting.h */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		0351D2201D2AA6AE008A6A6C /* StaticAPI */ = {
+			isa = PBXGroup;
+			children = (
+				0351D2211D2AA6AE008A6A6C /* FlurryAdDelegate.h */,
+				0351D2221D2AA6AE008A6A6C /* FlurryAds.h */,
+			);
+			path = StaticAPI;
+            sourceTree = "<group>";
+        };
 		039FC03D1D1BF9DF00AF8011 /* insights */ = {
 			isa = PBXGroup;
 			children = (
@@ -502,6 +646,10 @@
 		D58E82021D1AD6CE0092F352 /* yahoo */ = {
 			isa = PBXGroup;
 			children = (
+				0351D1C21D2A6376008A6A6C /* FlurryNativeAdModel.h */,
+				0351D1C31D2A6376008A6A6C /* FlurryNativeAdModel.m */,
+				0351D1C51D2A639D008A6A6C /* FlurryNetworkAdapter.h */,
+				0351D1C61D2A639D008A6A6C /* FlurryNetworkAdapter.m */,
 			);
 			path = yahoo;
 			sourceTree = "<group>";
@@ -577,6 +725,18 @@
 		D5BF0F1B1D1A8E4000A05486 /* dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				0351D2051D2A8F58008A6A6C /* libz.tbd */,
+				0351D1E81D2A8129008A6A6C /* AdSupport.framework */,
+				0351D1E91D2A8129008A6A6C /* AVFoundation.framework */,
+				0351D1EA1D2A8129008A6A6C /* CoreGraphics.framework */,
+				0351D1EB1D2A8129008A6A6C /* CoreMedia.framework */,
+				0351D1EC1D2A8129008A6A6C /* Foundation.framework */,
+				0351D1ED1D2A8129008A6A6C /* MediaPlayer.framework */,
+				0351D1EE1D2A8129008A6A6C /* Security.framework */,
+				0351D1EF1D2A8129008A6A6C /* StoreKit.framework */,
+				0351D1F01D2A8129008A6A6C /* SystemConfiguration.framework */,
+				0351D1F11D2A8129008A6A6C /* UIKit.framework */,
+				0351D1C81D2A6433008A6A6C /* flurry-7.6.4 */,
 				031714E71D25804B00817AEF /* SystemConfiguration.framework */,
 				031714E51D25803A00817AEF /* AdSupport.framework */,
 				D5BF107B1D1A9D6F00A05486 /* ocmockito-3.0.1 */,
@@ -1368,9 +1528,11 @@
 			files = (
 				B4E0AEF61D256E4300163C08 /* NativeTableViewController.swift in Sources */,
 				D58E82041D1AD6CE0092F352 /* FacebookNetworkAdapter.m in Sources */,
+				D58E82031D1AD6CE0092F352 /* FacebookNativeAdModel.m in Sources */,
 				B4E0AEFC1D25D06A00163C08 /* SettingsViewController.swift in Sources */,
 				D5BF0F0A1D1A8BB500A05486 /* AppDelegate.swift in Sources */,
-				D58E82031D1AD6CE0092F352 /* FacebookNativeAdModel.m in Sources */,
+				0351D2001D2A8E5D008A6A6C /* FlurryNativeAdModel.m in Sources */,
+				0351D2011D2A8E62008A6A6C /* FlurryNetworkAdapter.m in Sources */,
 				B4E0AEFA1D25727400163C08 /* Settings.swift in Sources */,
 				B4E0AF011D265A1200163C08 /* CellRequestModel.swift in Sources */,
 				B4E0AEF81D256E6500163C08 /* NativeTableViewCell.swift in Sources */,
@@ -1489,6 +1651,7 @@
 		D5BF0EF21D1A8B8B00A05486 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
@@ -1501,6 +1664,7 @@
 		D5BF0EF31D1A8B8B00A05486 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = "";
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
@@ -1554,9 +1718,17 @@
 					"$(inherited)",
 					"$(SRCROOT)/../dependencies/**",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../dependencies/**",
+				);
 				INFOPLIST_FILE = mediation.demo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../dependencies/**",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -1577,9 +1749,17 @@
 					"$(inherited)",
 					"$(SRCROOT)/../dependencies/**",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../dependencies/**",
+				);
 				INFOPLIST_FILE = mediation.demo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SRCROOT)/../dependencies/**",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
