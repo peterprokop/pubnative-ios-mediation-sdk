@@ -38,7 +38,7 @@
 }
 
 #pragma mark - FlurryAdNativeDelegate delegates
-//The Flurry SDK receives the ad’s assets and calls back ``adNativeDidFetchAd`` with the FlurryAdNative object reference.
+
 - (void) adNativeDidFetchAd:(FlurryAdNative *)nativeAd
 {
     NSLog(@"adNativeDidFetchAd");
@@ -46,23 +46,16 @@
     [self invokeDidLoad:wrapModel];
 }
 
-//or in case of no ads returned the SDK calls adNAtive:adError:errorDescription
 - (void) adNative:(FlurryAdNative*)nativeAd
           adError:(FlurryAdError)adError
  errorDescription:(NSError*) errorDescription
 {
-    //FLURRY_AD_ERROR_DID_FAIL_TO_RENDER   = 0,
-    //FLURRY_AD_ERROR_DID_FAIL_TO_FETCH_AD = 1,
-    //FLURRY_AD_ERROR_CLICK_ACTION_FAILED  = 2,
     NSLog(@"adNative: %u", adError);
     
-    if (adError) {
-        [self invokeDidFail:errorDescription];
-    } else if (adError == FLURRY_AD_ERROR_DID_FAIL_TO_FETCH_AD) {
+    if (adError == FLURRY_AD_ERROR_DID_FAIL_TO_FETCH_AD) {
         NSLog(@"FlurryNetworkAdapter - Fail to fetch Ad");
         [self invokeDidLoad:nil];
     } else {
-        NSLog(@"FlurryNetworkAdapter - Unknown error");
         [self invokeDidFail:errorDescription];
     }
 }
