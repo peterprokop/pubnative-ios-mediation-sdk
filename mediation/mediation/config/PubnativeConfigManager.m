@@ -48,7 +48,15 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
     return _sharedInstance;
 }
 
++ (void)reset
+{
+    [PubnativeConfigManager setStoredConfig:nil];
+    [PubnativeConfigManager setStoredAppToken:nil];
+    [PubnativeConfigManager setStoredTimestamp:0];
+}
+
 + (void)configWithAppToken:(NSString*)appToken
+                    extras:(NSDictionary<NSString*, NSString*>*)extras
                   delegate:(NSObject<PubnativeConfigManagerDelegate>*)delegate
 {
     // Drop the call if no completion handler specified
@@ -56,13 +64,15 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
         if (appToken && [appToken length] > 0){
             PubnativeConfigRequestModel *requestModel = [[PubnativeConfigRequestModel alloc] init];
             requestModel.appToken = appToken;
+            requestModel.extras = extras;
             requestModel.delegate = delegate;
+            requestModel.extras = extras;
             [PubnativeConfigManager enqueueRequestModel:requestModel];
             [PubnativeConfigManager doNextRequest];
         } else {
             NSLog(@"PubnativeConfigManager - invalid app token");
             [PubnativeConfigManager invokeDidFinishWithModel:nil
-                                                  delegate:delegate];
+                                                    delegate:delegate];
         }
     } else {
         NSLog(@"PubnativeConfigManager - delegate not specified, dropping the call");
@@ -156,7 +166,7 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
 
 #pragma mark - DOWNLOAD -
 
-+ (NSString*)getConfigDownloadBaseURL
++ (NSString*)configBaseURL
 {
     NSString *result = kDefaultConfigURL;
     PubnativeConfigModel *storedConfig = [PubnativeConfigManager getStoredConfig];
@@ -166,16 +176,28 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
     return result;
 }
 
-
-+ (void)downloadConfigWithRequest:(PubnativeConfigRequestModel*)requestModel
++ (NSString*)configRequestURLWithRequest:(PubnativeConfigRequestModel*)request
 {
-    if(requestModel && requestModel.appToken && requestModel.appToken.length > 0) {
+    NSString *result = [PubnativeConfigManager configBaseURL];
+    result = [NSString stringWithFormat:@"%@?%@=%@", result, kAppTokenURLParameter, request.appToken];
+    if(request.extras) {
+        for (NSString *key in request.extras) {
+            NSString *value = request.extras[key];
+            if(key && key.length > 0 && value && value.length > 0) {
+                result = [NSString stringWithFormat:@"%@&%@=%@", result, key, value];
+            }
+        }
+    }
+    return result;
+}
+
++ (void)downloadConfigWithRequest:(PubnativeConfigRequestModel*)request
+{
+    if(request && request.appToken && request.appToken.length > 0) {
         
-        NSString *baseURL = [PubnativeConfigManager getConfigDownloadBaseURL];
-        NSString *requestURL = [NSString stringWithFormat:@"%@?%@=%@", baseURL, kAppTokenURLParameter, requestModel.appToken];
-        
-        __block PubnativeConfigRequestModel *requestModelBlock = requestModel;
-        [PubnativeHttpRequest requestWithURL:requestURL
+        NSString *url = [PubnativeConfigManager configRequestURLWithRequest:request];
+        __block PubnativeConfigRequestModel *requestModelBlock = request;
+        [PubnativeHttpRequest requestWithURL:url
                         andCompletionHandler:^(NSString *result, NSError *error) {
             if (error) {
                 [PubnativeConfigManager invokeDidFinishWithModel:nil delegate:requestModelBlock.delegate];
@@ -216,7 +238,7 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
         }];
     } else {
         
-        [PubnativeConfigManager serveStoredConfigWithRequest:requestModel];
+        [PubnativeConfigManager serveStoredConfigWithRequest:request];
     }
 }
 
@@ -298,13 +320,6 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
 }
 
 #pragma mark - NSUserDefaults -
-
-+ (void)clean
-{
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserDefaultsStoredAppTokenKey];
-    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserDefaultsStoredConfigKey];
-    [[NSUserDefaults standardUserDefaults] setDouble:0 forKey:kUserDefaultsStoredTimestampKey];
-}
 
 #pragma mark Timestamp
 

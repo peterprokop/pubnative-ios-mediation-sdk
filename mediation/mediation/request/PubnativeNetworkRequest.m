@@ -12,10 +12,13 @@
 #import "PubnativeDeliveryRuleModel.h"
 #import "PubnativeDeliveryManager.h"
 #import "PubnativeAdModel.h"
+#import "PubnativeInsightModel.h"
+#import "PubnativeAdTargetingModel.h"
 
 
 NSString * const PNTrackingAppTokenKey  = @"app_token";
 NSString * const PNTrackingRequestIDKey = @"reqid";
+NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.mediation.PubnativeConfigManager.configJSON";
 
 @interface PubnativeNetworkRequest () <PubnativeNetworkAdapterDelegate, PubnativeConfigManagerDelegate>
 
@@ -28,7 +31,8 @@ NSString * const PNTrackingRequestIDKey = @"reqid";
 @property (nonatomic, strong)NSMutableDictionary<NSString*, NSString*>  *requestParameters;
 @property (nonatomic, assign)NSInteger                                  currentNetworkIndex;
 @property (nonatomic, assign)BOOL                                       isRunning;
-
+@property (nonatomic, strong)PubnativeInsightModel                      *insight;
+@property (nonatomic, strong)PubnativeAdTargetingModel                  *targeting;
 
 @end
 
@@ -49,24 +53,32 @@ NSString * const PNTrackingRequestIDKey = @"reqid";
         if(self.isRunning) {
             
             NSLog(@"Request already running, dropping the call");
-        
+            
         } else {
-        
+            
             self.isRunning = YES;
             [self invokeDidStart];
-        
+            
             if (appToken && [appToken length] > 0 &&
                 placementName && [placementName length] > 0) {
-            
+                
                 //set the data
                 self.appToken = appToken;
                 self.placementName = placementName;
                 self.currentNetworkIndex = 0;
                 self.requestID = [[NSUUID UUID] UUIDString];
+                NSMutableDictionary<NSString*, NSString*> *extras = [NSMutableDictionary dictionary];
+                if(self.requestParameters){
+                    [extras setDictionary:self.requestParameters];
+                }
+                if(self.targeting) {
+                    [extras setDictionary:[self.targeting toDictionary]];
+                }
             
                 [PubnativeConfigManager configWithAppToken:appToken
+                                                    extras:extras
                                                   delegate:self];
-            
+                
             } else {
                 NSError *error = [NSError errorWithDomain:@"Error: Invalid AppToken/PlacementID"
                                                      code:0
@@ -85,6 +97,11 @@ NSString * const PNTrackingRequestIDKey = @"reqid";
         self.requestParameters = [NSMutableDictionary dictionary];
     }
     [self.requestParameters setObject:value forKey:key];
+}
+
+- (void)setTargeting:(PubnativeAdTargetingModel *)targeting
+{
+    self.targeting = targeting;
 }
 
 #pragma mark Private
@@ -114,22 +131,22 @@ NSString * const PNTrackingRequestIDKey = @"reqid";
         } else if (placement.delivery_rule == nil || placement.priority_rules == nil) {
             
             NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"Error: config contains null elements for placement %@ ", self.placementName]
-                                                          code:0
-                                                      userInfo:nil];
+                                                 code:0
+                                             userInfo:nil];
             [self invokeDidFail:error];
             
         } else if ([placement.delivery_rule isDisabled]) {
             
             NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"Error: placement %@ is disabled", self.placementName]
-                                                          code:0
-                                                      userInfo:nil];
+                                                 code:0
+                                             userInfo:nil];
             [self invokeDidFail:error];
             
         } else if (placement.priority_rules.count == 0) {
             
             NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"Error: no networks configured for placement %@", self.placementName]
-                                                          code:0
-                                                      userInfo:nil];
+                                                 code:0
+                                             userInfo:nil];
             [self invokeDidFail:error];
             
         } else {
@@ -139,52 +156,70 @@ NSString * const PNTrackingRequestIDKey = @"reqid";
     }
 }
 
-
-- (void)startTracking {
+- (void)startTracking
+{
+    PubnativePlacementModel *placementModel = [self.config placementWithName:self.placementName];
+    PubnativeDeliveryRuleModel *deliveryRuleModel = placementModel.delivery_rule;
+    NSString *impressionUrl = (NSString*)self.config.globals[CONFIG_GLOBAL_KEY_IMPRESSION_BEACON];
+    NSString *requestUrl = (NSString*)self.config.globals[CONFIG_GLOBAL_KEY_REQUEST_BEACON];
+    NSString *clickUrl = (NSString*)self.config.globals[CONFIG_GLOBAL_KEY_CLICK_BEACON];
+    // Params
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
+    [params setObject:self.appToken forKey:@"app_token"];
+    [params setObject:self.requestID forKey:@"reqid"];
+    if (self.requestParameters) {
+        [params addEntriesFromDictionary:self.requestParameters];
+    }
+    self.insight = [[PubnativeInsightModel alloc] init];
+    self.insight.impressionInsightUrl = impressionUrl;
+    self.insight.requestInsightUrl = requestUrl;
+    self.insight.clickInsightUrl = clickUrl;
+    self.insight.params = params;
     
-    // TODO: Start filling insight data model
-    
+    PubnativeInsightDataModel *data = [[PubnativeInsightDataModel alloc] initWithTargeting:self.targeting];
+    [data fillWithDefaults];
+    data.placement_name = self.placementName;
+    data.delivery_segment_ids = deliveryRuleModel.segment_ids;
+    data.ad_format_code = placementModel.ad_format_code;
+    self.insight.data = data;
     [self startRequest];
 }
 
 - (void)startRequest {
     
     PubnativeDeliveryRuleModel *deliveryRuleModel = [self.config placementWithName:self.placementName].delivery_rule;
-    if([deliveryRuleModel isFrequencyCapReachedWithPlacement:self.placementName]) {
+    
+    BOOL needsNewAd = YES;
+    
+    NSDate *pacingDate = [PubnativeDeliveryManager pacingDateForPlacementName:self.placementName];
+    NSDate *currentdate = [NSDate date];
+    NSTimeInterval intervalInSeconds = [currentdate timeIntervalSinceDate:pacingDate];
+    NSTimeInterval elapsedMinutes = (intervalInSeconds/60);
+    NSTimeInterval elapsedHours = (intervalInSeconds/3600);
+    
+    // If there is a pacing cap set and the elapsed time still didn't time for that pacing cap, we don't refresh
+    if (([deliveryRuleModel.pacing_cap_minute doubleValue] > 0 && [deliveryRuleModel.pacing_cap_minute doubleValue] < elapsedMinutes)
+        || ([deliveryRuleModel.pacing_cap_hour doubleValue] > 0 && [deliveryRuleModel.pacing_cap_hour doubleValue] < elapsedHours)){
+        
+        needsNewAd = NO;
+    }
+    
+    if(needsNewAd) {
+        
+        [self doNextNetworkRequest];
+        
+    } else if(self.ad) {
+        
+        [self invokeDidLoad:self.ad];
         
     } else {
         
-        BOOL needsNewAd = YES;
-        
-        NSDate *pacingDate = [PubnativeDeliveryManager pacingDateForPlacementName:self.placementName];
-        NSDate *currentdate = [NSDate date];
-        NSTimeInterval intervalInSeconds = [currentdate timeIntervalSinceDate:pacingDate];
-        NSTimeInterval elapsedMinutes = (intervalInSeconds/60);
-        NSTimeInterval elapsedHours = (intervalInSeconds/3600);
-        
-        // If there is a pacing cap set and the elapsed time still didn't time for that pacing cap, we don't refresh
-        if ((deliveryRuleModel.pacing_cap_minute > 0 && [deliveryRuleModel.pacing_cap_minute doubleValue] < elapsedMinutes) ||
-           (deliveryRuleModel.pacing_cap_hour > 0 && [deliveryRuleModel.pacing_cap_hour doubleValue] < elapsedHours)){
-            
-            needsNewAd = NO;
-        }
-        
-        if(needsNewAd) {
-            
-            [self doNextNetworkRequest];
-            
-        } else if(self.ad) {
-            
-            [self invokeDidLoad:self.ad];
-            
-        } else {
-            
-            NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"Error: (pacing_cap) too many ads for placement %@", self.placementName]
-                                                 code:0
-                                             userInfo:nil];
-            [self invokeDidFail:error];
-        }
+        NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"Error: (pacing_cap) too many ads for placement %@", self.placementName]
+                                             code:0
+                                         userInfo:nil];
+        [self invokeDidFail:error];
     }
+    
 }
 
 - (void)doNextNetworkRequest
@@ -195,16 +230,21 @@ NSString * const PNTrackingRequestIDKey = @"reqid";
     if (priorityRule) {
         
         self.currentNetworkIndex++;
-        PubnativeNetworkModel *network = [self.config networkWithID:priorityRule.network_code];;
+        PubnativeNetworkModel *network = [self.config networkWithID:priorityRule.network_code];
         if (network) {
-            
             PubnativeNetworkAdapter *adapter = [PubnativeNetworkAdapterFactory createApdaterWithAdapterName:network.adapter];
             if (adapter) {
                 
                 NSMutableDictionary<NSString*, NSString*> *extras = [NSMutableDictionary dictionary];
                 [extras setObject:self.requestID forKey:PNTrackingRequestIDKey];
+                if (self.targeting) {
+                    [extras addEntriesFromDictionary:[self.targeting toDictionary]];
+                }
                 if(self.requestParameters){
                     [extras setDictionary:self.requestParameters];
+                }
+                if(self.config.request_params) {
+                    [extras setDictionary:self.config.request_params];
                 }
                 [adapter startWithData:network.params
                                timeout:[network.timeout doubleValue]
@@ -214,6 +254,8 @@ NSString * const PNTrackingRequestIDKey = @"reqid";
             } else {
                 
                 NSLog(@"PubnativeNetworkRequest.doNextNetworkRequest- Error: Invalid adapter");
+                NSError *error = [NSError errorWithDomain:@"Adapter doesn't implements this type" code:0 userInfo:nil];
+                [self.insight trackUnreachableNetworkWithPriorityRuleModel:priorityRule responseTime:0 error:error];
                 [self doNextNetworkRequest];
             }
         } else {
@@ -227,6 +269,7 @@ NSString * const PNTrackingRequestIDKey = @"reqid";
         NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.doNextNetworkRequest- Error: No fill"
                                              code:0
                                          userInfo:nil];
+        [self.insight sendRequestInsight];
         [self invokeDidFail:error];
     }
 }
@@ -255,7 +298,7 @@ NSString * const PNTrackingRequestIDKey = @"reqid";
     if (self.delegate && [self.delegate respondsToSelector:@selector(pubnativeRequest:didLoad:)]) {
         [self.delegate pubnativeRequest:self didLoad:ad];
     }
-    self.delegate = nil;    
+    self.delegate = nil;
 }
 
 #pragma mark - CALLBACKS -
@@ -282,12 +325,23 @@ NSString * const PNTrackingRequestIDKey = @"reqid";
 - (void)adapter:(PubnativeNetworkAdapter*)adapter requestDidLoad:(PubnativeAdModel*)ad
 {
     [PubnativeDeliveryManager updatePacingDateForPlacementName:self.placementName];
-    
-    // TODO: Set insight data before invoke loading
     // TODO: remove setting the app token since it should be inside the insight data
-    ad.appToken = self.appToken;
-    
-    [self invokeDidLoad:ad];
+    PubnativePriorityRuleModel *priorityRule = [self.config priorityRuleWithPlacementName:self.placementName
+                                                                                 andIndex:self.currentNetworkIndex];
+    if (ad) {
+        // Track succeded network
+        [self.insight trackSuccededNetworkWithPriorityRuleModel:priorityRule responseTime:0];
+        [self.insight sendRequestInsight];
+        // Default tracking data
+        ad.appToken = self.appToken;
+        ad.insightModel = self.insight;
+        [self invokeDidLoad:ad];
+    } else {
+        NSLog(@"PubnativeNetworkRequest.adapter - No fill");
+        NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.adapter - No fill" code:0 userInfo:nil];
+        [self.insight trackAttemptedNetworkWithPriorityRuleModel:priorityRule responseTime:0 error:error];
+        [self doNextNetworkRequest];
+    }
 }
 
 - (void)adapter:(PubnativeNetworkAdapter*)adapter requestDidFail:(NSError*)error

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+#import "PubnativeInsightModel.h"
 
 @class PubnativeAdModel;
 
@@ -23,6 +24,7 @@
 @property (nonatomic, weak) NSObject<PubnativeAdModelDelegate> *delegate;
 
 @property (nonatomic, strong) NSString *appToken;
+@property (nonatomic, strong) PubnativeInsightModel *insightModel;
 
 @property (readonly) NSString   *title;
 @property (readonly) NSString   *description;

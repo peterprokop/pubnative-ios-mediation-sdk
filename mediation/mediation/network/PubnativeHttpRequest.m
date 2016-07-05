@@ -22,14 +22,25 @@ NSURLRequestCachePolicy const NETWORK_REQUEST_DEFAULT_CACHE_POLICY = NSURLReques
 
 + (void)requestWithURL:(NSString*)urlString timeout:(NSTimeInterval)timeoutInSeconds andCompletionHandler:(PubnativeHttpRequestBlock)completionHandler
 {
+    [self requestWithURL:urlString httpBody:nil timeout:timeoutInSeconds andCompletionHandler:completionHandler];
+}
+
++ (void)requestWithURL:(NSString*)urlString httpBody:(NSData *)httpBody timeout:(NSTimeInterval)timeoutInSeconds andCompletionHandler:(PubnativeHttpRequestBlock)completionHandler
+{
     if(completionHandler){
         
         if(urlString && urlString.length > 0) {
             NSURL *requestURL = [NSURL URLWithString:urlString];
             if(requestURL) {
-                NSURLRequest *request = [NSURLRequest requestWithURL:requestURL
+                NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:requestURL
                                                          cachePolicy:NETWORK_REQUEST_DEFAULT_CACHE_POLICY
                                                      timeoutInterval:timeoutInSeconds];
+                if (httpBody) {
+                    NSString *postLength = [NSString stringWithFormat:@"%lu",(unsigned long)[httpBody length]];
+                    [request setHTTPMethod:@"POST"];
+                    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+                    [request setHTTPBody:httpBody];
+                }
                 
                 PubnativeReachability *reachability = [PubnativeReachability reachabilityForInternetConnection];
                 [reachability startNotifier];
@@ -49,7 +60,7 @@ NSURLRequestCachePolicy const NETWORK_REQUEST_DEFAULT_CACHE_POLICY = NSURLReques
                                  [PubnativeHttpRequest invokeBlock:completeBlock withResult:nil andError:error];
                              } else if(httpResponse.statusCode != STATUS_CODE_OK) {
                                  NSString *statusCodeErrorString = [NSString stringWithFormat:@"PubnativeHttpRequest - Error: response status code %ld error", (long)httpResponse.statusCode];
-                                 NSError *statusCodeError = [NSError errorWithDomain:statusCodeErrorString 
+                                 NSError *statusCodeError = [NSError errorWithDomain:statusCodeErrorString
                                                                                 code:0
                                                                             userInfo:nil];
                                  [PubnativeHttpRequest invokeBlock:completeBlock withResult:nil andError:statusCodeError];

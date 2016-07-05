@@ -18,7 +18,7 @@ typedef enum : NSInteger {
 } PubnativeNetworkStatus;
 
 
-extern NSString *kReachabilityChangedNotification;
+extern NSString *kPubnativeReachabilityChangedNotification;
 
 
 @interface PubnativeReachability : NSObject
