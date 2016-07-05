@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		03169CBD1D21384300E4BBCA /* PubnativeInsightDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03169CBC1D21384300E4BBCA /* PubnativeInsightDataModel.m */; };
+		03169CC11D2163E600E4BBCA /* PubnativeInsightNetworkModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03169CC01D2163E600E4BBCA /* PubnativeInsightNetworkModel.m */; };
+		03169CC41D2164B000E4BBCA /* PubnativeInsightCrashModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03169CC31D2164B000E4BBCA /* PubnativeInsightCrashModel.m */; };
+		03169CC71D217CED00E4BBCA /* PubnativeInsightModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03169CC61D217CED00E4BBCA /* PubnativeInsightModel.m */; };
+		03169CCA1D22612300E4BBCA /* PubnativeAdTargetingModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 03169CC91D22612300E4BBCA /* PubnativeAdTargetingModel.m */; };
+		031714E61D25803A00817AEF /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 031714E51D25803A00817AEF /* AdSupport.framework */; };
+		031714E81D25804B00817AEF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 031714E71D25804B00817AEF /* SystemConfiguration.framework */; };
+		039FC0401D1BFA4300AF8011 /* PubnativeInsightsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 039FC03F1D1BFA4300AF8011 /* PubnativeInsightsManager.m */; };
+		039FC0431D1BFC1E00AF8011 /* PubnativeInsightRequestModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 039FC0421D1BFC1E00AF8011 /* PubnativeInsightRequestModel.m */; };
+		039FC0491D1C2EC700AF8011 /* PubnativeInsightApiResponseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 039FC0481D1C2EC700AF8011 /* PubnativeInsightApiResponseModel.m */; };
 		B4E0AEF41D2553F600163C08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B4E0AEF31D2553F600163C08 /* Main.storyboard */; };
 		B4E0AEF61D256E4300163C08 /* NativeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E0AEF51D256E4300163C08 /* NativeTableViewController.swift */; };
 		B4E0AEF81D256E6500163C08 /* NativeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4E0AEF71D256E6500163C08 /* NativeTableViewCell.swift */; };
@@ -140,6 +150,24 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		03169CBC1D21384300E4BBCA /* PubnativeInsightDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeInsightDataModel.m; path = insights/model/PubnativeInsightDataModel.m; sourceTree = "<group>"; };
+		03169CBE1D21385000E4BBCA /* PubnativeInsightDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PubnativeInsightDataModel.h; path = insights/model/PubnativeInsightDataModel.h; sourceTree = "<group>"; };
+		03169CBF1D2163E600E4BBCA /* PubnativeInsightNetworkModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PubnativeInsightNetworkModel.h; path = insights/model/PubnativeInsightNetworkModel.h; sourceTree = "<group>"; };
+		03169CC01D2163E600E4BBCA /* PubnativeInsightNetworkModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeInsightNetworkModel.m; path = insights/model/PubnativeInsightNetworkModel.m; sourceTree = "<group>"; };
+		03169CC21D2164B000E4BBCA /* PubnativeInsightCrashModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PubnativeInsightCrashModel.h; path = insights/model/PubnativeInsightCrashModel.h; sourceTree = "<group>"; };
+		03169CC31D2164B000E4BBCA /* PubnativeInsightCrashModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeInsightCrashModel.m; path = insights/model/PubnativeInsightCrashModel.m; sourceTree = "<group>"; };
+		03169CC51D217CED00E4BBCA /* PubnativeInsightModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PubnativeInsightModel.h; path = insights/model/PubnativeInsightModel.h; sourceTree = "<group>"; };
+		03169CC61D217CED00E4BBCA /* PubnativeInsightModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeInsightModel.m; path = insights/model/PubnativeInsightModel.m; sourceTree = "<group>"; };
+		03169CC81D22612300E4BBCA /* PubnativeAdTargetingModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PubnativeAdTargetingModel.h; sourceTree = "<group>"; };
+		03169CC91D22612300E4BBCA /* PubnativeAdTargetingModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PubnativeAdTargetingModel.m; sourceTree = "<group>"; };
+		031714E51D25803A00817AEF /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		031714E71D25804B00817AEF /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		039FC03E1D1BFA3300AF8011 /* PubnativeInsightsManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PubnativeInsightsManager.h; path = insights/PubnativeInsightsManager.h; sourceTree = "<group>"; };
+		039FC03F1D1BFA4300AF8011 /* PubnativeInsightsManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeInsightsManager.m; path = insights/PubnativeInsightsManager.m; sourceTree = "<group>"; };
+		039FC0421D1BFC1E00AF8011 /* PubnativeInsightRequestModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeInsightRequestModel.m; path = insights/model/PubnativeInsightRequestModel.m; sourceTree = "<group>"; };
+		039FC0441D1BFC2700AF8011 /* PubnativeInsightRequestModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PubnativeInsightRequestModel.h; sourceTree = "<group>"; };
+		039FC0481D1C2EC700AF8011 /* PubnativeInsightApiResponseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PubnativeInsightApiResponseModel.m; path = insights/model/PubnativeInsightApiResponseModel.m; sourceTree = "<group>"; };
+		039FC04A1D1C2ED700AF8011 /* PubnativeInsightApiResponseModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PubnativeInsightApiResponseModel.h; path = insights/model/PubnativeInsightApiResponseModel.h; sourceTree = "<group>"; };
 		B4E0AEF31D2553F600163C08 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		B4E0AEF51D256E4300163C08 /* NativeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeTableViewController.swift; sourceTree = "<group>"; };
 		B4E0AEF71D256E6500163C08 /* NativeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NativeTableViewCell.swift; sourceTree = "<group>"; };
@@ -378,6 +406,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				031714E81D25804B00817AEF /* SystemConfiguration.framework in Frameworks */,
+				031714E61D25803A00817AEF /* AdSupport.framework in Frameworks */,
 				D5C8BA9F1D1AB7450071C9E2 /* libPNmediation.a in Frameworks */,
 				D5BF0F4A1D1A973C00A05486 /* FBAudienceNetwork.framework in Frameworks */,
 				D5BF0F4B1D1A973C00A05486 /* FBSDKCoreKit.framework in Frameworks */,
@@ -387,6 +417,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		039FC03D1D1BF9DF00AF8011 /* insights */ = {
+			isa = PBXGroup;
+			children = (
+				039FC0411D1BFBFE00AF8011 /* model */,
+				039FC03E1D1BFA3300AF8011 /* PubnativeInsightsManager.h */,
+				039FC03F1D1BFA4300AF8011 /* PubnativeInsightsManager.m */,
+			);
+			name = insights;
+			sourceTree = "<group>";
+		};
+		039FC0411D1BFBFE00AF8011 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				039FC04A1D1C2ED700AF8011 /* PubnativeInsightApiResponseModel.h */,
+				039FC0481D1C2EC700AF8011 /* PubnativeInsightApiResponseModel.m */,
+				039FC0441D1BFC2700AF8011 /* PubnativeInsightRequestModel.h */,
+				039FC0421D1BFC1E00AF8011 /* PubnativeInsightRequestModel.m */,
+				03169CBE1D21385000E4BBCA /* PubnativeInsightDataModel.h */,
+				03169CBC1D21384300E4BBCA /* PubnativeInsightDataModel.m */,
+				03169CBF1D2163E600E4BBCA /* PubnativeInsightNetworkModel.h */,
+				03169CC01D2163E600E4BBCA /* PubnativeInsightNetworkModel.m */,
+				03169CC21D2164B000E4BBCA /* PubnativeInsightCrashModel.h */,
+				03169CC31D2164B000E4BBCA /* PubnativeInsightCrashModel.m */,
+				03169CC51D217CED00E4BBCA /* PubnativeInsightModel.h */,
+				03169CC61D217CED00E4BBCA /* PubnativeInsightModel.m */,
+			);
+			name = model;
+			sourceTree = "<group>";
+		};
 		D531B0851D1C28DE008A7A86 /* resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -432,8 +491,8 @@
 		D58E81FD1D1AD6CE0092F352 /* facebook */ = {
 			isa = PBXGroup;
 			children = (
-				D58E81FE1D1AD6CE0092F352 /* FacebookNativeAdModel.h */,
 				D58E81FF1D1AD6CE0092F352 /* FacebookNativeAdModel.m */,
+				D58E81FE1D1AD6CE0092F352 /* FacebookNativeAdModel.h */,
 				D58E82001D1AD6CE0092F352 /* FacebookNetworkAdapter.h */,
 				D58E82011D1AD6CE0092F352 /* FacebookNetworkAdapter.m */,
 			);
@@ -472,6 +531,7 @@
 		D5BF0EEA1D1A8B8B00A05486 /* mediation */ = {
 			isa = PBXGroup;
 			children = (
+				039FC03D1D1BF9DF00AF8011 /* insights */,
 				D5BF0F4C1D1A97C800A05486 /* adapter */,
 				D5BF10021D1A97C800A05486 /* config */,
 				D5BF10161D1A97C800A05486 /* delivery */,
@@ -517,6 +577,8 @@
 		D5BF0F1B1D1A8E4000A05486 /* dependencies */ = {
 			isa = PBXGroup;
 			children = (
+				031714E71D25804B00817AEF /* SystemConfiguration.framework */,
+				031714E51D25803A00817AEF /* AdSupport.framework */,
 				D5BF107B1D1A9D6F00A05486 /* ocmockito-3.0.1 */,
 				D5BF10781D1A9C4F00A05486 /* ochamcrest-5.4.0 */,
 				D5BF0F471D1A973C00A05486 /* facebook-4.1 */,
@@ -1014,6 +1076,8 @@
 			children = (
 				D5BF10211D1A97C800A05486 /* PubnativeAdModel.h */,
 				D5BF10221D1A97C800A05486 /* PubnativeAdModel.m */,
+				03169CC81D22612300E4BBCA /* PubnativeAdTargetingModel.h */,
+				03169CC91D22612300E4BBCA /* PubnativeAdTargetingModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1218,19 +1282,26 @@
 				D5BF105D1D1A97C800A05486 /* PubnativeNetworkAdapter.m in Sources */,
 				D5BF10501D1A97C800A05486 /* PNBaseAdModel.m in Sources */,
 				D5BF103B1D1A97C800A05486 /* PNInterstitialAdViewController.m in Sources */,
+				03169CC41D2164B000E4BBCA /* PubnativeInsightCrashModel.m in Sources */,
 				D5BF10401D1A97C800A05486 /* NSString+PNSHA1.m in Sources */,
 				D5BF10371D1A97C800A05486 /* PNBannerViewController.m in Sources */,
 				D5BF102F1D1A97C800A05486 /* PNIconTableViewCell.m in Sources */,
 				D5BF104B1D1A97C800A05486 /* PNCacheManager.m in Sources */,
 				D5BF102B1D1A97C800A05486 /* PNBannerTableViewCell.m in Sources */,
 				D5BF10251D1A97C800A05486 /* PNAdConstants.m in Sources */,
+				039FC0431D1BFC1E00AF8011 /* PubnativeInsightRequestModel.m in Sources */,
 				D5BF105A1D1A97C800A05486 /* PubnativeExtension.m in Sources */,
+				03169CCA1D22612300E4BBCA /* PubnativeAdTargetingModel.m in Sources */,
 				D5BF10531D1A97C800A05486 /* PNNativeAPIModel.m in Sources */,
+				03169CC71D217CED00E4BBCA /* PubnativeInsightModel.m in Sources */,
+				039FC0401D1BFA4300AF8011 /* PubnativeInsightsManager.m in Sources */,
 				D5BF10341D1A97C800A05486 /* PNTableViewManager.m in Sources */,
 				D5BF10571D1A97C800A05486 /* Pubnative.m in Sources */,
 				D5BF10351D1A97C800A05486 /* PNVideoAdModelTableViewCell.m in Sources */,
 				D5BF102E1D1A97C800A05486 /* PNCarouselTableViewCell.m in Sources */,
 				D5BF105B1D1A97C800A05486 /* PubnativeLibraryAdModel.m in Sources */,
+				03169CC11D2163E600E4BBCA /* PubnativeInsightNetworkModel.m in Sources */,
+				039FC0491D1C2EC700AF8011 /* PubnativeInsightApiResponseModel.m in Sources */,
 				D5BF10391D1A97C800A05486 /* PNGameListTableViewCell.m in Sources */,
 				D5BF10411D1A97C800A05486 /* PNAMRatingControl.m in Sources */,
 				D5BF10451D1A97C800A05486 /* PNYADMJSONApiModel.m in Sources */,
@@ -1275,6 +1346,7 @@
 				D5BF10581D1A97C800A05486 /* PNAdRequest.m in Sources */,
 				D5BF10461D1A97C800A05486 /* PNYADMApiCall.m in Sources */,
 				D5BF103F1D1A97C800A05486 /* NSString+PNMD5.m in Sources */,
+				03169CBD1D21384300E4BBCA /* PubnativeInsightDataModel.m in Sources */,
 				D5BF10261D1A97C800A05486 /* PNVideoCacher.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1417,7 +1489,10 @@
 		D5BF0EF21D1A8B8B00A05486 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "PN$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -1426,7 +1501,10 @@
 		D5BF0EF31D1A8B8B00A05486 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "PN$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -1477,7 +1555,7 @@
 					"$(SRCROOT)/../dependencies/**",
 				);
 				INFOPLIST_FILE = mediation.demo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -1500,7 +1578,7 @@
 					"$(SRCROOT)/../dependencies/**",
 				);
 				INFOPLIST_FILE = mediation.demo/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",

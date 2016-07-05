@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "PubnativeAdModel.h"
 #import "PubnativeNetworkModel.h"
+#import "PubnativeAdTargetingModel.h"
 
 @class PubnativeNetworkAdapter;
 
@@ -21,6 +22,8 @@
 @end
 
 @interface PubnativeNetworkAdapter : NSObject
+
+@property (nonatomic, strong)PubnativeAdTargetingModel  *targeting;
 
 - (void)startWithData:(NSDictionary *)data
               timeout:(NSTimeInterval)timeout
