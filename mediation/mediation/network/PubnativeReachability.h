@@ -23,6 +23,9 @@ extern NSString *kPubnativeReachabilityChangedNotification;
 
 @interface PubnativeReachability : NSObject
 
+@property (nonatomic, assign)BOOL                       alwaysReturnLocalWiFiStatus; //default is NO
+@property (nonatomic, assign)SCNetworkReachabilityRef   reachabilityRef;
+
 /*!
  * Use to check the reachability of a given host name.
  */

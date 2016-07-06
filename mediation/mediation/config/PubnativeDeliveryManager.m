@@ -82,7 +82,7 @@ NSString * const kPubnativeDeliveryManagerImpressionLastUpdateKey = @"_last_upda
 + (NSInteger)hourlyImpressionCountForPlacementName:(NSString *)placementName
 {
     return [self impressionCountForPlacementName:placementName
-                                            type:kPubnativeDeliveryManagerImpressionCountHourKey];;
+                                            type:kPubnativeDeliveryManagerImpressionCountHourKey];
 }
 
 + (void)resetDailyImpressionCountForPlacementName:(NSString *)placementName

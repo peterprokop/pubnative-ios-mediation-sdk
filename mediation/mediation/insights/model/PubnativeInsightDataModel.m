@@ -38,6 +38,11 @@ NSString * const kPubnativeInsightDataModelSdkVersion               = @"1.0.0";
     return self;
 }
 
+/**
+ * Convert dictionary to object
+ *
+ * @return A newly created object from dictionary
+ */
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
     self = [super initWithDictionary:dictionary];
@@ -61,6 +66,7 @@ NSString * const kPubnativeInsightDataModelSdkVersion               = @"1.0.0";
         self.video_complete = dictionary[@"video_complete"];
         self.retry = dictionary[@"retry"];
         self.retry_error = dictionary[@"retry_error"];
+        // Targeting
         self.age = dictionary[@"age"];
         self.education = dictionary[@"education"];
         self.interests = dictionary[@"interests"];
@@ -72,6 +78,11 @@ NSString * const kPubnativeInsightDataModelSdkVersion               = @"1.0.0";
     return self;
 }
 
+/**
+ * Convert object to dictionary
+ *
+ * @return A newly created dictionary from object
+ */
 - (NSDictionary *)toDictionary
 {
     NSMutableDictionary *result = [NSMutableDictionary dictionary];
@@ -99,6 +110,7 @@ NSString * const kPubnativeInsightDataModelSdkVersion               = @"1.0.0";
     result[@"video_complete"] = self.video_complete;
     result[@"retry"] = self.retry;
     result[@"retry_error"] = self.retry_error;
+    // Targeting
     result[@"age"] = self.age;
     result[@"education"] = self.education;
     result[@"interests"] = self.interests;
@@ -167,23 +179,31 @@ NSString * const kPubnativeInsightDataModelSdkVersion               = @"1.0.0";
     if (!self.sdk_version) {
         self.sdk_version = kPubnativeInsightDataModelSdkVersion;
     }
-    if (!self.connection_type) {
-        
-        PubnativeReachability *reachability = [PubnativeReachability reachabilityForInternetConnection];
-        [reachability startNotifier];
-        if(PubnativeNetworkStatus_ReachableViaWiFi == reachability.currentReachabilityStatus) {
-            self.connection_type = kPubnativeInsightDataModelConnectionTypeWiFi;
-        } else {
-            self.connection_type = kPubnativeInsightDataModelConnectionTypeCellular;
-        }
-    }
     if (!self.device_name) {
         self.device_name = [[UIDevice currentDevice] name];
     }
     if (self.retry) {
         self.retry = @0;
     }
-    
+    if (!self.connection_type) {
+        [self setConnectionType];
+    }
+    [self setUserUid];
+}
+
+- (void)setConnectionType
+{
+    PubnativeReachability *reachability = [PubnativeReachability reachabilityForInternetConnection];
+    [reachability startNotifier];
+    if(PubnativeNetworkStatus_ReachableViaWiFi == reachability.currentReachabilityStatus) {
+        self.connection_type = kPubnativeInsightDataModelConnectionTypeWiFi;
+    } else {
+        self.connection_type = kPubnativeInsightDataModelConnectionTypeCellular;
+    }
+}
+
+- (void)setUserUid
+{
     if(NSClassFromString(@"ASIdentifierManager")){
         if([[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]){
             self.user_uid = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
