@@ -17,9 +17,9 @@ static PubnativeConfigManager* _sharedInstance;
 NSString * const kDefaultConfigURL                  = @"https://ml.pubnative.net/ml/v1/config";
 NSString * const kAppTokenURLParameter              = @"app_token";
 
-NSString * const kUserDefaultsStoredConfigKey       = @"net.pubnative.mediation.PubnativeConfigManager.configJSON";
-NSString * const kUserDefaultsStoredAppTokenKey     = @"net.pubnative.mediation.PubnativeConfigManager.configAppToken";
-NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.PubnativeConfigManager.configTimestamp";
+NSString * const kUserDefaultsStoredConfigKey       = @"net.pubnative.mediation.PubnativeConfigManager.configJSON";     //!OCLint(Long config string)
+NSString * const kUserDefaultsStoredAppTokenKey     = @"net.pubnative.mediation.PubnativeConfigManager.configAppToken"; //!OCLint(Long config string)
+NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.PubnativeConfigManager.configTimestamp";//!OCLint(Long config string)
 
 @interface PubnativeConfigManager () <NSURLConnectionDataDelegate>
 
@@ -61,7 +61,7 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
 {
     // Drop the call if no completion handler specified
     if (delegate){
-        if (appToken && [appToken length] > 0){
+        if (appToken.length > 0){
             PubnativeConfigRequestModel *requestModel = [[PubnativeConfigRequestModel alloc] init];
             requestModel.appToken = appToken;
             requestModel.extras = extras;
@@ -92,7 +92,7 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
 
 + (void)getNextConfigWithModel:(PubnativeConfigRequestModel*)requestModel
 {
-    if([PubnativeConfigManager storedConfigNeedsUpdateWithAppToken:requestModel.appToken]){
+    if([PubnativeConfigManager storedConfigNeedsUpdate]){
         // Download
         [PubnativeConfigManager downloadConfigWithRequest:requestModel];
     } else {
@@ -101,7 +101,7 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
     }
 }
 
-+ (BOOL)storedConfigNeedsUpdateWithAppToken:(NSString*)appToken
++ (BOOL)storedConfigNeedsUpdate
 {
     BOOL result = YES;
     
@@ -110,7 +110,7 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
     NSTimeInterval          storedTimestamp = [PubnativeConfigManager getStoredTimestamp];
     
     if(storedModel && storedAppToken && storedTimestamp){
-        NSNumber *refreshInMinutes = (NSNumber*) [storedModel.globals objectForKey:CONFIG_GLOBAL_KEY_REFRESH];
+        NSNumber *refreshInMinutes = (NSNumber*)storedModel.globals[CONFIG_GLOBAL_KEY_REFRESH];
         
         if(refreshInMinutes && refreshInMinutes > 0) {
             NSTimeInterval currentTimestamp = [[NSDate date] timeIntervalSince1970];
@@ -179,7 +179,10 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
 + (NSString*)configRequestURLWithRequest:(PubnativeConfigRequestModel*)request
 {
     NSString *result = [PubnativeConfigManager configBaseURL];
-    result = [NSString stringWithFormat:@"%@?%@=%@", result, kAppTokenURLParameter, request.appToken];
+    result = [NSString stringWithFormat:@"%@?%@=%@",
+              result,
+              kAppTokenURLParameter,
+              request.appToken];
     if(request.extras) {
         for (NSString *key in request.extras) {
             NSString *value = request.extras[key];
@@ -200,7 +203,8 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
         [PubnativeHttpRequest requestWithURL:url
                         andCompletionHandler:^(NSString *result, NSError *error) {
             if (error) {
-                [PubnativeConfigManager invokeDidFinishWithModel:nil delegate:requestModelBlock.delegate];
+                [PubnativeConfigManager invokeDidFinishWithModel:nil
+                                                        delegate:requestModelBlock.delegate];
             } else {
                 
                 NSData *jsonData = [result dataUsingEncoding:NSUTF8StringEncoding];
@@ -264,32 +268,38 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
         PubnativeConfigModel *oldConfig = [PubnativeConfigManager getStoredConfig];
         
         if (oldConfig){
+            [self replaceOldConfig:oldConfig
+                     withNewConfig:newConfig];
+        }
+    }
+}
+
++ (void)replaceOldConfig:(PubnativeConfigModel*)oldConfig
+           withNewConfig:(PubnativeConfigModel*)newConfig
+{
+    for (NSString *placement in oldConfig.placements.allKeys) {
+        
+        PubnativePlacementModel *newPlacement = [newConfig placementWithName:placement];
+        PubnativePlacementModel *oldPlacement = [oldConfig placementWithName:placement];
+        if (newPlacement == nil) {
             
-            for (NSString *placement in oldConfig.placements.allKeys) {
-                
-                PubnativePlacementModel *newPlacement = [newConfig placementWithName:placement];
-                PubnativePlacementModel *oldPlacement = [oldConfig placementWithName:placement];
-                if (newPlacement == nil) {
-                    
-                    [PubnativeDeliveryManager resetPacingDateForPlacementName:placement];
-                    [PubnativeDeliveryManager resetDailyImpressionCountForPlacementName:placement];
-                    [PubnativeDeliveryManager resetHourlyImpressionCountForPlacementName:placement];
-                    
-                } else {
-                    
-                    if (oldPlacement.delivery_rule.imp_cap_hour != newPlacement.delivery_rule.imp_cap_hour) {
-                        [PubnativeDeliveryManager resetHourlyImpressionCountForPlacementName:placement];
-                    }
-                    
-                    if (oldPlacement.delivery_rule.imp_cap_day != newPlacement.delivery_rule.imp_cap_day) {
-                        [PubnativeDeliveryManager resetDailyImpressionCountForPlacementName:placement];
-                    }
-                    
-                    if ((oldPlacement.delivery_rule.pacing_cap_minute != newPlacement.delivery_rule.pacing_cap_minute)||
-                        (oldPlacement.delivery_rule.pacing_cap_hour != newPlacement.delivery_rule.pacing_cap_hour)){
-                        [PubnativeDeliveryManager resetPacingDateForPlacementName:placement];
-                    }
-                }
+            [PubnativeDeliveryManager resetPacingDateForPlacementName:placement];
+            [PubnativeDeliveryManager resetDailyImpressionCountForPlacementName:placement];
+            [PubnativeDeliveryManager resetHourlyImpressionCountForPlacementName:placement];
+            
+        } else {
+            
+            if (oldPlacement.delivery_rule.imp_cap_hour != newPlacement.delivery_rule.imp_cap_hour) {
+                [PubnativeDeliveryManager resetHourlyImpressionCountForPlacementName:placement];
+            }
+            
+            if (oldPlacement.delivery_rule.imp_cap_day != newPlacement.delivery_rule.imp_cap_day) {
+                [PubnativeDeliveryManager resetDailyImpressionCountForPlacementName:placement];
+            }
+            
+            if ((oldPlacement.delivery_rule.pacing_cap_minute != newPlacement.delivery_rule.pacing_cap_minute)||
+                (oldPlacement.delivery_rule.pacing_cap_hour != newPlacement.delivery_rule.pacing_cap_hour)){
+                [PubnativeDeliveryManager resetPacingDateForPlacementName:placement];
             }
         }
     }
@@ -298,7 +308,7 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
 + (void)updateStoredConfig:(PubnativeConfigModel*)model
               withAppToken:(NSString*)appToken
 {
-    if(appToken && [appToken length] > 0 &&
+    if(appToken.length > 0 &&
        model && ![model isEmpty]){
         [PubnativeConfigManager setStoredConfig:model];
         [PubnativeConfigManager setStoredAppToken:appToken];
@@ -311,8 +321,7 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
 + (void)invokeDidFinishWithModel:(PubnativeConfigModel*)model
                         delegate:(NSObject<PubnativeConfigManagerDelegate>*)delegate
 {
-    if(delegate &&
-       [delegate respondsToSelector:@selector(configDidFinishWithModel:)]){
+    if([delegate respondsToSelector:@selector(configDidFinishWithModel:)]){
         [delegate configDidFinishWithModel:model];
     }
     [PubnativeConfigManager sharedInstance].idle = YES;
@@ -341,7 +350,7 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
 
 + (void)setStoredAppToken:(NSString*)appToken
 {
-    if(appToken && [appToken length] > 0){
+    if(appToken.length > 0){
         [[NSUserDefaults standardUserDefaults] setObject:appToken forKey:kUserDefaultsStoredAppTokenKey];
     } else {
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserDefaultsStoredAppTokenKey];

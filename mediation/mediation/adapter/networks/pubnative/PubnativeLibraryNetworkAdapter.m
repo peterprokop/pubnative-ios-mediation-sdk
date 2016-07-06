@@ -16,7 +16,7 @@ NSString * const kPubnativeLibraryNetworkAdapterAppTokenKey = @"apptoken";
 @interface PubnativeNetworkAdapter (Private)
 
 - (void)invokeDidFail:(NSError*)error;
-- (void)invokeDidLoad:(PubnativeAdModel*)ad;
+- (void)invokeDidLoad:(PubnativeAdModel*)adModel;
 
 @end
 
@@ -33,9 +33,9 @@ NSString * const kPubnativeLibraryNetworkAdapterAppTokenKey = @"apptoken";
 {
     if (data) {
         
-        NSString *appToken = [data objectForKey:kPubnativeLibraryNetworkAdapterAppTokenKey];
+        NSString *appToken = data[kPubnativeLibraryNetworkAdapterAppTokenKey];
         
-        if (appToken && [appToken length] > 0) {
+        if (appToken.length > 0) {
             [self createRequestWithAppToken:appToken extras:extras];
         } else {
             NSError *error = [NSError errorWithDomain:@"PubnativeLibraryNetworkAdapter.doRequest - Invalid apptoken provided"
@@ -52,7 +52,8 @@ NSString * const kPubnativeLibraryNetworkAdapterAppTokenKey = @"apptoken";
     }
 }
 
-- (void)createRequestWithAppToken:(NSString*)appToken extras:(NSDictionary<NSString*, NSString*>*)extras
+- (void)createRequestWithAppToken:(NSString*)appToken
+                           extras:(NSDictionary<NSString*, NSString*>*)extras //!OCLint(Remove after adding extras to params)
 {
     PNAdRequestParameters *parameters = [PNAdRequestParameters requestParameters];
     parameters.app_token = appToken;

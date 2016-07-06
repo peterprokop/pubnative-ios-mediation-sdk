@@ -59,8 +59,8 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
             self.isRunning = YES;
             [self invokeDidStart];
             
-            if (appToken && [appToken length] > 0 &&
-                placementName && [placementName length] > 0) {
+            if (appToken.length > 0 &&
+                placementName && placementName.length > 0) {
                 
                 //set the data
                 self.appToken = appToken;
@@ -165,8 +165,8 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
     NSString *clickUrl = (NSString*)self.config.globals[CONFIG_GLOBAL_KEY_CLICK_BEACON];
     // Params
     NSMutableDictionary *params = [NSMutableDictionary dictionary];
-    [params setObject:self.appToken forKey:@"app_token"];
-    [params setObject:self.requestID forKey:@"reqid"];
+    params[@"app_token"] = self.appToken;
+    params[@"reqid"] = self.requestID;
     if (self.requestParameters) {
         [params addEntriesFromDictionary:self.requestParameters];
     }
@@ -194,8 +194,8 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
     NSDate *pacingDate = [PubnativeDeliveryManager pacingDateForPlacementName:self.placementName];
     NSDate *currentdate = [NSDate date];
     NSTimeInterval intervalInSeconds = [currentdate timeIntervalSinceDate:pacingDate];
-    NSTimeInterval elapsedMinutes = (intervalInSeconds/60);
-    NSTimeInterval elapsedHours = (intervalInSeconds/3600);
+    NSTimeInterval elapsedMinutes = intervalInSeconds/60;
+    NSTimeInterval elapsedHours = intervalInSeconds/3600;
     
     // If there is a pacing cap set and the elapsed time still didn't time for that pacing cap, we don't refresh
     if (([deliveryRuleModel.pacing_cap_minute doubleValue] > 0 && [deliveryRuleModel.pacing_cap_minute doubleValue] < elapsedMinutes)
@@ -292,11 +292,11 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
     self.delegate = nil;
 }
 
-- (void)invokeDidLoad:(PubnativeAdModel*)ad
+- (void)invokeDidLoad:(PubnativeAdModel*)adModel
 {
     self.isRunning = false;
     if (self.delegate && [self.delegate respondsToSelector:@selector(pubnativeRequest:didLoad:)]) {
-        [self.delegate pubnativeRequest:self didLoad:ad];
+        [self.delegate pubnativeRequest:self didLoad:adModel];
     }
     self.delegate = nil;
 }
@@ -320,22 +320,24 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
 - (void)adapterRequestDidStart:(PubnativeNetworkAdapter*)adapter
 {
     //Do nothing
+    NSLog(@"PubnativeNetworkRequest.adapter - Start with adapter %@", adapter);
 }
 
-- (void)adapter:(PubnativeNetworkAdapter*)adapter requestDidLoad:(PubnativeAdModel*)ad
+- (void)adapter:(PubnativeNetworkAdapter*)adapter requestDidLoad:(PubnativeAdModel*)adModel
 {
+    NSLog(@"PubnativeNetworkRequest.adapter - Did load with adapter %@", adapter);
     [PubnativeDeliveryManager updatePacingDateForPlacementName:self.placementName];
     // TODO: remove setting the app token since it should be inside the insight data
     PubnativePriorityRuleModel *priorityRule = [self.config priorityRuleWithPlacementName:self.placementName
                                                                                  andIndex:self.currentNetworkIndex];
-    if (ad) {
+    if (adModel) {
         // Track succeded network
         [self.insight trackSuccededNetworkWithPriorityRuleModel:priorityRule responseTime:0];
         [self.insight sendRequestInsight];
         // Default tracking data
-        ad.appToken = self.appToken;
-        ad.insightModel = self.insight;
-        [self invokeDidLoad:ad];
+        adModel.appToken = self.appToken;
+        adModel.insightModel = self.insight;
+        [self invokeDidLoad:adModel];
     } else {
         NSLog(@"PubnativeNetworkRequest.adapter - No fill");
         NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.adapter - No fill" code:0 userInfo:nil];
@@ -346,7 +348,7 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
 
 - (void)adapter:(PubnativeNetworkAdapter*)adapter requestDidFail:(NSError*)error
 {
-    NSLog(@"PubnativeNetworkRequest.adapter:requestDidFail:- Error %@",[error domain]);
+    NSLog(@"PubnativeNetworkRequest.adapter:requestDidFail:- Error %@ with adapter %@",[error domain], adapter);
     [self doNextNetworkRequest];
 }
 

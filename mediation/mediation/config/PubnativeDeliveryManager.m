@@ -111,9 +111,12 @@ NSString * const kPubnativeDeliveryManagerImpressionLastUpdateKey = @"_last_upda
     if(placementName
        && placementName.length > 0){
         
-        NSString *key = [NSString stringWithFormat:@"%@%@", placementName, kPubnativeDeliveryManagerImpressionLastUpdateKey];
+        NSString *key = [NSString stringWithFormat:@"%@%@",
+                         placementName,
+                         kPubnativeDeliveryManagerImpressionLastUpdateKey];
         if(date){
-            [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithDouble:[date timeIntervalSince1970]]
+            NSNumber *timeInterval = [NSNumber numberWithDouble:[date timeIntervalSince1970]];
+            [[NSUserDefaults standardUserDefaults] setObject:timeInterval
                                                       forKey:key];
         } else {
             [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
@@ -126,7 +129,9 @@ NSString * const kPubnativeDeliveryManagerImpressionLastUpdateKey = @"_last_upda
     NSDate *result = nil;
     if(placementName && placementName.length > 0){
         
-        NSString *key = [NSString stringWithFormat:@"%@%@", placementName, kPubnativeDeliveryManagerImpressionLastUpdateKey];
+        NSString *key = [NSString stringWithFormat:@"%@%@",
+                         placementName,
+                         kPubnativeDeliveryManagerImpressionLastUpdateKey];
         NSNumber *timeInterval = [[NSUserDefaults standardUserDefaults] objectForKey:key];
         if(timeInterval) {
             result = [NSDate dateWithTimeIntervalSince1970:[timeInterval doubleValue]];
@@ -174,30 +179,31 @@ NSString * const kPubnativeDeliveryManagerImpressionLastUpdateKey = @"_last_upda
         
         NSDate *lastUpdate = [self lastImpressionUpadteForPlacementName:placementName];
         if(lastUpdate) {
-            NSDateComponents *lastUpdateComponents = [[NSCalendar currentCalendar] components:(NSCalendarUnitDay|NSCalendarUnitHour)
-                                                                                     fromDate:lastUpdate];
+            NSDateComponents *lastUpdateComponents =
+            [[NSCalendar currentCalendar] components:(NSCalendarUnitDay|NSCalendarUnitHour)
+                                            fromDate:lastUpdate];
             
-            NSDateComponents *currentComponents = [[NSCalendar currentCalendar] components:(NSCalendarUnitDay|NSCalendarUnitHour)
-                                                                                  fromDate:[NSDate date]];
+            NSDateComponents *currentComponents =
+            [[NSCalendar currentCalendar] components:(NSCalendarUnitDay|NSCalendarUnitHour)
+                                            fromDate:[NSDate date]];
             
             NSInteger lastUpdateDay = [lastUpdateComponents day];
             NSInteger currentDay = [currentComponents day];
-            if(lastUpdateDay != currentDay) {
-                [self setImpressionCountForPlacementName:placementName
-                                                    type:kPubnativeDeliveryManagerImpressionCountDayKey
-                                                   value:0];
-                [self setImpressionCountForPlacementName:placementName
-                                                    type:kPubnativeDeliveryManagerImpressionCountHourKey
-                                                   value:0];
-            } else {
-                
+            if(lastUpdateDay == currentDay) {
                 NSInteger lastUpdateHour = [lastUpdateComponents hour];
                 NSInteger currentUpdateHour = [currentComponents hour];
                 if(lastUpdateHour != currentUpdateHour){
                     [self setImpressionCountForPlacementName:placementName
-                                                        type:kPubnativeDeliveryManagerImpressionCountHourKey
+                                                        type:kPubnativeDeliveryManagerImpressionCountHourKey //!OCLint(Long constant name)
                                                        value:0];
                 }
+            } else {
+                [self setImpressionCountForPlacementName:placementName
+                                                    type:kPubnativeDeliveryManagerImpressionCountDayKey //!OCLint(Long constant name)
+                                                   value:0];
+                [self setImpressionCountForPlacementName:placementName
+                                                    type:kPubnativeDeliveryManagerImpressionCountHourKey //!OCLint(Long constant name)
+                                                   value:0];
             }
         }
         [self setLastImpressionUpdateForPlacementName:placementName date:[NSDate date]];

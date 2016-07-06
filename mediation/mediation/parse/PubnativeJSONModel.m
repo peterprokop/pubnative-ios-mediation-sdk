@@ -39,7 +39,7 @@
             
             NSDictionary *valueDictionary = dictionary[key];
             NSObject *value = [[self alloc] initWithDictionary:valueDictionary];
-            [result setObject:value forKey:key];
+            result[key] = value;
         }
     }
     return result;

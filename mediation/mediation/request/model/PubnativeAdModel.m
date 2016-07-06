@@ -60,7 +60,7 @@
 - (void)startTrackingView:(UIView*)adView
        withViewController:(UIViewController*)viewController
 {
-    NSLog(@"PubnativeAdModel - Error: override me");
+    NSLog(@"PubnativeAdModel - Start tracking with view: %@ and viewController: %@", adView, viewController);
 }
 
 - (void)stopTracking

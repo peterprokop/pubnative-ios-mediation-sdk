@@ -49,7 +49,8 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey    = @"PubnativeInsight
     if (data && url && url.length > 0) {
         
         PubnativeInsightRequestModel *model = [[PubnativeInsightRequestModel alloc] init];
-        model.data.generated_at = [NSNumber numberWithDouble:([[NSDate date] timeIntervalSince1970]*1000000)];
+        double interval = [[NSDate date] timeIntervalSince1970]*1000000;
+        model.data.generated_at = [NSNumber numberWithDouble:(interval)];
         model.data = data;
         model.params = parameters;
         model.url = url;
@@ -183,7 +184,7 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey    = @"PubnativeInsight
 
 + (NSMutableArray*)queueForKey:(NSString*)key
 {
-    NSArray *queue = [[NSUserDefaults standardUserDefaults] objectForKey:kPubnativeInsightsManagerQueueKey];
+    NSArray *queue = [[NSUserDefaults standardUserDefaults] objectForKey:key];
     NSMutableArray *result;
 
     if(queue){
@@ -197,7 +198,7 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey    = @"PubnativeInsight
 + (void)setQueue:(NSArray*)queue forKey:(NSString*)key
 {
     [[NSUserDefaults standardUserDefaults] setObject:queue
-                                              forKey:kPubnativeInsightsManagerQueueKey];
+                                              forKey:key];
 }
 
 @end

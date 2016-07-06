@@ -17,7 +17,7 @@
         NSLog(@"PubnativeNetworkAdapterFactory.createApdaterWithNetwork - Invalid adapter name");
     } else {
         Class adapterClass = NSClassFromString(adapterName);
-        if (adapterClass && [adapterClass isSubclassOfClass:[PubnativeNetworkAdapter class]]) {
+        if ([adapterClass isSubclassOfClass:[PubnativeNetworkAdapter class]]) {
             adapter = [[adapterClass alloc] init];
         } else {
             NSLog(@"PubnativeNetworkAdapterFactory.createApdaterWithNetwork - Adapter not available");

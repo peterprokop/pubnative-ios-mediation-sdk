@@ -47,23 +47,28 @@ NSString * const kPubnativeInsightDataModelSdkVersion               = @"1.0.0";
 {
     self = [super initWithDictionary:dictionary];
     if(self){
+        // Placement behaviour
         self.network = dictionary[@"network"];
         self.attempted_networks = dictionary[@"attempted_networks"];
         self.unreachable_networks = dictionary[@"unreachable_networks"];
         self.delivery_segment_ids = dictionary[@"delivery_segment_ids"];
         self.networks = [PubnativeInsightNetworkModel parseArrayValues:dictionary[@"networks"]];
+        // Placement info
         self.placement_name = dictionary[@"placement_name"];
         self.pub_app_version = dictionary[@"pub_app_version"];
         self.pub_app_bundle_id = dictionary[@"pub_app_bundle_id"];
+        self.ad_format_code = dictionary[@"ad_format_code"];
+        self.creative_url = dictionary[@"creative_url"];
+        // Device info
         self.os_version = dictionary[@"os_version"];
         self.sdk_version = dictionary[@"sdk_version"];
         self.user_uid = dictionary[@"user_uid"];
         self.connection_type = dictionary[@"connection_type"];
         self.device_name = dictionary[@"device_name"];
-        self.ad_format_code = dictionary[@"ad_format_code"];
-        self.creative_url = dictionary[@"creative_url"];
+        // Video
         self.video_start = dictionary[@"video_start"];
         self.video_complete = dictionary[@"video_complete"];
+        // Retry
         self.retry = dictionary[@"retry"];
         self.retry_error = dictionary[@"retry_error"];
         // Targeting
@@ -78,14 +83,16 @@ NSString * const kPubnativeInsightDataModelSdkVersion               = @"1.0.0";
     return self;
 }
 
+
 /**
  * Convert object to dictionary
  *
  * @return A newly created dictionary from object
  */
-- (NSDictionary *)toDictionary
+- (NSDictionary *)toDictionary __attribute__((annotate("oclint:suppress[high ncss method]")))
 {
     NSMutableDictionary *result = [NSMutableDictionary dictionary];
+    // Placement behaviour
     result[@"network"] = self.network;
     result[@"attempted_networks"] = self.attempted_networks;
     result[@"unreachable_networks"] = self.unreachable_networks;
@@ -96,18 +103,22 @@ NSString * const kPubnativeInsightDataModelSdkVersion               = @"1.0.0";
         [networksArray addObject:networkDictionary];
     }
     result[@"networks"] = networksArray;
+    // Placement info
     result[@"placement_name"] = self.placement_name;
     result[@"pub_app_version"] = self.pub_app_version;
     result[@"pub_app_bundle_id"] = self.pub_app_bundle_id;
+    result[@"ad_format_code"] = self.ad_format_code;
+    result[@"creative_url"] = self.creative_url;
+    // Device info
     result[@"os_version"] = self.os_version;
     result[@"sdk_version"] = self.sdk_version;
     result[@"user_uid"] = self.user_uid;
     result[@"connection_type"] = self.connection_type;
     result[@"device_name"] = self.device_name;
-    result[@"ad_format_code"] = self.ad_format_code;
-    result[@"creative_url"] = self.creative_url;
+    // Video
     result[@"video_start"] = self.video_start;
     result[@"video_complete"] = self.video_complete;
+    // Retry
     result[@"retry"] = self.retry;
     result[@"retry_error"] = self.retry_error;
     // Targeting
@@ -204,10 +215,9 @@ NSString * const kPubnativeInsightDataModelSdkVersion               = @"1.0.0";
 
 - (void)setUserUid
 {
-    if(NSClassFromString(@"ASIdentifierManager")){
-        if([[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]){
+    if(NSClassFromString(@"ASIdentifierManager") &&
+       [[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]){
             self.user_uid = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
-        }
     }
 }
 

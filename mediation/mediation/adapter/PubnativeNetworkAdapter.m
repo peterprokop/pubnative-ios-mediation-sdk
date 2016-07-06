@@ -27,7 +27,7 @@
         if (self.targeting) {
             NSDictionary *dict = [self.targeting toDictionary];
             for (NSString* key in dict) {
-                [extras setValue:[dict objectForKey:key] forKey:key];
+                [extras setValue:dict[key] forKey:key];
             }
         }
         
@@ -51,7 +51,7 @@
 - (void)doRequestWithData:(NSDictionary *)data
                    extras:(NSDictionary<NSString *,NSString *> *)extras
 {
-    NSLog(@"PubnativeNetworkAdapter.doRequest - Error: override me");
+    NSLog(@"PubnativeNetworkAdapter.doRequest - Error: override me. Data is %@, extras is %@", data, extras);
 }
 
 #pragma mark - Request Timeout -
@@ -72,10 +72,10 @@
     }
 }
 
-- (void)invokeDidLoad:(PubnativeAdModel*)ad
+- (void)invokeDidLoad:(PubnativeAdModel*)adModel
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(adapter:requestDidLoad:)]) {
-        [self.delegate adapter:self requestDidLoad:ad];
+        [self.delegate adapter:self requestDidLoad:adModel];
     }
     self.delegate = nil;
 }

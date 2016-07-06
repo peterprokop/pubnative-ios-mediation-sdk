@@ -21,7 +21,7 @@ NSString *kPubnativeReachabilityChangedNotification = @"kNetworkReachabilityChan
 
 #define kPubnativeShouldPrintReachabilityFlags 1
 
-static void PubnativePrintReachabilityFlags(SCNetworkReachabilityFlags flags, const char* comment)
+static void PubnativePrintReachabilityFlags(SCNetworkReachabilityFlags flags, const char* comment) __attribute__((annotate("oclint:suppress[bitwise operator in conditional]")))
 {
 #if kPubnativeShouldPrintReachabilityFlags
 
@@ -65,13 +65,12 @@ static void PubnativeReachabilityCallback(SCNetworkReachabilityRef target, SCNet
 	if (reachability != NULL)
 	{
 		returnValue= [[self alloc] init];
-		if (returnValue != NULL)
+		if (returnValue == NULL)
 		{
-			returnValue.reachabilityRef = reachability;
-			returnValue.alwaysReturnLocalWiFiStatus = NO;
-		}
-        else {
             CFRelease(reachability);
+		} else {
+            returnValue.reachabilityRef = reachability;
+            returnValue.alwaysReturnLocalWiFiStatus = NO;
         }
 	}
 	return returnValue;
@@ -87,13 +86,12 @@ static void PubnativeReachabilityCallback(SCNetworkReachabilityRef target, SCNet
 	if (reachability != NULL)
 	{
 		returnValue = [[self alloc] init];
-		if (returnValue != NULL)
+		if (returnValue == NULL)
 		{
-			returnValue.reachabilityRef = reachability;
-			returnValue.alwaysReturnLocalWiFiStatus = NO;
-		}
-        else {
-            CFRelease(reachability);
+			CFRelease(reachability);
+		} else {
+            returnValue.reachabilityRef = reachability;
+            returnValue.alwaysReturnLocalWiFiStatus = NO;
         }
 	}
 	return returnValue;
@@ -120,7 +118,7 @@ static void PubnativeReachabilityCallback(SCNetworkReachabilityRef target, SCNet
 	localWifiAddress.sin_family = AF_INET;
 
 	// IN_LINKLOCALNETNUM is defined in <netinet/in.h> as 169.254.0.0.
-	localWifiAddress.sin_addr.s_addr = htonl(IN_LINKLOCALNETNUM);
+	localWifiAddress.sin_addr.s_addr = htonl(IN_LINKLOCALNETNUM);//!OCLint(Used constant from netinet)
 
 	PubnativeReachability* returnValue = [self reachabilityWithAddress: &localWifiAddress];
 	if (returnValue != NULL)
@@ -139,12 +137,10 @@ static void PubnativeReachabilityCallback(SCNetworkReachabilityRef target, SCNet
 	BOOL returnValue = NO;
 	SCNetworkReachabilityContext context = {0, (__bridge void *)(self), NULL, NULL, NULL};
 
-	if (SCNetworkReachabilitySetCallback(self.reachabilityRef, PubnativeReachabilityCallback, &context))
+	if (SCNetworkReachabilitySetCallback(self.reachabilityRef, PubnativeReachabilityCallback, &context) &&
+        SCNetworkReachabilityScheduleWithRunLoop(self.reachabilityRef, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode))
 	{
-		if (SCNetworkReachabilityScheduleWithRunLoop(self.reachabilityRef, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode))
-		{
-			returnValue = YES;
-		}
+        returnValue = YES;
 	}
     
 	return returnValue;
@@ -176,8 +172,11 @@ static void PubnativeReachabilityCallback(SCNetworkReachabilityRef target, SCNet
 {
 	PubnativePrintReachabilityFlags(flags, "localWiFiStatusForFlags");
 	PubnativeNetworkStatus returnValue = PubnativeNetworkStatus_NotReachable;
+    
+    int flagReachable = flags & kSCNetworkReachabilityFlagsReachable;
+    int flagIsDirect = flags & kSCNetworkReachabilityFlagsIsDirect;
 
-	if ((flags & kSCNetworkReachabilityFlagsReachable) && (flags & kSCNetworkReachabilityFlagsIsDirect))
+	if (flagReachable && flagIsDirect)
 	{
 		returnValue = PubnativeNetworkStatus_ReachableViaWiFi;
 	}
@@ -189,7 +188,15 @@ static void PubnativeReachabilityCallback(SCNetworkReachabilityRef target, SCNet
 - (PubnativeNetworkStatus)networkStatusForFlags:(SCNetworkReachabilityFlags)flags
 {
 	PubnativePrintReachabilityFlags(flags, "networkStatusForFlags");
-	if ((flags & kSCNetworkReachabilityFlagsReachable) == 0)
+    
+    int flagReachable = flags & kSCNetworkReachabilityFlagsReachable;
+    int flagConnectionRequired = flags & kSCNetworkReachabilityFlagsConnectionRequired;
+    int flagConnectionOnDemand = flags & kSCNetworkReachabilityFlagsConnectionOnDemand;
+    int flagConnectionOnTraffic = flags & kSCNetworkReachabilityFlagsConnectionOnTraffic;
+    int flagInterventionRequired = flags & kSCNetworkReachabilityFlagsInterventionRequired;
+    int flagIsWWAN = flags & kSCNetworkReachabilityFlagsIsWWAN;
+    
+	if (flagReachable == 0)
 	{
 		// The target host is not reachable.
 		return PubnativeNetworkStatus_NotReachable;
@@ -197,7 +204,7 @@ static void PubnativeReachabilityCallback(SCNetworkReachabilityRef target, SCNet
 
     PubnativeNetworkStatus returnValue = PubnativeNetworkStatus_NotReachable;
 
-	if ((flags & kSCNetworkReachabilityFlagsConnectionRequired) == 0)
+	if (flagConnectionRequired == 0)
 	{
 		/*
          If the target host is reachable and no connection is required then we'll assume (for now) that you're on Wi-Fi...
@@ -205,23 +212,17 @@ static void PubnativeReachabilityCallback(SCNetworkReachabilityRef target, SCNet
 		returnValue = PubnativeNetworkStatus_ReachableViaWiFi;
 	}
 
-	if ((((flags & kSCNetworkReachabilityFlagsConnectionOnDemand ) != 0) ||
-        (flags & kSCNetworkReachabilityFlagsConnectionOnTraffic) != 0))
+	if (((flagConnectionOnDemand != 0) ||
+        flagConnectionOnTraffic) &&
+        flagInterventionRequired)
 	{
         /*
-         ... and the connection is on-demand (or on-traffic) if the calling application is using the CFSocketStream or higher APIs...
-         */
-
-        if ((flags & kSCNetworkReachabilityFlagsInterventionRequired) == 0)
-        {
-            /*
-             ... and no [user] intervention is needed...
-             */
+         ... and the connection is on-demand (or on-traffic) if the calling application is using the CFSocketStream or higher APIs and no [user] intervention is needed...
+        */
             returnValue = PubnativeNetworkStatus_ReachableViaWiFi;
-        }
     }
 
-	if ((flags & kSCNetworkReachabilityFlagsIsWWAN) == kSCNetworkReachabilityFlagsIsWWAN)
+	if (flagIsWWAN == kSCNetworkReachabilityFlagsIsWWAN)
 	{
 		/*
          ... but WWAN connections are OK if the calling application is using the CFNetwork APIs.

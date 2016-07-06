@@ -25,63 +25,93 @@ NSURLRequestCachePolicy const NETWORK_REQUEST_DEFAULT_CACHE_POLICY = NSURLReques
     [self requestWithURL:urlString httpBody:nil timeout:timeoutInSeconds andCompletionHandler:completionHandler];
 }
 
-+ (void)requestWithURL:(NSString*)urlString httpBody:(NSData *)httpBody timeout:(NSTimeInterval)timeoutInSeconds andCompletionHandler:(PubnativeHttpRequestBlock)completionHandler
++ (void)requestWithURL:(NSString*)urlString
+              httpBody:(NSData *)httpBody
+               timeout:(NSTimeInterval)timeoutInSeconds
+  andCompletionHandler:(PubnativeHttpRequestBlock)completionHandler
 {
     if(completionHandler){
-        
         if(urlString && urlString.length > 0) {
             NSURL *requestURL = [NSURL URLWithString:urlString];
             if(requestURL) {
-                NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:requestURL
-                                                         cachePolicy:NETWORK_REQUEST_DEFAULT_CACHE_POLICY
-                                                     timeoutInterval:timeoutInSeconds];
-                if (httpBody) {
-                    NSString *postLength = [NSString stringWithFormat:@"%lu",(unsigned long)[httpBody length]];
-                    [request setHTTPMethod:@"POST"];
-                    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-                    [request setHTTPBody:httpBody];
-                }
-                
+                NSMutableURLRequest *request = [self prepareRequestWithUrl:requestURL
+                                                                  httpBody:httpBody
+                                                                   timeout:timeoutInSeconds];
                 PubnativeReachability *reachability = [PubnativeReachability reachabilityForInternetConnection];
                 [reachability startNotifier];
                 if([reachability currentReachabilityStatus] == PubnativeNetworkStatus_NotReachable){
                     NSError *internetError = [NSError errorWithDomain:@"PubnativeHttpRequest - Error: internet not available" code:0 userInfo:nil];
-                    [PubnativeHttpRequest invokeBlock:completionHandler withResult:nil andError:internetError];
+                    [PubnativeHttpRequest invokeBlock:completionHandler
+                                           withResult:nil
+                                             andError:internetError];
                 } else {
-                    __block PubnativeHttpRequestBlock completeBlock = [completionHandler copy];
-                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                        
-                        [NSURLConnection sendAsynchronousRequest:request
-                                                           queue:[NSOperationQueue mainQueue]
-                                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
-                         {
-                             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
-                             if(error) {
-                                 [PubnativeHttpRequest invokeBlock:completeBlock withResult:nil andError:error];
-                             } else if(httpResponse.statusCode != STATUS_CODE_OK) {
-                                 NSString *statusCodeErrorString = [NSString stringWithFormat:@"PubnativeHttpRequest - Error: response status code %ld error", (long)httpResponse.statusCode];
-                                 NSError *statusCodeError = [NSError errorWithDomain:statusCodeErrorString
-                                                                                code:0
-                                                                            userInfo:nil];
-                                 [PubnativeHttpRequest invokeBlock:completeBlock withResult:nil andError:statusCodeError];
-                             } else {
-                                 NSString *result = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                                 [PubnativeHttpRequest invokeBlock:completeBlock withResult:result andError:nil];
-                             }
-                         }];
-                    });
+                    [self makeRequestWithHandler:completionHandler request:request];
                 }
             } else {
                 NSError *requestError = [NSError errorWithDomain:@"PubnativeHttpRequest - Error: url format error" code:0 userInfo:nil];
-                [PubnativeHttpRequest invokeBlock:completionHandler withResult:nil andError:requestError];
+                [PubnativeHttpRequest invokeBlock:completionHandler
+                                       withResult:nil
+                                         andError:requestError];
             }
         } else {
             NSError *parameterError = [NSError errorWithDomain:@"PubnativeHttpRequest - Error: url format error" code:0 userInfo:nil];
-            [PubnativeHttpRequest invokeBlock:completionHandler withResult:nil andError:parameterError];
+            [PubnativeHttpRequest invokeBlock:completionHandler
+                                   withResult:nil
+                                     andError:parameterError];
         }
     } else {
         NSLog(@"PubnativeHttpRequest - Error: delegate is null, dropping this request call");
     }
+}
+
++ (NSMutableURLRequest*)prepareRequestWithUrl:(NSURL*)requestUrl
+                                     httpBody:(NSData*)httpBody
+                                      timeout:(NSTimeInterval)timeout
+{
+    NSMutableURLRequest *result = nil;
+    result = [NSMutableURLRequest requestWithURL:requestUrl
+                                     cachePolicy:NETWORK_REQUEST_DEFAULT_CACHE_POLICY
+                                 timeoutInterval:timeout];
+    if (httpBody) {
+        NSString *postLength = [NSString stringWithFormat:@"%lu",(unsigned long)[httpBody length]];
+        [result setHTTPMethod:@"POST"];
+        [result setValue:postLength forHTTPHeaderField:@"Content-Length"];
+        [result setHTTPBody:httpBody];
+    }
+    return result;
+}
+
++ (void)makeRequestWithHandler:(PubnativeHttpRequestBlock)completionHandler
+                       request:(NSMutableURLRequest *)request
+{
+    __block PubnativeHttpRequestBlock completeBlock = [completionHandler copy];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        [NSURLConnection sendAsynchronousRequest:request
+                                           queue:[NSOperationQueue mainQueue]
+                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+         {
+             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
+             if(error) {
+                 [PubnativeHttpRequest invokeBlock:completeBlock
+                                        withResult:nil
+                                          andError:error];
+             } else if(httpResponse.statusCode == STATUS_CODE_OK) {
+                 NSString *result = [[NSString alloc] initWithData:data
+                                                          encoding:NSUTF8StringEncoding];
+                 [PubnativeHttpRequest invokeBlock:completeBlock
+                                        withResult:result
+                                          andError:nil];
+             } else {
+                 NSString *statusCodeErrorString = [NSString stringWithFormat:@"PubnativeHttpRequest - Error: response status code %ld error", (long)httpResponse.statusCode];
+                 NSError *statusCodeError = [NSError errorWithDomain:statusCodeErrorString
+                                                                code:0
+                                                            userInfo:nil];
+                 [PubnativeHttpRequest invokeBlock:completeBlock
+                                        withResult:nil
+                                          andError:statusCodeError];
+             }
+         }];
+    });
 }
 
 #pragma mark Callback helper
