@@ -23,17 +23,23 @@
 
 - (void)sendRequestInsight
 {
-    [PubnativeInsightsManager trackDataWithUrl:self.requestInsightUrl parameters:self.params data:self.data];
+    [PubnativeInsightsManager trackDataWithUrl:self.requestInsightUrl
+                                    parameters:self.params
+                                          data:self.data];
 }
 
 - (void)sendImpressionInsight
 {
-    [PubnativeInsightsManager trackDataWithUrl:self.impressionInsightUrl parameters:self.params data:self.data];
+    [PubnativeInsightsManager trackDataWithUrl:self.impressionInsightUrl
+                                    parameters:self.params
+                                          data:self.data];
 }
 
 - (void)sendClickInsight
 {
-    [PubnativeInsightsManager trackDataWithUrl:self.clickInsightUrl parameters:self.params data:self.data];
+    [PubnativeInsightsManager trackDataWithUrl:self.clickInsightUrl
+                                    parameters:self.params
+                                          data:self.data];
 }
 
 - (void)trackUnreachableNetworkWithPriorityRuleModel:(PubnativePriorityRuleModel*)priorityRuleModel
@@ -44,7 +50,9 @@
     crashModel.error = error.domain;
     crashModel.details = error.description;
     [self.data addUnreachableNetworkWithNetworkCode:priorityRuleModel.network_code];
-    [self.data addNetworkWithPriorityRuleModel:priorityRuleModel responseTime:responseTime crashModel:crashModel];
+    [self.data addNetworkWithPriorityRuleModel:priorityRuleModel
+                                  responseTime:responseTime
+                                    crashModel:crashModel];
 }
 
 - (void)trackAttemptedNetworkWithPriorityRuleModel:(PubnativePriorityRuleModel*)priorityRuleModel
@@ -55,14 +63,18 @@
     crashModel.error = error.domain;
     crashModel.details = error.description;
     [self.data addAttemptedNetworkWithNetworkCode:priorityRuleModel.network_code];
-    [self.data addNetworkWithPriorityRuleModel:priorityRuleModel responseTime:responseTime crashModel:crashModel];
+    [self.data addNetworkWithPriorityRuleModel:priorityRuleModel
+                                  responseTime:responseTime
+                                    crashModel:crashModel];
 }
 
 - (void)trackSuccededNetworkWithPriorityRuleModel:(PubnativePriorityRuleModel*)priorityRuleModel
                                      responseTime:(NSNumber*)responseTime
 {
     self.data.network = priorityRuleModel.network_code;
-    [self.data addNetworkWithPriorityRuleModel:priorityRuleModel responseTime:responseTime crashModel:nil];
+    [self.data addNetworkWithPriorityRuleModel:priorityRuleModel
+                                  responseTime:responseTime
+                                    crashModel:nil];
     [PubnativeDeliveryManager updatePacingDateForPlacementName:self.data.placement_name];
 }
 

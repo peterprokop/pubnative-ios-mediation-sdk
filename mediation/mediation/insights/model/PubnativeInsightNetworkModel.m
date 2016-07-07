@@ -18,7 +18,8 @@
         self.priority_rule_id = dictionary[@"priority_rule_id"];
         self.priority_segment_ids = dictionary[@"priority_segment_ids"];
         self.response_time = dictionary[@"response_time"];
-        self.crash_report = [PubnativeInsightCrashModel modelWithDictionary:dictionary[@"crash_report"]];
+        self.crash_report =
+            [PubnativeInsightCrashModel modelWithDictionary:dictionary[@"crash_report"]];
     }
     return self;
 }

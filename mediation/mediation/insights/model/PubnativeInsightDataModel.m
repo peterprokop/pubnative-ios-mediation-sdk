@@ -156,7 +156,9 @@ NSString * const kPubnativeInsightDataModelSdkVersion               = @"1.0.0";
     }
 }
 
-- (void)addNetworkWithPriorityRuleModel:(PubnativePriorityRuleModel *)priorityRuleModel responseTime:(NSNumber *)responseTime crashModel:(PubnativeInsightCrashModel *)crashModel
+- (void)addNetworkWithPriorityRuleModel:(PubnativePriorityRuleModel *)priorityRuleModel
+                           responseTime:(NSNumber *)responseTime
+                             crashModel:(PubnativeInsightCrashModel *)crashModel
 {
     if (priorityRuleModel) {
         if (!self.networks) {
@@ -178,11 +180,12 @@ NSString * const kPubnativeInsightDataModelSdkVersion               = @"1.0.0";
 
 - (void)fillWithDefaults
 {
+    NSBundle *bundle = [NSBundle mainBundle];
     if (!self.pub_app_version) {
-        self.pub_app_version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+        self.pub_app_version = [[bundle infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     }
     if (!self.pub_app_bundle_id) {
-        self.pub_app_bundle_id = [[NSBundle mainBundle] bundleIdentifier];
+        self.pub_app_bundle_id = [bundle bundleIdentifier];
     }
     if (!self.os_version) {
         self.os_version = [[UIDevice currentDevice] systemVersion];
@@ -215,9 +218,10 @@ NSString * const kPubnativeInsightDataModelSdkVersion               = @"1.0.0";
 
 - (void)setUserUid
 {
+    ASIdentifierManager *manager = [ASIdentifierManager sharedManager];
     if(NSClassFromString(@"ASIdentifierManager") &&
-       [[ASIdentifierManager sharedManager] isAdvertisingTrackingEnabled]){
-            self.user_uid = [[[ASIdentifierManager sharedManager] advertisingIdentifier] UUIDString];
+       [manager isAdvertisingTrackingEnabled]){
+            self.user_uid = [[manager advertisingIdentifier] UUIDString];
     }
 }
 

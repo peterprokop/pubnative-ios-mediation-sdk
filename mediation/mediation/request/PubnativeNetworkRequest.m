@@ -18,9 +18,10 @@
 
 NSString * const PNTrackingAppTokenKey  = @"app_token";
 NSString * const PNTrackingRequestIDKey = @"reqid";
-NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.mediation.PubnativeConfigManager.configJSON";
+NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.mediation.PubnativeConfigManager.configJSON"; //!OCLint(Long name of constant)
 
-@interface PubnativeNetworkRequest () <PubnativeNetworkAdapterDelegate, PubnativeConfigManagerDelegate>
+@interface PubnativeNetworkRequest () <PubnativeNetworkAdapterDelegate,
+                                       PubnativeConfigManagerDelegate>
 
 @property (nonatomic, strong)NSString                                   *placementName;
 @property (nonatomic, strong)NSString                                   *appToken;
@@ -67,7 +68,8 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
                 self.placementName = placementName;
                 self.currentNetworkIndex = 0;
                 self.requestID = [[NSUUID UUID] UUIDString];
-                NSMutableDictionary<NSString*, NSString*> *extras = [NSMutableDictionary dictionary];
+                NSMutableDictionary<NSString*, NSString*> *extras =
+                    [NSMutableDictionary dictionary];
                 if(self.requestParameters){
                     [extras setDictionary:self.requestParameters];
                 }
@@ -80,9 +82,10 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
                                                   delegate:self];
                 
             } else {
-                NSError *error = [NSError errorWithDomain:@"Error: Invalid AppToken/PlacementID"
-                                                     code:0
-                                                 userInfo:nil];
+                NSError *error =
+                    [NSError errorWithDomain:@"Error: Invalid AppToken/PlacementID"
+                                        code:0
+                                    userInfo:nil];
                 [self invokeDidFail:error];
             }
         }
@@ -117,42 +120,56 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
                                              code:0
                                          userInfo:nil];
         [self invokeDidFail:error];
+    } else {
+        [self invokeTracking];
+    }
+}
+
+- (void)invokeTracking
+{
+    PubnativePlacementModel *placement = [self.config placementWithName:self.placementName];
+    if (placement == nil) {
+        
+        NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"Error: \
+                                                   placement with name %@ not found in config",
+                                                   self.placementName]
+                                             code:0
+                                         userInfo:nil];
+        [self invokeDidFail:error];
+        
+    } else if (placement.delivery_rule == nil || placement.priority_rules == nil) {
+        
+        NSError *error =
+        [NSError errorWithDomain:[NSString stringWithFormat:@"Error: \
+                                  config contains null elements for placement %@ ",
+                                  self.placementName]
+                            code:0
+                        userInfo:nil];
+        [self invokeDidFail:error];
+        
+    } else if ([placement.delivery_rule isDisabled]) {
+        
+        NSError *error =
+        [NSError errorWithDomain:[NSString stringWithFormat:@"Error: \
+                                  placement %@ is disabled",
+                                  self.placementName]
+                            code:0
+                        userInfo:nil];
+        [self invokeDidFail:error];
+        
+    } else if (placement.priority_rules.count == 0) {
+        
+        NSError *error =
+        [NSError errorWithDomain:[NSString stringWithFormat:@"Error: \
+                                  no networks configured for placement %@",
+                                  self.placementName]
+                            code:0
+                        userInfo:nil];
+        [self invokeDidFail:error];
         
     } else {
         
-        PubnativePlacementModel *placement = [self.config placementWithName:self.placementName];
-        if (placement == nil) {
-            
-            NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"Error: placement with name %@ not found in config", self.placementName]
-                                                 code:0
-                                             userInfo:nil];
-            [self invokeDidFail:error];
-            
-        } else if (placement.delivery_rule == nil || placement.priority_rules == nil) {
-            
-            NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"Error: config contains null elements for placement %@ ", self.placementName]
-                                                 code:0
-                                             userInfo:nil];
-            [self invokeDidFail:error];
-            
-        } else if ([placement.delivery_rule isDisabled]) {
-            
-            NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"Error: placement %@ is disabled", self.placementName]
-                                                 code:0
-                                             userInfo:nil];
-            [self invokeDidFail:error];
-            
-        } else if (placement.priority_rules.count == 0) {
-            
-            NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"Error: no networks configured for placement %@", self.placementName]
-                                                 code:0
-                                             userInfo:nil];
-            [self invokeDidFail:error];
-            
-        } else {
-            
-            [self startTracking];
-        }
+        [self startTracking];
     }
 }
 
@@ -176,7 +193,8 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
     self.insight.clickInsightUrl = clickUrl;
     self.insight.params = params;
     
-    PubnativeInsightDataModel *data = [[PubnativeInsightDataModel alloc] initWithTargeting:self.targeting];
+    PubnativeInsightDataModel *data =
+        [[PubnativeInsightDataModel alloc] initWithTargeting:self.targeting];
     [data fillWithDefaults];
     data.placement_name = self.placementName;
     data.delivery_segment_ids = deliveryRuleModel.segment_ids;
@@ -187,7 +205,8 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
 
 - (void)startRequest {
     
-    PubnativeDeliveryRuleModel *deliveryRuleModel = [self.config placementWithName:self.placementName].delivery_rule;
+    PubnativeDeliveryRuleModel *deliveryRuleModel =
+        [self.config placementWithName:self.placementName].delivery_rule;
     
     BOOL needsNewAd = YES;
     
@@ -197,9 +216,12 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
     NSTimeInterval elapsedMinutes = intervalInSeconds/60;
     NSTimeInterval elapsedHours = intervalInSeconds/3600;
     
-    // If there is a pacing cap set and the elapsed time still didn't time for that pacing cap, we don't refresh
-    if (([deliveryRuleModel.pacing_cap_minute doubleValue] > 0 && [deliveryRuleModel.pacing_cap_minute doubleValue] < elapsedMinutes)
-        || ([deliveryRuleModel.pacing_cap_hour doubleValue] > 0 && [deliveryRuleModel.pacing_cap_hour doubleValue] < elapsedHours)){
+    // If there is a pacing cap set and the elapsed time still didn't time for that pacing cap,
+    // we don't refresh
+    if (([deliveryRuleModel.pacing_cap_minute doubleValue] > 0
+        && [deliveryRuleModel.pacing_cap_minute doubleValue] < elapsedMinutes)
+        || ([deliveryRuleModel.pacing_cap_hour doubleValue] > 0
+        && [deliveryRuleModel.pacing_cap_hour doubleValue] < elapsedHours)){
         
         needsNewAd = NO;
     }
@@ -214,7 +236,9 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
         
     } else {
         
-        NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"Error: (pacing_cap) too many ads for placement %@", self.placementName]
+        NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"Error: \
+                                                   (pacing_cap) too many ads for placement %@",
+                                                   self.placementName]
                                              code:0
                                          userInfo:nil];
         [self invokeDidFail:error];
@@ -225,39 +249,21 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
 - (void)doNextNetworkRequest
 {
     //Check if priority rules avaliable
-    PubnativePriorityRuleModel *priorityRule = [self.config priorityRuleWithPlacementName:self.placementName
-                                                                                 andIndex:self.currentNetworkIndex];
+    PubnativePriorityRuleModel *priorityRule =
+        [self.config priorityRuleWithPlacementName:self.placementName
+                                          andIndex:self.currentNetworkIndex];
     if (priorityRule) {
         
         self.currentNetworkIndex++;
         PubnativeNetworkModel *network = [self.config networkWithID:priorityRule.network_code];
         if (network) {
-            PubnativeNetworkAdapter *adapter = [PubnativeNetworkAdapterFactory createApdaterWithAdapterName:network.adapter];
-            if (adapter) {
+            PubnativeNetworkAdapter *adapter =
+                [PubnativeNetworkAdapterFactory createApdaterWithAdapterName:network.adapter];
                 
-                NSMutableDictionary<NSString*, NSString*> *extras = [NSMutableDictionary dictionary];
-                [extras setObject:self.requestID forKey:PNTrackingRequestIDKey];
-                if (self.targeting) {
-                    [extras addEntriesFromDictionary:[self.targeting toDictionary]];
-                }
-                if(self.requestParameters){
-                    [extras setDictionary:self.requestParameters];
-                }
-                if(self.config.request_params) {
-                    [extras setDictionary:self.config.request_params];
-                }
-                [adapter startWithData:network.params
-                               timeout:[network.timeout doubleValue]
-                                extras:extras
-                              delegate:self];
-                
-            } else {
-                
-                NSLog(@"PubnativeNetworkRequest.doNextNetworkRequest- Error: Invalid adapter");
-                NSError *error = [NSError errorWithDomain:@"Adapter doesn't implements this type" code:0 userInfo:nil];
-                [self.insight trackUnreachableNetworkWithPriorityRuleModel:priorityRule responseTime:0 error:error];
-                [self doNextNetworkRequest];
-            }
+            [self runRequestWithAdapter:adapter
+                                   data:network.params
+                                timeout:[network.timeout doubleValue]
+                           priorityRule:priorityRule];
         } else {
             
             NSLog(@"PubnativeNetworkRequest.doNextNetworkRequest- Error: Invalid network code");
@@ -266,11 +272,50 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
         
     } else {
         
-        NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.doNextNetworkRequest- Error: No fill"
+        NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.doNextNetworkRequest \
+                          - Error: No fill"
                                              code:0
                                          userInfo:nil];
         [self.insight sendRequestInsight];
         [self invokeDidFail:error];
+    }
+}
+
+- (void)runRequestWithAdapter:(PubnativeNetworkAdapter*)adapter
+                         data:(NSDictionary *)data
+                      timeout:(NSTimeInterval)timeout
+                 priorityRule:(PubnativePriorityRuleModel*)priorityRule
+{
+    if (adapter) {
+        
+        NSMutableDictionary<NSString*, NSString*> *extras =
+        [NSMutableDictionary dictionary];
+        [extras setObject:self.requestID
+                   forKey:PNTrackingRequestIDKey];
+        if (self.targeting) {
+            [extras addEntriesFromDictionary:[self.targeting toDictionary]];
+        }
+        if(self.requestParameters){
+            [extras setDictionary:self.requestParameters];
+        }
+        if(self.config.request_params) {
+            [extras setDictionary:self.config.request_params];
+        }
+        [adapter startWithData:data
+                       timeout:timeout
+                        extras:extras
+                      delegate:self];
+        
+    } else {
+        
+        NSLog(@"PubnativeNetworkRequest.doNextNetworkRequest- Error: Invalid adapter");
+        NSError *error = [NSError errorWithDomain:@"Adapter doesn't implements this type"
+                                             code:0
+                                         userInfo:nil];
+        [self.insight trackUnreachableNetworkWithPriorityRuleModel:priorityRule
+                                                      responseTime:0
+                                                             error:error];
+        [self doNextNetworkRequest];
     }
 }
 
@@ -310,7 +355,9 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
     if(model) {
         [self startRequestWithConfig:model];
     } else {
-        NSError *configError = [NSError errorWithDomain:@"PubnativeNetworkRequest - config error" code:0 userInfo:nil];
+        NSError *configError = [NSError errorWithDomain:@"PubnativeNetworkRequest - config error"
+                                                   code:0
+                                               userInfo:nil];
         [self invokeDidFail:configError];
     }
 }
@@ -328,8 +375,9 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
     NSLog(@"PubnativeNetworkRequest.adapter - Did load with adapter %@", adapter);
     [PubnativeDeliveryManager updatePacingDateForPlacementName:self.placementName];
     // TODO: remove setting the app token since it should be inside the insight data
-    PubnativePriorityRuleModel *priorityRule = [self.config priorityRuleWithPlacementName:self.placementName
-                                                                                 andIndex:self.currentNetworkIndex];
+    PubnativePriorityRuleModel *priorityRule =
+        [self.config priorityRuleWithPlacementName:self.placementName
+                                          andIndex:self.currentNetworkIndex];
     if (adModel) {
         // Track succeded network
         [self.insight trackSuccededNetworkWithPriorityRuleModel:priorityRule responseTime:0];
@@ -340,15 +388,21 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
         [self invokeDidLoad:adModel];
     } else {
         NSLog(@"PubnativeNetworkRequest.adapter - No fill");
-        NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.adapter - No fill" code:0 userInfo:nil];
-        [self.insight trackAttemptedNetworkWithPriorityRuleModel:priorityRule responseTime:0 error:error];
+        NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.adapter - No fill"
+                                             code:0
+                                         userInfo:nil];
+        [self.insight trackAttemptedNetworkWithPriorityRuleModel:priorityRule
+                                                    responseTime:0
+                                                           error:error];
         [self doNextNetworkRequest];
     }
 }
 
 - (void)adapter:(PubnativeNetworkAdapter*)adapter requestDidFail:(NSError*)error
 {
-    NSLog(@"PubnativeNetworkRequest.adapter:requestDidFail:- Error %@ with adapter %@",[error domain], adapter);
+    NSLog(@"PubnativeNetworkRequest.adapter:requestDidFail:- Error %@ with adapter %@",
+          [error domain],
+          adapter);
     [self doNextNetworkRequest];
 }
 

@@ -209,33 +209,33 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
                 
                 NSData *jsonData = [result dataUsingEncoding:NSUTF8StringEncoding];
                 NSError *dataError;
-                NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                                               options:NSJSONReadingMutableContainers
-                                                                                 error:&dataError];
+                NSDictionary *jsonDictionary =
+                    [NSJSONSerialization JSONObjectWithData:jsonData
+                                                    options:NSJSONReadingMutableContainers
+                                                      error:&dataError];
                 if (dataError) {
                     NSLog(@"PubnativeConfigManager - data error: %@", dataError);
-                    [PubnativeConfigManager invokeDidFinishWithModel:nil delegate:requestModelBlock.delegate];
+                    [PubnativeConfigManager invokeDidFinishWithModel:nil
+                                                            delegate:requestModelBlock.delegate];
                 } else {
-                    PubnativeConfigAPIResponseModel *apiResponse = [PubnativeConfigAPIResponseModel modelWithDictionary:jsonDictionary];
-                    
+                    PubnativeConfigAPIResponseModel *apiResponse =
+                        [PubnativeConfigAPIResponseModel modelWithDictionary:jsonDictionary];
                     if (apiResponse) {
-                        
                         if ([apiResponse isSuccess]) {
-                            
                             [PubnativeConfigManager processDownloadedConfig:apiResponse.config
-                                                               withAppToken:requestModelBlock.appToken];
+                                                               withAppToken:requestModelBlock.appToken]; //!OCLint(Can't fix line width in case formatting style)
                             [PubnativeConfigManager serveStoredConfigWithRequest:requestModelBlock];
-                
                         } else {
                         
-                            NSLog(@"PubnativeConfigManager - server error: %@", apiResponse.error_message);
-                            [PubnativeConfigManager invokeDidFinishWithModel:nil delegate:requestModelBlock.delegate];
+                            NSLog(@"PubnativeConfigManager - server error: %@",
+                                  apiResponse.error_message);
+                            [PubnativeConfigManager invokeDidFinishWithModel:nil
+                                                                    delegate:requestModelBlock.delegate]; //!OCLint(Can't fix line width in case formatting style)
                         }
-                        
                     } else {
-                        
                         NSLog(@"PubnativeConfigManager - parsing error");
-                        [PubnativeConfigManager invokeDidFinishWithModel:nil delegate:requestModelBlock.delegate];
+                        [PubnativeConfigManager invokeDidFinishWithModel:nil
+                                                                delegate:requestModelBlock.delegate]; //!OCLint(Can't fix line width in case formatting style)
                     }
                 }
             }
@@ -289,16 +289,20 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
             
         } else {
             
-            if (oldPlacement.delivery_rule.imp_cap_hour != newPlacement.delivery_rule.imp_cap_hour) {
+            if (oldPlacement.delivery_rule.imp_cap_hour
+                != newPlacement.delivery_rule.imp_cap_hour) {
                 [PubnativeDeliveryManager resetHourlyImpressionCountForPlacementName:placement];
             }
             
-            if (oldPlacement.delivery_rule.imp_cap_day != newPlacement.delivery_rule.imp_cap_day) {
+            if (oldPlacement.delivery_rule.imp_cap_day
+                != newPlacement.delivery_rule.imp_cap_day) {
                 [PubnativeDeliveryManager resetDailyImpressionCountForPlacementName:placement];
             }
             
-            if ((oldPlacement.delivery_rule.pacing_cap_minute != newPlacement.delivery_rule.pacing_cap_minute)||
-                (oldPlacement.delivery_rule.pacing_cap_hour != newPlacement.delivery_rule.pacing_cap_hour)){
+            if ((oldPlacement.delivery_rule.pacing_cap_minute
+                 != newPlacement.delivery_rule.pacing_cap_minute)||
+                (oldPlacement.delivery_rule.pacing_cap_hour
+                 != newPlacement.delivery_rule.pacing_cap_hour)){
                 [PubnativeDeliveryManager resetPacingDateForPlacementName:placement];
             }
         }
@@ -335,7 +339,8 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
 + (void)setStoredTimestamp:(NSTimeInterval)timestamp
 {
     if(timestamp > 0){
-        [[NSUserDefaults standardUserDefaults] setDouble:timestamp forKey:kUserDefaultsStoredTimestampKey];
+        [[NSUserDefaults standardUserDefaults] setDouble:timestamp
+                                                  forKey:kUserDefaultsStoredTimestampKey];
     } else {
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserDefaultsStoredTimestampKey];
     }
@@ -351,7 +356,8 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
 + (void)setStoredAppToken:(NSString*)appToken
 {
     if(appToken.length > 0){
-        [[NSUserDefaults standardUserDefaults] setObject:appToken forKey:kUserDefaultsStoredAppTokenKey];
+        [[NSUserDefaults standardUserDefaults] setObject:appToken
+                                                  forKey:kUserDefaultsStoredAppTokenKey];
     } else {
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserDefaultsStoredAppTokenKey];
     }
@@ -366,26 +372,29 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
 
 + (void)setStoredConfig:(PubnativeConfigModel*)model
 {
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     if(model && ![model isEmpty])
     {
         NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[model toDictionary]
                                                            options:0
                                                              error:nil];
-        [[NSUserDefaults standardUserDefaults] setObject:jsonData forKey:kUserDefaultsStoredConfigKey];
+        [userDefaults setObject:jsonData
+                         forKey:kUserDefaultsStoredConfigKey];
     } else {
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kUserDefaultsStoredConfigKey];
+        [userDefaults removeObjectForKey:kUserDefaultsStoredConfigKey];
     }
 }
 
 + (PubnativeConfigModel*)getStoredConfig
 {
     PubnativeConfigModel *result;
+    NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
     
-    NSData *jsonData = [[NSUserDefaults standardUserDefaults] objectForKey:kUserDefaultsStoredConfigKey];
+    NSData *jsonData = [userDefaults objectForKey:kUserDefaultsStoredConfigKey];
     
     if(jsonData){
         NSDictionary *jsonDictionary = [NSJSONSerialization JSONObjectWithData:jsonData
-                                                                       options:NSJSONReadingMutableContainers
+                                                                       options:NSJSONReadingMutableContainers //!OCLint(Can't fix line width in case formatting style)
                                                                          error:nil];
         result = [PubnativeConfigModel modelWithDictionary:jsonDictionary];
     }

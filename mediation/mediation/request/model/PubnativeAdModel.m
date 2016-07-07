@@ -60,7 +60,9 @@
 - (void)startTrackingView:(UIView*)adView
        withViewController:(UIViewController*)viewController
 {
-    NSLog(@"PubnativeAdModel - Start tracking with view: %@ and viewController: %@", adView, viewController);
+    NSLog(@"PubnativeAdModel - Start tracking with view: %@ and viewController: %@",
+          adView,
+          viewController);
 }
 
 - (void)stopTracking
@@ -80,7 +82,8 @@
             [self.insightModel sendImpressionInsight];
         }
         
-        if(self.delegate && [self.delegate respondsToSelector:@selector(pubantiveAdDidConfirmImpression:)]){
+        if(self.delegate
+           && [self.delegate respondsToSelector:@selector(pubantiveAdDidConfirmImpression:)]){
             [self.delegate pubantiveAdDidConfirmImpression:self];
         }
     }

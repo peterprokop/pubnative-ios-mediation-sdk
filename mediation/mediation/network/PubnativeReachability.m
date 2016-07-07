@@ -21,7 +21,7 @@ NSString *kPubnativeReachabilityChangedNotification = @"kNetworkReachabilityChan
 
 #define kPubnativeShouldPrintReachabilityFlags 1
 
-static void PubnativePrintReachabilityFlags(SCNetworkReachabilityFlags flags, const char* comment) __attribute__((annotate("oclint:suppress[bitwise operator in conditional]")))
+static void PubnativePrintReachabilityFlags(SCNetworkReachabilityFlags flags, const char* comment) __attribute__((annotate("oclint:suppress[bitwise operator in conditional]"))) //!OCLint
 {
 #if kPubnativeShouldPrintReachabilityFlags
 
@@ -42,15 +42,20 @@ static void PubnativePrintReachabilityFlags(SCNetworkReachabilityFlags flags, co
 }
 
 
-static void PubnativeReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReachabilityFlags flags, void* info)
+static void PubnativeReachabilityCallback(SCNetworkReachabilityRef target,
+                                          SCNetworkReachabilityFlags flags,
+                                          void* info)
 {
 #pragma unused (target, flags)
 	NSCAssert(info != NULL, @"info was NULL in ReachabilityCallback");
-	NSCAssert([(__bridge NSObject*) info isKindOfClass: [PubnativeReachability class]], @"info was wrong class in ReachabilityCallback");
+	NSCAssert([(__bridge NSObject*) info isKindOfClass: [PubnativeReachability class]],
+              @"info was wrong class in ReachabilityCallback");
 
     PubnativeReachability* noteObject = (__bridge PubnativeReachability *)info;
     // Post a notification to notify the client that the network reachability changed.
-    [[NSNotificationCenter defaultCenter] postNotificationName: kPubnativeReachabilityChangedNotification object: noteObject];
+    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    [defaultCenter postNotificationName: kPubnativeReachabilityChangedNotification
+                                 object: noteObject];
 }
 
 
@@ -61,7 +66,8 @@ static void PubnativeReachabilityCallback(SCNetworkReachabilityRef target, SCNet
 + (instancetype)reachabilityWithHostName:(NSString *)hostName
 {
 	PubnativeReachability* returnValue = NULL;
-	SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithName(NULL, [hostName UTF8String]);
+	SCNetworkReachabilityRef reachability =
+        SCNetworkReachabilityCreateWithName(NULL,[hostName UTF8String]);
 	if (reachability != NULL)
 	{
 		returnValue= [[self alloc] init];
@@ -79,7 +85,9 @@ static void PubnativeReachabilityCallback(SCNetworkReachabilityRef target, SCNet
 
 + (instancetype)reachabilityWithAddress:(const struct sockaddr_in *)hostAddress
 {
-	SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, (const struct sockaddr *)hostAddress);
+	SCNetworkReachabilityRef reachability =
+        SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault,
+                                               (const struct sockaddr *)hostAddress);
 
 	PubnativeReachability* returnValue = NULL;
 
@@ -137,8 +145,12 @@ static void PubnativeReachabilityCallback(SCNetworkReachabilityRef target, SCNet
 	BOOL returnValue = NO;
 	SCNetworkReachabilityContext context = {0, (__bridge void *)(self), NULL, NULL, NULL};
 
-	if (SCNetworkReachabilitySetCallback(self.reachabilityRef, PubnativeReachabilityCallback, &context) &&
-        SCNetworkReachabilityScheduleWithRunLoop(self.reachabilityRef, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode))
+	if (SCNetworkReachabilitySetCallback(self.reachabilityRef,
+                                         PubnativeReachabilityCallback,
+                                         &context) &&
+        SCNetworkReachabilityScheduleWithRunLoop(self.reachabilityRef,
+                                                 CFRunLoopGetCurrent(),
+                                                 kCFRunLoopDefaultMode))
 	{
         returnValue = YES;
 	}
@@ -151,7 +163,9 @@ static void PubnativeReachabilityCallback(SCNetworkReachabilityRef target, SCNet
 {
 	if (self.reachabilityRef != NULL)
 	{
-		SCNetworkReachabilityUnscheduleFromRunLoop(self.reachabilityRef, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
+		SCNetworkReachabilityUnscheduleFromRunLoop(self.reachabilityRef,
+                                                   CFRunLoopGetCurrent(),
+                                                   kCFRunLoopDefaultMode);
 	}
 }
 
@@ -207,7 +221,8 @@ static void PubnativeReachabilityCallback(SCNetworkReachabilityRef target, SCNet
 	if (flagConnectionRequired == 0)
 	{
 		/*
-         If the target host is reachable and no connection is required then we'll assume (for now) that you're on Wi-Fi...
+         If the target host is reachable and no connection is required 
+         then we'll assume (for now) that you're on Wi-Fi...
          */
 		returnValue = PubnativeNetworkStatus_ReachableViaWiFi;
 	}
@@ -217,7 +232,9 @@ static void PubnativeReachabilityCallback(SCNetworkReachabilityRef target, SCNet
         flagInterventionRequired)
 	{
         /*
-         ... and the connection is on-demand (or on-traffic) if the calling application is using the CFSocketStream or higher APIs and no [user] intervention is needed...
+         ... and the connection is on-demand (or on-traffic) 
+         if the calling application is using the CFSocketStream or higher APIs 
+         and no [user] intervention is needed...
         */
             returnValue = PubnativeNetworkStatus_ReachableViaWiFi;
     }
@@ -225,7 +242,8 @@ static void PubnativeReachabilityCallback(SCNetworkReachabilityRef target, SCNet
 	if (flagIsWWAN == kSCNetworkReachabilityFlagsIsWWAN)
 	{
 		/*
-         ... but WWAN connections are OK if the calling application is using the CFNetwork APIs.
+         ... but WWAN connections are OK 
+         if the calling application is using the CFNetwork APIs.
          */
 		returnValue = PubnativeNetworkStatus_ReachableViaWWAN;
 	}
@@ -236,7 +254,8 @@ static void PubnativeReachabilityCallback(SCNetworkReachabilityRef target, SCNet
 
 - (BOOL)connectionRequired
 {
-	NSAssert(self.reachabilityRef != NULL, @"connectionRequired called with NULL reachabilityRef");
+	NSAssert(self.reachabilityRef != NULL,
+             @"connectionRequired called with NULL reachabilityRef");
 	SCNetworkReachabilityFlags flags;
 
 	if (SCNetworkReachabilityGetFlags(self.reachabilityRef, &flags))
@@ -250,7 +269,8 @@ static void PubnativeReachabilityCallback(SCNetworkReachabilityRef target, SCNet
 
 - (PubnativeNetworkStatus)currentReachabilityStatus
 {
-	NSAssert(self.reachabilityRef != NULL, @"currentNetworkStatus called with NULL SCNetworkReachabilityRef");
+	NSAssert(self.reachabilityRef != NULL,
+             @"currentNetworkStatus called with NULL SCNetworkReachabilityRef");
 	PubnativeNetworkStatus returnValue = PubnativeNetworkStatus_NotReachable;
 	SCNetworkReachabilityFlags flags;
     

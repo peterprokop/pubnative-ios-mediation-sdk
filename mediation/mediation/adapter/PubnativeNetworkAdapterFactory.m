@@ -20,7 +20,8 @@
         if ([adapterClass isSubclassOfClass:[PubnativeNetworkAdapter class]]) {
             adapter = [[adapterClass alloc] init];
         } else {
-            NSLog(@"PubnativeNetworkAdapterFactory.createApdaterWithNetwork - Adapter not available");
+            NSLog(@"PubnativeNetworkAdapterFactory.createApdaterWithNetwork \
+                  - Adapter not available");
         }
     }
     return adapter;

@@ -35,7 +35,8 @@
         [self invokeDidStart];
         if (timeout > 0) {
             //timeout is in milliseconds
-            dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC * timeout * 0.001);
+            dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW,
+                                                  NSEC_PER_SEC * timeout * 0.001);
             dispatch_after(delay, dispatch_get_main_queue(), ^{
                 [self requestTimeout];
             });
@@ -44,20 +45,24 @@
                          extras:extras];
         
     } else {
-        NSLog(@"PubnativeNetworkAdapter.startWithDelegate: - Error: network adapter delegate not specified");
+        NSLog(@"PubnativeNetworkAdapter.startWithDelegate: \
+              - Error: network adapter delegate not specified");
     }
 }
 
 - (void)doRequestWithData:(NSDictionary *)data
                    extras:(NSDictionary<NSString *,NSString *> *)extras
 {
-    NSLog(@"PubnativeNetworkAdapter.doRequest - Error: override me. Data is %@, extras is %@", data, extras);
+    NSLog(@"PubnativeNetworkAdapter.doRequest \
+          - Error: override me. Data is %@, extras is %@", data, extras);
 }
 
 #pragma mark - Request Timeout -
 - (void)requestTimeout
 {
-    NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"%@ - Error: request timeout", NSStringFromClass([self class])]
+    NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"%@ \
+                                               - Error: request timeout",
+                                               NSStringFromClass([self class])]
                                          code:0
                                      userInfo:nil];
     

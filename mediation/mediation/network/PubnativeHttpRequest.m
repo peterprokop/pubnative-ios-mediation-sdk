@@ -11,18 +11,26 @@
 
 NSInteger const STATUS_CODE_OK = 200;
 NSTimeInterval const NETWORK_REQUEST_DEFAULT_TIMEOUT = 60;
-NSURLRequestCachePolicy const NETWORK_REQUEST_DEFAULT_CACHE_POLICY = NSURLRequestUseProtocolCachePolicy;
+NSURLRequestCachePolicy const NETWORK_REQUEST_DEFAULT_CACHE_POLICY = NSURLRequestUseProtocolCachePolicy; //!OCLint(Long name of constant)
 
 @implementation PubnativeHttpRequest
 
-+ (void)requestWithURL:(NSString*)urlString andCompletionHandler:(PubnativeHttpRequestBlock)completionHandler
++ (void)requestWithURL:(NSString*)urlString
+  andCompletionHandler:(PubnativeHttpRequestBlock)completionHandler
 {
-    [self requestWithURL:urlString timeout:NETWORK_REQUEST_DEFAULT_TIMEOUT andCompletionHandler:completionHandler];
+    [self requestWithURL:urlString
+                 timeout:NETWORK_REQUEST_DEFAULT_TIMEOUT
+    andCompletionHandler:completionHandler];
 }
 
-+ (void)requestWithURL:(NSString*)urlString timeout:(NSTimeInterval)timeoutInSeconds andCompletionHandler:(PubnativeHttpRequestBlock)completionHandler
++ (void)requestWithURL:(NSString*)urlString
+               timeout:(NSTimeInterval)timeoutInSeconds
+  andCompletionHandler:(PubnativeHttpRequestBlock)completionHandler
 {
-    [self requestWithURL:urlString httpBody:nil timeout:timeoutInSeconds andCompletionHandler:completionHandler];
+    [self requestWithURL:urlString
+                httpBody:nil
+                 timeout:timeoutInSeconds
+    andCompletionHandler:completionHandler];
 }
 
 + (void)requestWithURL:(NSString*)urlString
@@ -37,10 +45,12 @@ NSURLRequestCachePolicy const NETWORK_REQUEST_DEFAULT_CACHE_POLICY = NSURLReques
                 NSMutableURLRequest *request = [self prepareRequestWithUrl:requestURL
                                                                   httpBody:httpBody
                                                                    timeout:timeoutInSeconds];
-                PubnativeReachability *reachability = [PubnativeReachability reachabilityForInternetConnection];
+                PubnativeReachability *reachability =
+                    [PubnativeReachability reachabilityForInternetConnection];
                 [reachability startNotifier];
                 if([reachability currentReachabilityStatus] == PubnativeNetworkStatus_NotReachable){
-                    NSError *internetError = [NSError errorWithDomain:@"PubnativeHttpRequest - Error: internet not available" code:0 userInfo:nil];
+                    NSError *internetError = [NSError errorWithDomain:@"PubnativeHttpRequest \
+                                              - Error: internet not available" code:0 userInfo:nil];
                     [PubnativeHttpRequest invokeBlock:completionHandler
                                            withResult:nil
                                              andError:internetError];
@@ -48,13 +58,15 @@ NSURLRequestCachePolicy const NETWORK_REQUEST_DEFAULT_CACHE_POLICY = NSURLReques
                     [self makeRequestWithHandler:completionHandler request:request];
                 }
             } else {
-                NSError *requestError = [NSError errorWithDomain:@"PubnativeHttpRequest - Error: url format error" code:0 userInfo:nil];
+                NSError *requestError = [NSError errorWithDomain:@"PubnativeHttpRequest \
+                                         - Error: url format error" code:0 userInfo:nil];
                 [PubnativeHttpRequest invokeBlock:completionHandler
                                        withResult:nil
                                          andError:requestError];
             }
         } else {
-            NSError *parameterError = [NSError errorWithDomain:@"PubnativeHttpRequest - Error: url format error" code:0 userInfo:nil];
+            NSError *parameterError = [NSError errorWithDomain:@"PubnativeHttpRequest \
+                                       - Error: url format error" code:0 userInfo:nil];
             [PubnativeHttpRequest invokeBlock:completionHandler
                                    withResult:nil
                                      andError:parameterError];
@@ -88,7 +100,9 @@ NSURLRequestCachePolicy const NETWORK_REQUEST_DEFAULT_CACHE_POLICY = NSURLReques
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         [NSURLConnection sendAsynchronousRequest:request
                                            queue:[NSOperationQueue mainQueue]
-                               completionHandler:^(NSURLResponse *response, NSData *data, NSError *error)
+                               completionHandler:^(NSURLResponse *response,
+                                                   NSData *data,
+                                                   NSError *error)
          {
              NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
              if(error) {
@@ -102,7 +116,10 @@ NSURLRequestCachePolicy const NETWORK_REQUEST_DEFAULT_CACHE_POLICY = NSURLReques
                                         withResult:result
                                           andError:nil];
              } else {
-                 NSString *statusCodeErrorString = [NSString stringWithFormat:@"PubnativeHttpRequest - Error: response status code %ld error", (long)httpResponse.statusCode];
+                 NSString *statusCodeErrorString =
+                    [NSString stringWithFormat:@"PubnativeHttpRequest \
+                                                - Error: response status code %ld error",
+                                                (long)httpResponse.statusCode];
                  NSError *statusCodeError = [NSError errorWithDomain:statusCodeErrorString
                                                                 code:0
                                                             userInfo:nil];
@@ -116,7 +133,9 @@ NSURLRequestCachePolicy const NETWORK_REQUEST_DEFAULT_CACHE_POLICY = NSURLReques
 
 #pragma mark Callback helper
 
-+ (void)invokeBlock:(PubnativeHttpRequestBlock)block withResult:(NSString*)result andError:(NSError*)error;
++ (void)invokeBlock:(PubnativeHttpRequestBlock)block
+         withResult:(NSString*)result
+           andError:(NSError*)error;
 {
     if(block) {
         PubnativeHttpRequestBlock invokeBlock = [block copy];

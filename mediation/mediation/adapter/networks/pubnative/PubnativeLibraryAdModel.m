@@ -30,7 +30,9 @@
     self = [super init];
     if (self) {
         self.model = model;
-        self.tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(adViewTapped)];
+        self.tapRecognizer =
+            [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                    action:@selector(adViewTapped)];
     }
     return self;
 }
@@ -111,7 +113,9 @@
         }];
     
     } else {
-        NSLog(@"PubnativeLibraryAdModel - Error: model or adView was null or empty, dropping this call, tracking won't start");
+        NSLog(@"PubnativeLibraryAdModel \
+              - Error: model or adView was null or empty, \
+              dropping this call, tracking won't start");
     }
 }
 

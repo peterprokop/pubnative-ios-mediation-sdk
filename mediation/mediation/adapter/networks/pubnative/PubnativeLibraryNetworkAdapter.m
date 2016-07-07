@@ -38,14 +38,16 @@ NSString * const kPubnativeLibraryNetworkAdapterAppTokenKey = @"apptoken";
         if (appToken.length > 0) {
             [self createRequestWithAppToken:appToken extras:extras];
         } else {
-            NSError *error = [NSError errorWithDomain:@"PubnativeLibraryNetworkAdapter.doRequest - Invalid apptoken provided"
+            NSError *error = [NSError errorWithDomain:@"PubnativeLibraryNetworkAdapter.doRequest \
+                              - Invalid apptoken provided"
                                                  code:0
                                              userInfo:nil];
             [self invokeDidFail:error];
         }
         
     } else {
-        NSError *error = [NSError errorWithDomain:@"PubnativeLibraryNetworkAdapter.doRequest - apptoken not avaliable"
+        NSError *error = [NSError errorWithDomain:@"PubnativeLibraryNetworkAdapter.doRequest \
+                          - apptoken not avaliable"
                                              code:0
                                          userInfo:nil];
         [self invokeDidFail:error];
@@ -62,18 +64,15 @@ NSString * const kPubnativeLibraryNetworkAdapterAppTokenKey = @"apptoken";
     __weak typeof(self) weakSelf = self;
     self.request = [PNAdRequest request:PNAdRequest_Native
                          withParameters:parameters
-                    
                           andCompletion:^(NSArray *ads, NSError *error) {
-                              
-                              if(error) {
-                                  [weakSelf invokeDidFail:error];
-                              }
-                              else if ([ads count]>0) {
-                                  
-                                  PubnativeLibraryAdModel *wrapModel = [[PubnativeLibraryAdModel alloc] initWithNativeAd:[ads firstObject]];
-                                  [weakSelf invokeDidLoad:wrapModel];
-                              }
-                          }];
+        if(error) {
+            [weakSelf invokeDidFail:error];
+        } else if ([ads count]>0) {
+            PubnativeLibraryAdModel *wrapModel =
+                [[PubnativeLibraryAdModel alloc] initWithNativeAd:[ads firstObject]];
+            [weakSelf invokeDidLoad:wrapModel];
+        }
+    }];
     
     [self.request startRequest];
 }

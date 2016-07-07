@@ -26,7 +26,8 @@ NSString * const kPubnativeInsightApiResponseModelStatusError   = @"error";
 
 - (BOOL)isSuccess
 {
-    return [kPubnativeInsightApiResponseModelStatusSuccess isEqualToString:[self.status lowercaseString]];
+    NSString *status = [self.status lowercaseString];
+    return [kPubnativeInsightApiResponseModelStatusSuccess isEqualToString:status];
 }
 
 @end

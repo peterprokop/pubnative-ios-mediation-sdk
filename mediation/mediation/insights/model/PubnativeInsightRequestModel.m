@@ -20,7 +20,8 @@ NSString * const kInsightRequestModelDataKey        = @"data";
     if (self) {
         self.url = dictionary[kInsightRequestModelUrlKey];
         self.params = dictionary[kInsightRequestModelParametersKey];
-        self.data = [PubnativeInsightDataModel modelWithDictionary:dictionary[kInsightRequestModelDataKey]];
+        self.data = [PubnativeInsightDataModel
+                     modelWithDictionary:dictionary[kInsightRequestModelDataKey]];
     }
     return self;
 }
