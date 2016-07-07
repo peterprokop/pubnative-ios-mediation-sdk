@@ -112,7 +112,7 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
     if(storedModel && storedAppToken && storedTimestamp){
         NSNumber *refreshInMinutes = (NSNumber*)storedModel.globals[CONFIG_GLOBAL_KEY_REFRESH];
         
-        if(refreshInMinutes && refreshInMinutes > 0) {
+        if(refreshInMinutes != nil && refreshInMinutes > 0) {
             NSTimeInterval currentTimestamp = [[NSDate date] timeIntervalSince1970];
             NSTimeInterval elapsedTime = currentTimestamp - storedTimestamp;
             NSTimeInterval refreshSeconds = [refreshInMinutes intValue] * 60;

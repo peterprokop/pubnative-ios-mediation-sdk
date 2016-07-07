@@ -46,7 +46,7 @@ NSString * const kPubnativeInsightDataModelSdkVersion               = @"1.0.0";
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary
 {
     self = [super initWithDictionary:dictionary];
-    if(self){
+    if(self){ //!OCLint(Remove 'use early exits and continue' message)
         // Placement behaviour
         self.network = dictionary[@"network"];
         self.attempted_networks = dictionary[@"attempted_networks"];

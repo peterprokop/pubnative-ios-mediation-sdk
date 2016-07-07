@@ -13,6 +13,6 @@
 
 @property (nonatomic, strong) NSString                                  *appToken;
 @property (nonatomic, strong) NSDictionary                              *extras;
-@property (nonatomic, strong) NSObject<PubnativeConfigManagerDelegate>  *delegate;
+@property (nonatomic, assign) NSObject<PubnativeConfigManagerDelegate>  *delegate;
 
 @end

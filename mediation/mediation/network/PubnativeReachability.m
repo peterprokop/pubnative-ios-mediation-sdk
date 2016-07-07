@@ -68,9 +68,8 @@ static void PubnativeReachabilityCallback(SCNetworkReachabilityRef target,
 	PubnativeReachability* returnValue = NULL;
 	SCNetworkReachabilityRef reachability =
         SCNetworkReachabilityCreateWithName(NULL,[hostName UTF8String]);
-	if (reachability != NULL)
-	{
-		returnValue= [[self alloc] init];
+	if (reachability != NULL) {
+		returnValue = [[self alloc] init];
 		if (returnValue == NULL)
 		{
             CFRelease(reachability);
@@ -88,14 +87,10 @@ static void PubnativeReachabilityCallback(SCNetworkReachabilityRef target,
 	SCNetworkReachabilityRef reachability =
         SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault,
                                                (const struct sockaddr *)hostAddress);
-
 	PubnativeReachability* returnValue = NULL;
-
-	if (reachability != NULL)
-	{
+	if (reachability != NULL) {
 		returnValue = [[self alloc] init];
-		if (returnValue == NULL)
-		{
+		if (returnValue == NULL) {
 			CFRelease(reachability);
 		} else {
             returnValue.reachabilityRef = reachability;

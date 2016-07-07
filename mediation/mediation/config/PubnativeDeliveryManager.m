@@ -133,7 +133,7 @@ NSString * const kPubnativeDeliveryManagerImpressionLastUpdateKey = @"_last_upda
                          placementName,
                          kPubnativeDeliveryManagerImpressionLastUpdateKey];
         NSNumber *timeInterval = [[NSUserDefaults standardUserDefaults] objectForKey:key];
-        if(timeInterval) {
+        if(timeInterval != nil) {
             result = [NSDate dateWithTimeIntervalSince1970:[timeInterval doubleValue]];
         }
     }
