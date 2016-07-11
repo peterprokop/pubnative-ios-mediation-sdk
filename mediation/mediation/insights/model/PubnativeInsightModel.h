@@ -16,7 +16,10 @@
 @property (nonatomic, strong) NSString                          *requestInsightUrl;
 @property (nonatomic, strong) NSString                          *impressionInsightUrl;
 @property (nonatomic, strong) NSString                          *clickInsightUrl;
+@property (nonatomic, strong) NSString                          *placementName;
+@property (nonatomic, strong) NSString                          *appToken;
 @property (nonatomic, strong) PubnativeInsightDataModel         *data;
+
 @property (nonatomic, strong) NSDictionary<NSString*,NSString*> *params;
 
 - (void)sendRequestInsight;

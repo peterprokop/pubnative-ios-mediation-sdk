@@ -23,7 +23,6 @@
 
 @property (nonatomic, weak) NSObject<PubnativeAdModelDelegate> *delegate;
 
-@property (nonatomic, strong) NSString *appToken;
 @property (nonatomic, strong) PubnativeInsightModel *insightModel;
 
 @property (readonly) NSString   *title;

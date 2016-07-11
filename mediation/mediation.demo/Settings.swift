@@ -16,7 +16,7 @@ class Settings {
                                         "yahoo_only",
                                         "waterfall",
                                         "imp_day_cap_10",
-                                        "imp_cap_hour_10",
+                                        "imp_hour_cap_10",
                                         "pacing_cap_hour_1",
                                         "pacing_cap_min_1",
                                         "disabled"]

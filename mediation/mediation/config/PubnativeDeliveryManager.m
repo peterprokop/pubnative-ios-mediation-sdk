@@ -62,6 +62,7 @@ NSString * const kPubnativeDeliveryManagerImpressionLastUpdateKey = @"_last_upda
 
 + (void)logImpressionForPlacementName:(NSString *)placementName
 {
+    NSLog(@"logImpressionForPlacementName:%@", placementName);
     NSInteger dayCount = [self dailyImpressionCountForPlacementName:placementName];
     [self setImpressionCountForPlacementName:placementName
                                         type:kPubnativeDeliveryManagerImpressionCountDayKey
