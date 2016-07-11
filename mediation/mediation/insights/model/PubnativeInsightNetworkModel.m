@@ -30,7 +30,7 @@
     result[@"priority_rule_id"] = self.priority_rule_id;
     result[@"priority_segment_ids"] = self.priority_segment_ids;
     result[@"response_time"] = self.response_time;
-    result[@"crash_report"] = self.crash_report;
+    result[@"crash_report"] = [self.crash_report toDictionary];
     return result;
 }
 
