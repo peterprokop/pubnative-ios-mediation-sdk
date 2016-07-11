@@ -74,11 +74,8 @@
         
         self.isImpressionTracked = YES;
         
-        [PubnativeDeliveryManager logImpressionForPlacementName:self.appToken];
-        
-        if (self.insightModel) {
-            [self.insightModel sendImpressionInsight];
-        }
+        [PubnativeDeliveryManager logImpressionForPlacementName:self.insightModel.placementName];
+        [self.insightModel sendImpressionInsight];
         
         if(self.delegate && [self.delegate respondsToSelector:@selector(pubantiveAdDidConfirmImpression:)]){
             [self.delegate pubantiveAdDidConfirmImpression:self];
@@ -92,9 +89,8 @@
         
         self.isClickTracked = YES;
         
-        if (self.insightModel) {
-            [self.insightModel sendClickInsight];
-        }
+        [PubnativeDeliveryManager logImpressionForPlacementName:self.insightModel.placementName];
+        [self.insightModel sendClickInsight];
         
         if(self.delegate && [self.delegate respondsToSelector:@selector(pubnativeAdDidClick:)]){
             [self.delegate pubnativeAdDidClick:self];

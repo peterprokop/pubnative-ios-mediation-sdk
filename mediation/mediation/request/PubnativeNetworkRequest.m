@@ -142,6 +142,13 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
                                              userInfo:nil];
             [self invokeDidFail:error];
             
+        } else if ([placement.delivery_rule isFrequencyCapReachedWithPlacement:self.placementName]) {
+        
+            NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"Error: %@ - (frequency_cap) too many ads", self.placementName]
+                                                 code:0
+                                             userInfo:nil];
+            [self invokeDidFail:error];
+        
         } else if (placement.priority_rules.count == 0) {
             
             NSError *error = [NSError errorWithDomain:[NSString stringWithFormat:@"Error: no networks configured for placement %@", self.placementName]
@@ -174,6 +181,8 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
     self.insight.impressionInsightUrl = impressionUrl;
     self.insight.requestInsightUrl = requestUrl;
     self.insight.clickInsightUrl = clickUrl;
+    self.insight.placementName = self.placementName;
+    self.insight.appToken = self.appToken;
     self.insight.params = params;
     
     PubnativeInsightDataModel *data = [[PubnativeInsightDataModel alloc] initWithTargeting:self.targeting];
@@ -198,8 +207,8 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
     NSTimeInterval elapsedHours = (intervalInSeconds/3600);
     
     // If there is a pacing cap set and the elapsed time still didn't time for that pacing cap, we don't refresh
-    if (([deliveryRuleModel.pacing_cap_minute doubleValue] > 0 && [deliveryRuleModel.pacing_cap_minute doubleValue] < elapsedMinutes)
-        || ([deliveryRuleModel.pacing_cap_hour doubleValue] > 0 && [deliveryRuleModel.pacing_cap_hour doubleValue] < elapsedHours)){
+    if (([deliveryRuleModel.pacing_cap_minute doubleValue] > 0 && elapsedMinutes < [deliveryRuleModel.pacing_cap_minute doubleValue])
+        || ([deliveryRuleModel.pacing_cap_hour doubleValue] > 0 && elapsedHours < [deliveryRuleModel.pacing_cap_hour doubleValue])){
         
         needsNewAd = NO;
     }
@@ -329,13 +338,14 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
     PubnativePriorityRuleModel *priorityRule = [self.config priorityRuleWithPlacementName:self.placementName
                                                                                  andIndex:self.currentNetworkIndex];
     if (ad) {
+        self.ad = ad;
         // Track succeded network
         [self.insight trackSuccededNetworkWithPriorityRuleModel:priorityRule responseTime:0];
         [self.insight sendRequestInsight];
         // Default tracking data
-        ad.appToken = self.appToken;
-        ad.insightModel = self.insight;
-        [self invokeDidLoad:ad];
+        
+        self.ad.insightModel = self.insight;
+        [self invokeDidLoad:self.ad];
     } else {
         NSLog(@"PubnativeNetworkRequest.adapter - No fill");
         NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.adapter - No fill" code:0 userInfo:nil];

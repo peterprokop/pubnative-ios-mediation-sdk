@@ -691,7 +691,6 @@
 				039FC03D1D1BF9DF00AF8011 /* insights */,
 				D5BF0F4C1D1A97C800A05486 /* adapter */,
 				D5BF10021D1A97C800A05486 /* config */,
-				D5BF10161D1A97C800A05486 /* delivery */,
 				D5BF10171D1A97C800A05486 /* network */,
 				D5BF101C1D1A97C800A05486 /* parse */,
 				D5BF101F1D1A97C800A05486 /* request */,
@@ -1192,13 +1191,6 @@
 				D5BF10111D1A97C800A05486 /* PubnativePriorityRuleModel.m */,
 			);
 			path = model;
-			sourceTree = "<group>";
-		};
-		D5BF10161D1A97C800A05486 /* delivery */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = delivery;
 			sourceTree = "<group>";
 		};
 		D5BF10171D1A97C800A05486 /* network */ = {
