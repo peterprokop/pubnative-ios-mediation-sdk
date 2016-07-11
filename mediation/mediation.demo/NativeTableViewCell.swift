@@ -16,8 +16,10 @@ class NativeTableViewCell: UITableViewCell, PubnativeNetworkRequestDelegate {
     weak var data : CellRequestModel? {
         didSet {
             
-            placement.text = "Placement ID: " + (data?.placement)!
+            adView.hidden = true
             adapter.text = ""
+            
+            placement.text = "Placement ID: " + (data?.placement)!
             if(data?.model != nil) {
                 renderAd(data!.model)
             }
