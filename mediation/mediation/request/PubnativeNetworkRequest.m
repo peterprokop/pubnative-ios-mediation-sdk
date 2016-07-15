@@ -244,7 +244,6 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
         if (network) {
             PubnativeNetworkAdapter *adapter = [PubnativeNetworkAdapterFactory createApdaterWithAdapterName:network.adapter];
             if (adapter) {
-                self.startTimestamp = [[NSDate date] timeIntervalSince1970];
                 NSMutableDictionary<NSString*, NSString*> *extras = [NSMutableDictionary dictionary];
                 [extras setObject:self.requestID forKey:PNTrackingRequestIDKey];
                 if (self.targeting) {
@@ -333,7 +332,7 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
 
 - (void)adapterRequestDidStart:(PubnativeNetworkAdapter*)adapter
 {
-    //Do nothing
+    self.startTimestamp = [[NSDate date] timeIntervalSince1970];
 }
 
 - (void)adapter:(PubnativeNetworkAdapter*)adapter requestDidLoad:(PubnativeAdModel*)ad
@@ -342,7 +341,7 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
     // TODO: remove setting the app token since it should be inside the insight data
     PubnativePriorityRuleModel *priorityRule = [self.config priorityRuleWithPlacementName:self.placementName
                                                                                  andIndex:self.currentNetworkIndex];
-    double deltaTimeResponse = [[NSDate date] timeIntervalSince1970] - self.startTimestamp;
+    NSTimeInterval deltaTimeResponse = [[NSDate date] timeIntervalSince1970] - self.startTimestamp;
     NSNumber *responseTime = [NSNumber numberWithDouble:deltaTimeResponse];
     
     if (ad) {
