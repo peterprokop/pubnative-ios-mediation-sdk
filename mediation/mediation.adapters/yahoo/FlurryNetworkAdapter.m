@@ -8,6 +8,7 @@
 
 #import "FlurryNetworkAdapter.h"
 #import "FlurryNativeAdModel.h"
+#import "Flurry.h"
 
 @interface PubnativeNetworkAdapter (Private)
 
@@ -27,8 +28,9 @@
 - (void)doRequestWithData:(NSDictionary *)data
                    extras:(NSDictionary<NSString *,NSString *> *)extras
 {
-    if (data == nil) {
-        NSString *placementId = data[@"placement_id"];
+    if (data != nil) {
+        [Flurry startSession:data[@"api_key"]];
+        NSString *placementId = data[@"ad_space_name"];
         if (placementId && placementId.length > 0) {
             self.nativeAd = [[FlurryAdNative alloc] initWithSpace:placementId];
             self.nativeAd.adDelegate = self;
