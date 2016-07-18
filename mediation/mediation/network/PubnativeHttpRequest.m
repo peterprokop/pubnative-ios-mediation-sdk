@@ -39,6 +39,7 @@ NSURLRequestCachePolicy const NETWORK_REQUEST_DEFAULT_CACHE_POLICY = NSURLReques
                     NSString *postLength = [NSString stringWithFormat:@"%lu",(unsigned long)[httpBody length]];
                     [request setHTTPMethod:@"POST"];
                     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+                    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
                     [request setHTTPBody:httpBody];
                 }
                 
