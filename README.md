@@ -14,14 +14,14 @@ pubnative-ios-mediation-sdk is an Open Source client mediation layer for integra
 
 * [Requirements](#requirements)
 * [Install](#install)
-* [Manually](#install_manual)
+    * [Manually](#install_manual)
 * [Usage](#usage)
-* [Request ads](#usage_request)
-* [Track ad](#usage_track_ad)
+    * [Request ads](#usage_request)
+    * [Track ad](#usage_track_ad)
 * [Third party networks](#networks)
 * [Misc](#misc)
-* [License](#misc_license)
-* [Contributing](#misc_contributing)
+    * [License](#misc_license)
+    * [Contributing](#misc_contributing)
 
 <a name="requirements"></a>
 # Requirements
@@ -91,7 +91,7 @@ ad.startTrackingView(<AD_CONTAINER_VIEW_GROUP>, withViewController:<CONTROLLER>)
 In order to integrate third party networks you need to do the following:
 
 1. Integrate third party SDK as detailed in that SDK integration instructions
-2. Copy the desired adapter network and model (they have to remain in the same package) to your project, our currently supported network adapters can be found [here](https://github.com/pubnative/pubnative-ios-mediation-sdk/tree/master/mediation.adaters/net/pubnative/mediation/adapter)
+2. Copy the desired adapter network and model (they have to remain in the same package) to your project, our currently supported network adapters can be found [here](https://github.com/pubnative/pubnative-ios-mediation-sdk/tree/documentation/mediation/mediation.adapters)
 3. Ensure to add the network in Pubnative dashboard priorities
 
 Once this integration steps are accomplished, you'll start receiving ads from those networks too.
