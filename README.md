@@ -35,7 +35,7 @@ pubnative-ios-mediation-sdk is an Open Source client mediation layer for integra
 
 <a name="install_manual"></a>
 ### Manual
-Clone the repository and import the `mediation` project into your app.
+Clone the repository and drag'n'drop the `mediation/mediation` folder into your app.
 
 <a name="usage"></a>
 # Usage
@@ -56,24 +56,16 @@ You can set up several data before starting the request by using the helper `Pub
 
 Here is a sample on how to use It.
 
+For Swift:
 ```swift
-class YourClass: PubnativeNetworkRequestDelegate {
-    let request = PubnativeNetworkRequest()
-    request.startWithAppToken("<APP_TOKEN>", "<PLACEMENT_NAME>", delegate: self)
+let request = PubnativeNetworkRequest()
+request.startWithAppToken("<APP_TOKEN>", "<PLACEMENT_NAME>", delegate: self)
+```
 
-    func pubnativeRequestDidStart(request: PubnativeNetworkRequest!) {
-        print("pubnativeRequestDidStart")
-    }
-
-    func pubnativeRequest(request: PubnativeNetworkRequest!, didFail error: NSError!) {
-        print("pubnativeRequestDidFail")
-    }
-
-    func pubnativeRequest(request: PubnativeNetworkRequest!, didLoad ad: PubnativeAdModel!) {
-        print("pubnativeRequest:didLoad:")
-    }
-
-}
+For Objective-C:
+```objective-c
+PubnativeNetworkRequest *request = [[PubnativeNetworkRequest alloc] init]
+[request startWithAppToken:"<APP_TOKEN>" placementName:"<PLACEMENT_NAME>" delegate: self]
 ```
 
 <a name="usage_track_ad"></a>
