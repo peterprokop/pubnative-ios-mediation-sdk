@@ -8,6 +8,7 @@
 
 #import "FlurryNetworkAdapter.h"
 #import "FlurryNativeAdModel.h"
+#import "Flurry.h"
 
 @interface PubnativeNetworkAdapter (Private)
 
