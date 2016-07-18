@@ -58,19 +58,8 @@ Here is a sample on how to use It.
 
 ```swift
 class YourClass: PubnativeNetworkRequestDelegate {
-    weak var data : CellRequestModel? {
-        didSet {
-
-            adView.hidden = true
-            adapter.text = ""
-
-            placement.text = "Placement ID: " + (data?.placement)!
-            if(data?.model != nil) {
-                renderAd(data!.model)
-            }
-        }
-    }
-    data?.request.startWithAppToken("<APP_TOKEN>", "<PLACEMENT_NAME>", delegate: self)
+    let request = PubnativeNetworkRequest()
+    request.startWithAppToken("<APP_TOKEN>", "<PLACEMENT_NAME>", delegate: self)
 
     func pubnativeRequestDidStart(request: PubnativeNetworkRequest!) {
         print("pubnativeRequestDidStart")
@@ -99,7 +88,7 @@ ad.startTrackingView(<AD_CONTAINER_VIEW_GROUP>, withViewController:<CONTROLLER>)
 <a name="networks"></a>
 # Third party networks
 
-In oder to integrate third party networks you need to do the following:
+In order to integrate third party networks you need to do the following:
 
 1. Integrate third party SDK as detailed in that SDK integration instructions
 2. Copy the desired adapter network and model (they have to remain in the same package) to your project, our currently supported network adapters can be found [here](https://github.com/pubnative/pubnative-ios-mediation-sdk/tree/master/mediation.adaters/net/pubnative/mediation/adapter)
