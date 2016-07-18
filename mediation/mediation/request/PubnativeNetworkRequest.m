@@ -33,6 +33,7 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
 @property (nonatomic, assign)BOOL                                       isRunning;
 @property (nonatomic, strong)PubnativeInsightModel                      *insight;
 @property (nonatomic, strong)PubnativeAdTargetingModel                  *targeting;
+@property (nonatomic, assign)NSTimeInterval                             startTimestamp;
 
 @end
 
@@ -243,7 +244,6 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
         if (network) {
             PubnativeNetworkAdapter *adapter = [PubnativeNetworkAdapterFactory createApdaterWithAdapterName:network.adapter];
             if (adapter) {
-                
                 NSMutableDictionary<NSString*, NSString*> *extras = [NSMutableDictionary dictionary];
                 [extras setObject:self.requestID forKey:PNTrackingRequestIDKey];
                 if (self.targeting) {
@@ -263,8 +263,12 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
             } else {
                 
                 NSLog(@"PubnativeNetworkRequest.doNextNetworkRequest- Error: Invalid adapter");
-                NSError *error = [NSError errorWithDomain:@"Adapter doesn't implements this type" code:0 userInfo:nil];
-                [self.insight trackUnreachableNetworkWithPriorityRuleModel:priorityRule responseTime:0 error:error];
+                NSError *error = [NSError errorWithDomain:@"Adapter doesn't implements this type"
+                                                     code:0
+                                                 userInfo:nil];
+                [self.insight trackUnreachableNetworkWithPriorityRuleModel:priorityRule
+                                                              responseTime:0
+                                                                     error:error];
                 [self doNextNetworkRequest];
             }
         } else {
@@ -328,7 +332,7 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
 
 - (void)adapterRequestDidStart:(PubnativeNetworkAdapter*)adapter
 {
-    //Do nothing
+    self.startTimestamp = [[NSDate date] timeIntervalSince1970];
 }
 
 - (void)adapter:(PubnativeNetworkAdapter*)adapter requestDidLoad:(PubnativeAdModel*)ad
@@ -337,10 +341,13 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
     // TODO: remove setting the app token since it should be inside the insight data
     PubnativePriorityRuleModel *priorityRule = [self.config priorityRuleWithPlacementName:self.placementName
                                                                                  andIndex:self.currentNetworkIndex];
+    NSTimeInterval deltaTimeResponse = [[NSDate date] timeIntervalSince1970] - self.startTimestamp;
+    NSNumber *responseTime = [NSNumber numberWithDouble:deltaTimeResponse];
+    
     if (ad) {
         self.ad = ad;
         // Track succeded network
-        [self.insight trackSuccededNetworkWithPriorityRuleModel:priorityRule responseTime:0];
+        [self.insight trackSuccededNetworkWithPriorityRuleModel:priorityRule responseTime:responseTime];
         [self.insight sendRequestInsight];
         // Default tracking data
         
@@ -348,8 +355,12 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
         [self invokeDidLoad:self.ad];
     } else {
         NSLog(@"PubnativeNetworkRequest.adapter - No fill");
-        NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.adapter - No fill" code:0 userInfo:nil];
-        [self.insight trackAttemptedNetworkWithPriorityRuleModel:priorityRule responseTime:0 error:error];
+        NSError *error = [NSError errorWithDomain:@"PubnativeNetworkRequest.adapter - No fill"
+                                             code:0
+                                         userInfo:nil];
+        [self.insight trackAttemptedNetworkWithPriorityRuleModel:priorityRule
+                                                    responseTime:responseTime
+                                                           error:error];
         [self doNextNetworkRequest];
     }
 }
