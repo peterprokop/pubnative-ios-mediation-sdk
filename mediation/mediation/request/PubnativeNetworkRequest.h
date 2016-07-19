@@ -28,4 +28,5 @@
 - (void)setParameterWithKey:(NSString*)key
                       value:(NSString*)value;
 
+- (void)setTargeting:(PubnativeAdTargetingModel *)targeting;
 @end

@@ -130,7 +130,7 @@ model.delegate = self;
 <a name="usage_targeting_ad"></a>
 ### Targeting ad
 
-If you want to use targeting for the Ads, you need to create `PubnativeAdTargetingModel` and fill it with data. Then initialize `PubnativeInsightDataModel` with this targeting model.
+If you want to use targeting for the Ads, you need to create `PubnativeAdTargetingModel` and fill it with data. Then set targeting with `setTargeting` from `PubnativeNetworkRequest`.
 
 For Swift:
 ```swift
@@ -141,7 +141,7 @@ targeting.interests = <ARRAY_OF_THE_INTERESTS>
 targeting.gender = "<GENDER>"     // "F" for female, "M" for male
 targeting.iap = <IAP>             // In app purchase enabled, Just open it for the user to fill
 targeting.iap_total = <IAP_TOTAL> // In app purchase total spent, just open for the user to fill
-let dataModel = PubnativeInsightDataModel(targeting:targeting)
+networkRequest.setTargeting(targeting)
 ```
 
 For Objective-C:
@@ -153,7 +153,7 @@ targeting.interests = <ARRAY_OF_THE_INTERESTS>;
 targeting.gender = "<GENDER>";     // "F" for female, "M" for male
 targeting.iap = <IAP>;             // In app purchase enabled, Just open it for the user to fill
 targeting.iap_total = <IAP_TOTAL>; // In app purchase total spent, just open for the user to fill
-[[PubnativeInsightDataModel alloc] initWithTargeting:targeting];
+[networkRequest setTargeting:targeting];
 ```
 
 <a name="networks"></a>
