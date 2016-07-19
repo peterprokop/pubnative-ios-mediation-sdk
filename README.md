@@ -48,11 +48,14 @@ Basic integration steps are:
 
 1. [Request ads](#usage_request): Using `PubnativeNetworkRequest`
 2. [Track ad](#usage_track_ad): Using the returned `PubnativeAdModel`
-2. [Ad model delegate](#usage_ad_delegate): Using `PubnativeAdModelDelegate`
+
+Optional integration steps:
+
+1. [Ad model delegate](#usage_ad_delegate): Using `PubnativeAdModelDelegate`
 2. [Targeting ad](#usage_targeting_ad): Using `PubnativeAdTargetingModel`
 
 <a name="usage_request"></a>
-### 1) Request Ads
+### Request Ads
 
 In order to request an Ad you need to create a request, fill it with your data and start it providing a callback for the ad response.
 
@@ -73,7 +76,7 @@ PubnativeNetworkRequest *request = [[PubnativeNetworkRequest alloc] init]
 ```
 
 <a name="usage_track_ad"></a>
-### 2) Track ad
+### Track ad
 
 For confirming impressions of the ad and handling clicks, the `PubnativeadModel` has methods to automatically track the ad view items for confirming the impression, and handling to open the offer when the user interacts, you just need to specify the view that contains the ad along with each item to the `startTracking` method.
 
@@ -87,13 +90,15 @@ For Objective-C:
 [ad startTrackingView:<AD_CONTAINER_VIEW_GROUP> withViewController:<CONTROLLER>];
 ```
 <a name="usage_ad_delegate"></a>
-### 3) Ad model delegate
+### Ad model delegate
 
-If you want to know when Ad will be clicked or will confirm impression you can use `PubnativeAdModelDelegate`. 
+If you want to send clicks or impressions from your adapter, you can use `PubnativeAdModelDelegate` from `PubnativeAdModel`. 
 
 For Swift:
 ```swift
 class YourClass: PubnativeAdModelDelegate {
+...
+
 ...
 func pubantiveAdDidConfirmImpression(ad: PubnativeAdModel!)
 {
@@ -108,20 +113,20 @@ func pubnativeAdDidClick(ad: PubnativeAdModel!)
 
 For Objective-C:
 ```objective-c
-@interface YourInterface () <PubnativeAdModelDelegate>
-...
-- (void)pubantiveAdDidConfirmImpression:(PubnativeAdModel *)ad
-{
-    //Your code
-}
+@interface PubnativeAdModel ()
 
-- (void)pubnativeAdDidClick:(PubnativeAdModel *)ad
-{
-    //Your code
-}
+- (void)invokeDidConfirmImpression;
+- (void)invokeDidClick;
+
+@end
+
+// Then use it any where as:
+[self invokeDidConfirmImpression];
+// or
+[self invokeDidClick];
 ```
 <a name="usage_targeting_ad"></a>
-### 4) Targeting ad
+### Targeting ad
 
 If you want to use targeting for the Ads, you need to create `PubnativeAdTargetingModel` and fill it with data. Then initialize `PubnativeInsightDataModel` with this targeting model.
 
