@@ -92,38 +92,40 @@ For Objective-C:
 <a name="usage_ad_delegate"></a>
 ### Ad model delegate
 
-If you want to send clicks or impressions from your adapter, you can use `PubnativeAdModelDelegate` from `PubnativeAdModel`. 
+If you want to know when Ad will be clicked or will confirm impression you can use `PubnativeAdModelDelegate` from `PubnativeAdModel`. 
 
 For Swift:
 ```swift
 class YourClass: PubnativeAdModelDelegate {
-...
-
-...
+//...
+model.delegate = self
+//...
 func pubantiveAdDidConfirmImpression(ad: PubnativeAdModel!)
 {
-    //Your code
+    //Impression was just recorded
 }
 
 func pubnativeAdDidClick(ad: PubnativeAdModel!)
 {
-    //Your code
+    //The ad was clicked, the ad will be opened right after this
 }
 ```
 
 For Objective-C:
 ```objective-c
-@interface PubnativeAdModel ()
+@interface YourInterface () PubnativeAdModelDelegate
+//...
+model.delegate = self;
+//...
+- (void)pubantiveAdDidConfirmImpression:(PubnativeAdModel *)ad
+{
+    //Impression was just recorded
+}
 
-- (void)invokeDidConfirmImpression;
-- (void)invokeDidClick;
-
-@end
-
-// Then use it any where as:
-[self invokeDidConfirmImpression];
-// or
-[self invokeDidClick];
+- (void)pubnativeAdDidClick:(PubnativeAdModel *)ad
+{
+    //The ad was clicked, the ad will be opened right after this
+}
 ```
 <a name="usage_targeting_ad"></a>
 ### Targeting ad
@@ -133,14 +135,24 @@ If you want to use targeting for the Ads, you need to create `PubnativeAdTargeti
 For Swift:
 ```swift
 var targeting = PubnativeAdTargetingModel()
-// Fill targeting with data
+targeting.age = <AGE>;
+targeting.education = "<EDUCATION>;
+targeting.interests = <ARRAY_OF_THE_INTERESTS>;
+targeting.gender = "<GENDER>";     // "F" for female, "M" for male
+targeting.iap = <IAP>;             // In app purchase enabled, Just open it for the user to fill
+targeting.iap_total = <IAP_TOTAL>; // In app purchase total spent, just open for the user to fill
 let dataModel = PubnativeInsightDataModel(targeting:targeting)
 ```
 
 For Objective-C:
 ```objective-c
 PubnativeAdTargetingModel *targeting = [[PubnativeAdTargetingModel alloc] init];
-// Filling targeting with data
+targeting.age = <AGE>;
+targeting.education = "<EDUCATION>;
+targeting.interests = <ARRAY_OF_THE_INTERESTS>;
+targeting.gender = "<GENDER>";     // "F" for female, "M" for male
+targeting.iap = <IAP>;             // In app purchase enabled, Just open it for the user to fill
+targeting.iap_total = <IAP_TOTAL>; // In app purchase total spent, just open for the user to fill
 [[PubnativeInsightDataModel alloc] initWithTargeting:targeting];
 ```
 
