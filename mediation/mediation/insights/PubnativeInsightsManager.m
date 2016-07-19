@@ -55,8 +55,10 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey    = @"PubnativeInsight
         model.url = url;
         
         NSMutableArray *failedQueue = [PubnativeInsightsManager queueForKey:kPubnativeInsightsManagerFailedQueueKey];
-        for (PubnativeInsightRequestModel *failedModel in failedQueue) {
-            [PubnativeInsightsManager enqueueRequestModel:failedModel];
+        for (NSDictionary *failedItemDictionary in failedQueue) {
+            
+            PubnativeInsightRequestModel *failedItem = [[PubnativeInsightRequestModel alloc] initWithDictionary:failedItemDictionary];
+            [PubnativeInsightsManager enqueueRequestModel:failedItem];
         }
         [PubnativeInsightsManager setQueue:nil forKey:kPubnativeInsightsManagerFailedQueueKey];
         
@@ -85,15 +87,19 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey    = @"PubnativeInsight
 {
     NSString *url = [PubnativeInsightsManager requestUrlWithModel:model];
     NSError *error = nil;
-    NSData *json = [NSJSONSerialization dataWithJSONObject:[model.data toDictionary]
-                                                   options:NSJSONWritingPrettyPrinted
+    NSDictionary *dataDictionary = [model.data toDictionary];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dataDictionary
+                                                   options:0
                                                      error:&error];
-    
     if(error){
         NSLog(@"PubnativeInsightsManager - request model parsing error: %@", error);
     } else {
         __block PubnativeInsightRequestModel *requestModelBlock = model;
-        [PubnativeHttpRequest requestWithURL:url httpBody:json timeout:60 andCompletionHandler:^(NSString *result, NSError *error) {
+        [PubnativeHttpRequest requestWithURL:url
+                                    httpBody:jsonData
+                                     timeout:60
+                        andCompletionHandler:^(NSString *result, NSError *error) {
+                            
             if (error) {
                 NSLog(@"PubnativeInsightsManager - request error: %@", error.localizedDescription);
                 [PubnativeInsightsManager enqueueFailedRequestModel:requestModelBlock
@@ -183,7 +189,7 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey    = @"PubnativeInsight
 
 + (NSMutableArray*)queueForKey:(NSString*)key
 {
-    NSArray *queue = [[NSUserDefaults standardUserDefaults] objectForKey:kPubnativeInsightsManagerQueueKey];
+    NSArray *queue = [[NSUserDefaults standardUserDefaults] objectForKey:key];
     NSMutableArray *result;
 
     if(queue){
@@ -197,7 +203,7 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey    = @"PubnativeInsight
 + (void)setQueue:(NSArray*)queue forKey:(NSString*)key
 {
     [[NSUserDefaults standardUserDefaults] setObject:queue
-                                              forKey:kPubnativeInsightsManagerQueueKey];
+                                              forKey:key];
 }
 
 @end

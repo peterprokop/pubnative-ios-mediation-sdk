@@ -66,7 +66,7 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
                 //set the data
                 self.appToken = appToken;
                 self.placementName = placementName;
-                self.currentNetworkIndex = 0;
+                self.currentNetworkIndex = -1;
                 self.requestID = [[NSUUID UUID] UUIDString];
                 NSMutableDictionary<NSString*, NSString*> *extras = [NSMutableDictionary dictionary];
                 if(self.requestParameters){
@@ -235,11 +235,11 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
 - (void)doNextNetworkRequest
 {
     //Check if priority rules avaliable
+    self.currentNetworkIndex++;
     PubnativePriorityRuleModel *priorityRule = [self.config priorityRuleWithPlacementName:self.placementName
                                                                                  andIndex:self.currentNetworkIndex];
     if (priorityRule) {
         
-        self.currentNetworkIndex++;
         PubnativeNetworkModel *network = [self.config networkWithID:priorityRule.network_code];
         if (network) {
             PubnativeNetworkAdapter *adapter = [PubnativeNetworkAdapterFactory createApdaterWithAdapterName:network.adapter];
@@ -341,8 +341,8 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
     // TODO: remove setting the app token since it should be inside the insight data
     PubnativePriorityRuleModel *priorityRule = [self.config priorityRuleWithPlacementName:self.placementName
                                                                                  andIndex:self.currentNetworkIndex];
-    NSTimeInterval deltaTimeResponse = [[NSDate date] timeIntervalSince1970] - self.startTimestamp;
-    NSNumber *responseTime = [NSNumber numberWithDouble:deltaTimeResponse];
+    NSTimeInterval deltaTimeResponse = ([[NSDate date] timeIntervalSince1970] - self.startTimestamp) * 1000;
+    NSNumber *responseTime = [NSNumber numberWithInteger:round(deltaTimeResponse)];
     
     if (ad) {
         self.ad = ad;

@@ -1725,7 +1725,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "net.pubnative.mediation-demo";
+				PRODUCT_BUNDLE_IDENTIFIER = net.pubnative.mediation.demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "mediation.demo/PubnativeMediationDemo-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -1756,7 +1756,7 @@
 					"-ObjC",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "net.pubnative.mediation-demo";
+				PRODUCT_BUNDLE_IDENTIFIER = net.pubnative.mediation.demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "mediation.demo/PubnativeMediationDemo-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = "1,2";
