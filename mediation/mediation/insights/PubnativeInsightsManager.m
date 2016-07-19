@@ -91,8 +91,6 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey    = @"PubnativeInsight
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dataDictionary
                                                    options:0
                                                      error:&error];
-//    NSString *jsonString = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
-//    NSLog(@"POST DATA: %@", jsonString);
     if(error){
         NSLog(@"PubnativeInsightsManager - request model parsing error: %@", error);
     } else {

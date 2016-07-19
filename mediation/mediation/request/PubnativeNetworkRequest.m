@@ -341,8 +341,8 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
     // TODO: remove setting the app token since it should be inside the insight data
     PubnativePriorityRuleModel *priorityRule = [self.config priorityRuleWithPlacementName:self.placementName
                                                                                  andIndex:self.currentNetworkIndex];
-    NSTimeInterval deltaTimeResponse = [[NSDate date] timeIntervalSince1970] - self.startTimestamp;
-    NSNumber *responseTime = [NSNumber numberWithDouble:deltaTimeResponse];
+    NSTimeInterval deltaTimeResponse = ([[NSDate date] timeIntervalSince1970] - self.startTimestamp) * 1000;
+    NSNumber *responseTime = [NSNumber numberWithInteger:round(deltaTimeResponse)];
     
     if (ad) {
         self.ad = ad;

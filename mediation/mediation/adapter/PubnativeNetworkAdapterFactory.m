@@ -16,9 +16,6 @@
     if (adapterName == nil || [adapterName length] == 0) {
         NSLog(@"PubnativeNetworkAdapterFactory.createApdaterWithNetwork - Invalid adapter name");
     } else {
-        if ([adapterName isEqualToString:@"YahooNetworkAdapter"]) {
-            adapterName = @"FlurryNetworkAdapter";
-        }
         Class adapterClass = NSClassFromString(adapterName);
         if (adapterClass && [adapterClass isSubclassOfClass:[PubnativeNetworkAdapter class]]) {
             adapter = [[adapterClass alloc] init];
