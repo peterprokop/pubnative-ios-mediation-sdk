@@ -18,6 +18,8 @@ pubnative-ios-mediation-sdk is an Open Source client mediation layer for integra
 * [Usage](#usage)
     * [Request ads](#usage_request)
     * [Track ad](#usage_track_ad)
+    * [Ad model delegate](#usage_ad_delegate)
+    * [Targeting ad](#usage_targeting_ad)
 * [Third party networks](#networks)
 * [Misc](#misc)
     * [License](#misc_license)
@@ -35,7 +37,7 @@ pubnative-ios-mediation-sdk is an Open Source client mediation layer for integra
 
 <a name="install_manual"></a>
 ### Manual
-Clone the repository and drag'n'drop the `mediation/mediation` folder into your app.
+Clone the repository and drag'n'drop the `mediation/mediation` folder into your app (be sure to check the "Copy items into destination group's folder" option).
 
 <a name="usage"></a>
 # Usage
@@ -45,7 +47,9 @@ PubNative mediation is a lean yet complete project that allow you request ads fr
 Basic integration steps are:
 
 1. [Request ads](#usage_request): Using `PubnativeNetworkRequest`
-3. [Track ad](#usage_track_ad): Using the returned `PubnativeAdModel`
+2. [Track ad](#usage_track_ad): Using the returned `PubnativeAdModel`
+2. [Ad model delegate](#usage_ad_delegate): Using `PubnativeAdModelDelegate`
+2. [Targeting ad](#usage_targeting_ad): Using `PubnativeAdTargetingModel`
 
 <a name="usage_request"></a>
 ### 1) Request Ads
@@ -78,9 +82,61 @@ For Swift:
 ad.startTrackingView(<AD_CONTAINER_VIEW_GROUP>, withViewController:<CONTROLLER>)
 ```
 
-For Objective-C
+For Objective-C:
 ```objective-c
 [ad startTrackingView:<AD_CONTAINER_VIEW_GROUP> withViewController:<CONTROLLER>];
+```
+<a name="usage_ad_delegate"></a>
+### 3) Ad model delegate
+
+If you want to know when Ad will be clicked or will confirm impression you can use `PubnativeAdModelDelegate`. 
+
+For Swift:
+```swift
+class YourClass: PubnativeAdModelDelegate {
+...
+func pubantiveAdDidConfirmImpression(ad: PubnativeAdModel!)
+{
+    //Your code
+}
+
+func pubnativeAdDidClick(ad: PubnativeAdModel!)
+{
+    //Your code
+}
+```
+
+For Objective-C:
+```objective-c
+@interface YourInterface () <PubnativeAdModelDelegate>
+...
+- (void)pubantiveAdDidConfirmImpression:(PubnativeAdModel *)ad
+{
+    //Your code
+}
+
+- (void)pubnativeAdDidClick:(PubnativeAdModel *)ad
+{
+    //Your code
+}
+```
+<a name="usage_targeting_ad"></a>
+### 4) Targeting ad
+
+If you want to use targeting for the Ads, you need to create `PubnativeAdTargetingModel` and fill it with data. Then initialize `PubnativeInsightDataModel` with this targeting model.
+
+For Swift:
+```swift
+var targeting = PubnativeAdTargetingModel()
+// Fill targeting with data
+let dataModel = PubnativeInsightDataModel(targeting:targeting)
+```
+
+For Objective-C:
+```objective-c
+PubnativeAdTargetingModel *targeting = [[PubnativeAdTargetingModel alloc] init];
+// Filling targeting with data
+[[PubnativeInsightDataModel alloc] initWithTargeting:targeting];
 ```
 
 <a name="networks"></a>
