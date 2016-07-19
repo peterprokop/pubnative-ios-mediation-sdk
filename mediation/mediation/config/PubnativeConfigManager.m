@@ -66,7 +66,6 @@ NSString * const kUserDefaultsStoredTimestampKey    = @"net.pubnative.mediation.
             requestModel.appToken = appToken;
             requestModel.extras = extras;
             requestModel.delegate = delegate;
-            requestModel.extras = extras;
             [PubnativeConfigManager enqueueRequestModel:requestModel];
             [PubnativeConfigManager doNextRequest];
         } else {

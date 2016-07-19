@@ -8,6 +8,9 @@
 
 #import "PubnativeAdTargetingModel.h"
 
+NSString* const kPubnativeAdTargetingModelGenderFemale = @"f";
+NSString* const kPubnativeAdTargetingModelGenderMale = @"m";
+
 @implementation PubnativeAdTargetingModel
 
 - (instancetype)initWithDictionary:(NSDictionary*)dictionary
