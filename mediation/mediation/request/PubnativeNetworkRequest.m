@@ -14,6 +14,7 @@
 #import "PubnativeAdModel.h"
 #import "PubnativeInsightModel.h"
 #import "PubnativeAdTargetingModel.h"
+#import "PubnativeReachability.h"
 
 
 NSString * const PNTrackingAppTokenKey  = @"app_token";
@@ -75,7 +76,7 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
                 if(self.targeting) {
                     [extras setDictionary:[self.targeting toDictionary]];
                 }
-            
+                [extras setDictionary:[self configExtras]];
                 [PubnativeConfigManager configWithAppToken:appToken
                                                     extras:extras
                                                   delegate:self];
@@ -90,6 +91,21 @@ NSString * const kPubnativeNetworkRequestStoredConfigKey = @"net.pubnative.media
     } else {
         NSLog(@"Delegate not specified, droping this call");
     }
+}
+
+- (NSDictionary*)configExtras {
+    
+    NSMutableDictionary *extras = [NSMutableDictionary dictionary];
+    [extras setObject:[[UIDevice currentDevice] systemVersion] forKey:@"os_version"];
+    PubnativeReachability *reachability = [PubnativeReachability reachabilityForInternetConnection];
+    [reachability startNotifier];
+    if(PubnativeNetworkStatus_ReachableViaWiFi == reachability.currentReachabilityStatus) {
+        [extras setObject:kPubnativeInsightDataModelConnectionTypeWiFi forKey:@"connection_type"];
+    } else {
+        [extras setObject:kPubnativeInsightDataModelConnectionTypeCellular forKey:@"connection_type"];
+    }
+    [extras setObject:[[UIDevice currentDevice] name] forKey:@"device_name"];
+    return extras;
 }
 
 - (void)setParameterWithKey:(NSString*)key value:(NSString*)value {

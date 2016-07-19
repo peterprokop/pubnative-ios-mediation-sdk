@@ -30,7 +30,7 @@ NSURLRequestCachePolicy const NETWORK_REQUEST_DEFAULT_CACHE_POLICY = NSURLReques
     if(completionHandler){
         
         if(urlString && urlString.length > 0) {
-            NSURL *requestURL = [NSURL URLWithString:urlString];
+            NSURL *requestURL = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
             if(requestURL) {
                 NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:requestURL
                                                          cachePolicy:NETWORK_REQUEST_DEFAULT_CACHE_POLICY

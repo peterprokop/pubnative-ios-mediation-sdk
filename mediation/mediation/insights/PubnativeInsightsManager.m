@@ -87,8 +87,8 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey    = @"PubnativeInsight
 {
     NSString *url = [PubnativeInsightsManager requestUrlWithModel:model];
     NSError *error = nil;
-    NSDictionary *dataDictionary = [model.data toDictionary];
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dataDictionary
+    NSDictionary *modelDictionary = [model.data toDictionary];
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:modelDictionary
                                                    options:0
                                                      error:&error];
     if(error){
@@ -105,9 +105,9 @@ NSString * const kPubnativeInsightsManagerFailedQueueKey    = @"PubnativeInsight
                 [PubnativeInsightsManager enqueueFailedRequestModel:requestModelBlock
                                                           withError:error.localizedDescription];
             } else {
-                NSData *jsonData = [result dataUsingEncoding:NSUTF8StringEncoding];
+                NSData *jsonResponse = [result dataUsingEncoding:NSUTF8StringEncoding];
                 NSError *parseError;
-                NSDictionary *jsonDictonary = [NSJSONSerialization JSONObjectWithData:jsonData
+                NSDictionary *jsonDictonary = [NSJSONSerialization JSONObjectWithData:jsonResponse
                                                                               options:NSJSONReadingMutableContainers
                                                                                 error:&parseError];
                 if(parseError){
