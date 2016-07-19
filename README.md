@@ -73,8 +73,14 @@ PubnativeNetworkRequest *request = [[PubnativeNetworkRequest alloc] init]
 
 For confirming impressions of the ad and handling clicks, the `PubnativeadModel` has methods to automatically track the ad view items for confirming the impression, and handling to open the offer when the user interacts, you just need to specify the view that contains the ad along with each item to the `startTracking` method.
 
+For Swift:
 ```swift
 ad.startTrackingView(<AD_CONTAINER_VIEW_GROUP>, withViewController:<CONTROLLER>)
+```
+
+For Objective-C
+```objective-c
+[ad startTrackingView:<AD_CONTAINER_VIEW_GROUP> withViewController:<CONTROLLER>];
 ```
 
 <a name="networks"></a>
