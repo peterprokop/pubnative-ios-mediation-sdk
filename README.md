@@ -135,12 +135,12 @@ If you want to use targeting for the Ads, you need to create `PubnativeAdTargeti
 For Swift:
 ```swift
 var targeting = PubnativeAdTargetingModel()
-targeting.age = <AGE>;
-targeting.education = "<EDUCATION>;
-targeting.interests = <ARRAY_OF_THE_INTERESTS>;
-targeting.gender = "<GENDER>";     // "F" for female, "M" for male
-targeting.iap = <IAP>;             // In app purchase enabled, Just open it for the user to fill
-targeting.iap_total = <IAP_TOTAL>; // In app purchase total spent, just open for the user to fill
+targeting.age = <AGE>
+targeting.education = "<EDUCATION>"
+targeting.interests = <ARRAY_OF_THE_INTERESTS>
+targeting.gender = "<GENDER>"     // "F" for female, "M" for male
+targeting.iap = <IAP>             // In app purchase enabled, Just open it for the user to fill
+targeting.iap_total = <IAP_TOTAL> // In app purchase total spent, just open for the user to fill
 let dataModel = PubnativeInsightDataModel(targeting:targeting)
 ```
 
@@ -148,7 +148,7 @@ For Objective-C:
 ```objective-c
 PubnativeAdTargetingModel *targeting = [[PubnativeAdTargetingModel alloc] init];
 targeting.age = <AGE>;
-targeting.education = "<EDUCATION>;
+targeting.education = "<EDUCATION>";
 targeting.interests = <ARRAY_OF_THE_INTERESTS>;
 targeting.gender = "<GENDER>";     // "F" for female, "M" for male
 targeting.iap = <IAP>;             // In app purchase enabled, Just open it for the user to fill
