@@ -34,6 +34,7 @@
         if (placementId && placementId.length > 0) {
             self.nativeAd = [[FlurryAdNative alloc] initWithSpace:placementId];
             self.nativeAd.adDelegate = self;
+            self.nativeAd.viewControllerForPresentation = (UIViewController*)[[[[UIApplication sharedApplication]delegate] window] rootViewController];
             [self.nativeAd fetchAd];
         }
     }
