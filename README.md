@@ -1,6 +1,6 @@
 ![ScreenShot](PNLogo.png)
 
-[![CircleCI](https://circleci.com/gh/pubnative/pubnative-ios-mediation-sdk.svg?style=shield)](https://circleci.com/gh/pubnative/pubnative-ios-mediation-sdk) ![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)
+[![CircleCI](https://circleci.com/gh/pubnative/pubnative-ios-mediation-sdk.svg?style=shield)](https://circleci.com/gh/pubnative/pubnative-ios-mediation-sdk) [![Coveralls](https://coveralls.io/repos/github/pubnative/pubnative-ios-mediation-sdk/badge.svg)] ![License](https://img.shields.io/badge/license-MIT-lightgrey.svg)
 
 PubNative is an API-based publisher platform dedicated to native advertising which does not require the integration of an Library.
 
