@@ -19,17 +19,17 @@ test:
                 -r json-compilation-database --output $CIRCLE_ARTIFACTS/test_compilation_database.json
 
     post:
-#        - bundle exec slather coverage
-#            --simple-output
-#            --circleci
-#            --coveralls
-#            --workspace mediation.xcworkspace
-#            --scheme mediation
-#            --ignore "dependencies/*"
-#            --ignore "library/library.test/*"
-#            --ignore "library/library.demo/*"
-#            --ignore "../*"
-#            mediation/mediation.xcodeproj
+         - bundle exec slather coverage
+             --simple-output
+             --circleci
+             --coveralls
+             --workspace mediation.xcworkspace
+             --scheme mediation
+             --ignore "dependencies/*"
+             --ignore "library/library.test/*"
+             --ignore "library/library.demo/*"
+             --ignore "../*"
+             mediation/mediation.xcodeproj
         - xcodebuild
             -workspace mediation.xcworkspace
             -sdk iphonesimulator
