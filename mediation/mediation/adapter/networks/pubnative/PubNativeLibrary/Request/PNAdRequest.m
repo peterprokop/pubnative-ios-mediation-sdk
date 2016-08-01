@@ -69,17 +69,12 @@
                  extras:(NSDictionary*)extras
           andCompletion:(PNAdRequestCompletionBlock)completionBlock
 {
-    PNAdRequest *request = nil;
+    PNAdRequest *request = [[PNAdRequest alloc] init];
     
-    if(parameters)
-    {
-        request = [[PNAdRequest alloc] init];
-    
-        request.type = type;
-        request.parameters = parameters;
-        request.extras = extras;
-        request.completionBlock = completionBlock;
-    }
+    request.type = type;
+    request.parameters = parameters;
+    request.extras = extras;
+    request.completionBlock = completionBlock;
     
     return request;
 }
@@ -113,10 +108,11 @@
         __weak PNAdRequest *weakSelf = self;
         
         NSMutableDictionary *params = [NSMutableDictionary dictionary];
-        if(self.parameters) {
-            [self.parameters fillWithDefaults];
-            [params addEntriesFromDictionary:[[self.parameters dictionaryValue] mutableCopy]];
+        if (self.parameters == nil) {
+            self.parameters = [PNAdRequestParameters requestParameters];
         }
+        [self.parameters fillWithDefaults];
+        [params addEntriesFromDictionary:[[self.parameters dictionaryValue] mutableCopy]];
         [params addEntriesFromDictionary:self.extras];
         self.apiModel = [apiModel initWithURL:apiURL
                                        method:kPNAdConstantMethodGET
