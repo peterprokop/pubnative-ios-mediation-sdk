@@ -77,7 +77,7 @@
     
         request.type = type;
         request.parameters = parameters;
-        require.extras = extras;
+        request.extras = extras;
         request.completionBlock = completionBlock;
     }
     
@@ -111,8 +111,12 @@
     if(apiModel && apiURL)
     {
         __weak PNAdRequest *weakSelf = self;
-        [self.parameters fillWithDefaults];
-        NSMutableDictionary *params = [[self.parameters dictionaryValue] mutableCopy];
+        
+        NSMutableDictionary *params = [NSMutableDictionary dictionary];
+        if(self.parameters) {
+            [self.parameters fillWithDefaults];
+            [params addEntriesFromDictionary:[[self.parameters dictionaryValue] mutableCopy]];
+        }
         [params addEntriesFromDictionary:self.extras];
         self.apiModel = [apiModel initWithURL:apiURL
                                        method:kPNAdConstantMethodGET
