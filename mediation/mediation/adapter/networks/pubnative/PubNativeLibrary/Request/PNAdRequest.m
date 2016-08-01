@@ -35,6 +35,7 @@
 @property (nonatomic, strong) PNAdRequestParameters         *parameters;
 @property (nonatomic, strong) PNAdRequestCompletionBlock    completionBlock;
 @property (nonatomic, strong) PNAPIModel                    *apiModel;
+@property (nonatomic, strong) NSDictionary                  *extras;
 
 @end
 
@@ -57,6 +58,17 @@
          withParameters:(PNAdRequestParameters *)parameters
           andCompletion:(PNAdRequestCompletionBlock)completionBlock
 {
+    return [PNAdRequest request:type
+                 withParameters:parameters
+                         extras:nil
+                  andCompletion:completionBlock];
+}
+
++ (instancetype)request:(PNAdRequestType)type
+         withParameters:(PNAdRequestParameters *)parameters
+                 extras:(NSDictionary*)extras
+          andCompletion:(PNAdRequestCompletionBlock)completionBlock
+{
     PNAdRequest *request = nil;
     
     if(parameters)
@@ -65,6 +77,7 @@
     
         request.type = type;
         request.parameters = parameters;
+        require.extras = extras;
         request.completionBlock = completionBlock;
     }
     
@@ -99,9 +112,11 @@
     {
         __weak PNAdRequest *weakSelf = self;
         [self.parameters fillWithDefaults];
+        NSMutableDictionary *params = [[self.parameters dictionaryValue] mutableCopy];
+        [params addEntriesFromDictionary:self.extras];
         self.apiModel = [apiModel initWithURL:apiURL
                                        method:kPNAdConstantMethodGET
-                                       params:[self.parameters dictionaryValue]
+                                       params:params
                                       headers:nil
                                   cachePolicy:NSURLRequestReloadIgnoringCacheData
                                       timeout:kPNAdConstantRequestDefaultTimeout

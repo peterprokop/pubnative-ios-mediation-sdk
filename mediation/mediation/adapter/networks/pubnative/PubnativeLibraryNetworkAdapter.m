@@ -56,12 +56,11 @@ NSString * const kPubnativeLibraryNetworkAdapterAppTokenKey = @"apptoken";
 {
     PNAdRequestParameters *parameters = [PNAdRequestParameters requestParameters];
     parameters.app_token = appToken;
-    // TODO: add extras
     
     __weak typeof(self) weakSelf = self;
     self.request = [PNAdRequest request:PNAdRequest_Native
                          withParameters:parameters
-                    
+                                 extras:extras
                           andCompletion:^(NSArray *ads, NSError *error) {
                               
                               if(error) {
